@@ -373,6 +373,7 @@
   // cityCache: { 'EE': { ts, cities: [...] } }
   const cityCache = {};
   const CITY_CACHE_TTL = 24 * 3600 * 1000;
+  let countryCatalogCache = null;
 
   // Get bundled cities for a country from DEMO_LOCATION_DATA
   function getBundledCities(countryCode) {
@@ -467,20 +468,84 @@
     return bundled.length > 0 ? bundled : null;
   }
 
-  function getCountryName(countryCode) {
-    for (const region of Object.values(DEMO_LOCATION_DATA)) {
-      if (region.countries[countryCode]) return region.countries[countryCode].name;
+  async function getCountryCatalog() {
+    if (countryCatalogCache) {
+      return countryCatalogCache;
     }
+
+    try {
+      const res = await AmbiSun.webos.getLocationCountries();
+
+      if (
+        res &&
+        res.returnValue &&
+        res.catalog
+      ) {
+        countryCatalogCache = res.catalog;
+        return countryCatalogCache;
+      }
+    } catch (e) {}
+
+    return null;
+  }
+
+  function getCountryName(countryCode) {
+
+    if (countryCatalogCache) {
+      for (const countries of Object.values(countryCatalogCache)) {
+
+        const found = countries.find(function(country) {
+          return country.code === countryCode;
+        });
+
+        if (found) return found.name;
+      }
+    }
+
+    for (const region of Object.values(DEMO_LOCATION_DATA)) {
+      if (region.countries[countryCode]) {
+        return region.countries[countryCode].name;
+      }
+    }
+
     return countryCode;
   }
 
   async function getRegions() {
+
+    const catalog = await getCountryCatalog();
+
+    if (catalog) {
+      return Object.keys(catalog).filter(function(region) {
+        return Array.isArray(catalog[region]) &&
+               catalog[region].length > 0;
+      });
+    }
+
     return Object.keys(DEMO_LOCATION_DATA);
   }
 
   async function getCountries(region) {
-    const r = DEMO_LOCATION_DATA[region];
-    return r ? Object.entries(r.countries) : [];
+
+    const catalog = await getCountryCatalog();
+
+    if (
+      catalog &&
+      Array.isArray(catalog[region])
+    ) {
+      return catalog[region].map(function(country) {
+        return [
+          country.code,
+          { name: country.name }
+        ];
+      });
+    }
+
+    const fallback = DEMO_LOCATION_DATA[region];
+
+    return fallback
+      ? Object.entries(fallback.countries)
+      : [];
   }
 
   function getRegionLabelKey(region) {
@@ -540,54 +605,53 @@
 
   function back() {
     if (wizardState.step === 'confirm-country') {
-      closeWizard();
-      return;
-    }
-    if (wizardState.step === 'regions') {
-      wizardState.step = 'confirm-country';
-    } else if (wizardState.step === 'countries') {
-      wizardState.step = 'regions';
-    } else if (wizardState.step === 'cities') {
-      if (wizardState.region) wizardState.step = 'countries';
-      else wizardState.step = 'confirm-country';
-    }
-    renderWizard();
-  }
-
-  function wizardChoice(label, action, attrs = '', detail = '') {
-    return `
-      <div class="location-choice actionable" data-action="${action}" ${attrs} role="button" tabindex="-1">
-        <span>${label}${detail ? `<small>${detail}</small>` : ''}</span>
-        <span>›</span>
-      </div>`;
-  }
-
-  async function renderWizard(silent) {
-    const content = document.getElementById('locationWizardContent');
-    const stepLabel = document.getElementById('locationStepLabel');
-    if (!content || !stepLabel) return;
-
-    let html = '';
-
-    if (wizardState.step === 'confirm-country') {
       const detected = await detectCountry();
-      stepLabel.textContent = AmbiSun.i18n.t('location.stepDetected','Определено по IP');
+
+      stepLabel.textContent =
+        AmbiSun.i18n.t(
+          'location.stepDetected',
+          'Определено по IP'
+        );
+
       html = `
-        <div class="location-lead">${AmbiSun.i18n.t('location.detectedLead','По IP определена страна:')}</div>
-        <div class="location-detected">${detected.country}</div>
-        <div class="location-lead">${AmbiSun.i18n.t('location.isCountryCorrect','Вы находитесь в этой стране?')}</div>
-        <div class="location-actions">
-          <div class="location-big-button actionable" data-action="location-country-yes" role="button" tabindex="-1">
-            <span>${AmbiSun.i18n.t('common.yes','Да')}</span><span>✓</span>
-          </div>
-          <div class="location-big-button actionable" data-action="location-country-no" role="button" tabindex="-1">
-            <span>${AmbiSun.i18n.t('common.no','Нет')}</span><span>›</span>
-          </div>
+        <div class="location-lead">
+          ${AmbiSun.i18n.t(
+            'location.detectedLead',
+            'По IP определена страна:'
+          )}
         </div>
-        <div class="location-footer">
-          <span>${AmbiSun.i18n.t('location.noKeyboard','Без клавиатуры — только пульт')}</span>
-          <span class="location-current">${window.AmbiSun.state.location.city}, ${window.AmbiSun.state.location.country}</span>
-        </div>`;
+
+        <div class="location-choice-list">
+
+          <div
+            class="location-big-button actionable"
+            data-action="location-country-yes"
+            role="button"
+            tabindex="-1">
+
+            <span>${detected.country}</span>
+            <span>✓</span>
+          </div>
+
+          <div
+            class="location-big-button actionable"
+            data-action="location-country-no"
+            role="button"
+            tabindex="-1">
+
+            <span>
+              ${AmbiSun.i18n.t(
+                'location.chooseCountry',
+                'Выбрать другую страну'
+              )}
+            </span>
+
+            <span>›</span>
+          </div>
+
+        </div>
+      </div>`;
+
     } else if (wizardState.step === 'regions') {
       stepLabel.textContent = AmbiSun.i18n.t('location.stepRegion','Регион');
       const regions = await getRegions();
@@ -655,7 +719,7 @@
             ).join('')}
           </div>
           <div class="location-footer">
-            <span style="font-size:14px">${AmbiSun.i18n.t('location.apiSourceCountriesDev','Данные: countries.dev / GeoNames')}</span>
+            <span style="font-size:14px">${'Данные: GeoNames · локальная база'}</span>
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
               <span>← ${AmbiSun.i18n.t('common.back','Назад')}</span>
             </div>

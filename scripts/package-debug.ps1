@@ -63,7 +63,7 @@ foreach ($item in $AppAllowlistDirs) {
 Write-Host "Copying service files to staging (allowlist)..."
 $ServiceSource = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service"
 $ServiceAllowlistFiles = @("package.json", "services.json", "service.js")
-$ServiceAllowlistDirs = @("lib")
+$ServiceAllowlistDirs = @("lib", "data")
 
 foreach ($item in $ServiceAllowlistFiles) {
     $SourcePath = Join-Path $ServiceSource $item
@@ -89,7 +89,11 @@ $EssentialFiles = @(
     "$ServiceStaging\package.json",
     "$ServiceStaging\services.json",
     "$ServiceStaging\service.js",
-    "$ServiceStaging\lib\runtime-info.js"
+    "$ServiceStaging\lib\runtime-info.js",
+    "$ServiceStaging\data\countries.json",
+    "$ServiceStaging\data\manifest.json",
+    "$ServiceStaging\data\cities\RU.json",
+    "$ServiceStaging\data\cities\EE.json"
 )
 
 foreach ($file in $EssentialFiles) {

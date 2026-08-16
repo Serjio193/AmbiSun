@@ -521,27 +521,30 @@ service.register("getAvailableSources", function (message) {
 
 // ---- Location API ---------------------------------------------------------
 //
-// Single provider: countries.dev
+// countries.dev:
+//   ONLY country detection by public IP.
 //
-// detectCountryByIp:
-//   real country-level geolocation from the TV public IP.
+// GeoNames bundled database:
+//   countries, cities, coordinates, population, timezone.
 //
-// searchLocations:
-//   top cities for ISO alpha-2 country code.
-//   Response already includes coordinates, population and IANA timezone.
-//
-// resolveLocation:
-//   compatibility lookup for one city.
+// No city selection requires Internet access.
 // ---------------------------------------------------------------------------
 
 var https = require("https");
+var fs = require("fs");
+var path = require("path");
 
 var LOCATION_HTTP_TIMEOUT = 3500;
-var LOCATION_MAX_RESPONSE = 1024 * 1024;
+var LOCATION_MAX_RESPONSE = 128 * 1024;
 
-function locationHttpGetJson(url, callback, redirectCount) {
-    redirectCount = redirectCount || 0;
+var LOCATION_DATA_ROOT = path.join(__dirname, "data");
+var LOCATION_CITIES_ROOT = path.join(LOCATION_DATA_ROOT, "cities");
 
+var countryCatalogCache = null;
+var localCityCache = {};
+
+
+function locationHttpGetJson(url, callback) {
     var finished = false;
 
     function finish(err, data) {
@@ -559,29 +562,6 @@ function locationHttpGetJson(url, callback, redirectCount) {
                 "Accept": "application/json"
             }
         }, function(res) {
-
-            if (
-                res.statusCode >= 300 &&
-                res.statusCode < 400 &&
-                res.headers.location
-            ) {
-                res.resume();
-
-                if (redirectCount >= 2) {
-                    finish(new Error("LOCATION_TOO_MANY_REDIRECTS"));
-                    return;
-                }
-
-                finished = true;
-
-                locationHttpGetJson(
-                    res.headers.location,
-                    callback,
-                    redirectCount + 1
-                );
-
-                return;
-            }
 
             if (res.statusCode < 200 || res.statusCode >= 300) {
                 res.resume();
@@ -634,30 +614,104 @@ function locationHttpGetJson(url, callback, redirectCount) {
 }
 
 
-function normalizeCountryDevCity(c) {
-    if (!c || !c.name) return null;
+function loadCountryCatalog(callback) {
+    if (countryCatalogCache) {
+        callback(null, countryCatalogCache);
+        return;
+    }
 
-    var lat = Number(c.latitude);
-    var lon = Number(c.longitude);
+    fs.readFile(
+        path.join(LOCATION_DATA_ROOT, "countries.json"),
+        "utf8",
+        function(err, body) {
+
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            try {
+                countryCatalogCache = JSON.parse(body);
+                callback(null, countryCatalogCache);
+            } catch (e) {
+                callback(e);
+            }
+        }
+    );
+}
+
+
+function normalizeLocalCity(raw) {
+    if (!raw || !raw.n) return null;
+
+    var lat = Number(raw.a);
+    var lon = Number(raw.o);
 
     if (!isFinite(lat) || !isFinite(lon)) {
         return null;
     }
 
     return {
-        name: String(c.name),
+        name: String(raw.n),
         lat: lat,
         lon: lon,
-        tz: c.timezone ? String(c.timezone) : "UTC",
-        population: Number(c.population) || 0
+        tz: raw.t ? String(raw.t) : "UTC",
+        population: Number(raw.p) || 0
     };
 }
 
 
-var locationCitiesCache = {};
-var LOCATION_CACHE_MS = 24 * 60 * 60 * 1000;
+function loadLocalCities(countryCode, callback) {
+    countryCode = String(countryCode || "").trim().toUpperCase();
+
+    if (!/^[A-Z]{2}$/.test(countryCode)) {
+        callback(new Error("INVALID_COUNTRY_CODE"));
+        return;
+    }
+
+    if (localCityCache[countryCode]) {
+        callback(null, localCityCache[countryCode]);
+        return;
+    }
+
+    var file = path.join(
+        LOCATION_CITIES_ROOT,
+        countryCode + ".json"
+    );
+
+    fs.readFile(file, "utf8", function(err, body) {
+
+        if (err) {
+            callback(err);
+            return;
+        }
+
+        try {
+            var raw = JSON.parse(body);
+
+            if (!Array.isArray(raw)) {
+                callback(new Error("INVALID_CITY_DATABASE"));
+                return;
+            }
+
+            var cities = raw
+                .map(normalizeLocalCity)
+                .filter(function(city) {
+                    return !!city;
+                });
+
+            localCityCache[countryCode] = cities;
+
+            callback(null, cities);
+
+        } catch (e) {
+            callback(e);
+        }
+    });
+}
 
 
+// Real country detection from TV public IP.
 service.register("detectCountryByIp", function(message) {
 
     locationHttpGetJson(
@@ -673,9 +727,10 @@ service.register("detectCountryByIp", function(message) {
                 return;
             }
 
-            var code = data && data.countryCode
-                ? String(data.countryCode).toUpperCase()
-                : "";
+            var code =
+                data && data.countryCode
+                    ? String(data.countryCode).toUpperCase()
+                    : "";
 
             var name =
                 data &&
@@ -705,173 +760,108 @@ service.register("detectCountryByIp", function(message) {
 });
 
 
-service.register("searchLocations", function(message) {
-    var params = message.payload || {};
+// All bundled countries grouped by continent.
+service.register("getLocationCountries", function(message) {
 
-    var countryCode = String(params.countryCode || "")
-        .trim()
-        .toUpperCase();
-
-    if (!countryCode || countryCode.length !== 2) {
-        message.respond({
-            returnValue: false,
-            errorCode: "INVALID_REQUEST",
-            errorText: "ISO alpha-2 countryCode required"
-        });
-        return;
-    }
-
-    var cached = locationCitiesCache[countryCode];
-
-    if (
-        cached &&
-        (Date.now() - cached.timestamp) < LOCATION_CACHE_MS
-    ) {
-        message.respond({
-            returnValue: true,
-            provider: "countries.dev",
-            cached: true,
-            countryCode: countryCode,
-            cities: cached.cities
-        });
-        return;
-    }
-
-    var url =
-        "https://countries.dev/cities" +
-        "?country=" + encodeURIComponent(countryCode) +
-        "&limit=60";
-
-    locationHttpGetJson(url, function(err, data) {
+    loadCountryCatalog(function(err, catalog) {
 
         if (err) {
             message.respond({
                 returnValue: false,
-                errorCode: "LOCATION_API_ERROR",
-                errorText: err.message
+                errorCode: "LOCATION_DATABASE_ERROR",
+                errorText: err.toString()
             });
             return;
         }
-
-        if (!Array.isArray(data)) {
-            message.respond({
-                returnValue: false,
-                errorCode: "LOCATION_INVALID_RESPONSE"
-            });
-            return;
-        }
-
-        var seen = {};
-        var cities = [];
-
-        data.forEach(function(raw) {
-            var city = normalizeCountryDevCity(raw);
-
-            if (!city) return;
-
-            var key = city.name.toLowerCase();
-
-            if (seen[key]) return;
-            seen[key] = true;
-
-            cities.push(city);
-        });
-
-        // countries.dev normally returns population order,
-        // but keep our response deterministic.
-        cities.sort(function(a, b) {
-            return (b.population || 0) - (a.population || 0);
-        });
-
-        if (!cities.length) {
-            message.respond({
-                returnValue: false,
-                errorCode: "NO_CITIES"
-            });
-            return;
-        }
-
-        locationCitiesCache[countryCode] = {
-            timestamp: Date.now(),
-            cities: cities
-        };
 
         message.respond({
             returnValue: true,
-            provider: "countries.dev",
-            cached: false,
-            countryCode: countryCode,
-            cities: cities
+            provider: "geonames-offline",
+            catalog: catalog
         });
     });
 });
 
 
-service.register("resolveLocation", function(message) {
+// Cities from local GeoNames database.
+service.register("searchLocations", function(message) {
+
     var params = message.payload || {};
 
-    var countryCode = String(params.countryCode || "")
-        .trim()
-        .toUpperCase();
+    var countryCode =
+        String(params.countryCode || "")
+            .trim()
+            .toUpperCase();
 
-    var cityName = String(params.city || "").trim();
+    loadLocalCities(countryCode, function(err, cities) {
 
-    if (!countryCode || !cityName) {
-        message.respond({
-            returnValue: false,
-            errorCode: "INVALID_REQUEST"
-        });
-        return;
-    }
-
-    var url =
-        "https://countries.dev/cities" +
-        "?country=" + encodeURIComponent(countryCode) +
-        "&q=" + encodeURIComponent(cityName) +
-        "&limit=10";
-
-    locationHttpGetJson(url, function(err, data) {
-
-        if (err || !Array.isArray(data) || !data.length) {
+        if (err) {
             message.respond({
                 returnValue: false,
-                errorCode: err ? "LOCATION_API_ERROR" : "LOCATION_NOT_FOUND",
-                errorText: err ? err.message : "City not found"
-            });
-            return;
-        }
-
-        var chosen = null;
-        var wanted = cityName.toLowerCase();
-
-        for (var i = 0; i < data.length; i++) {
-            if (
-                data[i] &&
-                data[i].name &&
-                String(data[i].name).toLowerCase() === wanted
-            ) {
-                chosen = data[i];
-                break;
-            }
-        }
-
-        if (!chosen) {
-            chosen = data[0];
-        }
-
-        var city = normalizeCountryDevCity(chosen);
-
-        if (!city) {
-            message.respond({
-                returnValue: false,
-                errorCode: "LOCATION_INVALID_RESPONSE"
+                errorCode: "LOCATION_DATABASE_ERROR",
+                errorText: err.toString()
             });
             return;
         }
 
         message.respond({
             returnValue: true,
-            provider: "countries.dev",
+            provider: "geonames-offline",
+            countryCode: countryCode,
+            total: cities.length,
+
+            // TV interface intentionally shows 60 largest cities.
+            cities: cities.slice(0, 60)
+        });
+    });
+});
+
+
+// Compatibility method: entirely local.
+service.register("resolveLocation", function(message) {
+
+    var params = message.payload || {};
+
+    var countryCode =
+        String(params.countryCode || "")
+            .trim()
+            .toUpperCase();
+
+    var cityName =
+        String(params.city || "").trim();
+
+    loadLocalCities(countryCode, function(err, cities) {
+
+        if (err) {
+            message.respond({
+                returnValue: false,
+                errorCode: "LOCATION_DATABASE_ERROR",
+                errorText: err.toString()
+            });
+            return;
+        }
+
+        var wanted = cityName.toLowerCase();
+        var city = null;
+
+        for (var i = 0; i < cities.length; i++) {
+            if (cities[i].name.toLowerCase() === wanted) {
+                city = cities[i];
+                break;
+            }
+        }
+
+        if (!city) {
+            message.respond({
+                returnValue: false,
+                errorCode: "LOCATION_NOT_FOUND"
+            });
+            return;
+        }
+
+        message.respond({
+            returnValue: true,
+            provider: "geonames-offline",
             location: {
                 city: city.name,
                 countryCode: countryCode,

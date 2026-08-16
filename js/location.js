@@ -331,6 +331,7 @@
     step: 'confirm-country',
     region: null,
     countryCode: 'EE',
+    countryName: null,
     fromIPStep: false  // tracks if we entered via IP detection
   };
 
@@ -345,10 +346,12 @@
         res.country.countryCode
       ) {
         wizardState.countryCode = res.country.countryCode;
+        wizardState.countryName =
+          res.country.name || res.country.countryCode;
 
         return {
-          country: res.country.name || res.country.countryCode,
-          countryCode: res.country.countryCode,
+          country: wizardState.countryName,
+          countryCode: wizardState.countryCode,
           provider: 'countries.dev'
         };
       }
@@ -360,11 +363,17 @@
         countryCode: 'EE'
       };
 
-    wizardState.countryCode = fallback.countryCode || 'EE';
+    wizardState.countryCode =
+      fallback.countryCode || 'EE';
+
+    wizardState.countryName =
+      fallback.country ||
+      fallback.countryCode ||
+      'Estonia';
 
     return {
-      country: fallback.country || fallback.countryCode || 'Estonia',
-      countryCode: fallback.countryCode || 'EE',
+      country: wizardState.countryName,
+      countryCode: wizardState.countryCode,
       provider: 'fallback'
     };
   }
@@ -474,7 +483,8 @@
     }
 
     try {
-      const res = await AmbiSun.webos.getLocationCountries();
+      const res =
+        await AmbiSun.webos.getLocationCountries();
 
       if (
         res &&
@@ -491,18 +501,33 @@
 
   function getCountryName(countryCode) {
 
+    if (
+      wizardState.countryCode === countryCode &&
+      wizardState.countryName
+    ) {
+      return wizardState.countryName;
+    }
+
     if (countryCatalogCache) {
-      for (const countries of Object.values(countryCatalogCache)) {
+      for (
+        const countries of
+          Object.values(countryCatalogCache)
+      ) {
+        const found =
+          countries.find(function(country) {
+            return country.code === countryCode;
+          });
 
-        const found = countries.find(function(country) {
-          return country.code === countryCode;
-        });
-
-        if (found) return found.name;
+        if (found) {
+          return found.name;
+        }
       }
     }
 
-    for (const region of Object.values(DEMO_LOCATION_DATA)) {
+    for (
+      const region of
+        Object.values(DEMO_LOCATION_DATA)
+    ) {
       if (region.countries[countryCode]) {
         return region.countries[countryCode].name;
       }
@@ -512,13 +537,15 @@
   }
 
   async function getRegions() {
-
-    const catalog = await getCountryCatalog();
+    const catalog =
+      await getCountryCatalog();
 
     if (catalog) {
       return Object.keys(catalog).filter(function(region) {
-        return Array.isArray(catalog[region]) &&
-               catalog[region].length > 0;
+        return (
+          Array.isArray(catalog[region]) &&
+          catalog[region].length > 0
+        );
       });
     }
 
@@ -526,8 +553,8 @@
   }
 
   async function getCountries(region) {
-
-    const catalog = await getCountryCatalog();
+    const catalog =
+      await getCountryCatalog();
 
     if (
       catalog &&
@@ -541,7 +568,8 @@
       });
     }
 
-    const fallback = DEMO_LOCATION_DATA[region];
+    const fallback =
+      DEMO_LOCATION_DATA[region];
 
     return fallback
       ? Object.entries(fallback.countries)
@@ -583,6 +611,7 @@
     // Once user proceeds past this step, the wizard state machine tracks manually.
     wizardState.step = 'confirm-country';
     wizardState.region = null;
+    wizardState.countryName = null;
     wizardState.fromIPStep = false;
     wizardState.countryCode = (window.AmbiSun.state.location && window.AmbiSun.state.location.countryCode) || 'EE';
 
@@ -604,6 +633,36 @@
   }
 
   function back() {
+    if (wizardState.step === 'confirm-country') {
+      closeWizard();
+      return;
+    }
+    if (wizardState.step === 'regions') {
+      wizardState.step = 'confirm-country';
+    } else if (wizardState.step === 'countries') {
+      wizardState.step = 'regions';
+    } else if (wizardState.step === 'cities') {
+      if (wizardState.region) wizardState.step = 'countries';
+      else wizardState.step = 'confirm-country';
+    }
+    renderWizard();
+  }
+
+  function wizardChoice(label, action, attrs = '', detail = '') {
+    return `
+      <div class="location-choice actionable" data-action="${action}" ${attrs} role="button" tabindex="-1">
+        <span>${label}${detail ? `<small>${detail}</small>` : ''}</span>
+        <span>›</span>
+      </div>`;
+  }
+
+  async function renderWizard(silent) {
+    const content = document.getElementById('locationWizardContent');
+    const stepLabel = document.getElementById('locationStepLabel');
+    if (!content || !stepLabel) return;
+
+    let html = '';
+
     if (wizardState.step === 'confirm-country') {
       const detected = await detectCountry();
 
@@ -628,7 +687,6 @@
             data-action="location-country-yes"
             role="button"
             tabindex="-1">
-
             <span>${detected.country}</span>
             <span>✓</span>
           </div>
@@ -638,19 +696,16 @@
             data-action="location-country-no"
             role="button"
             tabindex="-1">
-
             <span>
               ${AmbiSun.i18n.t(
                 'location.chooseCountry',
                 'Выбрать другую страну'
               )}
             </span>
-
             <span>›</span>
           </div>
 
-        </div>
-      </div>`;
+        </div>`;
 
     } else if (wizardState.step === 'regions') {
       stepLabel.textContent = AmbiSun.i18n.t('location.stepRegion','Регион');
@@ -848,6 +903,7 @@
 
   function actionCountry(code) {
     wizardState.countryCode = code;
+    wizardState.countryName = getCountryName(code);
     wizardState.step = 'cities';
     renderWizard();
   }

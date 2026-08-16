@@ -335,9 +335,37 @@
   };
 
   async function detectCountry() {
+    try {
+      const res = await AmbiSun.webos.detectCountryByIp();
+
+      if (
+        res &&
+        res.returnValue &&
+        res.country &&
+        res.country.countryCode
+      ) {
+        wizardState.countryCode = res.country.countryCode;
+
+        return {
+          country: res.country.name || res.country.countryCode,
+          countryCode: res.country.countryCode,
+          provider: 'countries.dev'
+        };
+      }
+    } catch (e) {}
+
+    const fallback =
+      window.AmbiSun.state.location || {
+        country: 'Estonia',
+        countryCode: 'EE'
+      };
+
+    wizardState.countryCode = fallback.countryCode || 'EE';
+
     return {
-      country: window.AmbiSun.state.location?.country || 'Estonia',
-      countryCode: window.AmbiSun.state.location?.countryCode || 'EE'
+      country: fallback.country || fallback.countryCode || 'Estonia',
+      countryCode: fallback.countryCode || 'EE',
+      provider: 'fallback'
     };
   }
 
@@ -359,46 +387,45 @@
   // Fetch via backend searchLocations service (Node.js, no CORS issues)
   function fetchCitiesFromBackend(countryCode) {
     const bundled = getBundledCities(countryCode);
-    const countryName = getCountryName(countryCode);
 
     return AmbiSun.webos.searchLocations({
-      countryCode: countryCode,
-      countryName: countryName
+      countryCode: countryCode
     })
       .then(function(res) {
 
         if (
           !res ||
           !res.returnValue ||
-          !Array.isArray(res.cities)
+          !Array.isArray(res.cities) ||
+          res.cities.length === 0
         ) {
           return bundled;
         }
 
-        // Keep bundled entries first because they already have
-        // validated coordinates/timezone and work offline.
-        const merged = [...bundled];
+        const merged = [];
+        const names = new Set();
 
-        const names = new Set(
-          bundled.map(function(c) {
-            return c.name.toLowerCase();
-          })
-        );
+        // API cities are population sorted and already contain
+        // coordinates/timezone.
+        res.cities.forEach(function(city) {
+          if (!city || !city.name) return;
 
-        res.cities.forEach(function(c) {
-
-          if (!c || !c.name) return;
-
-          const key = c.name.toLowerCase();
+          const key = city.name.toLowerCase();
 
           if (names.has(key)) return;
-
           names.add(key);
 
-          merged.push({
-            name: c.name,
-            needsResolve: true
-          });
+          merged.push(city);
+        });
+
+        // Offline fallback entries are appended only if missing.
+        bundled.forEach(function(city) {
+          const key = city.name.toLowerCase();
+
+          if (names.has(key)) return;
+          names.add(key);
+
+          merged.push(city);
         });
 
         return merged;
@@ -410,30 +437,34 @@
 
   // getCities — always returns immediately with bundled data,
   // then fires background API expansion and re-renders wizard
-  function getCities(countryCode) {
+  async function getCities(countryCode) {
     const now = Date.now();
     const cached = cityCache[countryCode];
-    if (cached && (now - cached.ts) < CITY_CACHE_TTL && cached.cities.length > 0) {
-      return Promise.resolve(cached.cities);
+
+    if (
+      cached &&
+      (now - cached.ts) < CITY_CACHE_TTL &&
+      cached.cities.length > 0
+    ) {
+      return cached.cities;
     }
-    // Return bundled cities immediately
+
     const bundled = getBundledCities(countryCode);
 
-    // Start background expansion
-    fetchCitiesFromBackend(countryCode)
-      .then(function(expanded) {
-        if (expanded && expanded.length > bundled.length) {
-          cityCache[countryCode] = { ts: Date.now(), cities: expanded };
-          // If we are still on the cities step, re-render silently
-          if (window.AmbiSun.location && window.AmbiSun.location.renderWizard) {
-            window.AmbiSun.location.renderWizard(true);
-          }
-        }
-      })
-      .catch(function() {});
+    try {
+      const cities = await fetchCitiesFromBackend(countryCode);
 
-    // Return bundled now — never null, never empty if country has data
-    return Promise.resolve(bundled.length > 0 ? bundled : null);
+      if (cities && cities.length > 0) {
+        cityCache[countryCode] = {
+          ts: Date.now(),
+          cities: cities
+        };
+
+        return cities;
+      }
+    } catch (e) {}
+
+    return bundled.length > 0 ? bundled : null;
   }
 
   function getCountryName(countryCode) {
@@ -483,7 +514,7 @@
     if (!w) return;
 
     // Always reset to IP confirmation on fresh wizard open.
-    // The IP step just reads current location config — no network call.
+    // The first step performs real country-level IP geolocation through the backend.
     // Once user proceeds past this step, the wizard state machine tracks manually.
     wizardState.step = 'confirm-country';
     wizardState.region = null;
@@ -624,7 +655,7 @@
             ).join('')}
           </div>
           <div class="location-footer">
-            <span style="font-size:14px">${AmbiSun.i18n.t('location.apiSource','Данные: Open-Meteo Geocoding')}</span>
+            <span style="font-size:14px">${AmbiSun.i18n.t('location.apiSourceCountriesDev','Данные: countries.dev / GeoNames')}</span>
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
               <span>← ${AmbiSun.i18n.t('common.back','Назад')}</span>
             </div>
@@ -735,7 +766,7 @@
   }
 
   function actionCountryYes() {
-    wizardState.countryCode = window.AmbiSun.state.location.countryCode || 'EE';
+    wizardState.countryCode = wizardState.countryCode || 'EE';
     wizardState.step = 'cities';
     renderWizard();
   }

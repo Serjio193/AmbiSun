@@ -66,6 +66,7 @@
   function requestElevation()    { return requestService("requestElevation", {}); }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
+  function detectCountryByIp() { return requestService("detectCountryByIp", {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
 
@@ -81,6 +82,7 @@
   AmbiSun.webos.requestElevation = requestElevation;
   AmbiSun.webos.getSolarStatus = getSolarStatus;
   AmbiSun.webos.getAvailableSources = getAvailableSources;
+  AmbiSun.webos.detectCountryByIp = detectCountryByIp;
   AmbiSun.webos.searchLocations = searchLocations;
   AmbiSun.webos.resolveLocation = resolveLocation;
 })();

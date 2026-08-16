@@ -92,10 +92,6 @@ const STORAGE_KEYS = window.AmbiSun.constants.STORAGE_KEYS;
 const ACTIONS = {
   'first-run-language': async ({el}) => { await AmbiSun.startup.completeLanguage(el.dataset.language || 'en'); },
 
-  'other-languages': () => {
-    showToast(AmbiSun.i18n.t('firstRun.otherLanguagesSoon', 'Other languages will be added later.'), 2600);
-  },
-
   'first-run-other-language': () => {
     showToast(AmbiSun.i18n.t('firstRun.otherLanguagesSoon', 'Other languages will be added later.'), 2600);
   },

@@ -389,10 +389,6 @@ const ACTIONS = {
     if (url) window.open(url, '_blank');
   },
 
-  'show-license': () => {
-    showToast(AmbiSun.i18n.t('toast.license','Open Source · license will be added to repository'), 2200);
-  },
-
   'select-support': ({el}) => {
     selectSupport(el.dataset.support);
     showToast(el.dataset.support === 'paypal' ? 'PayPal' : 'USDT TRC20');

@@ -71,7 +71,7 @@
   "about": {
     "version": "Versioon",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Litsents: Open Source"
+    "license": "Litsents: MIT"
   },
   "update": {
     "available": "Uuendus on saadaval",
@@ -100,8 +100,7 @@
     "advancedTodo": "TODO: täpsemad seaded",
     "reset": "Prototüübi seaded lähtestatud",
     "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on ajakohane",
-    "openGithub": "Avan GitHubi",
-    "license": "Open Source · litsents lisatakse repositooriumisse"
+    "openGithub": "Avatakse GitHub"
   },
   "location": {
     "title": "Asukoht",

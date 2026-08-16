@@ -148,26 +148,6 @@
     <span class="mode" id="settingsLanguageBadge">Русский ›</span>
   </div>
 
-  <!-- Sunset offset stepper -->
-  <div class="setting-block">
-    <div class="setting-label" data-i18n="sun.sunsetOffset">Включение (после заката)</div>
-    <div class="stepper">
-      <button class="actionable" data-action="adjust-offset" data-setting="sunset" data-delta="-5" tabindex="-1" type="button" aria-label="−">−</button>
-      <div class="num" data-setting-value="sunset">+30 мин</div>
-      <button class="actionable" data-action="adjust-offset" data-setting="sunset" data-delta="5" tabindex="-1" type="button" aria-label="+">+</button>
-    </div>
-  </div>
-
-  <!-- Sunrise offset stepper -->
-  <div class="setting-block">
-    <div class="setting-label" data-i18n="sun.sunriseOffset">Выключение (после восхода)</div>
-    <div class="stepper">
-      <button class="actionable" data-action="adjust-offset" data-setting="sunrise" data-delta="-5" tabindex="-1" type="button" aria-label="−">−</button>
-      <div class="num blue" data-setting-value="sunrise">+0 мин</div>
-      <button class="actionable" data-action="adjust-offset" data-setting="sunrise" data-delta="5" tabindex="-1" type="button" aria-label="+">+</button>
-    </div>
-  </div>
-
   <!-- Reset -->
   <div class="list-item actionable" data-action="reset-settings" role="button" style="color:var(--danger)" tabindex="-1">
     <span class="glyph-badge" style="color:var(--danger);border-color:rgba(255,69,58,0.3)">R</span>
@@ -198,10 +178,9 @@
   <span data-i18n="about.github">GitHub: Serjio193 / AmbiSun</span>
   <span>›</span>
 </div>
-<div class="list-item actionable" data-action="show-license" role="button" style="margin-top:8px" tabindex="-1">
+<div class="about-info-row">
   <span class="glyph-badge">i</span>
-  <span data-i18n="about.license">Лицензия: Open Source</span>
-  <span>›</span>
+  <span data-i18n="about.license">Лицензия: MIT</span>
 </div>
 
 <!-- UPDATE AVAILABLE CONTAINER -->

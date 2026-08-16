@@ -71,7 +71,7 @@
   "about": {
     "version": "Версия",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Лицензия: Open Source"
+    "license": "Лицензия: MIT"
   },
   "update": {
     "available": "Доступно обновление",
@@ -100,8 +100,7 @@
     "advancedTodo": "TODO: дополнительные настройки",
     "reset": "Настройки прототипа сброшены",
     "updateOk": "Проверка GitHub Releases… версия 1.0.0 актуальна",
-    "openGithub": "Открываю GitHub",
-    "license": "Open Source · лицензия будет добавлена в репозиторий"
+    "openGithub": "Открываю GitHub"
   },
   "location": {
     "title": "Местоположение",

@@ -71,7 +71,7 @@
   "about": {
     "version": "Версія",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Ліцензія: Open Source"
+    "license": "Ліцензія: MIT"
   },
   "update": {
     "available": "Доступне оновлення",
@@ -100,8 +100,7 @@
     "advancedTodo": "TODO: додаткові налаштування",
     "reset": "Налаштування прототипу скинуто",
     "updateOk": "GitHub Releases перевірено — версія 1.0.0 актуальна",
-    "openGithub": "Відкриваю GitHub",
-    "license": "Open Source · ліцензію буде додано до репозиторію"
+    "openGithub": "Відкриваю GitHub"
   },
   "location": {
     "title": "Місцезнаходження",

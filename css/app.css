@@ -1164,6 +1164,20 @@ html.ambisun-booting .plasma-dim {
   letter-spacing: 0.5px;
 }
 
+.about-info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+  color: #dfe4ec;
+  font-size: 21px;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
 /* --- Sidebar Update Badge --- */
 .update-nav-badge {
   display: none;

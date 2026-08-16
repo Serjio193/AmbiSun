@@ -79,7 +79,7 @@
       return;
     }
 
-    // Rule rows use в†ђ / в†’ to change their mode immediately.
+    // Rule rows use LEFT / RIGHT to change their mode immediately.
     if ((direction === 'left' || direction === 'right') &&
         (focusedEl.dataset.action === 'cycle-source-rule' ||
          focusedEl.dataset.action === 'cycle-default-rule')) {
@@ -127,13 +127,7 @@
         AmbiSun.plasma.pauseTemporary();
       }
 
-      if (Date.now() - lastKeyTime < DEBOUNCE_MS) {
-        e.preventDefault();
-        return;
-      }
-      lastKeyTime = Date.now();
-      
-      const key = e.key;
+const key = e.key;
 
       if (key === 'Enter') {
         activate(focusedEl);

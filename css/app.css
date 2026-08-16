@@ -1111,3 +1111,89 @@ html.ambisun-booting .plasma-dim {
   background: #1a2336;
 }
 
+/* --- Refined list item focus for Settings, Language, About --- */
+#settings .list-item,
+#language .list-item,
+#about .list-item {
+  border-radius: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.035);
+  margin: 0;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+#settings .list-item.ui-focus,
+#language .list-item.ui-focus,
+#about .list-item.ui-focus {
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 3px 0 0 var(--blue) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.15);
+  backdrop-filter: blur(20px) saturate(1.15);
+}
+
+/* --- Safe Glyph Badges --- */
+.glyph-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* --- Sidebar Update Badge --- */
+.update-nav-badge {
+  display: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff453a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 24px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(255, 69, 58, 0.6);
+}
+.update-nav-badge.visible {
+  display: inline-block;
+}
+
+/* --- About Grid Safety --- */
+.about-grid > * {
+  min-width: 0;
+}
+.about-block {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* --- Update Progress Modal --- */
+.update-progress-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5,8,18,0.92);
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.update-progress-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+

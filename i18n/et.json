@@ -68,9 +68,19 @@
     "italian": "Italiano"
   },
   "about": {
-    "checkUpdates": "Kontrolli uuendusi",
+    "version": "Versioon",
     "github": "GitHub: Serjio193 / AmbiSun",
     "license": "Litsents: Open Source"
+  },
+  "update": {
+    "available": "Uuendus on saadaval",
+    "install": "Paigalda tarkvarauuendus",
+    "preparing": "Uuenduse ettevalmistamine…",
+    "downloading": "Paketi allalaadimine ja kontroll…",
+    "installing": "Uuenduse paigaldamine…",
+    "restart": "AmbiSun taaskäivitub automaatselt.",
+    "failed": "Uuendamine ebaõnnestus: ",
+    "upToDate": "Rakendus on ajakohane"
   },
   "support": {
     "title": "❤ Toeta projekti",

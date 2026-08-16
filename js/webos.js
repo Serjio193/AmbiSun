@@ -104,6 +104,8 @@
   function getHyperhdrStatus(params) { return requestService("getHyperhdrStatus", params || {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
+  function checkForUpdate() { return requestService("checkForUpdate", {}); }
+  function installUpdate(expectedVersion) { return requestService("installUpdate", { expectedVersion: expectedVersion }); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;
   AmbiSun.webos.requestService = requestService;
@@ -122,4 +124,6 @@
   AmbiSun.webos.getLocationCountries = getLocationCountries;
   AmbiSun.webos.searchLocations = searchLocations;
   AmbiSun.webos.resolveLocation = resolveLocation;
+  AmbiSun.webos.checkForUpdate = checkForUpdate;
+  AmbiSun.webos.installUpdate = installUpdate;
 })();

@@ -340,9 +340,47 @@ const ACTIONS = {
     if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
   },
 
-  'check-update': ({el}) => {
-    flash(el);
-    showToast(AmbiSun.i18n.t('toast.updateOk','GitHub Releases checked — version 1.0.0 is current'), 2200);
+  'install-update': async ({el}) => {
+    const updateInfo = AmbiSun.state.update;
+    if (!updateInfo || !updateInfo.latestVersion) {
+      return;
+    }
+
+    const progressModal = document.getElementById('updateProgressModal');
+    const statusEl = document.getElementById('updateProgressStatus');
+    const subtextEl = document.getElementById('updateProgressSubtext');
+
+    if (progressModal) {
+      progressModal.classList.add('open');
+      progressModal.setAttribute('aria-hidden', 'false');
+    }
+    if (statusEl) {
+      statusEl.textContent = AmbiSun.i18n.t('update.preparing', 'Подготовка обновления…');
+    }
+    if (subtextEl) {
+      subtextEl.textContent = AmbiSun.i18n.t('update.restart', 'AmbiSun будет перезапущен автоматически.');
+    }
+
+    try {
+      const res = await AmbiSun.webos.installUpdate(updateInfo.latestVersion);
+      if (res && res.returnValue) {
+        if (statusEl) {
+          statusEl.textContent = AmbiSun.i18n.t('update.installing', 'Установка обновления…');
+        }
+      } else {
+        if (progressModal) {
+          progressModal.classList.remove('open');
+          progressModal.setAttribute('aria-hidden', 'true');
+        }
+        showToast(AmbiSun.i18n.t('update.failed', 'Ошибка обновления: ') + ((res && res.errorText) || ''));
+      }
+    } catch (e) {
+      if (progressModal) {
+        progressModal.classList.remove('open');
+        progressModal.setAttribute('aria-hidden', 'true');
+      }
+      showToast(AmbiSun.i18n.t('update.failed', 'Ошибка обновления: ') + (e && e.message));
+    }
   },
 
   'open-url': ({el}) => {
@@ -483,6 +521,13 @@ async function initUI(){
       AmbiSun.bridge.checkSystemStatus();
     }
   }, splashMs);
+
+  // Background update check after app is ready
+  setTimeout(() => {
+    if (AmbiSun.bridge && AmbiSun.bridge.checkForUpdate) {
+      AmbiSun.bridge.checkForUpdate();
+    }
+  }, splashMs + 4000);
 }
 
 initUI();

@@ -30,7 +30,7 @@
 <div class="nav-item actionable" data-action="open-screen" data-screen="home" role="button" tabindex="-1"><span class="icon">⌂</span><span data-i18n="nav.home">Главная</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="sources" role="button" tabindex="-1"><span class="icon">▣</span><span data-i18n="nav.sources">Источники и приложения</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="settings" role="button" tabindex="-1"><span class="icon">⚙</span><span data-i18n="nav.settings">Настройки</span></div>
-<div class="nav-item actionable" data-action="open-screen" data-screen="about" role="button" tabindex="-1"><span class="icon">ⓘ</span><span data-i18n="nav.about">О приложении</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="about" role="button" tabindex="-1"><span class="icon">ⓘ</span><span data-i18n="nav.about">О приложении</span><span class="update-nav-badge" id="aboutUpdateBadge" aria-hidden="true">!</span></div>
 </nav>
 </aside>
 <main class="main">
@@ -168,7 +168,9 @@
 
   <!-- Reset -->
   <div class="list-item actionable" data-action="reset-settings" role="button" style="color:var(--danger)" tabindex="-1">
-    <span>↺</span><span data-i18n="settings.reset">Сбросить настройки</span><span>›</span>
+    <span class="glyph-badge" style="color:var(--danger);border-color:rgba(255,69,58,0.3)">R</span>
+    <span data-i18n="settings.reset">Сбросить настройки</span>
+    <span>›</span>
   </div>
 
 </div>
@@ -188,9 +190,26 @@
 <div class="card about-block">
 <div class="about-big">AmbiSun</div>
 <div class="about-muted">Smart Ambilight for HyperHDR</div>
-<div style="margin-top:28px;font-size:20px">Версия <strong>0.1.0</strong></div>
-<div class="list-item actionable" data-action="open-url" data-url="https://github.com/Serjio193/AmbiSun" role="button" style="margin:24px -24px 0" tabindex="-1"><span>⌘</span><span data-i18n="about.github">GitHub: Serjio193 / AmbiSun</span><span>›</span></div>
-<div class="list-item actionable" data-action="show-license" role="button" style="margin:0 -24px" tabindex="-1"><span>ⓘ</span><span data-i18n="about.license">Лицензия: Open Source</span><span></span></div>
+<div class="about-version" style="margin-top:20px;font-size:20px"><span data-i18n="about.version">Версия</span> <strong id="aboutVersionNumber">0.1.0</strong></div>
+<div class="list-item actionable" data-action="open-url" data-url="https://github.com/Serjio193/AmbiSun" role="button" style="margin-top:16px" tabindex="-1">
+  <span class="glyph-badge">GH</span>
+  <span data-i18n="about.github">GitHub: Serjio193 / AmbiSun</span>
+  <span>›</span>
+</div>
+<div class="list-item actionable" data-action="show-license" role="button" style="margin-top:8px" tabindex="-1">
+  <span class="glyph-badge">i</span>
+  <span data-i18n="about.license">Лицензия: Open Source</span>
+  <span>›</span>
+</div>
+
+<!-- UPDATE AVAILABLE CONTAINER -->
+<div id="updateAvailablePanel" class="update-panel" style="display:none;margin-top:16px;padding:18px;background:rgba(65,166,255,0.08);border:1px solid rgba(65,166,255,0.25);border-radius:14px">
+  <div style="font-size:20px;font-weight:700;color:var(--blue);margin-bottom:6px" id="updateTitle">Доступно обновление 0.1.1</div>
+  <div style="font-size:16px;color:var(--muted);margin-bottom:14px" id="updateNotes"></div>
+  <div class="pill actionable" data-action="install-update" role="button" tabindex="-1" style="background:var(--blue);color:#fff;border-color:transparent;font-size:18px;text-align:center;padding:12px 20px" data-i18n="update.install">
+    Установить обновление ПО
+  </div>
+</div>
 </div>
 <div class="card about-block">
 <div data-i18n="support.title" style="font-size:24px;font-weight:700">❤ Поддержать проект</div>
@@ -294,6 +313,20 @@
       <div style="font-size:18px; margin-bottom: 24px" data-i18n="elevation.desc">После обновления приложения необходимо восстановить права доступа. Нажмите кнопку ниже, чтобы применить конфигурацию Homebrew Channel.</div>
       <div class="pill actionable" data-action="restore-elevation" role="button" tabindex="-1" style="font-size:20px; text-align:center" data-i18n="elevation.button">Восстановить доступ</div>
       <div id="elevationStatus" style="margin-top:20px; font-size:16px; color:#c6ccd5; text-align:center; min-height:24px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE PROGRESS MODAL -->
+<div aria-hidden="true" class="update-progress-modal" id="updateProgressModal">
+  <div class="location-dialog" style="max-width:520px;text-align:center">
+    <div class="location-head" style="justify-content:center">
+      <div class="location-title" id="updateProgressTitle" data-i18n="update.installing">Установка обновления…</div>
+    </div>
+    <div class="location-body" style="padding:32px 24px">
+      <div style="font-size:36px;margin-bottom:16px" id="updateProgressIcon">⏳</div>
+      <div style="font-size:20px;font-weight:600;margin-bottom:12px" id="updateProgressStatus" data-i18n="update.preparing">Подготовка обновления…</div>
+      <div style="font-size:16px;color:var(--muted)" id="updateProgressSubtext" data-i18n="update.restart">AmbiSun будет перезапущен автоматически.</div>
     </div>
   </div>
 </div>

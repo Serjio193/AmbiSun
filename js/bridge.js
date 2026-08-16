@@ -315,6 +315,57 @@
   }
 
   // ---- Screen-aware refresh ----
+  var lastUpdateCheck = 0;
+  var UPDATE_CHECK_TTL = 900000; // 15 minutes
+
+  function checkForUpdate(force) {
+    var now = Date.now();
+    if (!force && (now - lastUpdateCheck) < UPDATE_CHECK_TTL) {
+      return Promise.resolve();
+    }
+    lastUpdateCheck = now;
+
+    return AmbiSun.webos.checkForUpdate()
+      .then(function(res) {
+        if (!res || !res.returnValue) return;
+
+        if (res.currentVersion) {
+          var verEl = document.getElementById('aboutVersionNumber');
+          if (verEl) verEl.textContent = res.currentVersion;
+        }
+
+        AmbiSun.state.update = res;
+
+        var badge = document.getElementById('aboutUpdateBadge');
+        if (badge) {
+          badge.classList.toggle('visible', !!res.updateAvailable);
+        }
+
+        var panel = document.getElementById('updateAvailablePanel');
+        if (panel) {
+          if (res.updateAvailable) {
+            panel.style.display = 'block';
+            var titleEl = document.getElementById('updateTitle');
+            if (titleEl) {
+              var availText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('update.available', 'Доступно обновление') : 'Доступно обновление';
+              titleEl.textContent = availText + ' ' + (res.latestVersion || '');
+            }
+            var notesEl = document.getElementById('updateNotes');
+            if (notesEl) {
+              var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'ru';
+              var notesText = (res.notes && (res.notes[lang] || res.notes.en || res.notes.ru)) || '';
+              notesEl.textContent = typeof notesText === 'string' ? notesText : '';
+            }
+          } else {
+            panel.style.display = 'none';
+          }
+        }
+      })
+      .catch(function(e) {
+        console.warn('[bridge] checkForUpdate error:', e && e.message);
+      });
+  }
+
   function onScreenOpen(screenId) {
     if (!isElevated) return;
     if (screenId === 'home') {
@@ -325,6 +376,8 @@
     } else if (screenId === 'settings') {
       syncConfig();
       syncSolar();
+    } else if (screenId === 'about') {
+      checkForUpdate();
     }
   }
 
@@ -363,6 +416,7 @@
   AmbiSun.bridge.syncConfig = syncConfig;
   AmbiSun.bridge.syncSolar = syncSolar;
   AmbiSun.bridge.syncSources = syncSources;
+  AmbiSun.bridge.checkForUpdate = checkForUpdate;
   AmbiSun.bridge.onScreenOpen = onScreenOpen;
   AmbiSun.bridge.startElevationRetry = startElevationRetry;
   AmbiSun.bridge.updateHyperhdrBadge = updateHyperhdrBadge;

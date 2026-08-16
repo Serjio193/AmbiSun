@@ -901,3 +901,32 @@ service.register("resolveLocation", function(message) {
         });
     });
 });
+
+var updater = require("./lib/updater");
+
+service.register("checkForUpdate", function (message) {
+    updater.checkForUpdate(function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "INTERNAL_ERROR",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});
+
+service.register("installUpdate", function (message) {
+    var payload = message.payload || {};
+    updater.installUpdate(payload, service, function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "INSTALL_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});

@@ -68,9 +68,19 @@
     "italian": "Italiano"
   },
   "about": {
-    "checkUpdates": "Check for updates",
+    "version": "Version",
     "github": "GitHub: Serjio193 / AmbiSun",
     "license": "License: Open Source"
+  },
+  "update": {
+    "available": "Update available",
+    "install": "Install update",
+    "preparing": "Preparing update…",
+    "downloading": "Downloading and verifying package…",
+    "installing": "Installing update…",
+    "restart": "AmbiSun will restart automatically.",
+    "failed": "Update failed: ",
+    "upToDate": "App is up to date"
   },
   "support": {
     "title": "❤ Support the project",

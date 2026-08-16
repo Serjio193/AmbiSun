@@ -80,6 +80,12 @@
         },
         {
           "name": "resolveLocation"
+        },
+        {
+          "name": "checkForUpdate"
+        },
+        {
+          "name": "installUpdate"
         }
       ]
     }

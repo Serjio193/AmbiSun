@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Avaleht",
+    "sources": "Allikad ja rakendused",
+    "sun": "Päike ja ajakava",
+    "settings": "Seaded",
+    "language": "Keel",
+    "about": "Rakendusest"
+  },
+  "common": {
+    "change": "Muuda",
+    "yes": "Jah",
+    "no": "Ei",
+    "back": "Tagasi"
+  },
+  "home": {
+    "currentState": "Praegune olek",
+    "ambilightOn": "Ambilight on sees",
+    "modeSun": "Režiim: Päikese järgi",
+    "currentSource": "Praegune allikas",
+    "nextOn": "Järgmine sisselülitus",
+    "nextOff": "Järgmine väljalülitus"
+  },
+  "sun": {
+    "sunset": "Päikeseloojang",
+    "turnOn": "Sisselülitus",
+    "sunrise": "Päikesetõus",
+    "sunsetOffset": "Sisselülitus päikeseloojangu suhtes",
+    "sunriseOffset": "Väljalülitus päikesetõusu suhtes",
+    "localSchedule": "Ajakava rakendub iga päev ja arvutatakse kohapeal.",
+    "todaySunset": "Tänane loojang",
+    "ambilightOn": "Ambilight ON",
+    "tomorrowSunrise": "Homme päikesetõus"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "autostart": "Käivita koos teleriga",
+    "defaultRule": "Uute rakenduste vaikereegel",
+    "test": "Testi Ambilighti 5 sekundit",
+    "plasma": "HyperHDR Plasma taust · Smooth",
+    "advanced": "Täpsemad seaded",
+    "reset": "Lähtesta seaded"
+  },
+  "language": {
+    "system": "Nagu teleris",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano"
+  },
+  "about": {
+    "checkUpdates": "Kontrolli uuendusi",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Litsents: Open Source"
+  },
+  "support": {
+    "title": "❤ Toeta projekti",
+    "subtitle": "Toetuse andmed Legacy Bridge'ist",
+    "scan": "Skanni QR-kood telefoniga"
+  },
+  "rule": {
+    "sun": "Päikese järgi",
+    "on": "Alati SEES",
+    "off": "Alati VÄLJAS"
+  },
+  "toast": {
+    "locationTodo": "TODO API: riigi / linna valik",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight test: 5 sekundit",
+    "advancedTodo": "TODO: täpsemad seaded",
+    "reset": "Prototüübi seaded lähtestatud",
+    "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on ajakohane",
+    "openGithub": "Avan GitHubi",
+    "license": "Open Source · litsents lisatakse repositooriumisse"
+  },
+  "location": {
+    "title": "Asukoht",
+    "stepDetected": "Tuvastatud IP järgi",
+    "stepRegion": "Piirkond",
+    "stepCountry": "Riik",
+    "stepCity": "Linn",
+    "detectedLead": "IP järgi tuvastatud riik:",
+    "isCountryCorrect": "Kas asute selles riigis?",
+    "chooseRegion": "Valige piirkond",
+    "chooseCountry": "Valige riik",
+    "chooseCity": "Valige linn",
+    "noKeyboard": "Klaviatuuri pole vaja — ainult pult"
+  },
+  "region": {
+    "europe": "Euroopa",
+    "asia": "Aasia",
+    "africa": "Aafrika",
+    "northAmerica": "Põhja-Ameerika",
+    "southAmerica": "Lõuna-Ameerika",
+    "oceania": "Okeaania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Valige keel",
+    "languageHint": "Keelt saab hiljem seadetes muuta.",
+    "otherLanguages": "Muud keeled…",
+    "onlineTranslationTodo": "TODO: veebikeelte loend → en.json tõlge → uue JSON-i salvestamine"
+  },
+  "status": {
+    "waiting": "Ootab..."
+  },
+  "error": {
+    "revisionConflict": "Konfiguratsioonikonflikt! Uuendamine...",
+    "saveFailed": "Salvestamine ebaõnnestus: ",
+    "connection": "Ühenduse viga",
+    "elevationFailed": "Viga: õiguste saamine ebaõnnestus"
+  },
+  "elevation": {
+    "restoring": "Taastamine...",
+    "success": "Edukas! Taaskäivitamine..."
+  }
+}

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AmbiSun — Smart Ambilight for HyperHDR</title>
+<link href="css/app.css" rel="stylesheet"/>
+<script defer src="js/core.js"></script>
+<script defer src="js/i18n.js"></script>
+<script defer src="js/hyperhdr.js"></script>
+<script defer src="js/location.js"></script>
+<script defer src="js/sources.js"></script>
+<script defer src="js/navigation.js"></script>
+<script defer src="js/startup.js"></script>
+<script defer src="js/plasma.js"></script>
+<script defer src="js/webos.js"></script>
+<script defer src="js/bridge.js"></script>
+<script defer src="js/app.js"></script>
+</head>
+<body>
+<canvas height="27" id="hyperPlasma" width="48"></canvas>
+<div class="plasma-dim"></div>
+<div class="app">
+<aside class="sidebar">
+<div class="brand">
+<div class="logo"><span class="ambi">Ambi</span><span class="sun">Sun☀</span></div>
+<div class="tagline">Smart Ambilight for HyperHDR</div>
+</div>
+<nav id="mainNav">
+<div class="nav-item actionable" data-action="open-screen" data-screen="home" role="button" tabindex="-1"><span class="icon">⌂</span><span data-i18n="nav.home">Главная</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="sources" role="button" tabindex="-1"><span class="icon">▣</span><span data-i18n="nav.sources">Источники и приложения</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="settings" role="button" tabindex="-1"><span class="icon">⚙</span><span data-i18n="nav.settings">Настройки</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="language" role="button" tabindex="-1"><span class="icon">◎</span><span data-i18n="nav.language">Язык</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="about" role="button" tabindex="-1"><span class="icon">ⓘ</span><span data-i18n="nav.about">О приложении</span></div>
+</nav>
+</aside>
+<main class="main">
+<div class="topbar">
+<div class="section-title" id="screenTitle">Главная</div>
+<div class="clock">
+<div class="time" id="clock">--:--</div>
+<div class="date" id="date"></div>
+</div>
+</div>
+
+<!-- HOME SCREEN -->
+<section class="screen active" id="home">
+<div class="home-grid">
+<div class="stack">
+<div class="card">
+<div class="card-title" data-i18n="home.currentState">Текущее состояние</div>
+<div class="status-head">
+<div aria-hidden="true" class="ambilight-status-icon">
+<div class="ambilight-glow"></div>
+<div class="ambilight-tv">
+<div class="ambilight-screen"></div>
+<div class="ambilight-stand"></div>
+</div>
+</div>
+<div>
+<div class="status-main" data-i18n="home.ambilightOn">Ambilight включен</div>
+<div class="status-sub" data-i18n="home.modeSun">Режим: По солнцу</div>
+</div>
+</div>
+<div class="rows">
+<div class="row actionable" data-action="open-screen" data-screen="sources" role="button" tabindex="-1">
+<div class="ri">🎮</div>
+<div><div class="label" data-i18n="home.currentSource">Текущий источник</div><div class="value" id="homeCurrentSource">—</div></div>
+<div class="arrow">›</div>
+</div>
+<div class="row">
+<div class="ri yellow">☀</div>
+<div><div class="label" data-i18n="home.nextOn">Следующее включение</div><div class="value" id="homeNextOn">—</div></div>
+</div>
+<div class="row">
+<div class="ri blue">🌅</div>
+<div><div class="label" data-i18n="home.nextOff">Следующее выключение</div><div class="value" id="homeNextOff">—</div></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="sun-summary">
+<div class="sun-cell">
+<div class="i">🌇</div><div class="l" data-i18n="sun.sunset">Закат</div><div class="v yellow" id="homeSunset">—</div>
+</div>
+<div class="sun-cell">
+<div class="i">☀</div><div class="l" data-i18n="sun.turnOn">Включение</div><div class="v yellow" id="homeEffSunset">—</div><div class="s" id="homeEffSunsetOffset">(+30 мин)</div>
+</div>
+<div class="sun-cell">
+<div class="i">🌅</div><div class="l" data-i18n="sun.sunrise">Восход</div><div class="v blue" id="homeSunrise">—</div><div class="s" id="homeEffSunriseOffset">(+0 мин)</div>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title" style="font-size:24px;color:white" data-i18n="nav.settings">Настройки</div>
+<div class="location">
+<div class="left" id="locationDisplay">📍 —</div>
+<div class="pill actionable" data-action="edit-location" data-i18n="common.change" role="button" tabindex="-1">Изменить</div>
+</div>
+<div class="setting-block">
+<div class="setting-label" data-i18n="sun.sunsetOffset">Включение относительно заката</div>
+<div class="stepper">
+<button aria-label="−" class="actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunset" tabindex="-1" type="button">−</button><div class="num" data-setting-value="sunset">+30 мин</div><button aria-label="+" class="actionable" data-action="adjust-offset" data-delta="5" data-setting="sunset" tabindex="-1" type="button">+</button>
+</div>
+</div>
+<div class="setting-block">
+<div class="setting-label" data-i18n="sun.sunriseOffset">Выключение относительно восхода</div>
+<div class="stepper">
+<button aria-label="−" class="actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunrise" tabindex="-1" type="button">−</button><div class="num blue" data-setting-value="sunrise">+0 мин</div><button aria-label="+" class="actionable" data-action="adjust-offset" data-delta="5" data-setting="sunrise" tabindex="-1" type="button">+</button>
+</div>
+</div>
+<div class="info"><div class="i">🗓</div><div data-i18n="sun.localSchedule">Расписание применяется ежедневно и рассчитывается локально.</div></div>
+</div>
+</div>
+</section>
+
+<!-- SOURCES & APPS SCREEN -->
+<section class="screen" id="sources">
+<div class="simple-page">
+<div class="card page-card" id="sourceList">
+<!-- Populated dynamically by sources.js -->
+</div>
+</div>
+</section>
+
+<!-- SETTINGS SCREEN -->
+<section class="screen" id="settings">
+<div class="simple-page">
+<div class="card page-card">
+
+  <!-- Enable/disable AmbiSun -->
+  <div class="list-item actionable" data-action="toggle-setting" data-setting="enabled" role="button" tabindex="-1">
+    <span>💡</span><span data-i18n="settings.enabled">AmbiSun</span>
+    <span class="mode on" data-setting-badge="enabled">ВКЛ</span>
+  </div>
+
+  <!-- HyperHDR status check -->
+  <div class="list-item actionable" data-action="open-hyperhdr" role="button" tabindex="-1">
+    <span>🔗</span><span data-i18n="settings.hyperhdr">HyperHDR</span>
+    <span class="mode on" id="hyperhdrStatusBadge">Подключён</span>
+  </div>
+
+  <!-- Default rule for new apps -->
+  <div class="list-item actionable" data-action="cycle-default-rule" role="button" tabindex="-1">
+    <span>☀</span><span data-i18n="settings.defaultRule">Правило для новых приложений</span>
+    <span class="mode sun" data-default-rule-badge="true">По солнцу</span>
+  </div>
+
+  <!-- Location -->
+  <div class="list-item actionable" data-action="edit-location" role="button" tabindex="-1">
+    <span>📍</span><span data-i18n="settings.location">Местоположение</span>
+    <span id="settingsLocationBadge" style="color:var(--muted);font-size:17px">—</span>
+  </div>
+
+  <!-- Sunset offset stepper -->
+  <div class="setting-block">
+    <div class="setting-label" data-i18n="sun.sunsetOffset">Включение (после заката)</div>
+    <div class="stepper">
+      <button class="actionable" data-action="adjust-offset" data-setting="sunset" data-delta="-5" tabindex="-1" type="button" aria-label="−">−</button>
+      <div class="num" data-setting-value="sunset">+30 мин</div>
+      <button class="actionable" data-action="adjust-offset" data-setting="sunset" data-delta="5" tabindex="-1" type="button" aria-label="+">+</button>
+    </div>
+  </div>
+
+  <!-- Sunrise offset stepper -->
+  <div class="setting-block">
+    <div class="setting-label" data-i18n="sun.sunriseOffset">Выключение (после восхода)</div>
+    <div class="stepper">
+      <button class="actionable" data-action="adjust-offset" data-setting="sunrise" data-delta="-5" tabindex="-1" type="button" aria-label="−">−</button>
+      <div class="num blue" data-setting-value="sunrise">+0 мин</div>
+      <button class="actionable" data-action="adjust-offset" data-setting="sunrise" data-delta="5" tabindex="-1" type="button" aria-label="+">+</button>
+    </div>
+  </div>
+
+  <!-- Reset -->
+  <div class="list-item actionable" data-action="reset-settings" role="button" tabindex="-1">
+    <span>↺</span><span data-i18n="settings.reset">Сбросить настройки</span><span>›</span>
+  </div>
+
+</div>
+</div>
+</section>
+
+<!-- LANGUAGE SCREEN -->
+<section class="screen" id="language">
+<div class="simple-page">
+<div class="card page-card"><div class="list-item actionable" data-action="set-language" data-language="en" role="button" tabindex="-1"><span>◉</span><span>English</span><span>EN</span></div><div class="list-item actionable" data-action="set-language" data-language="et" role="button" tabindex="-1"><span>○</span><span>Eesti</span><span>ET</span></div><div class="list-item actionable" data-action="set-language" data-language="uk" role="button" tabindex="-1"><span>○</span><span>Українська</span><span>UK</span></div><div class="list-item actionable" data-action="set-language" data-language="ru" role="button" tabindex="-1"><span>○</span><span>Русский</span><span>RU</span></div><div class="list-item actionable" data-action="other-languages" role="button" tabindex="-1"><span>＋</span><span data-i18n="firstRun.otherLanguages">Другие языки…</span><span>›</span></div></div>
+</div>
+</section>
+
+<!-- ABOUT SCREEN -->
+<section class="screen" id="about">
+<div class="about-grid">
+<div class="card about-block">
+<div class="about-big">AmbiSun</div>
+<div class="about-muted">Smart Ambilight for HyperHDR</div>
+<div style="margin-top:28px;font-size:20px">Версия <strong>0.1.0</strong></div>
+<div class="list-item actionable" data-action="open-url" data-url="https://github.com/Serjio193/AmbiSun" role="button" style="margin:24px -24px 0" tabindex="-1"><span>⌘</span><span data-i18n="about.github">GitHub: Serjio193 / AmbiSun</span><span>›</span></div>
+<div class="list-item actionable" data-action="show-license" role="button" style="margin:0 -24px" tabindex="-1"><span>ⓘ</span><span data-i18n="about.license">Лицензия: Open Source</span><span></span></div>
+</div>
+<div class="card about-block">
+<div data-i18n="support.title" style="font-size:24px;font-weight:700">❤ Поддержать проект</div>
+<div class="support-methods">
+<div class="support-method active actionable" data-action="select-support" data-support="paypal" role="button" tabindex="-1">
+<img alt="PayPal" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" src="https://raw.githubusercontent.com/Serjio193/legacy-bridge/main/assets/support/paypal-logo.png"/>
+<span class="fallback-logo" style="display:none">P</span>
+<span>PayPal</span>
+</div>
+<div class="support-method actionable" data-action="select-support" data-support="usdt" role="button" tabindex="-1">
+<img alt="USDT TRC20" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" src="https://raw.githubusercontent.com/Serjio193/legacy-bridge/main/assets/support/usdt-trc20-logo.png"/>
+<span class="fallback-logo" style="display:none">₮</span>
+<span>USDT TRC20</span>
+</div>
+</div>
+<img alt="QR" class="support-qr" id="supportQr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAAEIAQAAAACLjVdSAAABjklEQVR4nO2ZwY7CQAxD/dD8/y97D0mm5cSJNNoBUFUVH0yUeOyA9eH1+gT4If4xQq4GcV4syddTT2Hag1jKSiALI2GBXE/HMO2rh4iaYFlY7Fq4jcdABCK7RDzJ41HEut1bWJKzP1p5TEEsSdfPjxtDCWsbjymI+/ny/q6vpzDtQeDbLXnE6D4wU5i2zQtWlaFqQd3hMUw7EaSSKktR7oNmHs8jcFqxfa5gZLQtyRSmbYhwYDa2iHLcWmUS0y6ELQgbRumHK8yMYvp1xFJOSHpSC5ktqcfNy8pAm5oROmLh0JXj8lzpaTmR8h8hqOi0/nhJpaPbdsiS48g9Tj9u/oPI+3sfAgfuPyjLoRiS3H7s4TltXuqHx5XYfjhV9UD9qHzrnfB9ZV77uHy79tKjPpcpcyOPKYi3/bqvJ3W8HNgfe79ORrpaKZ/o11+SBCiWHzEvQlBmZBTTTkRMCxXmHJZ9ItM2xM50uQ46Nu9nb1SmM5dRHcX064il6grVn5SpqeZEPb3t1x/l8UPMRPwB4Q/E5mXDyLAAAAAASUVORK5CYII="/>
+<div id="supportTitle" style="text-align:center;font-size:18px;font-weight:700">PayPal</div>
+<div class="support-address" id="supportAddress">https://paypal.me/SerhiiTarnopovych</div>
+<div class="support-caption" data-i18n="support.scan">Отсканируйте QR-код телефоном</div>
+</div>
+</div>
+</section>
+
+<div class="toast" id="toast">Готово</div>
+</main>
+</div>
+
+<!-- LOCATION WIZARD -->
+<div aria-hidden="true" class="location-wizard" id="locationWizard">
+<div class="location-dialog">
+<div class="location-head">
+<div class="location-title" data-i18n="location.title">Местоположение</div>
+<div class="location-step" id="locationStepLabel"></div>
+</div>
+<div class="location-body">
+<div id="locationWizardContent"></div>
+</div>
+</div>
+</div>
+
+<!-- FIRST RUN / STARTUP SCREEN -->
+<div aria-hidden="true" class="startup-screen" id="startupScreen">
+<div class="startup-brand">
+<div aria-label="AmbiSun" class="startup-title">
+<span class="ambi">Ambi</span><span class="sun">Sun</span>
+</div>
+</div>
+<div class="startup-language-panel" id="startupLanguagePanel">
+<div class="startup-language-list" id="firstRunLanguageList">
+<div class="startup-language actionable" data-action="first-run-language" data-language="en" role="button" tabindex="-1">
+<span>English</span><small>EN</small>
+</div>
+<div class="startup-language actionable" data-action="first-run-language" data-language="et" role="button" tabindex="-1">
+<span>Eesti</span><small>ET</small>
+</div>
+<div class="startup-language actionable" data-action="first-run-language" data-language="uk" role="button" tabindex="-1">
+<span>Українська</span><small>UK</small>
+</div>
+<div class="startup-language actionable" data-action="first-run-language" data-language="ru" role="button" tabindex="-1">
+<span>Русский</span><small>RU</small>
+</div>
+<div class="startup-language actionable other" data-action="other-languages" role="button" tabindex="-1">
+<span>Другие языки…</span><small>›</small>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ELEVATION WIZARD -->
+<div aria-hidden="true" class="elevation-wizard" id="elevationWizard">
+  <div class="location-dialog" style="max-width:500px">
+    <div class="location-head">
+      <div class="location-title" data-i18n="elevation.title">Требуются права доступа</div>
+    </div>
+    <div class="location-body" style="padding: 32px">
+      <div style="font-size:18px; margin-bottom: 24px" data-i18n="elevation.desc">После обновления приложения необходимо восстановить права доступа. Нажмите кнопку ниже, чтобы применить конфигурацию Homebrew Channel.</div>
+      <div class="pill actionable" data-action="restore-elevation" role="button" tabindex="-1" style="font-size:20px; text-align:center" data-i18n="elevation.button">Восстановить доступ</div>
+      <div id="elevationStatus" style="margin-top:20px; font-size:16px; color:#c6ccd5; text-align:center; min-height:24px"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<style>
+.list-item.focused .mode{
+  background:rgba(255,255,255,.055);
+  border-color:rgba(255,255,255,.11);
+}
+</style>

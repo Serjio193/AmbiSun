@@ -1,0 +1,10 @@
+{
+  "id": "org.webosbrew.ambisun.service",
+  "description": "AmbiSun background automation service",
+  "services": [
+    {
+      "name": "org.webosbrew.ambisun.service",
+      "description": "AmbiSun service"
+    }
+  ]
+}

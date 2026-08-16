@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Home",
+    "sources": "Sources & apps",
+    "sun": "Sun & schedule",
+    "settings": "Settings",
+    "language": "Language",
+    "about": "About"
+  },
+  "common": {
+    "change": "Change",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back"
+  },
+  "home": {
+    "currentState": "Current status",
+    "ambilightOn": "Ambilight is on",
+    "modeSun": "Mode: By sun",
+    "currentSource": "Current source",
+    "nextOn": "Next turn on",
+    "nextOff": "Next turn off"
+  },
+  "sun": {
+    "sunset": "Sunset",
+    "turnOn": "Turn on",
+    "sunrise": "Sunrise",
+    "sunsetOffset": "Turn on relative to sunset",
+    "sunriseOffset": "Turn off relative to sunrise",
+    "localSchedule": "Schedule is applied daily and calculated locally.",
+    "todaySunset": "Sunset today",
+    "ambilightOn": "Ambilight ON",
+    "tomorrowSunrise": "Sunrise tomorrow"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "autostart": "Start with TV",
+    "defaultRule": "Default rule for new apps",
+    "test": "Test Ambilight for 5 seconds",
+    "plasma": "HyperHDR Plasma background · Smooth",
+    "advanced": "Advanced settings",
+    "reset": "Reset settings"
+  },
+  "language": {
+    "system": "Same as TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano"
+  },
+  "about": {
+    "checkUpdates": "Check for updates",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "License: Open Source"
+  },
+  "support": {
+    "title": "❤ Support the project",
+    "subtitle": "Support details from Legacy Bridge",
+    "scan": "Scan the QR code with your phone"
+  },
+  "rule": {
+    "sun": "By sun",
+    "on": "Always ON",
+    "off": "Always OFF"
+  },
+  "toast": {
+    "locationTodo": "TODO API: country / city wizard",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight test: 5 seconds",
+    "advancedTodo": "TODO: advanced settings",
+    "reset": "Prototype settings reset",
+    "updateOk": "GitHub Releases checked — version 1.0.0 is current",
+    "openGithub": "Opening GitHub",
+    "license": "Open Source · license will be added to repository"
+  },
+  "location": {
+    "title": "Location",
+    "stepDetected": "Detected by IP",
+    "stepRegion": "Region",
+    "stepCountry": "Country",
+    "stepCity": "City",
+    "detectedLead": "Country detected by IP:",
+    "isCountryCorrect": "Are you in this country?",
+    "chooseRegion": "Choose a region",
+    "chooseCountry": "Choose a country",
+    "chooseCity": "Choose a city",
+    "noKeyboard": "No keyboard — remote only"
+  },
+  "region": {
+    "europe": "Europe",
+    "asia": "Asia",
+    "africa": "Africa",
+    "northAmerica": "North America",
+    "southAmerica": "South America",
+    "oceania": "Oceania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Choose a language",
+    "languageHint": "You can change the language later in Settings.",
+    "otherLanguages": "Other languages…",
+    "onlineTranslationTodo": "TODO: online language list → translate en.json → save new JSON"
+  },
+  "status": {
+    "waiting": "Waiting..."
+  },
+  "error": {
+    "revisionConflict": "Configuration conflict! Updating...",
+    "saveFailed": "Save failed: ",
+    "connection": "Connection error",
+    "elevationFailed": "Error: Failed to obtain permissions"
+  },
+  "elevation": {
+    "restoring": "Restoring...",
+    "success": "Success! Restarting..."
+  }
+}

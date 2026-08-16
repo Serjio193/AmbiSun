@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Главная",
+    "sources": "Источники и приложения",
+    "sun": "Солнце и расписание",
+    "settings": "Настройки",
+    "language": "Язык",
+    "about": "О приложении"
+  },
+  "common": {
+    "change": "Изменить",
+    "yes": "Да",
+    "no": "Нет",
+    "back": "Назад"
+  },
+  "home": {
+    "currentState": "Текущее состояние",
+    "ambilightOn": "Ambilight включен",
+    "modeSun": "Режим: По солнцу",
+    "currentSource": "Текущий источник",
+    "nextOn": "Следующее включение",
+    "nextOff": "Следующее выключение"
+  },
+  "sun": {
+    "sunset": "Закат",
+    "turnOn": "Включение",
+    "sunrise": "Восход",
+    "sunsetOffset": "Включение относительно заката",
+    "sunriseOffset": "Выключение относительно восхода",
+    "localSchedule": "Расписание применяется ежедневно и рассчитывается локально.",
+    "todaySunset": "Сегодня закат",
+    "ambilightOn": "Ambilight ON",
+    "tomorrowSunrise": "Завтра восход"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "autostart": "Запуск вместе с телевизором",
+    "defaultRule": "Правило для новых приложений",
+    "test": "Тест Ambilight на 5 секунд",
+    "plasma": "HyperHDR Plasma фон · Smooth",
+    "advanced": "Дополнительные настройки",
+    "reset": "Сбросить настройки"
+  },
+  "language": {
+    "system": "Как на телевизоре",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano"
+  },
+  "about": {
+    "checkUpdates": "Проверить обновления",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Лицензия: Open Source"
+  },
+  "support": {
+    "title": "❤ Поддержать проект",
+    "subtitle": "Данные взяты из Legacy Bridge",
+    "scan": "Отсканируйте QR-код телефоном"
+  },
+  "rule": {
+    "sun": "По солнцу",
+    "on": "Всегда ВКЛ",
+    "off": "Всегда ВЫКЛ"
+  },
+  "toast": {
+    "locationTodo": "TODO API: мастер определения страны / города",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Тест Ambilight: 5 секунд",
+    "advancedTodo": "TODO: дополнительные настройки",
+    "reset": "Настройки прототипа сброшены",
+    "updateOk": "Проверка GitHub Releases… версия 1.0.0 актуальна",
+    "openGithub": "Открываю GitHub",
+    "license": "Open Source · лицензия будет добавлена в репозиторий"
+  },
+  "location": {
+    "title": "Местоположение",
+    "stepDetected": "Определено по IP",
+    "stepRegion": "Регион",
+    "stepCountry": "Страна",
+    "stepCity": "Город",
+    "detectedLead": "По IP определена страна:",
+    "isCountryCorrect": "Вы находитесь в этой стране?",
+    "chooseRegion": "Выберите регион",
+    "chooseCountry": "Выберите страну",
+    "chooseCity": "Выберите город",
+    "noKeyboard": "Без клавиатуры — только пульт"
+  },
+  "region": {
+    "europe": "Европа",
+    "asia": "Азия",
+    "africa": "Африка",
+    "northAmerica": "Северная Америка",
+    "southAmerica": "Южная Америка",
+    "oceania": "Океания"
+  },
+  "firstRun": {
+    "chooseLanguage": "Выберите язык",
+    "languageHint": "Язык можно изменить позже в настройках.",
+    "otherLanguages": "Другие языки…",
+    "onlineTranslationTodo": "TODO: список языков онлайн → перевод en.json → сохранение нового JSON"
+  },
+  "status": {
+    "waiting": "Ожидание..."
+  },
+  "error": {
+    "revisionConflict": "Конфликт конфигурации! Обновление...",
+    "saveFailed": "Ошибка сохранения: ",
+    "connection": "Ошибка соединения",
+    "elevationFailed": "Ошибка: не удалось получить права"
+  },
+  "elevation": {
+    "restoring": "Восстановление...",
+    "success": "Успешно! Перезапуск..."
+  }
+}

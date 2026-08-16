@@ -1,0 +1,6 @@
+dist/
+*.ipk
+*.log
+.DS_Store
+node_modules/
+.vscode/

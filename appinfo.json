@@ -1,0 +1,21 @@
+{
+  "id": "org.webosbrew.ambisun",
+  "version": "0.1.0",
+  "vendor": "Serjio193",
+  "type": "web",
+  "main": "index.html",
+  "title": "AmbiSun",
+  "appDescription": "Smart Ambilight for HyperHDR",
+  "icon": "assets/icon.png",
+  "largeIcon": "assets/largeicon.png",
+  "iconColor": "#050812",
+  "requiredPermissions": [
+    "application.operation",
+    "application.state",
+    "activity",
+    "tv.hwcontrol",
+    "tv.inputmanager",
+    "eim",
+    "externaldevice"
+  ]
+}

@@ -368,22 +368,30 @@
   #sources .simple-page{
     height:100%;
     min-height:0;
+    display:block;
+    overflow:hidden;
+  }
+  #sources #sourceList,
+  #sourceList{
+    height:100%;
+    min-height:0;
     overflow-y:auto;
     overflow-x:hidden;
-    padding-right:6px;
+    padding:10px 10px;
+    box-sizing:border-box;
   }
-  #sources .simple-page::-webkit-scrollbar{
+  #sourceList::-webkit-scrollbar{
     width:6px;
   }
-  #sources .simple-page::-webkit-scrollbar-track{
+  #sourceList::-webkit-scrollbar-track{
     background:rgba(255,255,255,.02);
     border-radius:3px;
   }
-  #sources .simple-page::-webkit-scrollbar-thumb{
+  #sourceList::-webkit-scrollbar-thumb{
     background:rgba(255,255,255,.18);
     border-radius:3px;
   }
-  #sources .simple-page::-webkit-scrollbar-thumb:hover{
+  #sourceList::-webkit-scrollbar-thumb:hover{
     background:rgba(255,255,255,.3);
   }
   .page-card{padding:10px 10px}

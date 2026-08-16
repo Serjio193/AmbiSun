@@ -118,6 +118,22 @@
       return;
     }
 
+    // Deterministic vertical navigation inside #sourceList
+    if (focusedEl.closest && focusedEl.closest('#sourceList') && (direction === 'up' || direction === 'down')) {
+      const rows = [...document.querySelectorAll('#sourceList .list-item.actionable')];
+      const index = rows.indexOf(focusedEl);
+      if (index >= 0) {
+        if (direction === 'down' && index + 1 < rows.length) {
+          setFocus(rows[index + 1]);
+          return;
+        } else if (direction === 'up' && index > 0) {
+          setFocus(rows[index - 1]);
+          return;
+        }
+        return;
+      }
+    }
+
     const from = centerOf(focusedEl);
     const candidates = visibleActions().filter(el => el !== focusedEl);
     let best = null;

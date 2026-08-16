@@ -519,83 +519,332 @@ service.register("getAvailableSources", function (message) {
     });
 });
 
-// ---- searchLocations: backend geocoding proxy ----
-// Calls Open-Meteo from Node.js (no CORS issues) and returns normalized city list
-service.register("searchLocations", function (message) {
-    var params = message.payload || {};
-    var countryCode = params.countryCode || '';
-    var seeds = Array.isArray(params.seeds) ? params.seeds : [];
+// ---- Location API ---------------------------------------------------------
+//
+// searchLocations:
+//   CountriesNow -> list of city names for selected country.
+//
+// resolveLocation:
+//   Open-Meteo -> exact coordinates/timezone for ONE selected city.
+//
+// The UI never talks directly to external APIs.
+// ---------------------------------------------------------------------------
 
-    if (!countryCode || seeds.length === 0) {
-        message.respond({ returnValue: false, errorText: 'countryCode and seeds required' });
+var https = require("https");
+
+var LOCATION_HTTP_TIMEOUT = 4000;
+var LOCATION_MAX_RESPONSE = 1024 * 1024;
+
+function locationHttpGetJson(url, callback, redirectCount) {
+    redirectCount = redirectCount || 0;
+
+    var done = false;
+
+    function finish(err, data) {
+        if (done) return;
+        done = true;
+        callback(err, data);
+    }
+
+    var req;
+
+    try {
+        req = https.get(url, {
+            headers: {
+                "User-Agent": "AmbiSun/0.1",
+                "Accept": "application/json"
+            }
+        }, function(res) {
+
+            // Follow a small number of redirects.
+            if (
+                res.statusCode >= 300 &&
+                res.statusCode < 400 &&
+                res.headers.location
+            ) {
+                res.resume();
+
+                if (redirectCount >= 2) {
+                    finish(new Error("LOCATION_TOO_MANY_REDIRECTS"));
+                    return;
+                }
+
+                locationHttpGetJson(
+                    res.headers.location,
+                    callback,
+                    redirectCount + 1
+                );
+                done = true;
+                return;
+            }
+
+            if (res.statusCode < 200 || res.statusCode >= 300) {
+                res.resume();
+                finish(new Error("LOCATION_HTTP_" + res.statusCode));
+                return;
+            }
+
+            var body = "";
+            var size = 0;
+
+            res.setEncoding("utf8");
+
+            res.on("data", function(chunk) {
+                if (done) return;
+
+                size += Buffer.byteLength(chunk, "utf8");
+
+                if (size > LOCATION_MAX_RESPONSE) {
+                    req.destroy();
+                    finish(new Error("LOCATION_RESPONSE_TOO_LARGE"));
+                    return;
+                }
+
+                body += chunk;
+            });
+
+            res.on("end", function() {
+                if (done) return;
+
+                try {
+                    finish(null, JSON.parse(body));
+                } catch (e) {
+                    finish(new Error("LOCATION_INVALID_JSON"));
+                }
+            });
+        });
+
+        req.setTimeout(LOCATION_HTTP_TIMEOUT, function() {
+            req.destroy();
+            finish(new Error("LOCATION_TIMEOUT"));
+        });
+
+        req.on("error", function(err) {
+            finish(err);
+        });
+
+    } catch (e) {
+        finish(e);
+    }
+}
+
+
+// Small in-memory cache.
+// Dynamic service may be restarted at any time, so this is only an optimization.
+var locationCitiesCache = {};
+var LOCATION_CACHE_MS = 24 * 60 * 60 * 1000;
+
+
+service.register("searchLocations", function(message) {
+    var params = message.payload || {};
+
+    var countryCode = String(params.countryCode || "")
+        .trim()
+        .toUpperCase();
+
+    var countryName = String(params.countryName || "").trim();
+
+    if (!countryCode || !countryName) {
+        message.respond({
+            returnValue: false,
+            errorCode: "INVALID_REQUEST",
+            errorText: "countryCode and countryName required"
+        });
         return;
     }
 
-    var https = require('https');
-    var results = [];
-    var seen = {};
-    var pending = seeds.length;
-    var responded = false;
+    var cached = locationCitiesCache[countryCode];
 
-    // Overall deadline: 8s
-    var deadline = setTimeout(function() {
-        if (!responded) {
-            responded = true;
-            message.respond({
-                returnValue: true,
-                cities: dedup(results),
-                partial: true
-            });
-        }
-    }, 8000);
-
-    function dedup(arr) {
-        var names = {};
-        return arr
-            .sort(function(a, b) { return (b.population || 0) - (a.population || 0); })
-            .filter(function(c) {
-                var k = c.name.toLowerCase();
-                if (names[k]) return false;
-                names[k] = true;
-                return true;
-            });
+    if (
+        cached &&
+        (Date.now() - cached.timestamp) < LOCATION_CACHE_MS
+    ) {
+        message.respond({
+            returnValue: true,
+            provider: "countriesnow",
+            cached: true,
+            countryCode: countryCode,
+            cities: cached.cities
+        });
+        return;
     }
 
-    function oneDone() {
-        pending--;
-        if (pending > 0) return;
-        if (!responded) {
-            responded = true;
-            clearTimeout(deadline);
+    // GET endpoint avoids CountriesNow POST redirect quirks.
+    var url =
+        "https://countriesnow.space/api/v0.1/countries/cities/q?country=" +
+        encodeURIComponent(countryName);
+
+    locationHttpGetJson(url, function(err, data) {
+
+        if (err) {
             message.respond({
-                returnValue: true,
-                cities: dedup(results),
-                partial: false
+                returnValue: false,
+                errorCode: "LOCATION_API_ERROR",
+                errorText: err.message
             });
+            return;
         }
-    }
 
-    seeds.slice(0, 6).forEach(function(seed) {
-        var url = 'https://geocoding-api.open-meteo.com/v1/search?name=' +
-            encodeURIComponent(seed) + '&count=100&language=ru&format=json';
+        var sourceCities = [];
 
-        var req = https.get(url, { timeout: 7000 }, function(res) {
-            var body = '';
-            res.on('data', function(c) { body += c; });
-            res.on('end', function() {
-                try {
-                    var data = JSON.parse(body);
-                    (data.results || []).forEach(function(r) {
-                        if (r.country_code === countryCode && r.name && r.latitude != null && r.population > 0 && !seen[r.id]) {
-                            seen[r.id] = true;
-                            results.push({ name: r.name, lat: r.latitude, lon: r.longitude, tz: r.timezone || 'UTC', population: r.population });
-                        }
-                    });
-                } catch(e) {}
-                oneDone();
+        if (data && Array.isArray(data.data)) {
+            sourceCities = data.data;
+        } else if (
+            data &&
+            data.data &&
+            Array.isArray(data.data.cities)
+        ) {
+            sourceCities = data.data.cities;
+        }
+
+        var seen = {};
+        var cities = [];
+
+        sourceCities.forEach(function(value) {
+
+            var name = "";
+
+            if (typeof value === "string") {
+                name = value.trim();
+            } else if (value && typeof value.name === "string") {
+                name = value.name.trim();
+            }
+
+            if (!name) return;
+
+            var key = name.toLowerCase();
+
+            if (seen[key]) return;
+            seen[key] = true;
+
+            cities.push({
+                name: name,
+                needsResolve: true
             });
         });
-        req.on('error', function() { oneDone(); });
-        req.on('timeout', function() { req.destroy(); oneDone(); });
+
+        cities.sort(function(a, b) {
+            return a.name.localeCompare(b.name);
+        });
+
+        if (!cities.length) {
+            message.respond({
+                returnValue: false,
+                errorCode: "NO_CITIES",
+                errorText: "No cities returned by provider"
+            });
+            return;
+        }
+
+        locationCitiesCache[countryCode] = {
+            timestamp: Date.now(),
+            cities: cities
+        };
+
+        message.respond({
+            returnValue: true,
+            provider: "countriesnow",
+            cached: false,
+            countryCode: countryCode,
+            cities: cities
+        });
+    });
+});
+
+
+service.register("resolveLocation", function(message) {
+    var params = message.payload || {};
+
+    var countryCode = String(params.countryCode || "")
+        .trim()
+        .toUpperCase();
+
+    var cityName = String(params.city || "").trim();
+
+    if (!countryCode || !cityName) {
+        message.respond({
+            returnValue: false,
+            errorCode: "INVALID_REQUEST",
+            errorText: "countryCode and city required"
+        });
+        return;
+    }
+
+    // Open-Meteo is used correctly here:
+    // search ONE chosen city and filter by ISO country code.
+    var url =
+        "https://geocoding-api.open-meteo.com/v1/search" +
+        "?name=" + encodeURIComponent(cityName) +
+        "&count=10" +
+        "&language=en" +
+        "&format=json" +
+        "&countryCode=" + encodeURIComponent(countryCode);
+
+    locationHttpGetJson(url, function(err, data) {
+
+        if (err) {
+            message.respond({
+                returnValue: false,
+                errorCode: "GEOCODING_ERROR",
+                errorText: err.message
+            });
+            return;
+        }
+
+        var results =
+            data && Array.isArray(data.results)
+                ? data.results
+                : [];
+
+        var best = null;
+
+        // Prefer populated-place records from requested country.
+        for (var i = 0; i < results.length; i++) {
+            var r = results[i];
+
+            if (
+                String(r.country_code || "").toUpperCase() !== countryCode
+            ) {
+                continue;
+            }
+
+            if (
+                String(r.feature_code || "").indexOf("PPL") === 0
+            ) {
+                best = r;
+                break;
+            }
+
+            if (!best) {
+                best = r;
+            }
+        }
+
+        if (
+            !best ||
+            typeof best.latitude !== "number" ||
+            typeof best.longitude !== "number" ||
+            !best.timezone
+        ) {
+            message.respond({
+                returnValue: false,
+                errorCode: "LOCATION_NOT_FOUND",
+                errorText: "Selected city could not be geocoded"
+            });
+            return;
+        }
+
+        message.respond({
+            returnValue: true,
+            provider: "open-meteo",
+            location: {
+                city: best.name || cityName,
+                country: best.country || null,
+                countryCode: countryCode,
+                lat: best.latitude,
+                lon: best.longitude,
+                timezone: best.timezone
+            }
+        });
     });
 });

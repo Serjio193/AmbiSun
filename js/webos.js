@@ -67,6 +67,7 @@
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
+  function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;
   AmbiSun.webos.requestService = requestService;
@@ -81,4 +82,5 @@
   AmbiSun.webos.getSolarStatus = getSolarStatus;
   AmbiSun.webos.getAvailableSources = getAvailableSources;
   AmbiSun.webos.searchLocations = searchLocations;
+  AmbiSun.webos.resolveLocation = resolveLocation;
 })();

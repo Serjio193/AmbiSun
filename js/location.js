@@ -359,22 +359,53 @@
   // Fetch via backend searchLocations service (Node.js, no CORS issues)
   function fetchCitiesFromBackend(countryCode) {
     const bundled = getBundledCities(countryCode);
-    const seeds = bundled.length > 0
-      ? bundled.slice(0, 6).map(function(c) { return c.name.split(' ')[0]; })
-      : [countryCode]; // if unknown country, just try country code as a search term
+    const countryName = getCountryName(countryCode);
 
-    return AmbiSun.webos.searchLocations({ countryCode: countryCode, seeds: seeds })
+    return AmbiSun.webos.searchLocations({
+      countryCode: countryCode,
+      countryName: countryName
+    })
       .then(function(res) {
-        if (!res || !res.returnValue || !Array.isArray(res.cities)) return bundled;
-        // Merge: API cities first, then bundled cities not already present
-        const merged = [...res.cities];
-        const names = new Set(res.cities.map(function(c) { return c.name.toLowerCase(); }));
-        bundled.forEach(function(fc) {
-          if (!names.has(fc.name.toLowerCase())) merged.push(fc);
+
+        if (
+          !res ||
+          !res.returnValue ||
+          !Array.isArray(res.cities)
+        ) {
+          return bundled;
+        }
+
+        // Keep bundled entries first because they already have
+        // validated coordinates/timezone and work offline.
+        const merged = [...bundled];
+
+        const names = new Set(
+          bundled.map(function(c) {
+            return c.name.toLowerCase();
+          })
+        );
+
+        res.cities.forEach(function(c) {
+
+          if (!c || !c.name) return;
+
+          const key = c.name.toLowerCase();
+
+          if (names.has(key)) return;
+
+          names.add(key);
+
+          merged.push({
+            name: c.name,
+            needsResolve: true
+          });
         });
+
         return merged;
       })
-      .catch(function() { return bundled; });
+      .catch(function() {
+        return bundled;
+      });
   }
 
   // getCities — always returns immediately with bundled data,
@@ -637,11 +668,50 @@
 
   async function selectCity(countryCode, cityName) {
     const cities = await getCities(countryCode);
+
     if (!cities) return null;
-    const city = cities.find(c => c.name === cityName);
+
+    let city = cities.find(function(c) {
+      return c.name === cityName;
+    });
+
     if (!city) return null;
 
     const countryName = getCountryName(countryCode);
+
+    // API city entries intentionally contain only the name.
+    // Resolve coordinates/timezone only after the user chooses one.
+    if (
+      city.needsResolve ||
+      typeof city.lat !== 'number' ||
+      typeof city.lon !== 'number' ||
+      !city.tz
+    ) {
+      try {
+        const resolved = await AmbiSun.webos.resolveLocation({
+          countryCode: countryCode,
+          city: city.name
+        });
+
+        if (
+          !resolved ||
+          !resolved.returnValue ||
+          !resolved.location
+        ) {
+          return null;
+        }
+
+        city = {
+          name: resolved.location.city || cityName,
+          lat: resolved.location.lat,
+          lon: resolved.location.lon,
+          tz: resolved.location.timezone
+        };
+
+      } catch (e) {
+        return null;
+      }
+    }
 
     window.AmbiSun.state.location = {
       country: countryName,
@@ -652,10 +722,16 @@
       timezone: city.tz
     };
 
-    AmbiSun.bridge.mutateConfig({ location: window.AmbiSun.state.location });
+    await Promise.resolve(
+      AmbiSun.bridge.mutateConfig({
+        location: window.AmbiSun.state.location
+      })
+    );
+
     updateUI();
     closeWizard();
-    return `${city.name}, ${countryName}`;
+
+    return city.name + ", " + countryName;
   }
 
   function actionCountryYes() {

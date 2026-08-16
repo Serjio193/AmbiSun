@@ -6,31 +6,81 @@
       "name": "org.webosbrew.ambisun.service",
       "description": "AmbiSun service",
       "commands": [
-        "ping",
-        "getRuntimeInfo",
-        "getCapabilities",
-        "getConfig",
-        "updateConfig",
-        "resetConfig",
-        "getHyperhdrStatus",
-        "setLedDevice",
-        "evaluateNow",
-        "getSchedulerStatus",
-        "getSolarStatus",
-        "solarWake",
-        "reconcileScheduler",
-        "getSystemStatus",
-        "requestElevation",
-        "getCurrentSource",
-        "getAutomationStatus",
-        "evaluateAndApplyNow",
-        "getSourceDetectorStatus",
-        "sourceWake",
-        "getAvailableSources",
-        "detectCountryByIp",
-        "getLocationCountries",
-        "searchLocations",
-        "resolveLocation"
+        {
+          "name": "ping"
+        },
+        {
+          "name": "getRuntimeInfo"
+        },
+        {
+          "name": "getCapabilities"
+        },
+        {
+          "name": "getConfig"
+        },
+        {
+          "name": "updateConfig"
+        },
+        {
+          "name": "resetConfig"
+        },
+        {
+          "name": "getHyperhdrStatus"
+        },
+        {
+          "name": "setLedDevice"
+        },
+        {
+          "name": "evaluateNow"
+        },
+        {
+          "name": "getSchedulerStatus"
+        },
+        {
+          "name": "getSolarStatus"
+        },
+        {
+          "name": "solarWake"
+        },
+        {
+          "name": "reconcileScheduler"
+        },
+        {
+          "name": "getSystemStatus"
+        },
+        {
+          "name": "requestElevation"
+        },
+        {
+          "name": "getCurrentSource"
+        },
+        {
+          "name": "getAutomationStatus"
+        },
+        {
+          "name": "evaluateAndApplyNow"
+        },
+        {
+          "name": "getSourceDetectorStatus"
+        },
+        {
+          "name": "sourceWake"
+        },
+        {
+          "name": "getAvailableSources"
+        },
+        {
+          "name": "detectCountryByIp"
+        },
+        {
+          "name": "getLocationCountries"
+        },
+        {
+          "name": "searchLocations"
+        },
+        {
+          "name": "resolveLocation"
+        }
       ]
     }
   ]

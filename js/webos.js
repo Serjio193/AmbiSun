@@ -10,15 +10,14 @@
   const LUNA_TIMEOUT_MS = 5000;
 
   function hasWebOS() {
-    return !!(window.webOS && window.webOS.service && window.webOS.service.request);
+    return !!(
+      (window.webOS && window.webOS.service && window.webOS.service.request) ||
+      (typeof window.PalmServiceBridge === "function")
+    );
   }
 
   function requestService(method, parameters) {
     return new Promise((resolve, reject) => {
-      if (!hasWebOS()) {
-        reject(new Error("webOS service API is unavailable"));
-        return;
-      }
       let settled = false;
       const timer = setTimeout(() => {
         if (!settled) {
@@ -27,31 +26,65 @@
         }
       }, LUNA_TIMEOUT_MS);
 
-      try {
-        window.webOS.service.request(AmbiSun.config.serviceUri, {
-          method: method,
-          parameters: parameters || {},
-          onSuccess: function(res) {
-            if (!settled) {
-              settled = true;
-              clearTimeout(timer);
-              resolve(res);
+      if (window.webOS && window.webOS.service && window.webOS.service.request) {
+        try {
+          window.webOS.service.request(AmbiSun.config.serviceUri, {
+            method: method,
+            parameters: parameters || {},
+            onSuccess: function(res) {
+              if (!settled) {
+                settled = true;
+                clearTimeout(timer);
+                resolve(res);
+              }
+            },
+            onFailure: function(err) {
+              if (!settled) {
+                settled = true;
+                clearTimeout(timer);
+                reject(err || new Error("Luna call failed: " + method));
+              }
             }
-          },
-          onFailure: function(err) {
-            if (!settled) {
-              settled = true;
-              clearTimeout(timer);
-              reject(err || new Error("Luna call failed: " + method));
-            }
+          });
+        } catch(e) {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            reject(e);
           }
-        });
-      } catch(e) {
-        if (!settled) {
-          settled = true;
-          clearTimeout(timer);
-          reject(e);
         }
+      } else if (typeof window.PalmServiceBridge === "function") {
+        try {
+          const bridge = new window.PalmServiceBridge();
+          bridge.onservicecallback = function(msg) {
+            if (!settled) {
+              settled = true;
+              clearTimeout(timer);
+              try {
+                const res = typeof msg === "string" ? JSON.parse(msg) : msg;
+                if (res && res.returnValue === false) {
+                  reject(new Error(res.errorText || res.errorCode || ("Luna call failed: " + method)));
+                } else {
+                  resolve(res);
+                }
+              } catch(e) {
+                reject(e);
+              }
+            }
+          };
+          const fullUri = (AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service") + "/" + method;
+          bridge.call(fullUri, JSON.stringify(parameters || {}));
+        } catch(e) {
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            reject(e);
+          }
+        }
+      } else {
+        settled = true;
+        clearTimeout(timer);
+        reject(new Error("webOS service API is unavailable"));
       }
     });
   }

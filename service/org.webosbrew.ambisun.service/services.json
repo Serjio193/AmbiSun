@@ -4,7 +4,34 @@
   "services": [
     {
       "name": "org.webosbrew.ambisun.service",
-      "description": "AmbiSun service"
+      "description": "AmbiSun service",
+      "commands": [
+        "ping",
+        "getRuntimeInfo",
+        "getCapabilities",
+        "getConfig",
+        "updateConfig",
+        "resetConfig",
+        "getHyperhdrStatus",
+        "setLedDevice",
+        "evaluateNow",
+        "getSchedulerStatus",
+        "getSolarStatus",
+        "solarWake",
+        "reconcileScheduler",
+        "getSystemStatus",
+        "requestElevation",
+        "getCurrentSource",
+        "getAutomationStatus",
+        "evaluateAndApplyNow",
+        "getSourceDetectorStatus",
+        "sourceWake",
+        "getAvailableSources",
+        "detectCountryByIp",
+        "getLocationCountries",
+        "searchLocations",
+        "resolveLocation"
+      ]
     }
   ]
 }

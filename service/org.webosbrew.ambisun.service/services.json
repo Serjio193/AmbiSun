@@ -86,6 +86,9 @@
         },
         {
           "name": "installUpdate"
+        },
+        {
+          "name": "minimizeApp"
         }
       ]
     }

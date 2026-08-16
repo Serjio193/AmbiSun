@@ -1,5 +1,4 @@
 var https = require('https');
-var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
@@ -72,22 +71,32 @@ function validateManifest(manifest) {
 }
 
 function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
+    var settled = false;
+    function finish(err, result) {
+        if (settled) return;
+        settled = true;
+        callback(err, result);
+    }
+
     if (redirectCount > 5) {
-        return callback(new Error("Too many redirects"));
+        return finish(new Error("Too many redirects"));
     }
 
     var parsedUrl;
     try {
         parsedUrl = url.parse(targetUrl);
     } catch (e) {
-        return callback(new Error("Invalid URL: " + targetUrl));
+        return finish(new Error("Invalid URL: " + targetUrl));
     }
 
-    var client = (parsedUrl.protocol === 'https:') ? https : http;
+    if (parsedUrl.protocol !== 'https:') {
+        return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
+    }
+
     var options = {
         protocol: parsedUrl.protocol,
         hostname: parsedUrl.hostname,
-        port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
+        port: parsedUrl.port || 443,
         path: parsedUrl.path,
         headers: {
             'User-Agent': 'AmbiSun-Updater/1.0'
@@ -95,16 +104,16 @@ function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
         timeout: HTTP_TIMEOUT_MS
     };
 
-    var req = client.get(options, function(res) {
+    var req = https.get(options, function(res) {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             var nextUrl = url.resolve(targetUrl, res.headers.location);
             res.resume();
-            return fetchWithRedirects(nextUrl, maxBytes, redirectCount + 1, callback);
+            return fetchWithRedirects(nextUrl, maxBytes, redirectCount + 1, finish);
         }
 
         if (res.statusCode !== 200) {
             res.resume();
-            return callback(new Error("HTTP error " + res.statusCode));
+            return finish(new Error("HTTP error " + res.statusCode));
         }
 
         var chunks = [];
@@ -114,24 +123,24 @@ function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
             totalBytes += chunk.length;
             if (totalBytes > maxBytes) {
                 req.destroy();
-                return callback(new Error("Response exceeds size limit of " + maxBytes + " bytes"));
+                return finish(new Error("Response exceeds size limit of " + maxBytes + " bytes"));
             }
             chunks.push(chunk);
         });
 
         res.on('end', function() {
             var body = Buffer.concat(chunks).toString('utf8');
-            callback(null, body);
+            finish(null, body);
         });
     });
 
     req.on('timeout', function() {
         req.destroy();
-        callback(new Error("Request timeout"));
+        finish(new Error("Request timeout"));
     });
 
     req.on('error', function(err) {
-        callback(err);
+        finish(err);
     });
 }
 
@@ -194,22 +203,32 @@ function checkForUpdate(callback) {
 }
 
 function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, callback) {
+    var settled = false;
+    function finish(err, result) {
+        if (settled) return;
+        settled = true;
+        callback(err, result);
+    }
+
     if (redirectCount > 5) {
-        return callback(new Error("Too many redirects"));
+        return finish(new Error("Too many redirects"));
     }
 
     var parsedUrl;
     try {
         parsedUrl = url.parse(targetUrl);
     } catch (e) {
-        return callback(new Error("Invalid URL: " + targetUrl));
+        return finish(new Error("Invalid URL: " + targetUrl));
     }
 
-    var client = (parsedUrl.protocol === 'https:') ? https : http;
+    if (parsedUrl.protocol !== 'https:') {
+        return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
+    }
+
     var options = {
         protocol: parsedUrl.protocol,
         hostname: parsedUrl.hostname,
-        port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
+        port: parsedUrl.port || 443,
         path: parsedUrl.path,
         headers: {
             'User-Agent': 'AmbiSun-Updater/1.0'
@@ -217,31 +236,28 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
         timeout: HTTP_TIMEOUT_MS * 2
     };
 
-    var req = client.get(options, function(res) {
+    var req = https.get(options, function(res) {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             var nextUrl = url.resolve(targetUrl, res.headers.location);
             res.resume();
-            return downloadFileWithHash(nextUrl, destPath, maxBytes, redirectCount + 1, callback);
+            return downloadFileWithHash(nextUrl, destPath, maxBytes, redirectCount + 1, finish);
         }
 
         if (res.statusCode !== 200) {
             res.resume();
-            return callback(new Error("HTTP error " + res.statusCode));
+            return finish(new Error("HTTP error " + res.statusCode));
         }
 
         var hash = crypto.createHash('sha256');
         var outStream = fs.createWriteStream(destPath);
         var totalBytes = 0;
-        var finished = false;
 
         function cleanup(err, computedHash) {
-            if (finished) return;
-            finished = true;
             if (err) {
                 try { fs.unlinkSync(destPath); } catch (_) {}
-                return callback(err);
+                return finish(err);
             }
-            callback(null, computedHash);
+            finish(null, computedHash);
         }
 
         res.on('data', function(chunk) {
@@ -270,11 +286,11 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
 
     req.on('timeout', function() {
         req.destroy();
-        callback(new Error("Download timeout"));
+        finish(new Error("Download timeout"));
     });
 
     req.on('error', function(err) {
-        callback(err);
+        finish(err);
     });
 }
 
@@ -478,5 +494,7 @@ module.exports = {
     _generateHelperScript: generateHelperScript,
     _isInstalling: function() { return isInstalling; },
     _releaseLock: function() { isInstalling = false; installStartedAt = 0; },
-    _acquireLock: function() { isInstalling = true; installStartedAt = Date.now(); }
+    _acquireLock: function() { isInstalling = true; installStartedAt = Date.now(); },
+    _fetchWithRedirects: fetchWithRedirects,
+    _downloadFileWithHash: downloadFileWithHash
 };

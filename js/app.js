@@ -396,6 +396,17 @@ const ACTIONS = {
   'select-support': ({el}) => {
     selectSupport(el.dataset.support);
     showToast(el.dataset.support === 'paypal' ? 'PayPal' : 'USDT TRC20');
+  },
+
+  'minimize-app': async ({el}) => {
+    try {
+      const res = await AmbiSun.webos.minimizeApp();
+      if (!res || !res.returnValue) {
+        showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Не удалось свернуть приложение'));
+      }
+    } catch (e) {
+      showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Не удалось свернуть приложение'));
+    }
   }
 };
 

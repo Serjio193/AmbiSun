@@ -11,7 +11,8 @@
     "change": "Muuda",
     "yes": "Jah",
     "no": "Ei",
-    "back": "Tagasi"
+    "back": "Tagasi",
+    "minimize": "Minimeeri"
   },
   "home": {
     "currentState": "Praegune olek",
@@ -136,7 +137,8 @@
     "revisionConflict": "Konfiguratsioonikonflikt! Uuendamine...",
     "saveFailed": "Salvestamine ebaõnnestus: ",
     "connection": "Ühenduse viga",
-    "elevationFailed": "Viga: õiguste saamine ebaõnnestus"
+    "elevationFailed": "Viga: õiguste saamine ebaõnnestus",
+    "minimizeFailed": "Rakenduse minimeerimine ebaõnnestus"
   },
   "elevation": {
     "restoring": "Taastamine...",

@@ -405,8 +405,8 @@
   // ---- Visibility change ----
   document.addEventListener('visibilitychange', function() {
     if (!document.hidden && isElevated) {
-      // Sync solar on return from background — but don't re-check elevation
-      syncSolar();
+      // Full sync on return from background
+      checkSystemStatus();
     }
   });
 

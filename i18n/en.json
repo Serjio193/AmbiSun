@@ -11,7 +11,8 @@
     "change": "Change",
     "yes": "Yes",
     "no": "No",
-    "back": "Back"
+    "back": "Back",
+    "minimize": "Minimize"
   },
   "home": {
     "currentState": "Current status",
@@ -136,7 +137,8 @@
     "revisionConflict": "Configuration conflict! Updating...",
     "saveFailed": "Save failed: ",
     "connection": "Connection error",
-    "elevationFailed": "Error: Failed to obtain permissions"
+    "elevationFailed": "Error: Failed to obtain permissions",
+    "minimizeFailed": "Failed to minimize application"
   },
   "elevation": {
     "restoring": "Restoring...",

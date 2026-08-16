@@ -930,3 +930,18 @@ service.register("installUpdate", function (message) {
         message.respond(result);
     });
 });
+
+service.register("minimizeApp", function (message) {
+    service.call("luna://com.webos.applicationManager/launch", { id: "com.webos.app.home" }, function (res) {
+        var payload = res && res.payload ? res.payload : res;
+        if (payload && payload.returnValue === true) {
+            message.respond({ returnValue: true, message: "App minimized" });
+        } else {
+            message.respond({
+                returnValue: false,
+                errorCode: "MINIMIZE_FAILED",
+                errorText: (payload && (payload.errorText || payload.error)) || "Failed to launch home screen"
+            });
+        }
+    });
+});

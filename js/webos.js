@@ -106,6 +106,7 @@
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
   function checkForUpdate() { return requestService("checkForUpdate", {}); }
   function installUpdate(expectedVersion) { return requestService("installUpdate", { expectedVersion: expectedVersion }); }
+  function minimizeApp() { return requestService("minimizeApp", {}); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;
   AmbiSun.webos.requestService = requestService;
@@ -126,4 +127,5 @@
   AmbiSun.webos.resolveLocation = resolveLocation;
   AmbiSun.webos.checkForUpdate = checkForUpdate;
   AmbiSun.webos.installUpdate = installUpdate;
+  AmbiSun.webos.minimizeApp = minimizeApp;
 })();

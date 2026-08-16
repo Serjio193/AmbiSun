@@ -1,0 +1,16 @@
+{
+  "paging": {
+    "page": 1,
+    "count": 1,
+    "maxPage": 1,
+    "itemsTotal": 1
+  },
+  "packages": [
+    {
+      "id": "org.webosbrew.ambisun",
+      "title": "AmbiSun",
+      "iconUri": "https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png",
+      "manifestUrl": "https://github.com/Serjio193/AmbiSun/releases/latest/download/org.webosbrew.ambisun.manifest.json"
+    }
+  ]
+}

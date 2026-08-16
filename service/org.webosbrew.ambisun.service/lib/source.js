@@ -84,7 +84,17 @@ function commitCandidate(candidate) {
     currentCandidate = null;
 }
 
+var IGNORED_FOREGROUND_APP_IDS = [
+    "org.webosbrew.ambisun",
+    "com.webos.app.home"
+];
+
 function handleCandidate(appId, rawPayload) {
+    if (appId && IGNORED_FOREGROUND_APP_IDS.indexOf(appId) !== -1) {
+        // Ignored foreground apps (AmbiSun UI and LG Home launcher) must not alter stable source, trigger debounce, or invoke automation
+        return;
+    }
+
     var candidate = normalizeSource(appId, rawPayload);
     
     if (stableSource.id === candidate.id && stableSource.type === candidate.type) {
@@ -214,8 +224,11 @@ module.exports = {
     init: init,
     getSourceDetectorStatus: getSourceDetectorStatus,
     getStableSource: getStableSource,
+    _setStableSource: function(s) { stableSource = s; },
     onStableSource: onStableSource,
     normalizeSource: normalizeSource,
+    handleCandidate: handleCandidate,
+    IGNORED_FOREGROUND_APP_IDS: IGNORED_FOREGROUND_APP_IDS,
     injectMocks: injectMocks,
     simulateForegroundMessage: simulateForegroundMessage,
     DEBOUNCE_MS: DEBOUNCE_MS

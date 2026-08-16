@@ -141,6 +141,21 @@
     color:#fff;
   }
 
+  .nav-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 8px 12px;
+  }
+
+  .minimize-line {
+    display: inline-block;
+    width: 20px;
+    height: 3px;
+    background: currentColor;
+    border-radius: 2px;
+    vertical-align: middle;
+  }
+
   .section-title{
     font-size:32px;
     font-weight:700;

@@ -126,6 +126,27 @@ AmbiSun periodically checks GitHub Releases for new updates:
 - The About screen displays release notes and an *Install Update* button.
 - *In-app self-update is implemented and pending final physical release validation.*
 
+### Future Plans
+
+AmbiSun currently focuses on LG webOS, but the long-term goal is to bring the same automation concept to other platforms.
+
+Planned versions:
+
+- Windows
+- Linux
+- Android TV and Android TV boxes
+
+The goal is to preserve the core AmbiSun idea wherever the platform allows it:
+
+- sunrise/sunset based automation;
+- configurable minute offsets;
+- HyperHDR `LEDDEVICE` control;
+- automatic behavior based on the active source or application where platform APIs make this possible.
+
+Feature parity may differ between platforms because Windows, Linux, Android TV, and webOS expose different system APIs and permissions.
+
+These versions are planned for the future and do not have a release date yet.
+
 ### Supported Languages
 
 - **English**
@@ -307,6 +328,27 @@ AmbiSun автоматически проверяет наличие новых 
 - На экране «О приложении» открывается список изменений и кнопка установки.
 - *Встроенный установщик обновлений реализован и готовится к релизному тестированию.*
 
+### Планы на будущее
+
+Сейчас основная платформа AmbiSun — LG webOS, но в дальнейшем я планирую перенести ту же идею автоматизации и на другие устройства.
+
+В планах версии для:
+
+- Windows
+- Linux
+- Android TV и Android TV Box
+
+Основная идея должна остаться той же:
+
+- автоматизация по восходу и закату;
+- точная настройка смещений в минутах;
+- управление `LEDDEVICE` HyperHDR;
+- разное поведение в зависимости от активного источника или приложения там, где это позволяют системные API платформы.
+
+Полный набор возможностей может отличаться между платформами, поскольку Windows, Linux, Android TV и webOS предоставляют разные системные API и уровни доступа.
+
+Это планы на будущее. Сроков выпуска этих версий пока нет.
+
 ### Поддерживаемые языки
 
 - **English** (Английский)
@@ -435,6 +477,27 @@ AmbiSun автоматично перевіряє вихід нових верс
 - Поруч із пунктом **«Про застосунок»** з'являється індикатор `!`, коли доступне оновлення.
 - На екрані «Про застосунок» відображається список змін та кнопка для встановлення.
 - *Вбудоване оновлення реалізовано та готується до релізного тестування.*
+
+### Плани на майбутнє
+
+Зараз основною платформою AmbiSun є LG webOS, але надалі я планую перенести ту саму ідею автоматизації й на інші пристрої.
+
+У планах версії для:
+
+- Windows
+- Linux
+- Android TV та Android TV Box
+
+Основна ідея має залишитися такою самою:
+
+- автоматизація за сходом і заходом сонця;
+- точне налаштування зміщень у хвилинах;
+- керування `LEDDEVICE` HyperHDR;
+- різна поведінка залежно від активного джерела або застосунку там, де це дозволяють системні API платформи.
+
+Повний набір можливостей може відрізнятися між платформами, оскільки Windows, Linux, Android TV та webOS мають різні системні API й рівні доступу.
+
+Це плани на майбутнє. Термінів випуску цих версій поки немає.
 
 ### Підтримувані мови
 

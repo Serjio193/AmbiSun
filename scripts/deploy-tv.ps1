@@ -3,24 +3,60 @@ $ErrorActionPreference = "Stop"
 $Repo = Split-Path -Parent $PSScriptRoot
 $Tv = "root@192.168.1.3"
 $AppId = "org.webosbrew.ambisun"
-$IpkName = "org.webosbrew.ambisun_0.1.0_all.ipk"
 
 Set-Location $Repo
+
+# 1. Read and validate version from appinfo.json
+$AppInfoPath = Join-Path $Repo "appinfo.json"
+if (-not (Test-Path $AppInfoPath)) {
+    throw "appinfo.json not found: $AppInfoPath"
+}
+
+$AppInfoText = [System.IO.File]::ReadAllText($AppInfoPath, [System.Text.Encoding]::UTF8)
+$AppInfo = $AppInfoText | ConvertFrom-Json
+$Version = [string]$AppInfo.version
+
+$SemverRegex = '^\d+\.\d+\.\d+$'
+if ($Version -notmatch $SemverRegex) {
+    throw "Invalid SemVer version in appinfo.json: '$Version'. Must match MAJOR.MINOR.PATCH (e.g. 0.1.0)."
+}
+
+# 2. Form IPK name and path dynamically
+$IpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
+$Ipk = Join-Path $Repo "dist\$IpkName"
+
+Write-Host "Application version: $Version"
+Write-Host "Expected IPK: $Ipk"
+
+# 3. Build safety and stale IPK prevention
+if (Test-Path $Ipk) {
+    Write-Host "Removing existing artifact to prevent stale IPK: $Ipk"
+    Remove-Item -Path $Ipk -Force
+}
+
+$BuildStarted = Get-Date
 
 Write-Host "`n=== 1. BUILD ==="
 powershell -ExecutionPolicy Bypass -File "$PSScriptRoot\package-debug.ps1"
 if ($LASTEXITCODE -ne 0) {
-    throw "Packaging failed."
+    throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
 }
 
-$Ipk = Join-Path $Repo "dist\$IpkName"
-
 if (-not (Test-Path $Ipk)) {
-    throw "IPK not found: $Ipk"
+    throw "IPK artifact not found after build: $Ipk"
+}
+
+$IpkItem = Get-Item $Ipk
+if ($IpkItem.Length -le 0) {
+    throw "Generated IPK artifact is empty: $Ipk"
+}
+
+if ($IpkItem.LastWriteTime -lt $BuildStarted) {
+    throw "Generated IPK artifact is older than build start time: $Ipk"
 }
 
 Write-Host "`n=== 2. LOCAL BUILD INFO ==="
-$size = (Get-Item $Ipk).Length
+$size = $IpkItem.Length
 Write-Host "IPK: $Ipk"
 Write-Host "Size: $size bytes"
 
@@ -63,16 +99,18 @@ $installResult = & ssh $Tv $remoteInstall
 $installResult | ForEach-Object { Write-Host $_ }
 
 if ($LASTEXITCODE -ne 0) {
-    throw "SSH/luna install command failed."
+    throw "SSH/luna install command failed with exit code $LASTEXITCODE."
 }
 
-if (($installResult -join "`n") -match '"returnValue"\s*:\s*false') {
-    throw "TV rejected installation."
+$installOutput = ($installResult -join "`n").Trim()
+if (-not $installOutput -or $installOutput -notmatch '"returnValue"\s*:\s*true' -or $installOutput -match '"returnValue"\s*:\s*false') {
+    throw "TV rejected installation or failed to report success."
 }
 
-Write-Host "`n=== 6. VERIFY ACTUAL INSTALLED FILE ==="
+Write-Host "`n=== 6. VERIFY ACTUAL INSTALLED FILES & VERSION ==="
 
 $remoteNav = "/media/developer/apps/usr/palm/applications/$AppId/js/navigation.js"
+$remoteAppInfoPath = "/media/developer/apps/usr/palm/applications/$AppId/appinfo.json"
 
 $verified = $false
 
@@ -86,7 +124,7 @@ for ($i = 1; $i -le 20; $i++) {
 
         $remoteHash = (($remoteHashLine -split '\s+')[0]).Trim().ToLower()
 
-        Write-Host "Attempt $i - TV SHA256: $remoteHash"
+        Write-Host "Attempt $i - TV navigation SHA256: $remoteHash"
 
         if ($remoteHash -eq $localHash) {
             $verified = $true
@@ -99,7 +137,25 @@ if (-not $verified) {
     throw "INSTALL VERIFICATION FAILED: TV navigation.js does not match local build."
 }
 
-Write-Host "Installed application matches current local source."
+# Verify installed appinfo version
+$remoteAppInfoText = (& ssh $Tv "cat '$remoteAppInfoPath' 2>/dev/null") -join "`n"
+if (-not $remoteAppInfoText) {
+    throw "INSTALL VERSION VERIFICATION FAILED: Could not read remote appinfo.json on TV."
+}
+
+try {
+    $remoteAppInfo = $remoteAppInfoText | ConvertFrom-Json
+    $remoteVersion = [string]$remoteAppInfo.version
+} catch {
+    throw "INSTALL VERSION VERIFICATION FAILED: Failed to parse remote appinfo.json."
+}
+
+Write-Host "TV installed version: $remoteVersion"
+if ($remoteVersion -ne $Version) {
+    throw "INSTALL VERSION VERIFICATION FAILED: TV version ($remoteVersion) does not match local version ($Version)."
+}
+
+Write-Host "Installed application matches current local source and version."
 
 Write-Host "`n=== 7. RESTORE ELEVATION ==="
 
@@ -114,5 +170,6 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "`n======================================"
 Write-Host "AMBISUN DEPLOY SUCCESS"
 Write-Host "======================================"
+Write-Host "Version: $Version"
 Write-Host "Installed navigation SHA256: $localHash"
 Write-Host "Now launch AmbiSun on the TV."

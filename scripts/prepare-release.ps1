@@ -1,4 +1,4 @@
-param (
+﻿param (
     [Parameter(Mandatory=$true)]
     [string]$Version,
     [switch]$DryRun
@@ -21,11 +21,24 @@ $DistDir = Join-Path $RepoRoot "dist"
 
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
-# 3. Read initial files using explicit UTF-8
-$OriginalAppInfoText = [System.IO.File]::ReadAllText($AppInfoPath, [System.Text.Encoding]::UTF8)
-$OriginalServicePackageText = [System.IO.File]::ReadAllText($ServicePackagePath, [System.Text.Encoding]::UTF8)
+# 3. Read exact original bytes for byte-for-byte DryRun restoration
+$OriginalAppInfoBytes = [System.IO.File]::ReadAllBytes($AppInfoPath)
+$OriginalServicePackageBytes = [System.IO.File]::ReadAllBytes($ServicePackagePath)
+
+# Read strings for JSON modification
+$OriginalAppInfoText = [System.Text.Encoding]::UTF8.GetString($OriginalAppInfoBytes)
+$OriginalServicePackageText = [System.Text.Encoding]::UTF8.GetString($OriginalServicePackageBytes)
 
 try {
+    # 4. Determine expected IPK path and prevent stale IPK usage
+    $ExpectedIpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
+    $ExpectedIpkPath = Join-Path $DistDir $ExpectedIpkName
+
+    if (Test-Path $ExpectedIpkPath) {
+        Write-Host "Removing existing artifact to prevent stale IPK: $ExpectedIpkPath"
+        Remove-Item -Path $ExpectedIpkPath -Force
+    }
+
     Write-Host "Updating version to $Version in metadata files..."
 
     # Update appinfo.json
@@ -40,23 +53,35 @@ try {
     $ServicePackageJson = $ServicePackage | ConvertTo-Json -Depth 10
     [System.IO.File]::WriteAllText($ServicePackagePath, $ServicePackageJson, $Utf8NoBom)
 
+    $BuildStarted = Get-Date
+
     Write-Host "Building package..."
     $PackageScript = Join-Path $ScriptDir "package-debug.ps1"
     & powershell -ExecutionPolicy Bypass -File $PackageScript
 
-    # Locate output IPK
-    $ExpectedIpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
-    $IpkPath = Join-Path $DistDir $ExpectedIpkName
-
-    if (-not (Test-Path $IpkPath)) {
-        throw "Expected IPK file not found: $IpkPath"
+    if ($LASTEXITCODE -ne 0) {
+        throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
     }
 
-    # 4. Compute SHA-256 and size
-    $Hash = (Get-FileHash -Path $IpkPath -Algorithm SHA256).Hash.ToLower()
-    $IpkSize = (Get-Item $IpkPath).Length
+    # 5. Verify build artifact freshness and integrity
+    if (-not (Test-Path $ExpectedIpkPath)) {
+        throw "Expected IPK artifact not found after build: $ExpectedIpkPath"
+    }
 
-    # 5. Generate dist/update.json (in-app updater manifest)
+    $IpkItem = Get-Item $ExpectedIpkPath
+    if ($IpkItem.Length -le 0) {
+        throw "Generated IPK artifact is empty: $ExpectedIpkPath"
+    }
+
+    if ($IpkItem.LastWriteTime -lt $BuildStarted) {
+        throw "Generated IPK artifact is older than build start time: $ExpectedIpkPath"
+    }
+
+    # 6. Compute SHA-256 and size
+    $Hash = (Get-FileHash -Path $ExpectedIpkPath -Algorithm SHA256).Hash.ToLower()
+    $IpkSize = $IpkItem.Length
+
+    # 7. Generate dist/update.json (in-app updater manifest)
     $UpdateManifest = [ordered]@{
         version = $Version
         sha256 = $Hash
@@ -71,7 +96,7 @@ try {
     $UpdateJsonContent = $UpdateManifest | ConvertTo-Json -Depth 10
     [System.IO.File]::WriteAllText($UpdateJsonPath, $UpdateJsonContent, $Utf8NoBom)
 
-    # 6. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
+    # 8. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
     $HomebrewManifest = [ordered]@{
         id = "org.webosbrew.ambisun"
         version = $Version
@@ -95,7 +120,7 @@ try {
     Write-Host "RELEASE PREPARATION SUCCESSFUL"
     Write-Host "========================================="
     Write-Host "Version:    $Version"
-    Write-Host "IPK Path:   $IpkPath"
+    Write-Host "IPK Path:   $ExpectedIpkPath"
     Write-Host "IPK Size:   $IpkSize bytes"
     Write-Host "SHA-256:    $Hash"
     Write-Host "Manifest:   $UpdateJsonPath"
@@ -114,9 +139,9 @@ try {
 }
 finally {
     if ($DryRun) {
-        Write-Host "DryRun enabled: Restoring original metadata files..."
-        [System.IO.File]::WriteAllText($AppInfoPath, $OriginalAppInfoText, $Utf8NoBom)
-        [System.IO.File]::WriteAllText($ServicePackagePath, $OriginalServicePackageText, $Utf8NoBom)
-        Write-Host "Metadata files restored to original versions."
+        Write-Host "DryRun enabled: Restoring exact original metadata bytes..."
+        [System.IO.File]::WriteAllBytes($AppInfoPath, $OriginalAppInfoBytes)
+        [System.IO.File]::WriteAllBytes($ServicePackagePath, $OriginalServicePackageBytes)
+        Write-Host "Metadata files restored byte-for-byte."
     }
 }

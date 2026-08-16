@@ -35,12 +35,27 @@
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
+    "language": "Language",
     "autostart": "Start with TV",
     "defaultRule": "Default rule for new apps",
     "test": "Test Ambilight for 5 seconds",
     "plasma": "HyperHDR Plasma background · Smooth",
     "advanced": "Advanced settings",
-    "reset": "Reset settings"
+    "reset": "Reset settings",
+    "saved": "Settings saved"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Server address:",
+    "port": "Port:",
+    "test": "Test",
+    "save": "Save",
+    "cancel": "Cancel",
+    "testing": "Testing connection...",
+    "available": "HyperHDR available",
+    "unavailable": "Unavailable",
+    "connected": "Connected",
+    "invalid": "Invalid address or port"
   },
   "language": {
     "system": "Same as TV",

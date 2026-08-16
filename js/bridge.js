@@ -84,9 +84,28 @@
     }
 
     // Fire sync jobs in parallel — each handles its own errors
+    if (sys) updateHyperhdrBadge(sys.hyperhdrReachable);
     syncConfig();
     syncSolar();
     syncSources();
+  }
+
+  function updateHyperhdrBadge(status) {
+    var badge = document.getElementById('hyperhdrStatusBadge');
+    if (!badge) return;
+    var hdr = AmbiSun.state.hyperhdr || { host: '127.0.0.1', port: 8090 };
+    var ep = hdr.host + ':' + hdr.port;
+    if (status === true || status === 'ok') {
+      badge.textContent = ep + ' OK ›';
+      badge.className = 'mode on';
+    } else if (status === false || status === 'error') {
+      var unavail = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен') : 'Недоступен';
+      badge.textContent = ep + ' ' + unavail + ' ›';
+      badge.className = 'mode off';
+    } else {
+      badge.textContent = ep + ' ›';
+      badge.className = 'mode';
+    }
   }
 
   // ---- Config sync ----
@@ -102,6 +121,16 @@
         AmbiSun.state.sunriseOffset = typeof cfg.sunriseOffset === 'number' ? cfg.sunriseOffset : 0;
         if (cfg.location) AmbiSun.state.location = cfg.location;
         if (cfg.overrides) AmbiSun.state.sourceRules = cfg.overrides;
+        if (cfg.hyperhdr) {
+          AmbiSun.state.hyperhdr = {
+            host: cfg.hyperhdr.host || '127.0.0.1',
+            port: cfg.hyperhdr.port || 8090
+          };
+          if (AmbiSun.config) {
+            AmbiSun.config.hyperhdrEndpoint = "http://" + AmbiSun.state.hyperhdr.host + ":" + AmbiSun.state.hyperhdr.port + "/json-rpc?request";
+          }
+        }
+        updateHyperhdrBadge();
 
         // Update steppers immediately
         document.querySelectorAll('[data-setting-value="sunset"]').forEach(function(el) {
@@ -327,9 +356,11 @@
   // ---- Public API ----
   AmbiSun.bridge.checkSystemStatus = checkSystemStatus;
   AmbiSun.bridge.mutateConfig = mutateConfig;
+  AmbiSun.bridge.syncConfig = syncConfig;
   AmbiSun.bridge.syncSolar = syncSolar;
   AmbiSun.bridge.syncSources = syncSources;
   AmbiSun.bridge.onScreenOpen = onScreenOpen;
   AmbiSun.bridge.startElevationRetry = startElevationRetry;
+  AmbiSun.bridge.updateHyperhdrBadge = updateHyperhdrBadge;
   AmbiSun.bridge.isElevated = function() { return isElevated; };
 })();

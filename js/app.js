@@ -217,16 +217,95 @@ const ACTIONS = {
   },
 
   'open-hyperhdr': () => {
-    AmbiSun.webos.getSystemStatus()
-      .then(r => {
-        const badge = document.getElementById('hyperhdrStatusBadge');
-        const ok = r.system && r.system.hyperhdrReachable;
-        if (badge) {
-          badge.textContent = ok ? 'OK' : 'Недоступен';
-          badge.className = 'mode ' + (ok ? 'on' : 'off');
+    const hostInput = document.getElementById('hyperhdrHostInput');
+    const portInput = document.getElementById('hyperhdrPortInput');
+    const resEl = document.getElementById('hyperhdrTestResult');
+    if (resEl) resEl.textContent = '';
+    const cur = state.hyperhdr || { host: '127.0.0.1', port: 8090 };
+    if (hostInput) hostInput.value = cur.host || '127.0.0.1';
+    if (portInput) portInput.value = cur.port || 8090;
+    const modal = document.getElementById('hyperhdrModal');
+    if (modal) {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      if (hostInput && AmbiSun.navigation.setFocus) {
+        AmbiSun.navigation.setFocus(hostInput);
+      }
+    }
+  },
+
+  'hyperhdr-test': async () => {
+    const host = (document.getElementById('hyperhdrHostInput')?.value || '').trim();
+    const port = parseInt(document.getElementById('hyperhdrPortInput')?.value, 10);
+    const resEl = document.getElementById('hyperhdrTestResult');
+    if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
+      if (resEl) {
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Неверный адрес или порт');
+        resEl.style.color = 'var(--danger)';
+      }
+      return;
+    }
+    if (resEl) {
+      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('hyperhdr.testing', 'Проверка подключения...');
+      resEl.style.color = 'var(--muted)';
+    }
+    try {
+      const r = await AmbiSun.webos.getHyperhdrStatus({ host, port });
+      if (r && r.returnValue && r.hyperhdr && r.hyperhdr.reachable) {
+        if (resEl) {
+          resEl.textContent = '✔ ' + AmbiSun.i18n.t('hyperhdr.available', 'HyperHDR доступен');
+          resEl.style.color = 'var(--green)';
         }
-        showToast('HyperHDR: ' + (ok ? 'OK' : 'Недоступен'));
-      }).catch(() => showToast('HyperHDR: ошибка'));
+      } else {
+        if (resEl) {
+          resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен');
+          resEl.style.color = 'var(--danger)';
+        }
+      }
+    } catch (_) {
+      if (resEl) {
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен');
+        resEl.style.color = 'var(--danger)';
+      }
+    }
+  },
+
+  'hyperhdr-save': async () => {
+    const host = (document.getElementById('hyperhdrHostInput')?.value || '').trim();
+    const port = parseInt(document.getElementById('hyperhdrPortInput')?.value, 10);
+    const resEl = document.getElementById('hyperhdrTestResult');
+    if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
+      if (resEl) {
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Неверный адрес или порт');
+        resEl.style.color = 'var(--danger)';
+      }
+      return;
+    }
+    state.hyperhdr = { host, port };
+    await AmbiSun.bridge.mutateConfig({ hyperhdr: { host, port } });
+    const modal = document.getElementById('hyperhdrModal');
+    if (modal) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge();
+    showToast(AmbiSun.i18n.t('settings.saved', 'Настройки сохранены'));
+    const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
+    if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
+  },
+
+  'hyperhdr-cancel': () => {
+    const modal = document.getElementById('hyperhdrModal');
+    if (modal) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+    const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
+    if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
+  },
+
+  'open-language': () => {
+    AmbiSun.navigation.openScreen('language');
   },
 
   'cycle-default-rule': ({direction = 1}) => {
@@ -241,9 +320,13 @@ const ACTIONS = {
   },
 
   'set-language': async ({el}) => {
-    await AmbiSun.i18n.setLanguage(el.dataset.language);
-    const label = el.querySelectorAll('span')[1]?.textContent || el.dataset.language;
-    showToast(`${AmbiSun.i18n.t('nav.language','Language')}: ${label}`);
+    const lang = el.dataset.language;
+    if (!lang) return;
+    await AmbiSun.i18n.setLanguage(lang);
+    updateSettingsLanguageBadge();
+    AmbiSun.navigation.openScreen('settings');
+    const langRow = document.querySelector('.list-item[data-action="open-language"]');
+    if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
   },
 
   'check-update': ({el}) => {
@@ -304,6 +387,14 @@ function dispatchAction(el, direction) {
 
 
 
+function updateSettingsLanguageBadge() {
+  const badge = document.getElementById('settingsLanguageBadge');
+  if (!badge) return;
+  const lang = AmbiSun.i18n.currentLanguage ? AmbiSun.i18n.currentLanguage() : (state.language || 'ru');
+  const label = AmbiSun.i18n.languageName ? AmbiSun.i18n.languageName(lang) : lang;
+  badge.textContent = label + ' ›';
+}
+
 function updateClock(){
   const d = new Date();
   document.getElementById('clock').textContent =
@@ -317,9 +408,18 @@ async function initUI(){
   AmbiSun.navigation.setBackHandler(() => {
     const startup = document.getElementById('startupScreen');
     const wizard = document.getElementById('locationWizard');
+    const hyperhdrModal = document.getElementById('hyperhdrModal');
 
     if (startup && startup.classList.contains('open') &&
         startup.classList.contains('first-run')) {
+      return;
+    }
+
+    if (hyperhdrModal && hyperhdrModal.classList.contains('open')) {
+      hyperhdrModal.classList.remove('open');
+      hyperhdrModal.setAttribute('aria-hidden', 'true');
+      const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
+      if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
       return;
     }
 
@@ -327,10 +427,18 @@ async function initUI(){
       if (AmbiSun.location && AmbiSun.location.back) {
         AmbiSun.location.back();
       }
-    } else {
-      const nav = document.querySelector(`.nav-item[data-screen="${window.AmbiSun.state.screen}"]`);
-      if (nav) AmbiSun.navigation.setFocus(nav);
+      return;
     }
+
+    if (window.AmbiSun.state.screen === 'language') {
+      AmbiSun.navigation.openScreen('settings');
+      const langRow = document.querySelector('.list-item[data-action="open-language"]');
+      if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
+      return;
+    }
+
+    const nav = document.querySelector(`.nav-item[data-screen="${window.AmbiSun.state.screen}"]`);
+    if (nav) AmbiSun.navigation.setFocus(nav);
   });
   AmbiSun.navigation.bind();
   AmbiSun.plasma.init();
@@ -344,6 +452,10 @@ async function initUI(){
 
   const lang = AmbiSun.i18n.savedLanguage();
   await AmbiSun.i18n.setLanguage(lang);
+  updateSettingsLanguageBadge();
+  if (AmbiSun.bridge && AmbiSun.bridge.updateHyperhdrBadge) {
+    AmbiSun.bridge.updateHyperhdrBadge();
+  }
 
   selectSupport('paypal');
   AmbiSun.navigation.openScreen('home');

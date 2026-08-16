@@ -40,6 +40,8 @@
 
   function hide(callback) {
     const startup = document.getElementById('startupScreen');
+    document.documentElement.classList.remove('ambisun-booting');
+
     if (!startup) {
       if (callback) callback();
       return;

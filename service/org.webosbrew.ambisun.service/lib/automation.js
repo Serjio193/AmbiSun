@@ -74,6 +74,10 @@ function processQueue() {
     }
     
     // Apply
+    var options = (cfg.hyperhdr && cfg.hyperhdr.host)
+        ? { host: cfg.hyperhdr.host, port: cfg.hyperhdr.port }
+        : undefined;
+
     hyperhdr.setLedDevice(result.state, function(err, ok) {
         if (!err) {
             state.lastAppliedState = result.state;
@@ -83,7 +87,7 @@ function processQueue() {
             state.hasAppliedInitialState = true;
         }
         done(err);
-    });
+    }, options);
 }
 
 function enqueueEvaluate(trigger, forceApply, callback) {

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html class="ambisun-booting" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -30,7 +30,6 @@
 <div class="nav-item actionable" data-action="open-screen" data-screen="home" role="button" tabindex="-1"><span class="icon">⌂</span><span data-i18n="nav.home">Главная</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="sources" role="button" tabindex="-1"><span class="icon">▣</span><span data-i18n="nav.sources">Источники и приложения</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="settings" role="button" tabindex="-1"><span class="icon">⚙</span><span data-i18n="nav.settings">Настройки</span></div>
-<div class="nav-item actionable" data-action="open-screen" data-screen="language" role="button" tabindex="-1"><span class="icon">◎</span><span data-i18n="nav.language">Язык</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="about" role="button" tabindex="-1"><span class="icon">ⓘ</span><span data-i18n="nav.about">О приложении</span></div>
 </nav>
 </aside>
@@ -129,16 +128,10 @@
 <div class="simple-page">
 <div class="card page-card">
 
-  <!-- Enable/disable AmbiSun -->
-  <div class="list-item actionable" data-action="toggle-setting" data-setting="enabled" role="button" tabindex="-1">
-    <span>💡</span><span data-i18n="settings.enabled">AmbiSun</span>
-    <span class="mode on" data-setting-badge="enabled">ВКЛ</span>
-  </div>
-
-  <!-- HyperHDR status check -->
+  <!-- HyperHDR endpoint & status -->
   <div class="list-item actionable" data-action="open-hyperhdr" role="button" tabindex="-1">
     <span>🔗</span><span data-i18n="settings.hyperhdr">HyperHDR</span>
-    <span class="mode on" id="hyperhdrStatusBadge">Подключён</span>
+    <span class="mode" id="hyperhdrStatusBadge">127.0.0.1:8090 ›</span>
   </div>
 
   <!-- Default rule for new apps -->
@@ -147,10 +140,10 @@
     <span class="mode sun" data-default-rule-badge="true">По солнцу</span>
   </div>
 
-  <!-- Location -->
-  <div class="list-item actionable" data-action="edit-location" role="button" tabindex="-1">
-    <span>📍</span><span data-i18n="settings.location">Местоположение</span>
-    <span id="settingsLocationBadge" style="color:var(--muted);font-size:17px">—</span>
+  <!-- Language -->
+  <div class="list-item actionable" data-action="open-language" role="button" tabindex="-1">
+    <span>🌐</span><span data-i18n="settings.language">Язык</span>
+    <span class="mode" id="settingsLanguageBadge">Русский ›</span>
   </div>
 
   <!-- Sunset offset stepper -->
@@ -174,7 +167,7 @@
   </div>
 
   <!-- Reset -->
-  <div class="list-item actionable" data-action="reset-settings" role="button" tabindex="-1">
+  <div class="list-item actionable" data-action="reset-settings" role="button" style="color:var(--danger)" tabindex="-1">
     <span>↺</span><span data-i18n="settings.reset">Сбросить настройки</span><span>›</span>
   </div>
 
@@ -238,8 +231,33 @@
 </div>
 </div>
 
+<!-- HYPERHDR MODAL -->
+<div aria-hidden="true" class="hyperhdr-modal" id="hyperhdrModal">
+  <div class="location-dialog" style="max-width:560px">
+    <div class="location-head">
+      <div class="location-title">HyperHDR</div>
+    </div>
+    <div class="location-body" style="padding: 24px 32px">
+      <div class="setting-field" style="margin-bottom:18px">
+        <label class="setting-input-label" data-i18n="hyperhdr.host" for="hyperhdrHostInput">Адрес сервера:</label>
+        <input class="actionable text-input" id="hyperhdrHostInput" type="text" value="127.0.0.1" spellcheck="false" autocomplete="off" />
+      </div>
+      <div class="setting-field" style="margin-bottom:22px">
+        <label class="setting-input-label" data-i18n="hyperhdr.port" for="hyperhdrPortInput">Порт:</label>
+        <input class="actionable text-input" id="hyperhdrPortInput" type="number" min="1" max="65535" value="8090" />
+      </div>
+      <div id="hyperhdrTestResult" style="min-height:28px; margin-bottom:18px; font-size:16px; text-align:center; color:var(--muted)"></div>
+      <div style="display:flex; gap:12px; justify-content:center">
+        <button class="pill actionable" data-action="hyperhdr-test" type="button" tabindex="-1" data-i18n="hyperhdr.test">Проверить</button>
+        <button class="pill actionable" data-action="hyperhdr-save" type="button" tabindex="-1" style="background:var(--blue);color:#fff;border-color:transparent" data-i18n="hyperhdr.save">Сохранить</button>
+        <button class="pill actionable" data-action="hyperhdr-cancel" type="button" tabindex="-1" data-i18n="hyperhdr.cancel">Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FIRST RUN / STARTUP SCREEN -->
-<div aria-hidden="true" class="startup-screen" id="startupScreen">
+<div aria-hidden="false" class="startup-screen open" id="startupScreen">
 <div class="startup-brand">
 <div aria-label="AmbiSun" class="startup-title">
 <span class="ambi">Ambi</span><span class="sun">Sun</span>

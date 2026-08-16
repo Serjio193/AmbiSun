@@ -94,6 +94,10 @@
 
   async function setLanguage(lang){
     window.AmbiSun.state.language = lang;
+    try {
+      localStorage.setItem(window.AmbiSun.constants.STORAGE_KEYS.language, lang);
+    } catch (_) {}
+
     await loadLanguage(lang);
 
     document.querySelectorAll('#language .list-item').forEach(item => {
@@ -104,9 +108,31 @@
     });
 
     const selectedItem = document.querySelector(`#language .list-item[data-language="${lang}"]`);
-    const label = selectedItem?.querySelectorAll('span')[1]?.textContent || t('language.system','System');
+    const label = (selectedItem && selectedItem.querySelectorAll('span')[1]?.textContent) || languageName(lang);
     const sub = document.querySelector('.nav-item[data-screen="language"] .sub');
     if (sub) sub.textContent = label;
+
+    const settingsBadge = document.getElementById('settingsLanguageBadge');
+    if (settingsBadge) settingsBadge.textContent = label;
+  }
+
+  function currentLanguage(){
+    return I18N_LANG || window.AmbiSun.state.language || 'en';
+  }
+
+  function languageName(lang){
+    const names = {
+      en: 'English',
+      ru: 'Русский',
+      uk: 'Українська',
+      et: 'Eesti',
+      de: 'Deutsch',
+      fr: 'Français',
+      es: 'Español',
+      it: 'Italiano',
+      system: t('language.system', 'Как на телевизоре')
+    };
+    return names[lang] || lang;
   }
 
   function savedLanguage(){
@@ -122,5 +148,7 @@
   AmbiSun.i18n.setLanguage = setLanguage;
   AmbiSun.i18n.savedLanguage = savedLanguage;
   AmbiSun.i18n.systemLanguageCode = systemLanguageCode;
+  AmbiSun.i18n.currentLanguage = currentLanguage;
+  AmbiSun.i18n.languageName = languageName;
 
 })();

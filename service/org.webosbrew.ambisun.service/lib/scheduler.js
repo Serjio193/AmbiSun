@@ -264,9 +264,12 @@ function executeWake(currentConfig, decisionModule, hyperhdrModule, nowStrOrDate
     }
     
     if (result.action === "set") {
+        var options = (currentConfig && currentConfig.hyperhdr && currentConfig.hyperhdr.host)
+            ? { host: currentConfig.hyperhdr.host, port: currentConfig.hyperhdr.port }
+            : undefined;
         hyperhdrModule.setLedDevice(result.state, function(err) {
             performReconcile(err, null);
-        });
+        }, options);
     } else {
         performReconcile(null, null);
     }

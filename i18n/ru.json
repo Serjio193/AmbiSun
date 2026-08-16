@@ -35,12 +35,27 @@
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
+    "language": "Язык",
     "autostart": "Запуск вместе с телевизором",
     "defaultRule": "Правило для новых приложений",
     "test": "Тест Ambilight на 5 секунд",
     "plasma": "HyperHDR Plasma фон · Smooth",
     "advanced": "Дополнительные настройки",
-    "reset": "Сбросить настройки"
+    "reset": "Сбросить настройки",
+    "saved": "Настройки сохранены"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Адрес сервера:",
+    "port": "Порт:",
+    "test": "Проверить",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "testing": "Проверка подключения...",
+    "available": "HyperHDR доступен",
+    "unavailable": "Недоступен",
+    "connected": "Подключён",
+    "invalid": "Неверный адрес или порт"
   },
   "language": {
     "system": "Как на телевизоре",

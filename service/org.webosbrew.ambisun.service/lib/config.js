@@ -6,7 +6,11 @@ var DEFAULT_CONFIG = {
     sunsetOffset: 30,
     sunriseOffset: 0,
     overrides: {},
-    location: null
+    location: null,
+    hyperhdr: {
+        host: "127.0.0.1",
+        port: 8090
+    }
 };
 
 // Global committed state
@@ -47,6 +51,51 @@ function isValidOffset(offset) {
     return true;
 }
 
+function validateHyperhdr(hdr) {
+    if (hdr === null || hdr === undefined) return "hyperhdr is required";
+    if (!isPlainObject(hdr)) return "hyperhdr must be a plain object";
+
+    var allowedKeys = ["host", "port"];
+    for (var key in hdr) {
+        if (Object.prototype.hasOwnProperty.call(hdr, key)) {
+            if (allowedKeys.indexOf(key) === -1) return "Unknown hyperhdr field: " + key;
+        }
+    }
+
+    if (typeof hdr.host !== "string" || hdr.host.trim() === "") {
+        return "hyperhdr.host must be a non-empty string";
+    }
+    var trimmedHost = hdr.host.trim();
+    if (/^https?:\/\//i.test(trimmedHost)) {
+        return "hyperhdr.host must not contain protocol (http:// or https://)";
+    }
+    if (trimmedHost.indexOf('/') !== -1) {
+        return "hyperhdr.host must not contain URL path";
+    }
+    if (/\s/.test(trimmedHost)) {
+        return "hyperhdr.host must not contain whitespace";
+    }
+
+    if (typeof hdr.port !== "number" || isNaN(hdr.port) || Math.floor(hdr.port) !== hdr.port || hdr.port < 1 || hdr.port > 65535) {
+        return "hyperhdr.port must be an integer between 1 and 65535";
+    }
+
+    return null;
+}
+
+function migrateDocument(doc) {
+    if (!doc || !isPlainObject(doc)) return doc;
+    if (!doc.config || !isPlainObject(doc.config)) return doc;
+
+    if (!doc.config.hyperhdr) {
+        doc.config.hyperhdr = {
+            host: "127.0.0.1",
+            port: 8090
+        };
+    }
+    return doc;
+}
+
 function validateLocation(loc) {
     if (loc === null) return null;
     if (!isPlainObject(loc)) return "location must be a plain object or null";
@@ -77,7 +126,7 @@ function validateDocument(doc) {
     if (!isPlainObject(doc.config)) return "config is not a plain object";
 
     var cfg = doc.config;
-    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location"];
+    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location", "hyperhdr"];
     for (var key in cfg) {
         if (Object.prototype.hasOwnProperty.call(cfg, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown config field: " + key;
@@ -99,6 +148,9 @@ function validateDocument(doc) {
     var locErr = validateLocation(cfg.location);
     if (locErr) return locErr;
 
+    var hdrErr = validateHyperhdr(cfg.hyperhdr);
+    if (hdrErr) return hdrErr;
+
     return null;
 }
 
@@ -106,7 +158,7 @@ function validatePatch(patch) {
     if (!isPlainObject(patch)) return "Patch must be a plain object";
     if (Object.keys(patch).length === 0) return "Patch is empty";
 
-    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location"];
+    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location", "hyperhdr"];
     for (var key in patch) {
         if (Object.prototype.hasOwnProperty.call(patch, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown field: " + key;
@@ -130,6 +182,11 @@ function validatePatch(patch) {
     if (patch.hasOwnProperty("location")) {
         var locErr = validateLocation(patch.location);
         if (locErr) return locErr;
+    }
+
+    if (patch.hasOwnProperty("hyperhdr")) {
+        var hdrErr = validateHyperhdr(patch.hyperhdr);
+        if (hdrErr) return hdrErr;
     }
     
     return null;
@@ -235,11 +292,12 @@ function init(callback) {
                 console.error("Storage load error or malformed JSON, using defaults:", err);
             }
         } else {
-            var docError = validateDocument(data);
+            var migrated = migrateDocument(data);
+            var docError = validateDocument(migrated);
             if (docError) {
                 console.error("Structurally invalid config file, falling back to defaults:", docError);
             } else {
-                state = data;
+                state = migrated;
             }
         }
         initStatus = "READY";
@@ -304,5 +362,7 @@ module.exports = {
     reset: reset,
     isInitialized: isInitialized,
     onCommit: onCommit,
-    _validateDocument: validateDocument // exposed for testing
+    _validateDocument: validateDocument, // exposed for testing
+    _validatePatch: validatePatch,       // exposed for testing
+    _migrateDocument: migrateDocument    // exposed for testing
 };

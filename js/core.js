@@ -20,6 +20,10 @@
       lat: 59.437,
       lon: 24.7536,
       timezone: 'Europe/Tallinn'
+    },
+    hyperhdr: {
+      host: '127.0.0.1',
+      port: 8090
     }
   };
 

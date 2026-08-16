@@ -35,12 +35,27 @@
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
+    "language": "Мова",
     "autostart": "Запуск разом із телевізором",
     "defaultRule": "Правило для нових застосунків",
     "test": "Тест Ambilight на 5 секунд",
     "plasma": "Фон HyperHDR Plasma · Smooth",
     "advanced": "Додаткові налаштування",
-    "reset": "Скинути налаштування"
+    "reset": "Скинути налаштування",
+    "saved": "Налаштування збережено"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Адреса сервера:",
+    "port": "Порт:",
+    "test": "Перевірити",
+    "save": "Зберегти",
+    "cancel": "Скасувати",
+    "testing": "Перевірка підключення...",
+    "available": "HyperHDR доступний",
+    "unavailable": "Недоступний",
+    "connected": "Підключено",
+    "invalid": "Невірна адреса або порт"
   },
   "language": {
     "system": "Як на телевізорі",

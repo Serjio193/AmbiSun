@@ -103,29 +103,40 @@ config.init(function() {
 var hyperhdr = require("./lib/hyperhdr");
 
 service.register("getHyperhdrStatus", function (message) {
+    var payload = message.payload || {};
+    var currentCfg = config.get().config;
+    var host = payload.host || (currentCfg.hyperhdr && currentCfg.hyperhdr.host) || "127.0.0.1";
+    var port = payload.port || (currentCfg.hyperhdr && currentCfg.hyperhdr.port) || 8090;
+
     hyperhdr.getStatus(function(err, result) {
         if (err) {
             return message.respond({
                 returnValue: false,
                 errorCode: err.code || "INTERNAL_ERROR",
-                errorText: err.message
+                errorText: err.message,
+                testedEndpoint: { host: host, port: port }
             });
         }
         
         message.respond({
             returnValue: true,
             apiVersion: runtimeInfo.SERVICE_API_VERSION,
+            testedEndpoint: { host: host, port: port },
             hyperhdr: {
                 reachable: true,
                 response: result
             }
         });
-    });
+    }, { host: host, port: port });
 });
 
 service.register("setLedDevice", function (message) {
     var payload = message.payload || {};
     var state = payload.state;
+    var currentCfg = config.get().config;
+    var options = (currentCfg.hyperhdr && currentCfg.hyperhdr.host)
+        ? { host: currentCfg.hyperhdr.host, port: currentCfg.hyperhdr.port }
+        : undefined;
     
     hyperhdr.setLedDevice(state, function(err, result) {
         if (err) {
@@ -141,7 +152,7 @@ service.register("setLedDevice", function (message) {
             apiVersion: runtimeInfo.SERVICE_API_VERSION,
             state: state
         });
-    });
+    }, options);
 });
 
 var decision = require("./lib/decision");
@@ -322,10 +333,15 @@ service.register("getSystemStatus", function(message) {
         }
     }
     
+    var currentCfg = config.get().config;
+    var options = (currentCfg.hyperhdr && currentCfg.hyperhdr.host)
+        ? { host: currentCfg.hyperhdr.host, port: currentCfg.hyperhdr.port }
+        : undefined;
+
     hyperhdr.getStatus(function(err, res) {
         sys.hyperhdrReachable = !err;
         checkDone();
-    });
+    }, options);
     
     service.call("luna://com.webos.service.applicationmanager/getForegroundAppInfo", {}, function(msg) {
         var payload = msg.payload || {};

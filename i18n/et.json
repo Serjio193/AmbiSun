@@ -35,12 +35,27 @@
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
+    "language": "Keel",
     "autostart": "Käivita koos teleriga",
     "defaultRule": "Uute rakenduste vaikereegel",
     "test": "Testi Ambilighti 5 sekundit",
     "plasma": "HyperHDR Plasma taust · Smooth",
     "advanced": "Täpsemad seaded",
-    "reset": "Lähtesta seaded"
+    "reset": "Lähtesta seaded",
+    "saved": "Seaded salvestatud"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Serveri aadress:",
+    "port": "Port:",
+    "test": "Testi",
+    "save": "Salvesta",
+    "cancel": "Tühista",
+    "testing": "Ühenduse kontrollimine...",
+    "available": "HyperHDR on saadaval",
+    "unavailable": "Pole saadaval",
+    "connected": "Ühendatud",
+    "invalid": "Vigane aadress või port"
   },
   "language": {
     "system": "Nagu teleris",

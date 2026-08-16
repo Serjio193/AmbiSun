@@ -783,7 +783,7 @@ service.register("getLocationCountries", function(message) {
 });
 
 
-// Cities from local GeoNames database.
+// Cities from local GeoNames database with pagination support.
 service.register("searchLocations", function(message) {
 
     var params = message.payload || {};
@@ -792,6 +792,16 @@ service.register("searchLocations", function(message) {
         String(params.countryCode || "")
             .trim()
             .toUpperCase();
+
+    var offset = parseInt(params.offset, 10);
+    if (isNaN(offset) || offset < 0) {
+        offset = 0;
+    }
+
+    var limit = parseInt(params.limit, 10);
+    if (isNaN(limit) || limit <= 0 || limit > 60) {
+        limit = 60;
+    }
 
     loadLocalCities(countryCode, function(err, cities) {
 
@@ -804,14 +814,17 @@ service.register("searchLocations", function(message) {
             return;
         }
 
+        var total = cities.length;
+        var sliced = cities.slice(offset, offset + limit);
+
         message.respond({
             returnValue: true,
             provider: "geonames-offline",
             countryCode: countryCode,
-            total: cities.length,
-
-            // TV interface intentionally shows 60 largest cities.
-            cities: cities.slice(0, 60)
+            total: total,
+            offset: offset,
+            limit: limit,
+            cities: sliced
         });
     });
 });

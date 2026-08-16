@@ -141,13 +141,29 @@ const ACTIONS = {
   },
 
   'location-city': async ({el}) => {
-    const res = await AmbiSun.location.wizardActionCity(el.dataset.city);
+    const res = await AmbiSun.location.wizardActionCity(el.dataset.city, {
+      lat: el.dataset.lat ? Number(el.dataset.lat) : undefined,
+      lon: el.dataset.lon ? Number(el.dataset.lon) : undefined,
+      tz: el.dataset.tz || undefined
+    });
     if (res) showToast(res);
   },
 
+  'location-city-next': () => {
+    AmbiSun.location.wizardActionCityNext && AmbiSun.location.wizardActionCityNext();
+  },
+
+  'location-city-prev': () => {
+    AmbiSun.location.wizardActionCityPrev && AmbiSun.location.wizardActionCityPrev();
+  },
+
   'location-city-retry': () => {
-    // Clear cache for current country and retry
     AmbiSun.location.clearCityCache && AmbiSun.location.clearCityCache(AmbiSun.location.wizardCountryCode());
+    AmbiSun.location.renderWizard();
+  },
+
+  'location-region-retry': () => {
+    AmbiSun.location.clearCatalogCache && AmbiSun.location.clearCatalogCache();
     AmbiSun.location.renderWizard();
   },
 

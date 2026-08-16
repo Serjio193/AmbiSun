@@ -79,7 +79,7 @@
       return;
     }
 
-    // Rule rows use ← / → to change their mode immediately.
+    // Rule rows use в†ђ / в†’ to change their mode immediately.
     if ((direction === 'left' || direction === 'right') &&
         (focusedEl.dataset.action === 'cycle-source-rule' ||
          focusedEl.dataset.action === 'cycle-default-rule')) {

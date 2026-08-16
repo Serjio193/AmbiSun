@@ -19,6 +19,15 @@
   function activate(el, direction = 1) {
     if (!el) return;
     setFocus(el);
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      try {
+        el.focus();
+        if (typeof el.select === 'function') {
+          el.select();
+        }
+      } catch (_) {}
+      return;
+    }
     if (actionHandler) {
       actionHandler(el, direction);
     }
@@ -88,6 +97,9 @@
 
   function setFocus(el) {
     if (!el || !isVisible(el)) return;
+    if (focusedEl && (focusedEl.tagName === 'INPUT' || focusedEl.tagName === 'TEXTAREA') && focusedEl !== el) {
+      try { focusedEl.blur(); } catch (_) {}
+    }
     document.querySelectorAll('.ui-focus').forEach(x => x.classList.remove('ui-focus'));
     focusedEl = el;
     el.classList.add('ui-focus');

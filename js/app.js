@@ -281,17 +281,28 @@ const ACTIONS = {
       }
       return;
     }
-    state.hyperhdr = { host, port };
-    await AmbiSun.bridge.mutateConfig({ hyperhdr: { host, port } });
-    const modal = document.getElementById('hyperhdrModal');
-    if (modal) {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
+    if (resEl) {
+      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('toast.saving', 'Сохранение...');
+      resEl.style.color = 'var(--muted)';
     }
-    if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge();
-    showToast(AmbiSun.i18n.t('settings.saved', 'Настройки сохранены'));
-    const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
-    if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
+    const success = await AmbiSun.bridge.mutateConfig({ hyperhdr: { host, port } });
+    if (success) {
+      state.hyperhdr = { host, port };
+      const modal = document.getElementById('hyperhdrModal');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+      if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge();
+      showToast(AmbiSun.i18n.t('settings.saved', 'Настройки сохранены'));
+      const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
+      if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
+    } else {
+      if (resEl) {
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('error.saveFailed', 'Ошибка сохранения');
+        resEl.style.color = 'var(--danger)';
+      }
+    }
   },
 
   'hyperhdr-cancel': () => {
@@ -354,6 +365,7 @@ window.AmbiSunActions = ACTIONS;
 
 function dispatchAction(el, direction) {
   const action = el.dataset.action;
+  if (!action) return;
   const handler = ACTIONS[action];
 
   flash(el);

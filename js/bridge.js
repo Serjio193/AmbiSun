@@ -292,13 +292,16 @@
           // Re-sync authoritative values quietly
           syncConfig();
           syncSolar();
+          return true;
         } else if (res && res.errorCode === 'REVISION_CONFLICT') {
           syncConfig();
           if (typeof window.showToast === 'function')
             window.showToast('Конфликт — обновление...');
+          return false;
         } else {
           if (typeof window.showToast === 'function')
             window.showToast('Ошибка: ' + ((res && res.errorText) || 'неизвестно'));
+          return false;
         }
       })
       .catch(function(e) {
@@ -307,6 +310,7 @@
             ? 'Таймаут соединения' : 'Ошибка соединения';
           window.showToast(msg);
         }
+        return false;
       });
   }
 

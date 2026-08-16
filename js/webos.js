@@ -101,12 +101,14 @@
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
   function detectCountryByIp() { return requestService("detectCountryByIp", {}); }
   function getLocationCountries() { return requestService("getLocationCountries", {}); }
+  function getHyperhdrStatus(params) { return requestService("getHyperhdrStatus", params || {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;
   AmbiSun.webos.requestService = requestService;
   AmbiSun.webos.getSystemStatus = getSystemStatus;
+  AmbiSun.webos.getHyperhdrStatus = getHyperhdrStatus;
   AmbiSun.webos.getConfig = getConfig;
   AmbiSun.webos.updateConfig = updateConfig;
   AmbiSun.webos.resetConfig = resetConfig;

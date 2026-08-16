@@ -56,11 +56,42 @@
     return [...document.querySelectorAll('.actionable')].filter(isVisible);
   }
 
+  function getScrollParent(el) {
+    if (!el) return null;
+    let parent = el.parentElement;
+    while (parent && parent !== document.body && parent !== document.documentElement) {
+      const style = window.getComputedStyle(parent);
+      const overflowY = style.overflowY;
+      if (overflowY === 'auto' || overflowY === 'scroll') {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+    return null;
+  }
+
+  function scrollIntoViewIfNeeded(el) {
+    if (!el) return;
+    const parent = getScrollParent(el);
+    if (!parent) return;
+
+    const elRect = el.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    const padding = 16;
+
+    if (elRect.top < parentRect.top + padding) {
+      parent.scrollTop -= (parentRect.top + padding - elRect.top);
+    } else if (elRect.bottom > parentRect.bottom - padding) {
+      parent.scrollTop += (elRect.bottom - (parentRect.bottom - padding));
+    }
+  }
+
   function setFocus(el) {
     if (!el || !isVisible(el)) return;
     document.querySelectorAll('.ui-focus').forEach(x => x.classList.remove('ui-focus'));
     focusedEl = el;
     el.classList.add('ui-focus');
+    scrollIntoViewIfNeeded(el);
   }
 
   function getFocusedElement() {

@@ -96,6 +96,9 @@
       entries.forEach(function(e) { e.current = (e.id === cid); });
     }
 
+    var focusedEl = AmbiSun.navigation && AmbiSun.navigation.getFocusedElement ? AmbiSun.navigation.getFocusedElement() : null;
+    var focusedSourceId = focusedEl && focusedEl.dataset ? focusedEl.dataset.source : null;
+
     list.innerHTML = '';
 
     if (entries.length === 0) {
@@ -152,6 +155,13 @@
 
     makeSection('HDMI-входы', hdmi);
     makeSection('Приложения', apps);
+
+    if (focusedSourceId) {
+      var toFocus = list.querySelector('.list-item[data-source="' + focusedSourceId + '"]');
+      if (toFocus && AmbiSun.navigation && AmbiSun.navigation.setFocus) {
+        AmbiSun.navigation.setFocus(toFocus);
+      }
+    }
   }
 
   AmbiSun.sources.ruleLabel = ruleLabel;

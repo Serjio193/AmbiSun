@@ -1,0 +1,10 @@
+{
+  "source": "GeoNames cities15000",
+  "license": "CC BY 4.0",
+  "countries": 247,
+  "countriesWithCities": 244,
+  "cities": 33054,
+  "RU": 1090,
+  "EE": 15,
+  "UA": 393
+}

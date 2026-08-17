@@ -2,7 +2,7 @@
   "nav": {
     "home": "หน้าแรก",
     "sources": "แหล่งสัญญาณและแอป",
-    "sun": "ดวงอาทิตย์และตารางเวลา",
+    "sun": "ดวงอาทิตย์และกำหนดเวลา",
     "settings": "การตั้งค่า",
     "language": "ภาษา",
     "about": "เกี่ยวกับ"
@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight เปิดอยู่",
     "modeSun": "โหมด: ตามดวงอาทิตย์",
     "currentSource": "แหล่งสัญญาณปัจจุบัน",
-    "nextOn": "การเปิดครั้งถัดไป",
-    "nextOff": "การปิดครั้งถัดไป"
+    "nextOn": "เปิดครั้งถัดไป",
+    "nextOff": "ปิดครั้งถัดไป"
   },
   "sun": {
     "sunset": "พระอาทิตย์ตก",
     "turnOn": "เปิด",
     "sunrise": "พระอาทิตย์ขึ้น",
-    "sunsetOffset": "เปิดตามเวลาพระอาทิตย์ตก",
-    "sunriseOffset": "ปิดตามเวลาพระอาทิตย์ขึ้น",
-    "localSchedule": "ตารางเวลาจะถูกนำไปใช้ทุกวันและคำนวณในเครื่อง",
+    "sunsetOffset": "เปิดโดยสัมพันธ์กับพระอาทิตย์ตก",
+    "sunriseOffset": "ปิดโดยสัมพันธ์กับพระอาทิตย์ขึ้น",
+    "localSchedule": "กำหนดการคำนวณในอุปกรณ์และทำงานทุกวัน",
     "todaySunset": "พระอาทิตย์ตกวันนี้",
     "ambilightOn": "Ambilight เปิด",
     "tomorrowSunrise": "พระอาทิตย์ขึ้นพรุ่งนี้"
@@ -37,9 +37,9 @@
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "ภาษา",
-    "autostart": "เริ่มพร้อมทีวี",
+    "autostart": "เริ่มทำงานพร้อมทีวี",
     "defaultRule": "กฎเริ่มต้นสำหรับแอปใหม่",
-    "test": "ทดสอบ Ambilight เป็นเวลา 5 วินาที",
+    "test": "ทดสอบ Ambilight 5 วินาที",
     "plasma": "พื้นหลังพลาสมา HyperHDR · นุ่มนวล",
     "advanced": "การตั้งค่าขั้นสูง",
     "reset": "รีเซ็ตการตั้งค่า",
@@ -74,7 +74,7 @@
     "license": "ใบอนุญาต: MIT"
   },
   "update": {
-    "available": "มีอัปเดตใหม่",
+    "available": "มีการอัปเดตใหม่",
     "install": "ติดตั้งการอัปเดต",
     "preparing": "กำลังเตรียมการอัปเดต…",
     "downloading": "กำลังดาวน์โหลดและตรวจสอบแพ็กเกจ…",
@@ -94,26 +94,26 @@
     "off": "ปิดตลอดเวลา"
   },
   "toast": {
-    "locationTodo": "TODO API: วิซาร์ดประเทศ / เมือง",
+    "locationTodo": "TODO API: ตัวช่วยสร้างประเทศ / เมือง",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "ทดสอบ Ambilight: 5 วินาที",
     "advancedTodo": "TODO: การตั้งค่าขั้นสูง",
     "reset": "รีเซ็ตการตั้งค่าต้นแบบแล้ว",
-    "updateOk": "ตรวจสอบ GitHub Releases แล้ว — เวอร์ชัน 1.0.0 เป็นเวอร์ชันปัจจุบัน",
+    "updateOk": "ตรวจสอบ GitHub Releases แล้ว — เวอร์ชัน 1.0.0 เป็นปัจจุบัน",
     "openGithub": "กำลังเปิด GitHub"
   },
   "location": {
     "title": "ตำแหน่งที่ตั้ง",
-    "stepDetected": "ตรวจพบโดย IP",
+    "stepDetected": "ตรวจพบตาม IP",
     "stepRegion": "ภูมิภาค",
     "stepCountry": "ประเทศ",
     "stepCity": "เมือง",
-    "detectedLead": "ตรวจพบประเทศโดย IP:",
+    "detectedLead": "ประเทศที่ตรวจพบตาม IP:",
     "isCountryCorrect": "คุณอยู่ในประเทศนี้หรือไม่?",
     "chooseRegion": "เลือกภูมิภาค",
     "chooseCountry": "เลือกประเทศ",
     "chooseCity": "เลือกเมือง",
-    "noKeyboard": "ไม่มีแป้นพิมพ์ — ใช้รีโมทเท่านั้น"
+    "noKeyboard": "ไม่มีแป้นพิมพ์ — ใช้รีโมตเท่านั้น"
   },
   "region": {
     "europe": "ยุโรป",
@@ -125,16 +125,16 @@
   },
   "firstRun": {
     "chooseLanguage": "เลือกภาษา",
-    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังในการตั้งค่า"
+    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังที่ การตั้งค่า"
   },
   "status": {
     "waiting": "กำลังรอ..."
   },
   "error": {
-    "revisionConflict": "การกำหนดค่าขัดแย้งกัน! กำลังอัปเดต...",
-    "saveFailed": "บันทึกไม่สำเร็จ: ",
+    "revisionConflict": "เกิดข้อขัดแย้งของการตั้งค่า! กำลังอัปเดต...",
+    "saveFailed": "บันทึกล้มเหลว: ",
     "connection": "ข้อผิดพลาดในการเชื่อมต่อ",
-    "elevationFailed": "ข้อผิดพลาด: ไม่สามารถรับสิทธิ์ได้",
+    "elevationFailed": "ข้อผิดพลาด: ไม่สามารถรับสิทธิ์การเข้าถึง",
     "minimizeFailed": "ไม่สามารถย่อแอปพลิเคชันได้"
   },
   "elevation": {

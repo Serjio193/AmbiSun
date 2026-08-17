@@ -5,7 +5,7 @@
     "sun": "Päike ja ajakava",
     "settings": "Seaded",
     "language": "Keel",
-    "about": "Rakendusest"
+    "about": "Info"
   },
   "common": {
     "change": "Muuda",
@@ -15,7 +15,7 @@
     "minimize": "Minimeeri"
   },
   "home": {
-    "currentState": "Praegune olek",
+    "currentState": "Hetkeseis",
     "ambilightOn": "Ambilight on sees",
     "modeSun": "Režiim: Päikese järgi",
     "currentSource": "Praegune allikas",
@@ -24,23 +24,23 @@
   },
   "sun": {
     "sunset": "Päikeseloojang",
-    "turnOn": "Sisselülitus",
+    "turnOn": "Lülita sisse",
     "sunrise": "Päikesetõus",
-    "sunsetOffset": "Sisselülitus päikeseloojangu suhtes",
-    "sunriseOffset": "Väljalülitus päikesetõusu suhtes",
-    "localSchedule": "Ajakava rakendub iga päev ja arvutatakse kohapeal.",
-    "todaySunset": "Tänane loojang",
-    "ambilightOn": "Ambilight ON",
-    "tomorrowSunrise": "Homme päikesetõus"
+    "sunsetOffset": "Sisselülitus loojangu suhtes",
+    "sunriseOffset": "Väljalülitus tõusu suhtes",
+    "localSchedule": "Ajakava arvutatakse kohapeal ja rakendatakse iga päev.",
+    "todaySunset": "Päikeseloojang täna",
+    "ambilightOn": "Ambilight SEES",
+    "tomorrowSunrise": "Päikesetõus homme"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Keel",
     "autostart": "Käivita koos teleriga",
-    "defaultRule": "Uute rakenduste vaikereegel",
+    "defaultRule": "Vaikereegel uutele rakendustele",
     "test": "Testi Ambilighti 5 sekundit",
-    "plasma": "HyperHDR Plasma taust · Smooth",
+    "plasma": "HyperHDR Plasma taust · Sujuv",
     "advanced": "Täpsemad seaded",
     "reset": "Lähtesta seaded",
     "saved": "Seaded salvestatud"
@@ -59,7 +59,7 @@
     "invalid": "Vigane aadress või port"
   },
   "language": {
-    "system": "Nagu teleris",
+    "system": "Sama mis teleril",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -75,7 +75,7 @@
   },
   "update": {
     "available": "Uuendus on saadaval",
-    "install": "Paigalda tarkvarauuendus",
+    "install": "Paigalda uuendus",
     "preparing": "Uuenduse ettevalmistamine…",
     "downloading": "Paketi allalaadimine ja kontroll…",
     "installing": "Uuenduse paigaldamine…",
@@ -85,7 +85,7 @@
   },
   "support": {
     "title": "❤ Toeta projekti",
-    "subtitle": "Toetuse andmed Legacy Bridge'ist",
+    "subtitle": "Toetuse info Legacy Bridge'ilt",
     "scan": "Skanni QR-kood telefoniga"
   },
   "rule": {
@@ -94,26 +94,26 @@
     "off": "Alati VÄLJAS"
   },
   "toast": {
-    "locationTodo": "TODO API: riigi / linna valik",
+    "locationTodo": "TODO API: riigi / linna viisard",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight test: 5 sekundit",
+    "test": "Ambilighti test: 5 sekundit",
     "advancedTodo": "TODO: täpsemad seaded",
     "reset": "Prototüübi seaded lähtestatud",
-    "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on ajakohane",
-    "openGithub": "Avatakse GitHub"
+    "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on aktuaalne",
+    "openGithub": "GitHubi avamine"
   },
   "location": {
     "title": "Asukoht",
     "stepDetected": "Tuvastatud IP järgi",
-    "stepRegion": "Piirkond",
+    "stepRegion": "Regioon",
     "stepCountry": "Riik",
     "stepCity": "Linn",
     "detectedLead": "IP järgi tuvastatud riik:",
     "isCountryCorrect": "Kas asute selles riigis?",
-    "chooseRegion": "Valige piirkond",
-    "chooseCountry": "Valige riik",
-    "chooseCity": "Valige linn",
-    "noKeyboard": "Klaviatuuri pole vaja — ainult pult"
+    "chooseRegion": "Vali regioon",
+    "chooseCountry": "Vali riik",
+    "chooseCity": "Vali linn",
+    "noKeyboard": "Klaviatuurita — ainult pult"
   },
   "region": {
     "europe": "Euroopa",
@@ -124,21 +124,21 @@
     "oceania": "Okeaania"
   },
   "firstRun": {
-    "chooseLanguage": "Valige keel",
-    "languageHint": "Keelt saab hiljem seadetes muuta."
+    "chooseLanguage": "Vali keel",
+    "languageHint": "Keelt saab hiljem Seadetes muuta."
   },
   "status": {
-    "waiting": "Ootab..."
+    "waiting": "Ootel..."
   },
   "error": {
-    "revisionConflict": "Konfiguratsioonikonflikt! Uuendamine...",
+    "revisionConflict": "Seadistuste konflikt! Uuendamine...",
     "saveFailed": "Salvestamine ebaõnnestus: ",
     "connection": "Ühenduse viga",
-    "elevationFailed": "Viga: õiguste saamine ebaõnnestus",
+    "elevationFailed": "Viga: Õiguste hankimine ebaõnnestus",
     "minimizeFailed": "Rakenduse minimeerimine ebaõnnestus"
   },
   "elevation": {
     "restoring": "Taastamine...",
-    "success": "Edukas! Taaskäivitamine..."
+    "success": "Õnnestus! Taaskäivitamine..."
   }
 }

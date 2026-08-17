@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Hjem",
-    "sources": "Kilder og apps",
-    "sun": "Sol og tidsplan",
+    "sources": "Kilder & apps",
+    "sun": "Sol & tidsplan",
     "settings": "Indstillinger",
     "language": "Sprog",
-    "about": "Om"
+    "about": "Om AmbiSun"
   },
   "common": {
     "change": "Skift",
@@ -26,9 +26,9 @@
     "sunset": "Solnedgang",
     "turnOn": "Tænd",
     "sunrise": "Solopgang",
-    "sunsetOffset": "Tænd i forhold til solnedgang",
-    "sunriseOffset": "Sluk i forhold til solopgang",
-    "localSchedule": "Tidsplanen anvendes dagligt og beregnes lokalt.",
+    "sunsetOffset": "Tænding i forhold til solnedgang",
+    "sunriseOffset": "Slukning i forhold til solopgang",
+    "localSchedule": "Tidsplanen beregnes lokalt og anvendes dagligt.",
     "todaySunset": "Solnedgang i dag",
     "ambilightOn": "Ambilight TÆNDT",
     "tomorrowSunrise": "Solopgang i morgen"
@@ -53,9 +53,9 @@
     "save": "Gem",
     "cancel": "Annuller",
     "testing": "Tester forbindelse...",
-    "available": "HyperHDR tilgængelig",
-    "unavailable": "Ikke tilgængelig",
-    "connected": "Tilsluttet",
+    "available": "HyperHDR er tilgængelig",
+    "unavailable": "Utilgængelig",
+    "connected": "Forbundet",
     "invalid": "Ugyldig adresse eller port"
   },
   "language": {
@@ -85,7 +85,7 @@
   },
   "support": {
     "title": "❤ Støt projektet",
-    "subtitle": "Supportoplysninger fra Legacy Bridge",
+    "subtitle": "Oplysninger om støtte fra Legacy Bridge",
     "scan": "Scan QR-koden med din telefon"
   },
   "rule": {
@@ -94,12 +94,12 @@
     "off": "Altid SLUKKET"
   },
   "toast": {
-    "locationTodo": "TODO API: guide til land / by",
+    "locationTodo": "TODO API: lande-/byguide",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-test: 5 sekunder",
     "advancedTodo": "TODO: avancerede indstillinger",
     "reset": "Prototypeindstillinger nulstillet",
-    "updateOk": "GitHub Releases kontrolleret — version 1.0.0 er aktuel",
+    "updateOk": "GitHub Releases tjekket — version 1.0.0 er aktuel",
     "openGithub": "Åbner GitHub"
   },
   "location": {
@@ -135,10 +135,10 @@
     "saveFailed": "Kunne ikke gemme: ",
     "connection": "Forbindelsesfejl",
     "elevationFailed": "Fejl: Kunne ikke hente tilladelser",
-    "minimizeFailed": "Kunne ikke minimere programmet"
+    "minimizeFailed": "Kunne ikke minimere applikationen"
   },
   "elevation": {
     "restoring": "Gendanner...",
-    "success": "Succes! Genstarter..."
+    "success": "Fuldført! Genstarter..."
   }
 }

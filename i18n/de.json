@@ -5,7 +5,7 @@
     "sun": "Sonne & Zeitplan",
     "settings": "Einstellungen",
     "language": "Sprache",
-    "about": "Über"
+    "about": "Über AmbiSun"
   },
   "common": {
     "change": "Ändern",
@@ -17,7 +17,7 @@
   "home": {
     "currentState": "Aktueller Status",
     "ambilightOn": "Ambilight ist an",
-    "modeSun": "Modus: Nach Sonne",
+    "modeSun": "Modus: Nach Sonnenstand",
     "currentSource": "Aktuelle Quelle",
     "nextOn": "Nächstes Einschalten",
     "nextOff": "Nächstes Ausschalten"
@@ -28,9 +28,9 @@
     "sunrise": "Sonnenaufgang",
     "sunsetOffset": "Einschalten relativ zum Sonnenuntergang",
     "sunriseOffset": "Ausschalten relativ zum Sonnenaufgang",
-    "localSchedule": "Zeitplan wird täglich angewendet und lokal berechnet.",
+    "localSchedule": "Der Zeitplan wird lokal berechnet und täglich angewendet.",
     "todaySunset": "Sonnenuntergang heute",
-    "ambilightOn": "Ambilight AN",
+    "ambilightOn": "Ambilight EIN",
     "tomorrowSunrise": "Sonnenaufgang morgen"
   },
   "settings": {
@@ -59,7 +59,7 @@
     "invalid": "Ungültige Adresse oder Port"
   },
   "language": {
-    "system": "Wie Fernseher",
+    "system": "Wie TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -77,28 +77,28 @@
     "available": "Update verfügbar",
     "install": "Update installieren",
     "preparing": "Update wird vorbereitet…",
-    "downloading": "Paket wird heruntergeladen und überprüft…",
+    "downloading": "Paket wird heruntergeladen und geprüft…",
     "installing": "Update wird installiert…",
-    "restart": "AmbiSun wird automatisch neu gestartet.",
+    "restart": "AmbiSun startet automatisch neu.",
     "failed": "Update fehlgeschlagen: ",
     "upToDate": "App ist auf dem neuesten Stand"
   },
   "support": {
     "title": "❤ Projekt unterstützen",
-    "subtitle": "Unterstützungsdetails von Legacy Bridge",
+    "subtitle": "Unterstützungsinformationen von Legacy Bridge",
     "scan": "QR-Code mit dem Smartphone scannen"
   },
   "rule": {
-    "sun": "Nach Sonne",
-    "on": "Immer AN",
+    "sun": "Nach Sonnenstand",
+    "on": "Immer EIN",
     "off": "Immer AUS"
   },
   "toast": {
-    "locationTodo": "TODO API: Land / Stadt-Assistent",
+    "locationTodo": "TODO API: Land-/Stadt-Assistent",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-Test: 5 Sekunden",
     "advancedTodo": "TODO: Erweiterte Einstellungen",
-    "reset": "Einstellungen zurückgesetzt",
+    "reset": "Prototypeinstellungen zurückgesetzt",
     "updateOk": "GitHub Releases geprüft — Version 1.0.0 ist aktuell",
     "openGithub": "GitHub wird geöffnet"
   },
@@ -131,7 +131,7 @@
     "waiting": "Warten..."
   },
   "error": {
-    "revisionConflict": "Konfigurationskonflikt! Aktualisierung...",
+    "revisionConflict": "Konfigurationskonflikt! Wird aktualisiert...",
     "saveFailed": "Speichern fehlgeschlagen: ",
     "connection": "Verbindungsfehler",
     "elevationFailed": "Fehler: Berechtigungen konnten nicht eingeholt werden",
@@ -139,6 +139,6 @@
   },
   "elevation": {
     "restoring": "Wiederherstellung...",
-    "success": "Erfolg! Neustart..."
+    "success": "Erfolgreich! Neustart..."
   }
 }

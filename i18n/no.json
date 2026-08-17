@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Hjem",
-    "sources": "Kilder og apper",
-    "sun": "Sol og tidsplan",
+    "sources": "Kilder & apper",
+    "sun": "Sol & tidsplan",
     "settings": "Innstillinger",
     "language": "Språk",
-    "about": "Om"
+    "about": "Om AmbiSun"
   },
   "common": {
     "change": "Endre",
@@ -15,20 +15,20 @@
     "minimize": "Minimer"
   },
   "home": {
-    "currentState": "Gjeldende status",
+    "currentState": "Nåværende status",
     "ambilightOn": "Ambilight er på",
     "modeSun": "Modus: Etter solen",
-    "currentSource": "Gjeldende kilde",
-    "nextOn": "Neste påslåing",
-    "nextOff": "Neste avslåing"
+    "currentSource": "Nåværende kilde",
+    "nextOn": "Neste start",
+    "nextOff": "Neste stopp"
   },
   "sun": {
     "sunset": "Solnedgang",
     "turnOn": "Slå på",
     "sunrise": "Soloppgang",
-    "sunsetOffset": "Slå på relativt til solnedgang",
-    "sunriseOffset": "Slå av relativt til soloppgang",
-    "localSchedule": "Tidsplanen brukes daglig og beregnes lokalt.",
+    "sunsetOffset": "Start i forhold til solnedgang",
+    "sunriseOffset": "Stopp i forhold til soloppgang",
+    "localSchedule": "Tidsplanen beregnes lokalt og brukes daglig.",
     "todaySunset": "Solnedgang i dag",
     "ambilightOn": "Ambilight PÅ",
     "tomorrowSunrise": "Soloppgang i morgen"
@@ -40,7 +40,7 @@
     "autostart": "Start med TV",
     "defaultRule": "Standardregel for nye apper",
     "test": "Test Ambilight i 5 sekunder",
-    "plasma": "HyperHDR Plasmabakgrunn · Jevn",
+    "plasma": "HyperHDR Plasma-bakgrunn · Jevn",
     "advanced": "Avanserte innstillinger",
     "reset": "Tilbakestill innstillinger",
     "saved": "Innstillinger lagret"
@@ -53,8 +53,8 @@
     "save": "Lagre",
     "cancel": "Avbryt",
     "testing": "Tester tilkobling...",
-    "available": "HyperHDR tilgjengelig",
-    "unavailable": "Ikke tilgjengelig",
+    "available": "HyperHDR er tilgjengelig",
+    "unavailable": "Utilgjengelig",
     "connected": "Tilkoblet",
     "invalid": "Ugyldig adresse eller port"
   },
@@ -79,14 +79,14 @@
     "preparing": "Forbereder oppdatering…",
     "downloading": "Laster ned og verifiserer pakke…",
     "installing": "Installerer oppdatering…",
-    "restart": "AmbiSun vil starte på nytt automatisk.",
+    "restart": "AmbiSun starter på nytt automatisk.",
     "failed": "Oppdatering mislyktes: ",
     "upToDate": "Appen er oppdatert"
   },
   "support": {
     "title": "❤ Støtt prosjektet",
     "subtitle": "Støttedetaljer fra Legacy Bridge",
-    "scan": "Skann QR-koden med telefonen din"
+    "scan": "Skann QR-koden med mobilen"
   },
   "rule": {
     "sun": "Etter solen",
@@ -94,7 +94,7 @@
     "off": "Alltid AV"
   },
   "toast": {
-    "locationTodo": "TODO API: veiviser for land / by",
+    "locationTodo": "TODO API: lands-/byveiviser",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-test: 5 sekunder",
     "advancedTodo": "TODO: avanserte innstillinger",
@@ -104,16 +104,16 @@
   },
   "location": {
     "title": "Plassering",
-    "stepDetected": "Oppdaget via IP",
+    "stepDetected": "Registrert via IP",
     "stepRegion": "Region",
     "stepCountry": "Land",
     "stepCity": "By",
-    "detectedLead": "Land oppdaget via IP:",
+    "detectedLead": "Land registrert via IP:",
     "isCountryCorrect": "Er du i dette landet?",
     "chooseRegion": "Velg en region",
     "chooseCountry": "Velg et land",
     "chooseCity": "Velg en by",
-    "noKeyboard": "Ingen tastatur — kun fjernkontroll"
+    "noKeyboard": "Ikke noe tastatur — kun fjernkontroll"
   },
   "region": {
     "europe": "Europa",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Velg et språk",
-    "languageHint": "Du kan endre språket senere i Innstillinger."
+    "languageHint": "Du kan endre språk senere i Innstillinger."
   },
   "status": {
     "waiting": "Venter..."
@@ -139,6 +139,6 @@
   },
   "elevation": {
     "restoring": "Gjenoppretter...",
-    "success": "Suksess! Starter på nytt..."
+    "success": "Vellykket! Starter på nytt..."
   }
 }

@@ -1,8 +1,8 @@
 {
   "nav": {
     "home": "Accueil",
-    "sources": "Sources et applis",
-    "sun": "Soleil et horaire",
+    "sources": "Sources et applications",
+    "sun": "Soleil et calendrier",
     "settings": "Paramètres",
     "language": "Langue",
     "about": "À propos"
@@ -16,8 +16,8 @@
   },
   "home": {
     "currentState": "État actuel",
-    "ambilightOn": "Ambilight est activé",
-    "modeSun": "Mode : Selon le soleil",
+    "ambilightOn": "Ambilight est allumé",
+    "modeSun": "Mode : selon le soleil",
     "currentSource": "Source actuelle",
     "nextOn": "Prochain allumage",
     "nextOff": "Prochaine extinction"
@@ -26,21 +26,21 @@
     "sunset": "Coucher du soleil",
     "turnOn": "Allumer",
     "sunrise": "Lever du soleil",
-    "sunsetOffset": "Allumer par rapport au coucher du soleil",
-    "sunriseOffset": "Éteindre par rapport au lever du soleil",
-    "localSchedule": "L'horaire est appliqué quotidiennement et calculé localement.",
+    "sunsetOffset": "Allumage par rapport au coucher du soleil",
+    "sunriseOffset": "Extinction par rapport au lever du soleil",
+    "localSchedule": "Le calendrier est calculé localement et appliqué chaque jour.",
     "todaySunset": "Coucher du soleil aujourd'hui",
-    "ambilightOn": "Ambilight ACTIVÉ",
+    "ambilightOn": "Ambilight ALLUMÉ",
     "tomorrowSunrise": "Lever du soleil demain"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Langue",
-    "autostart": "Démarrer avec la TV",
-    "defaultRule": "Règle par défaut pour nouvelles applis",
+    "autostart": "Démarrer avec le téléviseur",
+    "defaultRule": "Règle par défaut pour les nouvelles applications",
     "test": "Tester Ambilight pendant 5 secondes",
-    "plasma": "Fond Plasma HyperHDR · Fluide",
+    "plasma": "Arrière-plan Plasma HyperHDR · Fluide",
     "advanced": "Paramètres avancés",
     "reset": "Réinitialiser les paramètres",
     "saved": "Paramètres enregistrés"
@@ -56,7 +56,7 @@
     "available": "HyperHDR disponible",
     "unavailable": "Indisponible",
     "connected": "Connecté",
-    "invalid": "Adresse ou port invalide"
+    "invalid": "Adresse ou port non valide"
   },
   "language": {
     "system": "Identique au téléviseur",
@@ -85,13 +85,13 @@
   },
   "support": {
     "title": "❤ Soutenir le projet",
-    "subtitle": "Détails de soutien de Legacy Bridge",
-    "scan": "Scannez le code QR avec votre téléphone"
+    "subtitle": "Détails de soutien depuis Legacy Bridge",
+    "scan": "Scannez le code QR avec votre smartphone"
   },
   "rule": {
     "sun": "Selon le soleil",
-    "on": "Toujours ACTIVÉ",
-    "off": "Toujours DÉSACTIVÉ"
+    "on": "Toujours ALLUMÉ",
+    "off": "Toujours ÉTEINT"
   },
   "toast": {
     "locationTodo": "TODO API : assistant pays / ville",
@@ -99,7 +99,7 @@
     "test": "Test Ambilight : 5 secondes",
     "advancedTodo": "TODO : paramètres avancés",
     "reset": "Paramètres du prototype réinitialisés",
-    "updateOk": "Releases GitHub vérifiées — la version 1.0.0 est à jour",
+    "updateOk": "Vérification GitHub Releases — la version 1.0.0 est actuelle",
     "openGithub": "Ouverture de GitHub"
   },
   "location": {
@@ -113,7 +113,7 @@
     "chooseRegion": "Choisir une région",
     "chooseCountry": "Choisir un pays",
     "chooseCity": "Choisir une ville",
-    "noKeyboard": "Sans clavier — télécommande uniquement"
+    "noKeyboard": "Pas de clavier — télécommande uniquement"
   },
   "region": {
     "europe": "Europe",
@@ -124,7 +124,7 @@
     "oceania": "Océanie"
   },
   "firstRun": {
-    "chooseLanguage": "Choisissez une langue",
+    "chooseLanguage": "Choisir une langue",
     "languageHint": "Vous pourrez modifier la langue plus tard dans les Paramètres."
   },
   "status": {
@@ -134,8 +134,8 @@
     "revisionConflict": "Conflit de configuration ! Mise à jour...",
     "saveFailed": "Échec de l'enregistrement : ",
     "connection": "Erreur de connexion",
-    "elevationFailed": "Erreur : Échec de l'obtention des autorisations",
-    "minimizeFailed": "Impossible de réduire l'application"
+    "elevationFailed": "Erreur : échec de l'obtention des permissions",
+    "minimizeFailed": "Échec de la réduction de l'application"
   },
   "elevation": {
     "restoring": "Restauration...",

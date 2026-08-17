@@ -1,34 +1,34 @@
 {
   "nav": {
-    "home": "Utama",
+    "home": "Laman Utama",
     "sources": "Sumber & aplikasi",
     "sun": "Matahari & jadual",
     "settings": "Tetapan",
     "language": "Bahasa",
-    "about": "Tentang"
+    "about": "Perihal"
   },
   "common": {
-    "change": "Ubah",
+    "change": "Tukar",
     "yes": "Ya",
     "no": "Tidak",
     "back": "Kembali",
-    "minimize": "Kecilkan"
+    "minimize": "Minimumkan"
   },
   "home": {
     "currentState": "Status semasa",
     "ambilightOn": "Ambilight dihidupkan",
     "modeSun": "Mod: Mengikut matahari",
     "currentSource": "Sumber semasa",
-    "nextOn": "Dihidupkan seterusnya",
-    "nextOff": "Dimatikan seterusnya"
+    "nextOn": "Hidup seterusnya",
+    "nextOff": "Mati seterusnya"
   },
   "sun": {
     "sunset": "Matahari terbenam",
     "turnOn": "Hidupkan",
     "sunrise": "Matahari terbit",
-    "sunsetOffset": "Hidupkan relatif kepada terbenam",
-    "sunriseOffset": "Matikan relatif kepada terbit",
-    "localSchedule": "Jadual digunakan setiap hari dan dikira secara tempatan.",
+    "sunsetOffset": "Hidupkan relatif kepada matahari terbenam",
+    "sunriseOffset": "Matikan relatif kepada matahari terbit",
+    "localSchedule": "Jadual dikira secara tempatan dan digunakan setiap hari.",
     "todaySunset": "Matahari terbenam hari ini",
     "ambilightOn": "Ambilight HIDUP",
     "tomorrowSunrise": "Matahari terbit esok"
@@ -37,10 +37,10 @@
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Bahasa",
-    "autostart": "Mula dengan TV",
+    "autostart": "Mula bersama TV",
     "defaultRule": "Peraturan lalai untuk aplikasi baharu",
     "test": "Uji Ambilight selama 5 saat",
-    "plasma": "Latar Belakang Plasma HyperHDR · Lancar",
+    "plasma": "Latar belakang Plasma HyperHDR · Lancar",
     "advanced": "Tetapan lanjutan",
     "reset": "Tetapkan semula tetapan",
     "saved": "Tetapan disimpan"
@@ -135,7 +135,7 @@
     "saveFailed": "Gagal menyimpan: ",
     "connection": "Ralat sambungan",
     "elevationFailed": "Ralat: Gagal mendapatkan kebenaran",
-    "minimizeFailed": "Gagal mengecilkan aplikasi"
+    "minimizeFailed": "Gagal meminimumkan aplikasi"
   },
   "elevation": {
     "restoring": "Memulihkan...",

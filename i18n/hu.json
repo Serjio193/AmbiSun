@@ -12,11 +12,11 @@
     "yes": "Igen",
     "no": "Nem",
     "back": "Vissza",
-    "minimize": "Kicsinyítés"
+    "minimize": "Kis méret"
   },
   "home": {
     "currentState": "Jelenlegi állapot",
-    "ambilightOn": "Ambilight be van kapcsolva",
+    "ambilightOn": "Az Ambilight be van kapcsolva",
     "modeSun": "Mód: Nap szerint",
     "currentSource": "Jelenlegi forrás",
     "nextOn": "Következő bekapcsolás",
@@ -28,7 +28,7 @@
     "sunrise": "Napkelte",
     "sunsetOffset": "Bekapcsolás a napnyugtához képest",
     "sunriseOffset": "Kikapcsolás a napkeltéhez képest",
-    "localSchedule": "Az ütemezés naponta érvényesül és helyileg kerül kiszámításra.",
+    "localSchedule": "Az időzítés helyileg számított és naponta érvényesül.",
     "todaySunset": "Napnyugta ma",
     "ambilightOn": "Ambilight BE",
     "tomorrowSunrise": "Napkelte holnap"
@@ -40,14 +40,14 @@
     "autostart": "Indítás a TV-vel",
     "defaultRule": "Alapértelmezett szabály új appokhoz",
     "test": "Ambilight tesztelése 5 másodpercig",
-    "plasma": "HyperHDR Plazma háttér · Sima",
-    "advanced": "Speciális beállítások",
+    "plasma": "HyperHDR Plazma háttér · Finom átmenet",
+    "advanced": "Haladó beállítások",
     "reset": "Beállítások visszaállítása",
-    "saved": "Beállítások elmentve"
+    "saved": "Beállítások mentve"
   },
   "hyperhdr": {
     "title": "HyperHDR",
-    "host": "Szerver címe:",
+    "host": "Kiszolgáló címe:",
     "port": "Port:",
     "test": "Teszt",
     "save": "Mentés",
@@ -59,7 +59,7 @@
     "invalid": "Érvénytelen cím vagy port"
   },
   "language": {
-    "system": "A TV-vel megegyező",
+    "system": "Ugyanaz, mint a TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -74,19 +74,19 @@
     "license": "Licenc: MIT"
   },
   "update": {
-    "available": "Frissítés elérhető",
+    "available": "Frissítés érhető el",
     "install": "Frissítés telepítése",
     "preparing": "Frissítés előkészítése…",
     "downloading": "Csomag letöltése és ellenőrzése…",
     "installing": "Frissítés telepítése…",
     "restart": "Az AmbiSun automatikusan újraindul.",
-    "failed": "Frissítés sikertelen: ",
+    "failed": "A frissítés sikertelen: ",
     "upToDate": "Az alkalmazás naprakész"
   },
   "support": {
-    "title": "❤ Projekt támogatása",
-    "subtitle": "Támogatási részletek a Legacy Bridge-ből",
-    "scan": "Olvassa be a QR-kódot telefonjával"
+    "title": "❤ A projekt támogatása",
+    "subtitle": "Támogatási részletek a Legacy Bridge-től",
+    "scan": "Olvassa be a QR-kódot a telefonjával"
   },
   "rule": {
     "sun": "Nap szerint",
@@ -97,13 +97,13 @@
     "locationTodo": "TODO API: ország / város varázsló",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight teszt: 5 másodperc",
-    "advancedTodo": "TODO: speciális beállítások",
+    "advancedTodo": "TODO: haladó beállítások",
     "reset": "Prototípus beállításai visszaállítva",
-    "updateOk": "GitHub Releases ellenőrizve — az 1.0.0-s verzió aktuális",
+    "updateOk": "GitHub Releases ellenőrizve — az 1.0.0 verzió naprakész",
     "openGithub": "GitHub megnyitása"
   },
   "location": {
-    "title": "Helyzet",
+    "title": "Helyszín",
     "stepDetected": "IP alapján észlelve",
     "stepRegion": "Régió",
     "stepCountry": "Ország",
@@ -132,13 +132,13 @@
   },
   "error": {
     "revisionConflict": "Konfigurációs ütközés! Frissítés...",
-    "saveFailed": "Mentés sikertelen: ",
-    "connection": "Kapcsolódási hiba",
-    "elevationFailed": "Hiba: Engedélyek megszerzése sikertelen",
-    "minimizeFailed": "Nem sikerült kicsinyíteni az alkalmazást"
+    "saveFailed": "A mentés sikertelen: ",
+    "connection": "Csatlakozási hiba",
+    "elevationFailed": "Hiba: Nem sikerült megszerezni a jogosultságokat",
+    "minimizeFailed": "Az alkalmazás kis méretre állítása sikertelen"
   },
   "elevation": {
-    "restoring": "Helyreállítás...",
+    "restoring": "Visszaállítás...",
     "success": "Sikeres! Újraindítás..."
   }
 }

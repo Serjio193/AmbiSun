@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight ir ieslēgts",
     "modeSun": "Režīms: Pēc saules",
     "currentSource": "Pašreizējais avots",
-    "nextOn": "Nākamā ieslēgšanās",
-    "nextOff": "Nākamā izslēgšanās"
+    "nextOn": "Nākamā ieslēgšana",
+    "nextOff": "Nākamā izslēgšana"
   },
   "sun": {
     "sunset": "Saulriets",
     "turnOn": "Ieslēgt",
     "sunrise": "Saullēkts",
-    "sunsetOffset": "Ieslēgt attiecībā pret saulrietu",
-    "sunriseOffset": "Izslēgt attiecībā pret saullēktu",
-    "localSchedule": "Grafiks tiek piemērots katru dienu un aprēķināts lokāli.",
+    "sunsetOffset": "Ieslēgšana attiecībā pret saulrietu",
+    "sunriseOffset": "Izslēgšana attiecībā pret saullēktu",
+    "localSchedule": "Grafiks tiek aprēķināts lokāli un piemērots katru dienu.",
     "todaySunset": "Saulriets šodien",
     "ambilightOn": "Ambilight IESLĒGTS",
     "tomorrowSunrise": "Saullēkts rīt"
@@ -37,10 +37,10 @@
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Valoda",
-    "autostart": "Sākt kopā ar TV",
+    "autostart": "Startēt kopā ar TV",
     "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
     "test": "Testēt Ambilight 5 sekundes",
-    "plasma": "HyperHDR plazmas fons · Plūstošs",
+    "plasma": "HyperHDR Plasma fons · Plūstošs",
     "advanced": "Papildu iestatījumi",
     "reset": "Atiestatīt iestatījumus",
     "saved": "Iestatījumi saglabāti"
@@ -53,13 +53,13 @@
     "save": "Saglabāt",
     "cancel": "Atcelt",
     "testing": "Pārbauda savienojumu...",
-    "available": "HyperHDR pieejams",
+    "available": "HyperHDR ir pieejams",
     "unavailable": "Nav pieejams",
     "connected": "Savienots",
     "invalid": "Nederīga adrese vai ports"
   },
   "language": {
-    "system": "Tāpat kā TV",
+    "system": "Tāda pati kā TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -99,7 +99,7 @@
     "test": "Ambilight tests: 5 sekundes",
     "advancedTodo": "TODO: papildu iestatījumi",
     "reset": "Prototipa iestatījumi atiestatīti",
-    "updateOk": "GitHub Releases pārbaudīts — versija 1.0.0 ir jaunākā",
+    "updateOk": "Pārbaudīts GitHub Releases — versija 1.0.0 ir aktuāla",
     "openGithub": "Atver GitHub"
   },
   "location": {
@@ -108,12 +108,12 @@
     "stepRegion": "Reģions",
     "stepCountry": "Valsts",
     "stepCity": "Pilsēta",
-    "detectedLead": "Valsts noteikta pēc IP:",
+    "detectedLead": "Pēc IP noteiktā valsts:",
     "isCountryCorrect": "Vai atrodaties šajā valstī?",
     "chooseRegion": "Izvēlieties reģionu",
     "chooseCountry": "Izvēlieties valsti",
     "chooseCity": "Izvēlieties pilsētu",
-    "noKeyboard": "Nav tastatūras — tikai tālvadības pults"
+    "noKeyboard": "Bez tastatūras — tikai tālvadības pults"
   },
   "region": {
     "europe": "Eiropa",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Izvēlieties valodu",
-    "languageHint": "Valodu varat mainīt vēlāk Iestatījumos."
+    "languageHint": "Valodu vēlāk var mainīt Iestatījumos."
   },
   "status": {
     "waiting": "Gaida..."

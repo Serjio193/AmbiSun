@@ -1,8 +1,8 @@
 {
   "nav": {
     "home": "Início",
-    "sources": "Fontes e apps",
-    "sun": "Sol e programação",
+    "sources": "Fontes e aplicativos",
+    "sun": "Sol e agendamento",
     "settings": "Configurações",
     "language": "Idioma",
     "about": "Sobre"
@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight está ligado",
     "modeSun": "Modo: Pelo sol",
     "currentSource": "Fonte atual",
-    "nextOn": "Próximo ligar",
-    "nextOff": "Próximo desligar"
+    "nextOn": "Próxima ativação",
+    "nextOff": "Próxima desativação"
   },
   "sun": {
     "sunset": "Pôr do sol",
     "turnOn": "Ligar",
     "sunrise": "Nascer do sol",
-    "sunsetOffset": "Ligar relativo ao pôr do sol",
-    "sunriseOffset": "Desligar relativo ao nascer do sol",
-    "localSchedule": "A programação é aplicada diariamente e calculada localmente.",
+    "sunsetOffset": "Ligar em relação ao pôr do sol",
+    "sunriseOffset": "Desligar em relação ao nascer do sol",
+    "localSchedule": "O agendamento é calculado localmente e aplicado diariamente.",
     "todaySunset": "Pôr do sol hoje",
     "ambilightOn": "Ambilight LIGADO",
     "tomorrowSunrise": "Nascer do sol amanhã"
@@ -38,9 +38,9 @@
     "hyperhdr": "HyperHDR",
     "language": "Idioma",
     "autostart": "Iniciar com a TV",
-    "defaultRule": "Regra padrão para novos apps",
+    "defaultRule": "Regra padrão para novos aplicativos",
     "test": "Testar Ambilight por 5 segundos",
-    "plasma": "Fundo Plasma HyperHDR · Suave",
+    "plasma": "Fundo Plasma do HyperHDR · Suave",
     "advanced": "Configurações avançadas",
     "reset": "Redefinir configurações",
     "saved": "Configurações salvas"
@@ -56,7 +56,7 @@
     "available": "HyperHDR disponível",
     "unavailable": "Indisponível",
     "connected": "Conectado",
-    "invalid": "Endereço ou porta inválidos"
+    "invalid": "Endereço ou porta inválida"
   },
   "language": {
     "system": "Igual à TV",
@@ -79,14 +79,14 @@
     "preparing": "Preparando atualização…",
     "downloading": "Baixando e verificando pacote…",
     "installing": "Instalando atualização…",
-    "restart": "O AmbiSun reiniciará automaticamente.",
+    "restart": "O AmbiSun será reiniciado automaticamente.",
     "failed": "Falha na atualização: ",
-    "upToDate": "O app está atualizado"
+    "upToDate": "O aplicativo está atualizado"
   },
   "support": {
     "title": "❤ Apoie o projeto",
     "subtitle": "Detalhes de apoio do Legacy Bridge",
-    "scan": "Escaneie o código QR com seu celular"
+    "scan": "Escaneie o código QR com o celular"
   },
   "rule": {
     "sun": "Pelo sol",
@@ -94,12 +94,12 @@
     "off": "Sempre DESLIGADO"
   },
   "toast": {
-    "locationTodo": "TODO API: assistente país / cidade",
+    "locationTodo": "TODO API: assistente de país / cidade",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Teste do Ambilight: 5 segundos",
     "advancedTodo": "TODO: configurações avançadas",
     "reset": "Configurações do protótipo redefinidas",
-    "updateOk": "GitHub Releases verificado — versão 1.0.0 está atualizada",
+    "updateOk": "GitHub Releases verificado — versão 1.0.0 atual",
     "openGithub": "Abrindo GitHub"
   },
   "location": {

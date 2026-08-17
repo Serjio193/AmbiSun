@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Home",
-    "sources": "Sorgenti e app",
-    "sun": "Sole e programmazione",
+    "sources": "Sorgenti & app",
+    "sun": "Sole & programmazione",
     "settings": "Impostazioni",
     "language": "Lingua",
-    "about": "Informazioni"
+    "about": "Info su AmbiSun"
   },
   "common": {
     "change": "Modifica",
@@ -16,7 +16,7 @@
   },
   "home": {
     "currentState": "Stato attuale",
-    "ambilightOn": "Ambilight attivo",
+    "ambilightOn": "Ambilight è acceso",
     "modeSun": "Modalità: In base al sole",
     "currentSource": "Sorgente attuale",
     "nextOn": "Prossima accensione",
@@ -26,9 +26,9 @@
     "sunset": "Tramonto",
     "turnOn": "Accendi",
     "sunrise": "Alba",
-    "sunsetOffset": "Accendi rispetto al tramonto",
-    "sunriseOffset": "Spegni rispetto all'alba",
-    "localSchedule": "La programmazione viene applicata quotidianamente e calcolata localmente.",
+    "sunsetOffset": "Accensione relativa al tramonto",
+    "sunriseOffset": "Spegnimento relativo all'alba",
+    "localSchedule": "La programmazione è calcolata localmente e applicata ogni giorno.",
     "todaySunset": "Tramonto oggi",
     "ambilightOn": "Ambilight ACCESO",
     "tomorrowSunrise": "Alba domani"
@@ -38,11 +38,11 @@
     "hyperhdr": "HyperHDR",
     "language": "Lingua",
     "autostart": "Avvia con la TV",
-    "defaultRule": "Regola predefinita per nuove app",
-    "test": "Testa Ambilight per 5 secondi",
+    "defaultRule": "Regola predefinita per le nuove app",
+    "test": "Prova Ambilight per 5 secondi",
     "plasma": "Sfondo Plasma HyperHDR · Fluido",
     "advanced": "Impostazioni avanzate",
-    "reset": "Reimposta impostazioni",
+    "reset": "Ripristina impostazioni",
     "saved": "Impostazioni salvate"
   },
   "hyperhdr": {
@@ -52,7 +52,7 @@
     "test": "Test",
     "save": "Salva",
     "cancel": "Annulla",
-    "testing": "Test connessione in corso...",
+    "testing": "Test di connessione...",
     "available": "HyperHDR disponibile",
     "unavailable": "Non disponibile",
     "connected": "Connesso",
@@ -77,16 +77,16 @@
     "available": "Aggiornamento disponibile",
     "install": "Installa aggiornamento",
     "preparing": "Preparazione aggiornamento…",
-    "downloading": "Download e verifica del pacchetto…",
+    "downloading": "Download e verifica pacchetto…",
     "installing": "Installazione aggiornamento…",
     "restart": "AmbiSun si riavvierà automaticamente.",
     "failed": "Aggiornamento non riuscito: ",
-    "upToDate": "L'app è aggiornata"
+    "upToDate": "L'applicazione è aggiornata"
   },
   "support": {
     "title": "❤ Sostieni il progetto",
-    "subtitle": "Dettagli supporto da Legacy Bridge",
-    "scan": "Scansiona il codice QR con il tuo smartphone"
+    "subtitle": "Dettagli di supporto da Legacy Bridge",
+    "scan": "Scansiona il codice QR con lo smartphone"
   },
   "rule": {
     "sun": "In base al sole",
@@ -98,7 +98,7 @@
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Test Ambilight: 5 secondi",
     "advancedTodo": "TODO: impostazioni avanzate",
-    "reset": "Impostazioni ripristinate",
+    "reset": "Impostazioni prototipo ripristinate",
     "updateOk": "GitHub Releases verificato — versione 1.0.0 attuale",
     "openGithub": "Apertura di GitHub"
   },
@@ -113,7 +113,7 @@
     "chooseRegion": "Scegli una regione",
     "chooseCountry": "Scegli un paese",
     "chooseCity": "Scegli una città",
-    "noKeyboard": "Senza tastiera — solo telecomando"
+    "noKeyboard": "Nessuna tastiera — solo telecomando"
   },
   "region": {
     "europe": "Europa",
@@ -125,20 +125,20 @@
   },
   "firstRun": {
     "chooseLanguage": "Scegli una lingua",
-    "languageHint": "Puoi modificare la lingua in seguito nelle Impostazioni."
+    "languageHint": "Puoi cambiare la lingua in seguito nelle Impostazioni."
   },
   "status": {
     "waiting": "In attesa..."
   },
   "error": {
-    "revisionConflict": "Conflitto di configurazione! Aggiornamento...",
+    "revisionConflict": "Conflitto di configurazione! Aggiornamento in corso...",
     "saveFailed": "Salvataggio non riuscito: ",
     "connection": "Errore di connessione",
     "elevationFailed": "Errore: impossibile ottenere i permessi",
-    "minimizeFailed": "Impossibile ridurre l'applicazione"
+    "minimizeFailed": "Impossibile ridurre a icona l'applicazione"
   },
   "elevation": {
-    "restoring": "Ripristino...",
-    "success": "Operazione riuscita! Riavvio..."
+    "restoring": "Ripristino in corso...",
+    "success": "Operazione riuscita! Riavvio in corso..."
   }
 }

@@ -5,7 +5,7 @@
     "sun": "Солнце и расписание",
     "settings": "Настройки",
     "language": "Язык",
-    "about": "О приложении"
+    "about": "О программе"
   },
   "common": {
     "change": "Изменить",
@@ -16,7 +16,7 @@
   },
   "home": {
     "currentState": "Текущее состояние",
-    "ambilightOn": "Ambilight включен",
+    "ambilightOn": "Подсветка Ambilight включена",
     "modeSun": "Режим: По солнцу",
     "currentSource": "Текущий источник",
     "nextOn": "Следующее включение",
@@ -25,23 +25,23 @@
   "sun": {
     "sunset": "Закат",
     "turnOn": "Включение",
-    "sunrise": "Восход",
+    "sunrise": "Рассвет",
     "sunsetOffset": "Включение относительно заката",
-    "sunriseOffset": "Выключение относительно восхода",
-    "localSchedule": "Расписание применяется ежедневно и рассчитывается локально.",
-    "todaySunset": "Сегодня закат",
-    "ambilightOn": "Ambilight ON",
-    "tomorrowSunrise": "Завтра восход"
+    "sunriseOffset": "Выключение относительно рассвета",
+    "localSchedule": "Расписание рассчитывается локально и применяется ежедневно.",
+    "todaySunset": "Закат сегодня",
+    "ambilightOn": "Ambilight ВКЛ",
+    "tomorrowSunrise": "Рассвет завтра"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Язык",
-    "autostart": "Запуск вместе с телевизором",
-    "defaultRule": "Правило для новых приложений",
+    "autostart": "Автозапуск с ТВ",
+    "defaultRule": "Правило по умолчанию для новых приложений",
     "test": "Тест Ambilight на 5 секунд",
-    "plasma": "HyperHDR Plasma фон · Smooth",
-    "advanced": "Дополнительные настройки",
+    "plasma": "Плазменный фон HyperHDR · Плавный",
+    "advanced": "Расширенные настройки",
     "reset": "Сбросить настройки",
     "saved": "Настройки сохранены"
   },
@@ -55,11 +55,11 @@
     "testing": "Проверка подключения...",
     "available": "HyperHDR доступен",
     "unavailable": "Недоступен",
-    "connected": "Подключён",
+    "connected": "Подключено",
     "invalid": "Неверный адрес или порт"
   },
   "language": {
-    "system": "Как на телевизоре",
+    "system": "Как на ТВ",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -75,17 +75,17 @@
   },
   "update": {
     "available": "Доступно обновление",
-    "install": "Установить обновление ПО",
+    "install": "Установить обновление",
     "preparing": "Подготовка обновления…",
     "downloading": "Скачивание и проверка пакета…",
     "installing": "Установка обновления…",
-    "restart": "AmbiSun будет перезапущен автоматически.",
+    "restart": "AmbiSun перезапустится автоматически.",
     "failed": "Ошибка обновления: ",
     "upToDate": "Установлена актуальная версия"
   },
   "support": {
     "title": "❤ Поддержать проект",
-    "subtitle": "Данные взяты из Legacy Bridge",
+    "subtitle": "Реквизиты поддержки из Legacy Bridge",
     "scan": "Отсканируйте QR-код телефоном"
   },
   "rule": {
@@ -94,13 +94,13 @@
     "off": "Всегда ВЫКЛ"
   },
   "toast": {
-    "locationTodo": "TODO API: мастер определения страны / города",
+    "locationTodo": "TODO API: мастер страны / города",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Тест Ambilight: 5 секунд",
-    "advancedTodo": "TODO: дополнительные настройки",
+    "test": "Тест подсветки: 5 секунд",
+    "advancedTodo": "TODO: расширенные настройки",
     "reset": "Настройки прототипа сброшены",
-    "updateOk": "Проверка GitHub Releases… версия 1.0.0 актуальна",
-    "openGithub": "Открываю GitHub"
+    "updateOk": "Проверка GitHub Releases — версия 1.0.0 актуальна",
+    "openGithub": "Переход на GitHub"
   },
   "location": {
     "title": "Местоположение",
@@ -108,7 +108,7 @@
     "stepRegion": "Регион",
     "stepCountry": "Страна",
     "stepCity": "Город",
-    "detectedLead": "По IP определена страна:",
+    "detectedLead": "Страна, определённая по IP:",
     "isCountryCorrect": "Вы находитесь в этой стране?",
     "chooseRegion": "Выберите регион",
     "chooseCountry": "Выберите страну",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Выберите язык",
-    "languageHint": "Язык можно изменить позже в настройках."
+    "languageHint": "Вы всегда сможете изменить язык в Настройках."
   },
   "status": {
     "waiting": "Ожидание..."
@@ -133,8 +133,8 @@
   "error": {
     "revisionConflict": "Конфликт конфигурации! Обновление...",
     "saveFailed": "Ошибка сохранения: ",
-    "connection": "Ошибка соединения",
-    "elevationFailed": "Ошибка: не удалось получить права",
+    "connection": "Ошибка подключения",
+    "elevationFailed": "Ошибка: не удалось получить права доступа",
     "minimizeFailed": "Не удалось свернуть приложение"
   },
   "elevation": {

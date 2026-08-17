@@ -1,14 +1,14 @@
 {
   "nav": {
     "home": "首頁",
-    "sources": "訊號源與應用程式",
+    "sources": "訊號源與應用",
     "sun": "日出日落與排程",
     "settings": "設定",
     "language": "語言",
     "about": "關於"
   },
   "common": {
-    "change": "更改",
+    "change": "變更",
     "yes": "是",
     "no": "否",
     "back": "返回",
@@ -16,8 +16,8 @@
   },
   "home": {
     "currentState": "目前狀態",
-    "ambilightOn": "情境燈已開啟",
-    "modeSun": "模式：依日出日落",
+    "ambilightOn": "Ambilight 已開啟",
+    "modeSun": "模式：按日出日落",
     "currentSource": "目前訊號源",
     "nextOn": "下次開啟",
     "nextOff": "下次關閉"
@@ -26,11 +26,11 @@
     "sunset": "日落",
     "turnOn": "開啟",
     "sunrise": "日出",
-    "sunsetOffset": "相對於日落開啟",
-    "sunriseOffset": "相對於日出關閉",
-    "localSchedule": "排程每日自動套用並於本機計算。",
+    "sunsetOffset": "相對日落開啟",
+    "sunriseOffset": "相對日出關閉",
+    "localSchedule": "排程在本地計算並每日自動執行。",
     "todaySunset": "今日日落",
-    "ambilightOn": "情境燈 開啟",
+    "ambilightOn": "Ambilight 開啟",
     "tomorrowSunrise": "明日日出"
   },
   "settings": {
@@ -38,9 +38,9 @@
     "hyperhdr": "HyperHDR",
     "language": "語言",
     "autostart": "隨電視啟動",
-    "defaultRule": "新應用程式預設規則",
-    "test": "測試情境燈 5 秒",
-    "plasma": "HyperHDR 電漿背景 · 平滑",
+    "defaultRule": "新應用的預設規則",
+    "test": "測試 Ambilight 5 秒",
+    "plasma": "HyperHDR 等離子背景 · 平滑",
     "advanced": "進階設定",
     "reset": "重設設定",
     "saved": "設定已儲存"
@@ -54,12 +54,12 @@
     "cancel": "取消",
     "testing": "正在測試連線...",
     "available": "HyperHDR 可用",
-    "unavailable": "不可用",
+    "unavailable": "無法使用",
     "connected": "已連線",
     "invalid": "無效的位址或連接埠"
   },
   "language": {
-    "system": "與電視相同",
+    "system": "跟隨電視系統",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -84,19 +84,19 @@
     "upToDate": "應用程式已是最新版本"
   },
   "support": {
-    "title": "❤ 支持專案",
-    "subtitle": "來自 Legacy Bridge 的支援詳情",
+    "title": "❤ 支持此專案",
+    "subtitle": "來自 Legacy Bridge 的支持資訊",
     "scan": "使用手機掃描 QR 碼"
   },
   "rule": {
-    "sun": "依日出日落",
-    "on": "一律開啟",
-    "off": "一律關閉"
+    "sun": "按日出日落",
+    "on": "始終開啟",
+    "off": "始終關閉"
   },
   "toast": {
     "locationTodo": "TODO API：國家 / 城市精靈",
-    "hyperhdrTodo": "TODO API：HyperHDR 127.0.0.1:8090",
-    "test": "情境燈測試：5 秒",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight 測試：5 秒",
     "advancedTodo": "TODO：進階設定",
     "reset": "原型設定已重設",
     "updateOk": "已檢查 GitHub Releases — 版本 1.0.0 為最新",
@@ -104,16 +104,16 @@
   },
   "location": {
     "title": "位置",
-    "stepDetected": "透過 IP 偵測",
+    "stepDetected": "根據 IP 自動辨識",
     "stepRegion": "地區",
     "stepCountry": "國家",
     "stepCity": "城市",
-    "detectedLead": "透過 IP 偵測到的國家：",
-    "isCountryCorrect": "您位於此國家嗎？",
+    "detectedLead": "根據 IP 辨識的國家：",
+    "isCountryCorrect": "您是否位於該國家？",
     "chooseRegion": "選擇地區",
     "chooseCountry": "選擇國家",
     "chooseCity": "選擇城市",
-    "noKeyboard": "無鍵盤 — 僅使用遙控器"
+    "noKeyboard": "無需鍵盤 — 僅使用遙控器"
   },
   "region": {
     "europe": "歐洲",
@@ -125,20 +125,20 @@
   },
   "firstRun": {
     "chooseLanguage": "選擇語言",
-    "languageHint": "您可以稍後在「設定」中變更語言。"
+    "languageHint": "您可以稍後在設定中更改語言。"
   },
   "status": {
-    "waiting": "等候中..."
+    "waiting": "請稍候..."
   },
   "error": {
-    "revisionConflict": "設定衝突！正在更新...",
+    "revisionConflict": "設定衝突！正在更新…",
     "saveFailed": "儲存失敗：",
     "connection": "連線錯誤",
-    "elevationFailed": "錯誤：取得權限失敗",
+    "elevationFailed": "錯誤：未能取得權限",
     "minimizeFailed": "無法最小化應用程式"
   },
   "elevation": {
-    "restoring": "正在還原...",
-    "success": "成功！正在重新啟動..."
+    "restoring": "正在復原…",
+    "success": "成功！正在重新啟動…"
   }
 }

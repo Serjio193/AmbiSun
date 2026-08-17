@@ -16,21 +16,21 @@
   },
   "home": {
     "currentState": "Status saat ini",
-    "ambilightOn": "Ambilight menyala",
-    "modeSun": "Mode: Berdasarkan matahari",
+    "ambilightOn": "Ambilight aktif",
+    "modeSun": "Mode: Mengikuti matahari",
     "currentSource": "Sumber saat ini",
-    "nextOn": "Menyala berikutnya",
-    "nextOff": "Mati berikutnya"
+    "nextOn": "Penyalaan berikutnya",
+    "nextOff": "Pemadaman berikutnya"
   },
   "sun": {
     "sunset": "Matahari terbenam",
     "turnOn": "Nyalakan",
     "sunrise": "Matahari terbit",
-    "sunsetOffset": "Nyalakan relatif terhadap terbenam",
-    "sunriseOffset": "Matikan relatif terhadap terbit",
-    "localSchedule": "Jadwal diterapkan setiap hari dan dihitung secara lokal.",
+    "sunsetOffset": "Nyalakan relatif terhadap matahari terbenam",
+    "sunriseOffset": "Matikan relatif terhadap matahari terbit",
+    "localSchedule": "Jadwal dihitung secara lokal dan diterapkan setiap hari.",
     "todaySunset": "Matahari terbenam hari ini",
-    "ambilightOn": "Ambilight NYALA",
+    "ambilightOn": "Ambilight MENYALA",
     "tomorrowSunrise": "Matahari terbit besok"
   },
   "settings": {
@@ -40,7 +40,7 @@
     "autostart": "Mulai bersama TV",
     "defaultRule": "Aturan default untuk aplikasi baru",
     "test": "Uji Ambilight selama 5 detik",
-    "plasma": "Latar Belakang Plasma HyperHDR · Halus",
+    "plasma": "Latar belakang Plasma HyperHDR · Halus",
     "advanced": "Pengaturan lanjutan",
     "reset": "Atur ulang pengaturan",
     "saved": "Pengaturan disimpan"
@@ -59,7 +59,7 @@
     "invalid": "Alamat atau port tidak valid"
   },
   "language": {
-    "system": "Sama seperti TV",
+    "system": "Sama dengan TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -75,22 +75,22 @@
   },
   "update": {
     "available": "Pembaruan tersedia",
-    "install": "Instal pembaruan",
+    "install": "Pasang pembaruan",
     "preparing": "Menyiapkan pembaruan…",
     "downloading": "Mengunduh dan memverifikasi paket…",
-    "installing": "Menginstal pembaruan…",
+    "installing": "Memasang pembaruan…",
     "restart": "AmbiSun akan dimulai ulang secara otomatis.",
     "failed": "Pembaruan gagal: ",
     "upToDate": "Aplikasi sudah versi terbaru"
   },
   "support": {
     "title": "❤ Dukung proyek ini",
-    "subtitle": "Detail dukungan dari Legacy Bridge",
+    "subtitle": "Rincian dukungan dari Legacy Bridge",
     "scan": "Pindai kode QR dengan ponsel Anda"
   },
   "rule": {
-    "sun": "Berdasarkan matahari",
-    "on": "Selalu NYALA",
+    "sun": "Mengikuti matahari",
+    "on": "Selalu MENYALA",
     "off": "Selalu MATI"
   },
   "toast": {
@@ -104,11 +104,11 @@
   },
   "location": {
     "title": "Lokasi",
-    "stepDetected": "Terdeteksi melalui IP",
+    "stepDetected": "Terdeteksi via IP",
     "stepRegion": "Wilayah",
     "stepCountry": "Negara",
     "stepCity": "Kota",
-    "detectedLead": "Negara terdeteksi melalui IP:",
+    "detectedLead": "Negara terdeteksi via IP:",
     "isCountryCorrect": "Apakah Anda berada di negara ini?",
     "chooseRegion": "Pilih wilayah",
     "chooseCountry": "Pilih negara",

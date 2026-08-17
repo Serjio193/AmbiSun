@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Hem",
-    "sources": "Källor och appar",
-    "sun": "Sol och schema",
+    "sources": "Källor & appar",
+    "sun": "Sol & schema",
     "settings": "Inställningar",
     "language": "Språk",
-    "about": "Om"
+    "about": "Om AmbiSun"
   },
   "common": {
     "change": "Ändra",
@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight är på",
     "modeSun": "Läge: Efter solen",
     "currentSource": "Aktuell källa",
-    "nextOn": "Nästa påslagning",
+    "nextOn": "Nästa start",
     "nextOff": "Nästa avstängning"
   },
   "sun": {
     "sunset": "Solnedgång",
     "turnOn": "Slå på",
     "sunrise": "Soluppgång",
-    "sunsetOffset": "Slå på relativt till solnedgång",
-    "sunriseOffset": "Stäng av relativt till soluppgång",
-    "localSchedule": "Schemat tillämpas dagligen och beräknas lokalt.",
+    "sunsetOffset": "Start i förhållande till solnedgång",
+    "sunriseOffset": "Avstängning i förhållande till soluppgång",
+    "localSchedule": "Schemat beräknas lokalt och tillämpas dagligen.",
     "todaySunset": "Solnedgång idag",
     "ambilightOn": "Ambilight PÅ",
     "tomorrowSunrise": "Soluppgång imorgon"
@@ -43,7 +43,7 @@
     "plasma": "HyperHDR Plasmabakgrund · Mjuk",
     "advanced": "Avancerade inställningar",
     "reset": "Återställ inställningar",
-    "saved": "Inställningar sparade"
+    "saved": "Inställningarna sparades"
   },
   "hyperhdr": {
     "title": "HyperHDR",
@@ -53,13 +53,13 @@
     "save": "Spara",
     "cancel": "Avbryt",
     "testing": "Testar anslutning...",
-    "available": "HyperHDR tillgänglig",
+    "available": "HyperHDR är tillgänglig",
     "unavailable": "Inte tillgänglig",
     "connected": "Ansluten",
     "invalid": "Ogiltig adress eller port"
   },
   "language": {
-    "system": "Samma som TV",
+    "system": "Samma som TV:n",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -80,13 +80,13 @@
     "downloading": "Laddar ner och verifierar paket…",
     "installing": "Installerar uppdatering…",
     "restart": "AmbiSun startar om automatiskt.",
-    "failed": "Uppdatering misslyckades: ",
+    "failed": "Uppdateringen misslyckades: ",
     "upToDate": "Appen är uppdaterad"
   },
   "support": {
     "title": "❤ Stöd projektet",
     "subtitle": "Stöddetaljer från Legacy Bridge",
-    "scan": "Skanna QR-koden med din telefon"
+    "scan": "Skanna QR-koden med mobilen"
   },
   "rule": {
     "sun": "Efter solen",
@@ -94,7 +94,7 @@
     "off": "Alltid AV"
   },
   "toast": {
-    "locationTodo": "TODO API: guide för land / stad",
+    "locationTodo": "TODO API: land-/stadsguide",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-test: 5 sekunder",
     "advancedTodo": "TODO: avancerade inställningar",
@@ -109,7 +109,7 @@
     "stepCountry": "Land",
     "stepCity": "Stad",
     "detectedLead": "Land identifierat via IP:",
-    "isCountryCorrect": "Är du i det här landet?",
+    "isCountryCorrect": "Befinner du dig i detta land?",
     "chooseRegion": "Välj en region",
     "chooseCountry": "Välj ett land",
     "chooseCity": "Välj en stad",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Välj ett språk",
-    "languageHint": "Du kan ändra språket senare i Inställningar."
+    "languageHint": "Du kan ändra språk senare i Inställningar."
   },
   "status": {
     "waiting": "Väntar..."
@@ -134,7 +134,7 @@
     "revisionConflict": "Konfigurationskonflikt! Uppdaterar...",
     "saveFailed": "Kunde inte spara: ",
     "connection": "Anslutningsfel",
-    "elevationFailed": "Fel: Kunde inte erhålla behörigheter",
+    "elevationFailed": "Fel: Kunde inte få behörigheter",
     "minimizeFailed": "Kunde inte minimera applikationen"
   },
   "elevation": {

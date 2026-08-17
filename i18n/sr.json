@@ -12,7 +12,7 @@
     "yes": "Да",
     "no": "Не",
     "back": "Назад",
-    "minimize": "Минимизирај"
+    "minimize": "Смањи"
   },
   "home": {
     "currentState": "Тренутно стање",
@@ -26,9 +26,9 @@
     "sunset": "Залазак сунца",
     "turnOn": "Укључи",
     "sunrise": "Излазак сунца",
-    "sunsetOffset": "Укључи у односу на залазак сунца",
-    "sunriseOffset": "Искључи у односу на излазак сунца",
-    "localSchedule": "Распоред се примењује свакодневно и рачуна локално.",
+    "sunsetOffset": "Укључивање у односу на залазак",
+    "sunriseOffset": "Искључивање у односу на излазак",
+    "localSchedule": "Распоред се рачуна локално и примењује свакодневно.",
     "todaySunset": "Залазак сунца данас",
     "ambilightOn": "Ambilight УКЉУЧЕН",
     "tomorrowSunrise": "Излазак сунца сутра"
@@ -43,7 +43,7 @@
     "plasma": "HyperHDR плазма позадина · Глатка",
     "advanced": "Напредна подешавања",
     "reset": "Ресетуј подешавања",
-    "saved": "Подешавања сачувана"
+    "saved": "Подешавања су сачувана"
   },
   "hyperhdr": {
     "title": "HyperHDR",
@@ -52,8 +52,8 @@
     "test": "Тестирај",
     "save": "Сачувај",
     "cancel": "Откажи",
-    "testing": "Тестирање везе...",
-    "available": "HyperHDR доступан",
+    "testing": "Провера везе...",
+    "available": "HyperHDR је доступан",
     "unavailable": "Недоступно",
     "connected": "Повезано",
     "invalid": "Неважећа адреса или порт"
@@ -85,7 +85,7 @@
   },
   "support": {
     "title": "❤ Подржите пројекат",
-    "subtitle": "Детаљи подршке са Legacy Bridge-а",
+    "subtitle": "Детаљи подршке из Legacy Bridge",
     "scan": "Скенирајте QR код телефоном"
   },
   "rule": {
@@ -94,26 +94,26 @@
     "off": "Увек ИСКЉУЧЕНО"
   },
   "toast": {
-    "locationTodo": "TODO API: чаробњак за државу / град",
+    "locationTodo": "TODO API: чаробњак за земљу / град",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Тест Ambilight-а: 5 секунди",
+    "test": "Ambilight тест: 5 секунди",
     "advancedTodo": "TODO: напредна подешавања",
     "reset": "Подешавања прототипа ресетована",
-    "updateOk": "GitHub Releases проверен — верзија 1.0.0 је ажурна",
+    "updateOk": "GitHub Releases проверен — верзија 1.0.0 је актуелна",
     "openGithub": "Отварање GitHub-а"
   },
   "location": {
     "title": "Локација",
     "stepDetected": "Откривено преко IP-а",
     "stepRegion": "Регион",
-    "stepCountry": "Држава",
+    "stepCountry": "Земља",
     "stepCity": "Град",
-    "detectedLead": "Држава откривена преко IP-а:",
-    "isCountryCorrect": "Да ли се налазите у овој држави?",
+    "detectedLead": "Земља откривена преко IP-а:",
+    "isCountryCorrect": "Да ли се налазите у овој земљи?",
     "chooseRegion": "Изаберите регион",
-    "chooseCountry": "Изаберите државу",
+    "chooseCountry": "Изаберите земљу",
     "chooseCity": "Изаберите град",
-    "noKeyboard": "Без тастатуре — само даљински"
+    "noKeyboard": "Без тастатуре — само даљински управљач"
   },
   "region": {
     "europe": "Европа",
@@ -125,20 +125,20 @@
   },
   "firstRun": {
     "chooseLanguage": "Изаберите језик",
-    "languageHint": "Језик можете променити касније у Подешавањима."
+    "languageHint": "Језик можете касније променити у Подешавањима."
   },
   "status": {
     "waiting": "Чекање..."
   },
   "error": {
-    "revisionConflict": "Конфликт конфигурације! Ажурирање...",
+    "revisionConflict": "Сукоб конфигурације! Ажурирање...",
     "saveFailed": "Чување није успело: ",
-    "connection": "Грешка везе",
+    "connection": "Грешка при повезивању",
     "elevationFailed": "Грешка: Није успело добијање дозвола",
-    "minimizeFailed": "Неуспешно минимизирање апликације"
+    "minimizeFailed": "Није успело смањивање апликације"
   },
   "elevation": {
     "restoring": "Враћање...",
-    "success": "Успех! Поновно покретање..."
+    "success": "Успешно! Поновно покретање..."
   }
 }

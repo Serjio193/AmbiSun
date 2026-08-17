@@ -1,6 +1,6 @@
 {
   "nav": {
-    "home": "Koti",
+    "home": "Etusivu",
     "sources": "Lähteet ja sovellukset",
     "sun": "Aurinko ja aikataulu",
     "settings": "Asetukset",
@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight on päällä",
     "modeSun": "Tila: Auringon mukaan",
     "currentSource": "Nykyinen lähde",
-    "nextOn": "Seuraava kytkentä",
+    "nextOn": "Seuraava käynnistys",
     "nextOff": "Seuraava sammutus"
   },
   "sun": {
     "sunset": "Auringonlasku",
-    "turnOn": "Kytke päälle",
+    "turnOn": "Käynnistä",
     "sunrise": "Auringonnousu",
-    "sunsetOffset": "Kytke päälle auringonlaskun suhteen",
-    "sunriseOffset": "Sammuta auringonnousun suhteen",
-    "localSchedule": "Aikataulu sovelletaan päivittäin ja lasketaan paikallisesti.",
+    "sunsetOffset": "Käynnistys auringonlaskuun nähden",
+    "sunriseOffset": "Sammutus auringonnousuun nähden",
+    "localSchedule": "Aikataulu lasketaan paikallisesti ja sitä sovelletaan päivittäin.",
     "todaySunset": "Auringonlasku tänään",
     "ambilightOn": "Ambilight PÄÄLLÄ",
     "tomorrowSunrise": "Auringonnousu huomenna"
@@ -37,10 +37,10 @@
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Kieli",
-    "autostart": "Käynnistä TV:n kanssa",
+    "autostart": "Käynnistä television kanssa",
     "defaultRule": "Oletussääntö uusille sovelluksille",
     "test": "Testaa Ambilightia 5 sekuntia",
-    "plasma": "HyperHDR-plasmatausta · Pehmeä",
+    "plasma": "HyperHDR Plasma-tausta · Pehmeä",
     "advanced": "Lisäasetukset",
     "reset": "Palauta asetukset",
     "saved": "Asetukset tallennettu"
@@ -53,13 +53,13 @@
     "save": "Tallenna",
     "cancel": "Peruuta",
     "testing": "Testataan yhteyttä...",
-    "available": "HyperHDR saatavilla",
-    "unavailable": "Ei saatavilla",
+    "available": "HyperHDR on käytettävissä",
+    "unavailable": "Ei käytettävissä",
     "connected": "Yhdistetty",
     "invalid": "Virheellinen osoite tai portti"
   },
   "language": {
-    "system": "Sama kuin TV",
+    "system": "Sama kuin televisiossa",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -91,10 +91,10 @@
   "rule": {
     "sun": "Auringon mukaan",
     "on": "Aina PÄÄLLÄ",
-    "off": "Aina POIS PÄÄLTÄ"
+    "off": "Aina POIS"
   },
   "toast": {
-    "locationTodo": "TODO API: maa / kaupunki ohjattu toiminto",
+    "locationTodo": "TODO API: maa-/kaupunkiapuri",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-testi: 5 sekuntia",
     "advancedTodo": "TODO: lisäasetukset",
@@ -104,11 +104,11 @@
   },
   "location": {
     "title": "Sijainti",
-    "stepDetected": "Tunnistettu IP-osoitteesta",
+    "stepDetected": "Tunnistettu IP-osoitteen perusteella",
     "stepRegion": "Alue",
     "stepCountry": "Maa",
     "stepCity": "Kaupunki",
-    "detectedLead": "Maa tunnistettu IP-osoitteesta:",
+    "detectedLead": "IP-osoitteen perusteella tunnistettu maa:",
     "isCountryCorrect": "Oletko tässä maassa?",
     "chooseRegion": "Valitse alue",
     "chooseCountry": "Valitse maa",
@@ -131,14 +131,14 @@
     "waiting": "Odotetaan..."
   },
   "error": {
-    "revisionConflict": "Määrityskonflikti! Päivitetään...",
+    "revisionConflict": "Asetusristiriita! Päivitetään...",
     "saveFailed": "Tallennus epäonnistui: ",
     "connection": "Yhteysvirhe",
-    "elevationFailed": "Virhe: Käyttöoikeuksien hankkiminen epäonnistui",
+    "elevationFailed": "Virhe: Käyttöoikeuksien saaminen epäonnistui",
     "minimizeFailed": "Sovelluksen pienentäminen epäonnistui"
   },
   "elevation": {
     "restoring": "Palautetaan...",
-    "success": "Valmis! Käynnistetään uudelleen..."
+    "success": "Onnistui! Käynnistetään uudelleen..."
   }
 }

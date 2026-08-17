@@ -1,14 +1,14 @@
 {
   "nav": {
-    "home": "בית",
-    "sources": "מקורות ואפליקציות",
+    "home": "דף הבית",
+    "sources": "מקורות ויישומים",
     "sun": "שמש ולוח זמנים",
     "settings": "הגדרות",
     "language": "שפה",
     "about": "אודות"
   },
   "common": {
-    "change": "שנה",
+    "change": "שינוי",
     "yes": "כן",
     "no": "לא",
     "back": "חזרה",
@@ -16,31 +16,31 @@
   },
   "home": {
     "currentState": "מצב נוכחי",
-    "ambilightOn": "תאורת אמבילייט פועלת",
+    "ambilightOn": "Ambilight פועל",
     "modeSun": "מצב: לפי השמש",
     "currentSource": "מקור נוכחי",
-    "nextOn": "ההדלקה הבאה",
+    "nextOn": "ההפעלה הבאה",
     "nextOff": "הכיבוי הבא"
   },
   "sun": {
     "sunset": "שקיעה",
-    "turnOn": "הפעל",
+    "turnOn": "הפעלה",
     "sunrise": "זריחה",
-    "sunsetOffset": "הפעל ביחס לשקיעה",
-    "sunriseOffset": "כבה ביחס לזריחה",
-    "localSchedule": "לוח הזמנים מיושם מדי יום ומחושב מקומית.",
+    "sunsetOffset": "הפעלה יחסית לשקיעה",
+    "sunriseOffset": "כיבוי יחסי לזריחה",
+    "localSchedule": "לוח הזמנים מחושב מקומית ומוחל מדי יום.",
     "todaySunset": "שקיעה היום",
-    "ambilightOn": "אמבילייט פעיל",
+    "ambilightOn": "Ambilight פועל",
     "tomorrowSunrise": "זריחה מחר"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "שפה",
-    "autostart": "הפעל עם הטלוויזיה",
-    "defaultRule": "כלל ברירת מחדל לאפליקציות חדשות",
-    "test": "בדוק אמבילייט למשך 5 שניות",
-    "plasma": "רקע פלזמה HyperHDR · חלק",
+    "autostart": "הפעלה עם הטלוויזיה",
+    "defaultRule": "כלל ברירת מחדל ליישומים חדשים",
+    "test": "בדוק את Ambilight למשך 5 שניות",
+    "plasma": "רקע פלזמה של HyperHDR · חלק",
     "advanced": "הגדרות מתקדמות",
     "reset": "איפוס הגדרות",
     "saved": "ההגדרות נשמרו"
@@ -59,7 +59,7 @@
     "invalid": "כתובת או יציאה לא חוקיים"
   },
   "language": {
-    "system": "זהה לטלוויזיה",
+    "system": "כמו בטלוויזיה",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -86,30 +86,30 @@
   "support": {
     "title": "❤ תמיכה בפרויקט",
     "subtitle": "פרטי תמיכה מ-Legacy Bridge",
-    "scan": "סרוק את קוד ה-QR עם הטלפון"
+    "scan": "סרוק את קוד ה-QR באמצעות הטלפון"
   },
   "rule": {
     "sun": "לפי השמש",
-    "on": "תמיד מופעל",
-    "off": "תמיד כבוי"
+    "on": "פועל תמיד",
+    "off": "כבוי תמיד"
   },
   "toast": {
     "locationTodo": "TODO API: אשף מדינה / עיר",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "בדיקת אמבילייט: 5 שניות",
+    "test": "בדיקת Ambilight: 5 שניות",
     "advancedTodo": "TODO: הגדרות מתקדמות",
-    "reset": "הגדרות אב הטיפוס אופסו",
-    "updateOk": "נבדקו גרסאות GitHub — גרסה 1.0.0 מעודכנת",
+    "reset": "הגדרות האב-טיפוס אופסו",
+    "updateOk": "נבדק ב-GitHub Releases — גרסה 1.0.0 מעודכנת",
     "openGithub": "פותח את GitHub"
   },
   "location": {
     "title": "מיקום",
-    "stepDetected": "זוהה לפי IP",
+    "stepDetected": "זוהה לפי כתובת IP",
     "stepRegion": "אזור",
     "stepCountry": "מדינה",
     "stepCity": "עיר",
     "detectedLead": "מדינה שזוהתה לפי IP:",
-    "isCountryCorrect": "האם אתה במדינה זו?",
+    "isCountryCorrect": "האם אתה נמצא במדינה זו?",
     "chooseRegion": "בחר אזור",
     "chooseCountry": "בחר מדינה",
     "chooseCity": "בחר עיר",
@@ -131,11 +131,11 @@
     "waiting": "ממתין..."
   },
   "error": {
-    "revisionConflict": "התנגשות הגדרות! מעדכן...",
+    "revisionConflict": "התנגשות בהגדרות! מעדכן...",
     "saveFailed": "השמירה נכשלה: ",
     "connection": "שגיאת חיבור",
-    "elevationFailed": "שגיאה: קבלת הרשאות נכשלה",
-    "minimizeFailed": "מזעור האפליקציה נכשל"
+    "elevationFailed": "שגיאה: קבלת ההרשאות נכשלה",
+    "minimizeFailed": "מזעור היישום נכשל"
   },
   "elevation": {
     "restoring": "משחזר...",

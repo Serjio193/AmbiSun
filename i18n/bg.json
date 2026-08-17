@@ -17,7 +17,7 @@
   "home": {
     "currentState": "Текущо състояние",
     "ambilightOn": "Ambilight е включен",
-    "modeSun": "Режим: По слънцето",
+    "modeSun": "Режим: По слънце",
     "currentSource": "Текущ източник",
     "nextOn": "Следващо включване",
     "nextOff": "Следващо изключване"
@@ -28,9 +28,9 @@
     "sunrise": "Изгрев",
     "sunsetOffset": "Включване спрямо залеза",
     "sunriseOffset": "Изключване спрямо изгрева",
-    "localSchedule": "Графикът се прилага ежедневно и се изчислява локално.",
+    "localSchedule": "Графикът се изчислява локално и се прилага ежедневно.",
     "todaySunset": "Залез днес",
-    "ambilightOn": "Ambilight ВКЛ",
+    "ambilightOn": "Ambilight ВКЛЮЧЕН",
     "tomorrowSunrise": "Изгрев утре"
   },
   "settings": {
@@ -52,14 +52,14 @@
     "test": "Тест",
     "save": "Запазване",
     "cancel": "Отказ",
-    "testing": "Тестване на връзката...",
+    "testing": "Проверка на връзката...",
     "available": "HyperHDR е наличен",
     "unavailable": "Недостъпен",
     "connected": "Свързан",
     "invalid": "Невалиден адрес или порт"
   },
   "language": {
-    "system": "Както телевизора",
+    "system": "Както на телевизора",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -76,30 +76,30 @@
   "update": {
     "available": "Налична е актуализация",
     "install": "Инсталиране на актуализация",
-    "preparing": "Подготовка на актуализация…",
+    "preparing": "Подготовка на актуализацията…",
     "downloading": "Изтегляне и проверка на пакета…",
-    "installing": "Инсталиране на актуализация…",
+    "installing": "Инсталиране на актуализацията…",
     "restart": "AmbiSun ще се рестартира автоматично.",
     "failed": "Неуспешна актуализация: ",
     "upToDate": "Приложението е актуално"
   },
   "support": {
     "title": "❤ Подкрепете проекта",
-    "subtitle": "Данни за поддръжка от Legacy Bridge",
+    "subtitle": "Информация за подкрепа от Legacy Bridge",
     "scan": "Сканирайте QR кода с телефона си"
   },
   "rule": {
-    "sun": "По слънцето",
-    "on": "Винаги ВКЛ",
-    "off": "Винаги ИЗКЛ"
+    "sun": "По слънце",
+    "on": "Винаги ВКЛЮЧЕНО",
+    "off": "Винаги ИЗКЛЮЧЕНО"
   },
   "toast": {
-    "locationTodo": "TODO API: помощник за държава / град",
+    "locationTodo": "TODO API: съветник за държава / град",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Тест на Ambilight: 5 секунди",
+    "test": "Тест Ambilight: 5 секунди",
     "advancedTodo": "TODO: разширени настройки",
     "reset": "Настройките на прототипа са нулирани",
-    "updateOk": "GitHub Releases проверен — версия 1.0.0 е актуална",
+    "updateOk": "Проверено в GitHub Releases — версия 1.0.0 е актуална",
     "openGithub": "Отваряне на GitHub"
   },
   "location": {
@@ -125,20 +125,20 @@
   },
   "firstRun": {
     "chooseLanguage": "Изберете език",
-    "languageHint": "Можете да промените езика по-късно в Настройки."
+    "languageHint": "Можете да промените езика по-късно от Настройки."
   },
   "status": {
     "waiting": "Изчакване..."
   },
   "error": {
-    "revisionConflict": "Конфликт в конфигурацията! Актуализиране...",
+    "revisionConflict": "Конфликт в конфигурацията! Обновяване...",
     "saveFailed": "Неуспешно запазване: ",
     "connection": "Грешка при свързване",
-    "elevationFailed": "Грешка: Неуспешно получаване на разрешения",
+    "elevationFailed": "Грешка: Неуспешно получаване на права",
     "minimizeFailed": "Неуспешно минимизиране на приложението"
   },
   "elevation": {
     "restoring": "Възстановяване...",
-    "success": "Успех! Рестартиране..."
+    "success": "Успешно! Рестартиране..."
   }
 }

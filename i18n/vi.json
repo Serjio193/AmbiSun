@@ -19,16 +19,16 @@
     "ambilightOn": "Ambilight đang bật",
     "modeSun": "Chế độ: Theo mặt trời",
     "currentSource": "Nguồn hiện tại",
-    "nextOn": "Bật tiếp theo",
-    "nextOff": "Tắt tiếp theo"
+    "nextOn": "Lần bật tiếp theo",
+    "nextOff": "Lần tắt tiếp theo"
   },
   "sun": {
     "sunset": "Hoàng hôn",
     "turnOn": "Bật",
     "sunrise": "Bình minh",
-    "sunsetOffset": "Bật tương đối theo hoàng hôn",
-    "sunriseOffset": "Tắt tương đối theo bình minh",
-    "localSchedule": "Lịch trình được áp dụng hàng ngày và tính toán cục bộ.",
+    "sunsetOffset": "Bật theo thời gian hoàng hôn",
+    "sunriseOffset": "Tắt theo thời gian bình minh",
+    "localSchedule": "Lịch trình được tính toán cục bộ và áp dụng hàng ngày.",
     "todaySunset": "Hoàng hôn hôm nay",
     "ambilightOn": "Ambilight BẬT",
     "tomorrowSunrise": "Bình minh ngày mai"
@@ -85,7 +85,7 @@
   },
   "support": {
     "title": "❤ Ủng hộ dự án",
-    "subtitle": "Chi tiết hỗ trợ từ Legacy Bridge",
+    "subtitle": "Chi tiết ủng hộ từ Legacy Bridge",
     "scan": "Quét mã QR bằng điện thoại của bạn"
   },
   "rule": {
@@ -108,7 +108,7 @@
     "stepRegion": "Khu vực",
     "stepCountry": "Quốc gia",
     "stepCity": "Thành phố",
-    "detectedLead": "Quốc gia được phát hiện qua IP:",
+    "detectedLead": "Quốc gia phát hiện qua IP:",
     "isCountryCorrect": "Bạn có ở quốc gia này không?",
     "chooseRegion": "Chọn một khu vực",
     "chooseCountry": "Chọn một quốc gia",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Chọn một ngôn ngữ",
-    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong Cài đặt."
+    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong phần Cài đặt."
   },
   "status": {
     "waiting": "Đang chờ..."
@@ -134,7 +134,7 @@
     "revisionConflict": "Xung đột cấu hình! Đang cập nhật...",
     "saveFailed": "Lưu thất bại: ",
     "connection": "Lỗi kết nối",
-    "elevationFailed": "Lỗi: Không thể lấy quyền",
+    "elevationFailed": "Lỗi: Không thể lấy quyền truy cập",
     "minimizeFailed": "Không thể thu nhỏ ứng dụng"
   },
   "elevation": {

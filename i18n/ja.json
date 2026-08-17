@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "ホーム",
-    "sources": "ソースとアプリ",
+    "sources": "入力切替・アプリ",
     "sun": "太陽とスケジュール",
     "settings": "設定",
     "language": "言語",
-    "about": "情報"
+    "about": "AmbiSun について"
   },
   "common": {
     "change": "変更",
@@ -16,34 +16,34 @@
   },
   "home": {
     "currentState": "現在の状態",
-    "ambilightOn": "Ambilight オン",
+    "ambilightOn": "Ambilight 点灯中",
     "modeSun": "モード: 太陽連動",
-    "currentSource": "現在のソース",
-    "nextOn": "次のオン",
-    "nextOff": "次のオフ"
+    "currentSource": "現在の入力",
+    "nextOn": "次回点灯",
+    "nextOff": "次回消灯"
   },
   "sun": {
     "sunset": "日没",
-    "turnOn": "オン",
+    "turnOn": "点灯",
     "sunrise": "日の出",
-    "sunsetOffset": "日没に合わせてオン",
-    "sunriseOffset": "日の出に合わせてオフ",
-    "localSchedule": "スケジュールは毎日適用され、ローカルで計算されます。",
+    "sunsetOffset": "日没に連動して点灯",
+    "sunriseOffset": "日の出に連動して消灯",
+    "localSchedule": "スケジュールはローカルで計算され、毎日自動適用されます。",
     "todaySunset": "今日の日没",
-    "ambilightOn": "Ambilight オン",
+    "ambilightOn": "Ambilight 点灯",
     "tomorrowSunrise": "明日の日の出"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "言語",
-    "autostart": "TVと連動して起動",
-    "defaultRule": "新しいアプリのデフォルトルール",
-    "test": "Ambilightを5秒間テスト",
+    "autostart": "テレビ起動時に自動開始",
+    "defaultRule": "新規アプリのデフォルト規則",
+    "test": "Ambilight を5秒間テスト",
     "plasma": "HyperHDR プラズマ背景 · スムーズ",
     "advanced": "詳細設定",
-    "reset": "設定をリセット",
-    "saved": "設定が保存されました"
+    "reset": "設定を初期化",
+    "saved": "設定を保存しました"
   },
   "hyperhdr": {
     "title": "HyperHDR",
@@ -52,14 +52,14 @@
     "test": "テスト",
     "save": "保存",
     "cancel": "キャンセル",
-    "testing": "接続をテスト中...",
+    "testing": "接続テスト中...",
     "available": "HyperHDR 利用可能",
     "unavailable": "利用不可",
-    "connected": "接続済み",
-    "invalid": "無効なアドレスまたはポート"
+    "connected": "接続完了",
+    "invalid": "無効なアドレスまたはポートです"
   },
   "language": {
-    "system": "TVと同じ",
+    "system": "テレビと同じ",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -74,42 +74,42 @@
     "license": "ライセンス: MIT"
   },
   "update": {
-    "available": "アップデートが利用可能です",
+    "available": "アップデートがあります",
     "install": "アップデートをインストール",
     "preparing": "アップデートを準備中…",
     "downloading": "パッケージをダウンロードして検証中…",
     "installing": "アップデートをインストール中…",
     "restart": "AmbiSun は自動的に再起動します。",
-    "failed": "アップデートに失敗しました: ",
-    "upToDate": "アプリは最新です"
+    "failed": "アップデート失敗: ",
+    "upToDate": "最新バージョンです"
   },
   "support": {
     "title": "❤ プロジェクトを支援",
-    "subtitle": "Legacy Bridge からのサポート詳細",
-    "scan": "スマートフォンでQRコードをスキャン"
+    "subtitle": "Legacy Bridge からの支援詳細",
+    "scan": "スマートフォンで QR コードをスキャン"
   },
   "rule": {
     "sun": "太陽連動",
-    "on": "常にオン",
-    "off": "常にオフ"
+    "on": "常に点灯",
+    "off": "常に消灯"
   },
   "toast": {
     "locationTodo": "TODO API: 国 / 都市ウィザード",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight テスト: 5秒間",
     "advancedTodo": "TODO: 詳細設定",
-    "reset": "プロトタイプ設定をリセットしました",
+    "reset": "プロトタイプ設定を初期化しました",
     "updateOk": "GitHub Releases 確認済み — バージョン 1.0.0 は最新です",
     "openGithub": "GitHub を開いています"
   },
   "location": {
-    "title": "位置情報",
-    "stepDetected": "IPから検出",
+    "title": "地域設定",
+    "stepDetected": "IP から自動検出",
     "stepRegion": "地域",
     "stepCountry": "国",
     "stepCity": "都市",
-    "detectedLead": "IPから検出された国:",
-    "isCountryCorrect": "この国にいらっしゃいますか？",
+    "detectedLead": "IP から検出された国:",
+    "isCountryCorrect": "この国でよろしいですか？",
     "chooseRegion": "地域を選択",
     "chooseCountry": "国を選択",
     "chooseCity": "都市を選択",
@@ -119,26 +119,26 @@
     "europe": "ヨーロッパ",
     "asia": "アジア",
     "africa": "アフリカ",
-    "northAmerica": "北米",
-    "southAmerica": "南米",
+    "northAmerica": "北アメリカ",
+    "southAmerica": "南アメリカ",
     "oceania": "オセアニア"
   },
   "firstRun": {
-    "chooseLanguage": "言語を選択してください",
-    "languageHint": "後から設定で言語を変更できます。"
+    "chooseLanguage": "言語を選択",
+    "languageHint": "言語は後から設定画面で変更できます。"
   },
   "status": {
     "waiting": "待機中..."
   },
   "error": {
-    "revisionConflict": "設定の競合が発生しました！更新中...",
+    "revisionConflict": "設定の競合が発生しました。更新中…",
     "saveFailed": "保存に失敗しました: ",
     "connection": "接続エラー",
     "elevationFailed": "エラー: 権限を取得できませんでした",
-    "minimizeFailed": "アプリを最小化できませんでした"
+    "minimizeFailed": "アプリの最小化に失敗しました"
   },
   "elevation": {
-    "restoring": "復元中...",
-    "success": "成功！再起動中..."
+    "restoring": "復元中…",
+    "success": "完了しました。再起動中…"
   }
 }

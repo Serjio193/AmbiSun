@@ -2,10 +2,10 @@
   "nav": {
     "home": "الرئيسية",
     "sources": "المصادر والتطبيقات",
-    "sun": "الشمس والجدول",
+    "sun": "الشمس والجدول الزمني",
     "settings": "الإعدادات",
     "language": "اللغة",
-    "about": "حول"
+    "about": "حول التطبيق"
   },
   "common": {
     "change": "تغيير",
@@ -16,30 +16,30 @@
   },
   "home": {
     "currentState": "الحالة الحالية",
-    "ambilightOn": "الإضاءة المحيطة مفعّلة",
+    "ambilightOn": "إضاءة Ambilight قيد التشغيل",
     "modeSun": "الوضع: حسب الشمس",
     "currentSource": "المصدر الحالي",
     "nextOn": "التشغيل التالي",
     "nextOff": "الإيقاف التالي"
   },
   "sun": {
-    "sunset": "الغروب",
+    "sunset": "غروب الشمس",
     "turnOn": "تشغيل",
-    "sunrise": "الشروق",
-    "sunsetOffset": "تشغيل بالنسبة للغروب",
-    "sunriseOffset": "إيقاف بالنسبة للشروق",
-    "localSchedule": "يتم تطبيق الجدول يومياً ويُحسب محلياً.",
+    "sunrise": "شروق الشمس",
+    "sunsetOffset": "التشغيل بالنسبة لغروب الشمس",
+    "sunriseOffset": "الإيقاف بالنسبة لشروق الشمس",
+    "localSchedule": "يتم حساب الجدول محليًا وتطبيقه يوميًا.",
     "todaySunset": "غروب الشمس اليوم",
-    "ambilightOn": "الإضاءة المحيطة مشغلة",
-    "tomorrowSunrise": "شروق الشمس غداً"
+    "ambilightOn": "Ambilight مشغّل",
+    "tomorrowSunrise": "شروق الشمس غدًا"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "اللغة",
-    "autostart": "بدء مع التلفاز",
+    "autostart": "التشغيل مع التلفاز",
     "defaultRule": "القاعدة الافتراضية للتطبيقات الجديدة",
-    "test": "اختبار الإضاءة المحيطة لمدة 5 ثوانٍ",
+    "test": "اختبار Ambilight لمدة 5 ثوانٍ",
     "plasma": "خلفية بلازما HyperHDR · سلسة",
     "advanced": "إعدادات متقدمة",
     "reset": "إعادة ضبط الإعدادات",
@@ -76,66 +76,66 @@
   "update": {
     "available": "تحديث متاح",
     "install": "تثبيت التحديث",
-    "preparing": "جارٍ تحضير التحديث…",
+    "preparing": "جارٍ إعداد التحديث…",
     "downloading": "جارٍ تنزيل الحزمة والتحقق منها…",
     "installing": "جارٍ تثبيت التحديث…",
-    "restart": "سيتم إعادة تشغيل AmbiSun تلقائياً.",
+    "restart": "سيتم إعادة تشغيل AmbiSun تلقائيًا.",
     "failed": "فشل التحديث: ",
     "upToDate": "التطبيق محدث إلى آخر إصدار"
   },
   "support": {
     "title": "❤ دعم المشروع",
     "subtitle": "تفاصيل الدعم من Legacy Bridge",
-    "scan": "امسح رمز الاستجابة السريعة (QR) بهاتفك"
+    "scan": "امسح رمز QR بهاتفك"
   },
   "rule": {
     "sun": "حسب الشمس",
-    "on": "تشغيل دائماً",
-    "off": "إيقاف دائماً"
+    "on": "تشغيل دائمًا",
+    "off": "إيقاف دائمًا"
   },
   "toast": {
     "locationTodo": "TODO API: معالج الدولة / المدينة",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "اختبار الإضاءة المحيطة: 5 ثوانٍ",
+    "test": "اختبار Ambilight: 5 ثوانٍ",
     "advancedTodo": "TODO: إعدادات متقدمة",
-    "reset": "تمت إعادة ضبط إعدادات النموذج",
+    "reset": "تمت إعادة تعيين إعدادات النموذج الأولي",
     "updateOk": "تم التحقق من GitHub Releases — الإصدار 1.0.0 هو الأحدث",
     "openGithub": "جارٍ فتح GitHub"
   },
   "location": {
     "title": "الموقع",
-    "stepDetected": "تم الكشف عبر IP",
+    "stepDetected": "تم التحديد عبر IP",
     "stepRegion": "المنطقة",
     "stepCountry": "الدولة",
     "stepCity": "المدينة",
-    "detectedLead": "الدولة المكتشفة عبر IP:",
+    "detectedLead": "الدولة المحددة عبر IP:",
     "isCountryCorrect": "هل أنت في هذه الدولة؟",
-    "chooseRegion": "اختر منطقة",
-    "chooseCountry": "اختر دولة",
-    "chooseCity": "اختر مدينة",
-    "noKeyboard": "بدون لوحة مفاتيح — جهاز التحكم عن بُعد فقط"
+    "chooseRegion": "اختر المنطقة",
+    "chooseCountry": "اختر الدولة",
+    "chooseCity": "اختر المدينة",
+    "noKeyboard": "لا توجد لوحة مفاتيح — جهاز التحكم عن بُعد فقط"
   },
   "region": {
     "europe": "أوروبا",
     "asia": "آسيا",
-    "africa": "أفريقيا",
+    "africa": "إفريقيا",
     "northAmerica": "أمريكا الشمالية",
     "southAmerica": "أمريكا الجنوبية",
     "oceania": "أوقيانوسيا"
   },
   "firstRun": {
-    "chooseLanguage": "اختر لغة",
-    "languageHint": "يمكنك تغيير اللغة لاحقاً من الإعدادات."
+    "chooseLanguage": "اختر اللغة",
+    "languageHint": "يمكنك تغيير اللغة لاحقًا في الإعدادات."
   },
   "status": {
     "waiting": "جارٍ الانتظار..."
   },
   "error": {
-    "revisionConflict": "تعارض في التكوين! جارٍ التحديث...",
+    "revisionConflict": "تعارض في الإعدادات! جارٍ التحديث...",
     "saveFailed": "فشل الحفظ: ",
     "connection": "خطأ في الاتصال",
     "elevationFailed": "خطأ: فشل في الحصول على الأذونات",
-    "minimizeFailed": "فشل تصغير التطبيق"
+    "minimizeFailed": "فشل في تصغير التطبيق"
   },
   "elevation": {
     "restoring": "جارٍ الاستعادة...",

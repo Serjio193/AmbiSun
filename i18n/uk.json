@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Головна",
-    "sources": "Джерела та застосунки",
+    "sources": "Джерела та програми",
     "sun": "Сонце та розклад",
     "settings": "Налаштування",
     "language": "Мова",
-    "about": "Про застосунок"
+    "about": "Про програму"
   },
   "common": {
     "change": "Змінити",
@@ -16,7 +16,7 @@
   },
   "home": {
     "currentState": "Поточний стан",
-    "ambilightOn": "Ambilight увімкнено",
+    "ambilightOn": "Підсвічування Ambilight увімкнено",
     "modeSun": "Режим: За сонцем",
     "currentSource": "Поточне джерело",
     "nextOn": "Наступне увімкнення",
@@ -28,20 +28,20 @@
     "sunrise": "Схід сонця",
     "sunsetOffset": "Увімкнення відносно заходу сонця",
     "sunriseOffset": "Вимкнення відносно сходу сонця",
-    "localSchedule": "Розклад застосовується щодня та розраховується локально.",
-    "todaySunset": "Сьогодні захід",
-    "ambilightOn": "Ambilight ON",
-    "tomorrowSunrise": "Завтра схід"
+    "localSchedule": "Розклад розраховується локально та застосовується щодня.",
+    "todaySunset": "Захід сонця сьогодні",
+    "ambilightOn": "Ambilight УВІМК",
+    "tomorrowSunrise": "Схід сонця завтра"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Мова",
-    "autostart": "Запуск разом із телевізором",
-    "defaultRule": "Правило для нових застосунків",
+    "autostart": "Автозапуск із ТВ",
+    "defaultRule": "Правило за замовчуванням для нових програм",
     "test": "Тест Ambilight на 5 секунд",
-    "plasma": "Фон HyperHDR Plasma · Smooth",
-    "advanced": "Додаткові налаштування",
+    "plasma": "Плазмовий фон HyperHDR · Плавний",
+    "advanced": "Розширені налаштування",
     "reset": "Скинути налаштування",
     "saved": "Налаштування збережено"
   },
@@ -56,10 +56,10 @@
     "available": "HyperHDR доступний",
     "unavailable": "Недоступний",
     "connected": "Підключено",
-    "invalid": "Невірна адреса або порт"
+    "invalid": "Некоректна адреса або порт"
   },
   "language": {
-    "system": "Як на телевізорі",
+    "system": "Як на ТВ",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -75,7 +75,7 @@
   },
   "update": {
     "available": "Доступне оновлення",
-    "install": "Встановити оновлення ПЗ",
+    "install": "Встановити оновлення",
     "preparing": "Підготовка оновлення…",
     "downloading": "Завантаження та перевірка пакета…",
     "installing": "Встановлення оновлення…",
@@ -85,7 +85,7 @@
   },
   "support": {
     "title": "❤ Підтримати проєкт",
-    "subtitle": "Дані підтримки з Legacy Bridge",
+    "subtitle": "Реквізити підтримки з Legacy Bridge",
     "scan": "Відскануйте QR-код телефоном"
   },
   "rule": {
@@ -96,24 +96,24 @@
   "toast": {
     "locationTodo": "TODO API: майстер країни / міста",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Тест Ambilight: 5 секунд",
-    "advancedTodo": "TODO: додаткові налаштування",
+    "test": "Тест підсвічування: 5 секунд",
+    "advancedTodo": "TODO: розширені налаштування",
     "reset": "Налаштування прототипу скинуто",
-    "updateOk": "GitHub Releases перевірено — версія 1.0.0 актуальна",
-    "openGithub": "Відкриваю GitHub"
+    "updateOk": "Перевірка GitHub Releases — версія 1.0.0 актуальна",
+    "openGithub": "Перехід на GitHub"
   },
   "location": {
-    "title": "Місцезнаходження",
+    "title": "Розташування",
     "stepDetected": "Визначено за IP",
     "stepRegion": "Регіон",
     "stepCountry": "Країна",
     "stepCity": "Місто",
-    "detectedLead": "За IP визначено країну:",
+    "detectedLead": "Країна, визначена за IP:",
     "isCountryCorrect": "Ви перебуваєте в цій країні?",
     "chooseRegion": "Оберіть регіон",
     "chooseCountry": "Оберіть країну",
     "chooseCity": "Оберіть місто",
-    "noKeyboard": "Без клавіатури — лише пульт"
+    "noKeyboard": "Без клавіатури — тільки пульт"
   },
   "region": {
     "europe": "Європа",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Оберіть мову",
-    "languageHint": "Мову можна змінити пізніше в налаштуваннях."
+    "languageHint": "Ви завжди зможете змінити мову в Налаштуваннях."
   },
   "status": {
     "waiting": "Очікування..."
@@ -133,9 +133,9 @@
   "error": {
     "revisionConflict": "Конфлікт конфігурації! Оновлення...",
     "saveFailed": "Помилка збереження: ",
-    "connection": "Помилка з'єднання",
-    "elevationFailed": "Помилка: не вдалося отримати права",
-    "minimizeFailed": "Не вдалося згорнути застосунок"
+    "connection": "Помилка підключення",
+    "elevationFailed": "Помилка: не вдалося отримати права доступу",
+    "minimizeFailed": "Не вдалося згорнути програму"
   },
   "elevation": {
     "restoring": "Відновлення...",

@@ -1,8 +1,8 @@
 {
   "nav": {
     "home": "Ana Sayfa",
-    "sources": "Kaynaklar ve Uygulamalar",
-    "sun": "Güneş ve Zamanlama",
+    "sources": "Kaynaklar ve uygulamalar",
+    "sun": "Güneş ve zamanlama",
     "settings": "Ayarlar",
     "language": "Dil",
     "about": "Hakkında"
@@ -12,7 +12,7 @@
     "yes": "Evet",
     "no": "Hayır",
     "back": "Geri",
-    "minimize": "Küçült"
+    "minimize": "Simge durumuna küçült"
   },
   "home": {
     "currentState": "Mevcut durum",
@@ -26,9 +26,9 @@
     "sunset": "Gün batımı",
     "turnOn": "Aç",
     "sunrise": "Gün doğumu",
-    "sunsetOffset": "Gün batımına göre aç",
-    "sunriseOffset": "Gün doğumuna göre kapat",
-    "localSchedule": "Zamanlama günlük olarak uygulanır ve yerel olarak hesaplanır.",
+    "sunsetOffset": "Gün batımına göre açılma",
+    "sunriseOffset": "Gün doğumuna göre kapanma",
+    "localSchedule": "Zamanlama yerel olarak hesaplanır ve günlük uygulanır.",
     "todaySunset": "Bugün gün batımı",
     "ambilightOn": "Ambilight AÇIK",
     "tomorrowSunrise": "Yarın gün doğumu"
@@ -37,7 +37,7 @@
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Dil",
-    "autostart": "TV ile başlat",
+    "autostart": "TV ile birlikte başlat",
     "defaultRule": "Yeni uygulamalar için varsayılan kural",
     "test": "Ambilight'ı 5 saniye test et",
     "plasma": "HyperHDR Plazma arka planı · Akıcı",
@@ -85,8 +85,8 @@
   },
   "support": {
     "title": "❤ Projeyi destekleyin",
-    "subtitle": "Legacy Bridge'den destek ayrıntıları",
-    "scan": "Telefonunuzla QR kodunu tarayın"
+    "subtitle": "Legacy Bridge destek detayları",
+    "scan": "QR kodunu telefonunuzla tarayın"
   },
   "rule": {
     "sun": "Güneşe göre",
@@ -104,16 +104,16 @@
   },
   "location": {
     "title": "Konum",
-    "stepDetected": "IP ile tespit edildi",
+    "stepDetected": "IP üzerinden tespit edildi",
     "stepRegion": "Bölge",
     "stepCountry": "Ülke",
     "stepCity": "Şehir",
-    "detectedLead": "IP ile tespit edilen ülke:",
+    "detectedLead": "IP üzerinden tespit edilen ülke:",
     "isCountryCorrect": "Bu ülkede misiniz?",
-    "chooseRegion": "Bölge seçin",
-    "chooseCountry": "Ülke seçin",
-    "chooseCity": "Şehir seçin",
-    "noKeyboard": "Klavye yok — yalnızca uzaktan kumanda"
+    "chooseRegion": "Bir bölge seçin",
+    "chooseCountry": "Bir ülke seçin",
+    "chooseCity": "Bir şehir seçin",
+    "noKeyboard": "Klavye yok — sadece uzaktan kumanda"
   },
   "region": {
     "europe": "Avrupa",
@@ -125,7 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Bir dil seçin",
-    "languageHint": "Dili daha sonra Ayarlar'dan değiştirebilirsiniz."
+    "languageHint": "Dili daha sonra Ayarlar bölümünden değiştirebilirsiniz."
   },
   "status": {
     "waiting": "Bekleniyor..."
@@ -135,7 +135,7 @@
     "saveFailed": "Kaydetme başarısız: ",
     "connection": "Bağlantı hatası",
     "elevationFailed": "Hata: İzinler alınamadı",
-    "minimizeFailed": "Uygulama küçültülemedi"
+    "minimizeFailed": "Uygulama simge durumuna küçültülemedi"
   },
   "elevation": {
     "restoring": "Geri yükleniyor...",

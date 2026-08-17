@@ -2,7 +2,7 @@
   "nav": {
     "home": "Domov",
     "sources": "Zdroje a aplikácie",
-    "sun": "Slnko a plán",
+    "sun": "Slnko a rozvrh",
     "settings": "Nastavenia",
     "language": "Jazyk",
     "about": "O aplikácii"
@@ -19,19 +19,19 @@
     "ambilightOn": "Ambilight je zapnutý",
     "modeSun": "Režim: Podľa slnka",
     "currentSource": "Aktuálny zdroj",
-    "nextOn": "Ďalšie zapnutie",
-    "nextOff": "Ďalšie vypnutie"
+    "nextOn": "Najbližšie zapnutie",
+    "nextOff": "Najbližšie vypnutie"
   },
   "sun": {
     "sunset": "Západ slnka",
     "turnOn": "Zapnúť",
     "sunrise": "Východ slnka",
-    "sunsetOffset": "Zapnúť vzhľadom na západ slnka",
-    "sunriseOffset": "Vypnúť vzhľadom na východ slnka",
-    "localSchedule": "Plán sa aplikuje denne a počíta lokálne.",
-    "todaySunset": "Dnešný západ slnka",
-    "ambilightOn": "Ambilight ZAPNUTÉ",
-    "tomorrowSunrise": "Zajtrajší východ slnka"
+    "sunsetOffset": "Zapnutie vzhľadom na západ slnka",
+    "sunriseOffset": "Vypnutie vzhľadom na východ slnka",
+    "localSchedule": "Rozvrh sa počíta lokálne a aplikuje denne.",
+    "todaySunset": "Západ slnka dnes",
+    "ambilightOn": "Ambilight ZAPNUTÝ",
+    "tomorrowSunrise": "Východ slnka zajtra"
   },
   "settings": {
     "enabled": "AmbiSun",
@@ -39,7 +39,7 @@
     "language": "Jazyk",
     "autostart": "Spustiť s TV",
     "defaultRule": "Predvolené pravidlo pre nové aplikácie",
-    "test": "Testovať Ambilight na 5 sekúnd",
+    "test": "Otestovať Ambilight na 5 sekúnd",
     "plasma": "Plazmové pozadie HyperHDR · Plynulé",
     "advanced": "Rozšírené nastavenia",
     "reset": "Obnoviť nastavenia",
@@ -49,17 +49,17 @@
     "title": "HyperHDR",
     "host": "Adresa servera:",
     "port": "Port:",
-    "test": "Test",
+    "test": "Testovať",
     "save": "Uložiť",
     "cancel": "Zrušiť",
     "testing": "Testovanie pripojenia...",
-    "available": "HyperHDR k dispozícii",
+    "available": "HyperHDR je k dispozícii",
     "unavailable": "Nedostupné",
     "connected": "Pripojené",
     "invalid": "Neplatná adresa alebo port"
   },
   "language": {
-    "system": "Rovnaký ako v TV",
+    "system": "Rovnaký ako TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -86,7 +86,7 @@
   "support": {
     "title": "❤ Podporiť projekt",
     "subtitle": "Podrobnosti podpory z Legacy Bridge",
-    "scan": "Naskenujte QR kód telefónom"
+    "scan": "Naskenujte QR kód smartfónom"
   },
   "rule": {
     "sun": "Podľa slnka",
@@ -99,8 +99,8 @@
     "test": "Test Ambilight: 5 sekúnd",
     "advancedTodo": "TODO: rozšírené nastavenia",
     "reset": "Nastavenia prototypu obnovené",
-    "updateOk": "GitHub Releases skontrolovaný — verzia 1.0.0 je aktuálna",
-    "openGithub": "Otváranie GitHub"
+    "updateOk": "GitHub Releases skontrolované — verzia 1.0.0 je aktuálna",
+    "openGithub": "Otvára sa GitHub"
   },
   "location": {
     "title": "Poloha",
@@ -128,17 +128,17 @@
     "languageHint": "Jazyk môžete neskôr zmeniť v Nastaveniach."
   },
   "status": {
-    "waiting": "Čakanie..."
+    "waiting": "Čakajte..."
   },
   "error": {
-    "revisionConflict": "Konflikt konfigurácie! Aktualizácia...",
+    "revisionConflict": "Konflikt konfigurácie! Aktualizuje sa...",
     "saveFailed": "Uloženie zlyhalo: ",
     "connection": "Chyba pripojenia",
-    "elevationFailed": "Chyba: Nepodarilo sa získať povolenia",
-    "minimizeFailed": "Aplikáciu sa nepodarilo minimalizovať"
+    "elevationFailed": "Chyba: Nepodarilo sa získať oprávnenia",
+    "minimizeFailed": "Nepodarilo sa minimalizovať aplikáciu"
   },
   "elevation": {
-    "restoring": "Obnovovanie...",
-    "success": "Úspech! Reštartovanie..."
+    "restoring": "Obnovuje sa...",
+    "success": "Úspech! Reštartuje sa..."
   }
 }

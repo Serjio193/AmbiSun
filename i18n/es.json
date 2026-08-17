@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Inicio",
-    "sources": "Fuentes y apps",
+    "sources": "Fuentes y aplicaciones",
     "sun": "Sol y horario",
     "settings": "Ajustes",
     "language": "Idioma",
@@ -25,22 +25,22 @@
   "sun": {
     "sunset": "Puesta de sol",
     "turnOn": "Encender",
-    "sunrise": "Amanecer",
-    "sunsetOffset": "Encender respecto a la puesta de sol",
-    "sunriseOffset": "Apagar respecto al amanecer",
-    "localSchedule": "El horario se aplica a diario y se calcula localmente.",
+    "sunrise": "Salida del sol",
+    "sunsetOffset": "Encendido relativo a la puesta de sol",
+    "sunriseOffset": "Apagado relativo a la salida del sol",
+    "localSchedule": "El horario se calcula localmente y se aplica a diario.",
     "todaySunset": "Puesta de sol hoy",
     "ambilightOn": "Ambilight ENCENDIDO",
-    "tomorrowSunrise": "Amanecer mañana"
+    "tomorrowSunrise": "Salida del sol mañana"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Idioma",
-    "autostart": "Iniciar con la TV",
+    "autostart": "Iniciar con el televisor",
     "defaultRule": "Regla predeterminada para nuevas apps",
     "test": "Probar Ambilight durante 5 segundos",
-    "plasma": "Fondo Plasma HyperHDR · Suave",
+    "plasma": "Fondo Plasma de HyperHDR · Suave",
     "advanced": "Ajustes avanzados",
     "reset": "Restablecer ajustes",
     "saved": "Ajustes guardados"
@@ -56,7 +56,7 @@
     "available": "HyperHDR disponible",
     "unavailable": "No disponible",
     "connected": "Conectado",
-    "invalid": "Dirección o puerto inválidos"
+    "invalid": "Dirección o puerto no válidos"
   },
   "language": {
     "system": "Igual que el televisor",
@@ -80,13 +80,13 @@
     "downloading": "Descargando y verificando paquete…",
     "installing": "Instalando actualización…",
     "restart": "AmbiSun se reiniciará automáticamente.",
-    "failed": "Error al actualizar: ",
-    "upToDate": "La app está actualizada"
+    "failed": "Error en la actualización: ",
+    "upToDate": "La aplicación está actualizada"
   },
   "support": {
     "title": "❤ Apoyar el proyecto",
-    "subtitle": "Detalles de apoyo de Legacy Bridge",
-    "scan": "Escanea el código QR con tu teléfono"
+    "subtitle": "Detalles de apoyo desde Legacy Bridge",
+    "scan": "Escanee el código QR con su teléfono"
   },
   "rule": {
     "sun": "Según el sol",
@@ -94,12 +94,12 @@
     "off": "Siempre APAGADO"
   },
   "toast": {
-    "locationTodo": "TODO API: asistente país / ciudad",
+    "locationTodo": "TODO API: asistente de país / ciudad",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Prueba de Ambilight: 5 segundos",
     "advancedTodo": "TODO: ajustes avanzados",
-    "reset": "Ajustes del prototipo restablecidos",
-    "updateOk": "GitHub Releases verificado — la versión 1.0.0 está al día",
+    "reset": "Ajustes de prototipo restablecidos",
+    "updateOk": "GitHub Releases comprobado — versión 1.0.0 al día",
     "openGithub": "Abriendo GitHub"
   },
   "location": {
@@ -109,23 +109,23 @@
     "stepCountry": "País",
     "stepCity": "Ciudad",
     "detectedLead": "País detectado por IP:",
-    "isCountryCorrect": "¿Estás en este país?",
+    "isCountryCorrect": "¿Se encuentra en este país?",
     "chooseRegion": "Elegir una región",
     "chooseCountry": "Elegir un país",
     "chooseCity": "Elegir una ciudad",
-    "noKeyboard": "Sin teclado — solo control remoto"
+    "noKeyboard": "Sin teclado — solo mando a distancia"
   },
   "region": {
     "europe": "Europa",
     "asia": "Asia",
     "africa": "África",
-    "northAmerica": "América del Norte",
-    "southAmerica": "América del Sur",
+    "northAmerica": "Norteamérica",
+    "southAmerica": "Sudamérica",
     "oceania": "Oceanía"
   },
   "firstRun": {
-    "chooseLanguage": "Elige un idioma",
-    "languageHint": "Puedes cambiar el idioma más tarde en Ajustes."
+    "chooseLanguage": "Elegir idioma",
+    "languageHint": "Puede cambiar el idioma más adelante en Ajustes."
   },
   "status": {
     "waiting": "Esperando..."
@@ -134,11 +134,11 @@
     "revisionConflict": "¡Conflicto de configuración! Actualizando...",
     "saveFailed": "Error al guardar: ",
     "connection": "Error de conexión",
-    "elevationFailed": "Error: No se pudieron obtener permisos",
-    "minimizeFailed": "No se pudo minimizar la aplicación"
+    "elevationFailed": "Error: No se pudieron obtener los permisos",
+    "minimizeFailed": "Error al minimizar la aplicación"
   },
   "elevation": {
     "restoring": "Restaurando...",
-    "success": "¡Éxito! Reiniciando..."
+    "success": "¡Listo! Reiniciando..."
   }
 }

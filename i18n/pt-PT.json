@@ -2,7 +2,7 @@
   "nav": {
     "home": "Início",
     "sources": "Fontes e aplicações",
-    "sun": "Sol e horário",
+    "sun": "Sol e agendamento",
     "settings": "Definições",
     "language": "Idioma",
     "about": "Sobre"
@@ -16,19 +16,19 @@
   },
   "home": {
     "currentState": "Estado atual",
-    "ambilightOn": "Ambilight está ligado",
+    "ambilightOn": "Ambilight ligado",
     "modeSun": "Modo: Pelo sol",
     "currentSource": "Fonte atual",
-    "nextOn": "Próximo ligar",
-    "nextOff": "Próximo desligar"
+    "nextOn": "Próxima ativação",
+    "nextOff": "Próxima desativação"
   },
   "sun": {
     "sunset": "Pôr do sol",
     "turnOn": "Ligar",
     "sunrise": "Nascer do sol",
-    "sunsetOffset": "Ligar relativo ao pôr do sol",
-    "sunriseOffset": "Desligar relativo ao nascer do sol",
-    "localSchedule": "O horário é aplicado diariamente e calculado localmente.",
+    "sunsetOffset": "Ligar relativamente ao pôr do sol",
+    "sunriseOffset": "Desligar relativamente ao nascer do sol",
+    "localSchedule": "O agendamento é calculado localmente e aplicado diariamente.",
     "todaySunset": "Pôr do sol hoje",
     "ambilightOn": "Ambilight LIGADO",
     "tomorrowSunrise": "Nascer do sol amanhã"
@@ -40,7 +40,7 @@
     "autostart": "Iniciar com a TV",
     "defaultRule": "Regra predefinida para novas aplicações",
     "test": "Testar Ambilight durante 5 segundos",
-    "plasma": "Fundo Plasma HyperHDR · Suave",
+    "plasma": "Fundo Plasma do HyperHDR · Suave",
     "advanced": "Definições avançadas",
     "reset": "Repor definições",
     "saved": "Definições guardadas"
@@ -56,7 +56,7 @@
     "available": "HyperHDR disponível",
     "unavailable": "Indisponível",
     "connected": "Ligado",
-    "invalid": "Endereço ou porta inválidos"
+    "invalid": "Endereço ou porta inválida"
   },
   "language": {
     "system": "Igual à TV",
@@ -79,14 +79,14 @@
     "preparing": "A preparar atualização…",
     "downloading": "A transferir e a verificar pacote…",
     "installing": "A instalar atualização…",
-    "restart": "O AmbiSun reiniciará automaticamente.",
+    "restart": "O AmbiSun irá reiniciar automaticamente.",
     "failed": "Falha na atualização: ",
     "upToDate": "A aplicação está atualizada"
   },
   "support": {
     "title": "❤ Apoiar o projeto",
     "subtitle": "Detalhes de apoio do Legacy Bridge",
-    "scan": "Digitalize o código QR com o seu telemóvel"
+    "scan": "Leia o código QR com o telemóvel"
   },
   "rule": {
     "sun": "Pelo sol",
@@ -94,13 +94,13 @@
     "off": "Sempre DESLIGADO"
   },
   "toast": {
-    "locationTodo": "TODO API: assistente país / cidade",
+    "locationTodo": "TODO API: assistente de país / cidade",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Teste de Ambilight: 5 segundos",
+    "test": "Teste do Ambilight: 5 segundos",
     "advancedTodo": "TODO: definições avançadas",
     "reset": "Definições do protótipo repostas",
-    "updateOk": "GitHub Releases verificado — versão 1.0.0 está atualizada",
-    "openGithub": "A abrir GitHub"
+    "updateOk": "GitHub Releases verificado — versão 1.0.0 atual",
+    "openGithub": "A abrir o GitHub"
   },
   "location": {
     "title": "Localização",
@@ -109,11 +109,11 @@
     "stepCountry": "País",
     "stepCity": "Cidade",
     "detectedLead": "País detetado por IP:",
-    "isCountryCorrect": "Está neste país?",
+    "isCountryCorrect": "Encontra-se neste país?",
     "chooseRegion": "Escolha uma região",
     "chooseCountry": "Escolha um país",
     "chooseCity": "Escolha uma cidade",
-    "noKeyboard": "Sem teclado — apenas telecomando"
+    "noKeyboard": "Sem teclado — apenas comando à distância"
   },
   "region": {
     "europe": "Europa",
@@ -121,7 +121,7 @@
     "africa": "África",
     "northAmerica": "América do Norte",
     "southAmerica": "América do Sul",
-    "oceania": "Oceania"
+    "oceania": "Oceânia"
   },
   "firstRun": {
     "chooseLanguage": "Escolha um idioma",

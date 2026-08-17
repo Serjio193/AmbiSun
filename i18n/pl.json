@@ -1,6 +1,6 @@
 {
   "nav": {
-    "home": "Ekran główny",
+    "home": "Główna",
     "sources": "Źródła i aplikacje",
     "sun": "Słońce i harmonogram",
     "settings": "Ustawienia",
@@ -12,13 +12,13 @@
     "yes": "Tak",
     "no": "Nie",
     "back": "Wstecz",
-    "minimize": "Minimalizuj"
+    "minimize": "Zminimalizuj"
   },
   "home": {
-    "currentState": "Bieżący stan",
+    "currentState": "Aktualny stan",
     "ambilightOn": "Ambilight jest włączony",
-    "modeSun": "Tryb: Według słońca",
-    "currentSource": "Bieżące źródło",
+    "modeSun": "Tryb: Wg słońca",
+    "currentSource": "Aktualne źródło",
     "nextOn": "Następne włączenie",
     "nextOff": "Następne wyłączenie"
   },
@@ -26,18 +26,18 @@
     "sunset": "Zachód słońca",
     "turnOn": "Włącz",
     "sunrise": "Wschód słońca",
-    "sunsetOffset": "Włącz względem zachodu słońca",
-    "sunriseOffset": "Wyłącz względem wschodu słońca",
-    "localSchedule": "Harmonogram jest stosowany codziennie i obliczany lokalnie.",
-    "todaySunset": "Dzisiejszy zachód słońca",
+    "sunsetOffset": "Włączanie względem zachodu słońca",
+    "sunriseOffset": "Wyłączanie względem wschodu słońca",
+    "localSchedule": "Harmonogram jest obliczany lokalnie i stosowany codziennie.",
+    "todaySunset": "Zachód słońca dzisiaj",
     "ambilightOn": "Ambilight WŁĄCZONY",
-    "tomorrowSunrise": "Jutrzejszy wschód słońca"
+    "tomorrowSunrise": "Wschód słońca jutro"
   },
   "settings": {
     "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Język",
-    "autostart": "Uruchom z telewizorem",
+    "autostart": "Uruchamiaj z TV",
     "defaultRule": "Domyślna reguła dla nowych aplikacji",
     "test": "Testuj Ambilight przez 5 sekund",
     "plasma": "Tło plazmowe HyperHDR · Płynne",
@@ -59,7 +59,7 @@
     "invalid": "Nieprawidłowy adres lub port"
   },
   "language": {
-    "system": "Taki sam jak w TV",
+    "system": "Taki jak w TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -89,26 +89,26 @@
     "scan": "Zeskanuj kod QR telefonem"
   },
   "rule": {
-    "sun": "Według słońca",
+    "sun": "Wg słońca",
     "on": "Zawsze WŁĄCZONE",
     "off": "Zawsze WYŁĄCZONE"
   },
   "toast": {
-    "locationTodo": "TODO API: asystent kraju / miasta",
+    "locationTodo": "TODO API: kreator kraju / miasta",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Test Ambilight: 5 sekund",
     "advancedTodo": "TODO: ustawienia zaawansowane",
-    "reset": "Ustawienia zresetowane",
-    "updateOk": "GitHub Releases sprawdzony — wersja 1.0.0 jest aktualna",
+    "reset": "Zresetowano ustawienia prototypu",
+    "updateOk": "Sprawdzono GitHub Releases — wersja 1.0.0 jest aktualna",
     "openGithub": "Otwieranie GitHub"
   },
   "location": {
     "title": "Lokalizacja",
-    "stepDetected": "Wykryto na podstawie IP",
+    "stepDetected": "Wykryto po IP",
     "stepRegion": "Region",
     "stepCountry": "Kraj",
     "stepCity": "Miasto",
-    "detectedLead": "Kraj wykryty na podstawie IP:",
+    "detectedLead": "Kraj wykryty po IP:",
     "isCountryCorrect": "Czy jesteś w tym kraju?",
     "chooseRegion": "Wybierz region",
     "chooseCountry": "Wybierz kraj",
@@ -125,13 +125,13 @@
   },
   "firstRun": {
     "chooseLanguage": "Wybierz język",
-    "languageHint": "Możesz zmienić język później w Ustawieniach."
+    "languageHint": "Język można zmienić później w Ustawieniach."
   },
   "status": {
     "waiting": "Oczekiwanie..."
   },
   "error": {
-    "revisionConflict": "Konflikt konfiguracji! Aktualizacja...",
+    "revisionConflict": "Konflikt konfiguracji! Aktualizowanie...",
     "saveFailed": "Zapisywanie nie powiodło się: ",
     "connection": "Błąd połączenia",
     "elevationFailed": "Błąd: Nie udało się uzyskać uprawnień",

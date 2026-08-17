@@ -2,7 +2,7 @@
   "nav": {
     "home": "Domů",
     "sources": "Zdroje a aplikace",
-    "sun": "Slunce a plán",
+    "sun": "Slunce a rozvrh",
     "settings": "Nastavení",
     "language": "Jazyk",
     "about": "O aplikaci"
@@ -26,12 +26,12 @@
     "sunset": "Západ slunce",
     "turnOn": "Zapnout",
     "sunrise": "Východ slunce",
-    "sunsetOffset": "Zapnout vzhledem k západu slunce",
-    "sunriseOffset": "Vypnout vzhledem k východu slunce",
-    "localSchedule": "Plán je aplikován denně a počítán lokálně.",
-    "todaySunset": "Dnešní západ slunce",
-    "ambilightOn": "Ambilight ZAPNUTO",
-    "tomorrowSunrise": "Zítřejší východ slunce"
+    "sunsetOffset": "Zapnutí vzhledem k západu slunce",
+    "sunriseOffset": "Vypnutí vzhledem k východu slunce",
+    "localSchedule": "Rozvrh se počítá lokálně a aplikuje denně.",
+    "todaySunset": "Západ slunce dnes",
+    "ambilightOn": "Ambilight ZAPNUT",
+    "tomorrowSunrise": "Východ slunce zítra"
   },
   "settings": {
     "enabled": "AmbiSun",
@@ -39,27 +39,27 @@
     "language": "Jazyk",
     "autostart": "Spustit s TV",
     "defaultRule": "Výchozí pravidlo pro nové aplikace",
-    "test": "Testovat Ambilight na 5 sekund",
-    "plasma": "Plazmové pozadí HyperHDR · Plynulé",
+    "test": "Otestovat Ambilight na 5 sekund",
+    "plasma": "HyperHDR plazmové pozadí · Plynulé",
     "advanced": "Pokročilá nastavení",
     "reset": "Obnovit nastavení",
-    "saved": "Nastavení uložena"
+    "saved": "Nastavení uloženo"
   },
   "hyperhdr": {
     "title": "HyperHDR",
     "host": "Adresa serveru:",
     "port": "Port:",
-    "test": "Test",
+    "test": "Testovat",
     "save": "Uložit",
     "cancel": "Zrušit",
     "testing": "Testování připojení...",
-    "available": "HyperHDR k dispozici",
+    "available": "HyperHDR je k dispozici",
     "unavailable": "Nedostupné",
     "connected": "Připojeno",
     "invalid": "Neplatná adresa nebo port"
   },
   "language": {
-    "system": "Stejný jako v TV",
+    "system": "Stejný jako TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -80,7 +80,7 @@
     "downloading": "Stahování a ověřování balíčku…",
     "installing": "Instalace aktualizace…",
     "restart": "AmbiSun se automaticky restartuje.",
-    "failed": "Aktualizace selhala: ",
+    "failed": "Aktualizace se nezdařila: ",
     "upToDate": "Aplikace je aktuální"
   },
   "support": {
@@ -99,7 +99,7 @@
     "test": "Test Ambilight: 5 sekund",
     "advancedTodo": "TODO: pokročilá nastavení",
     "reset": "Nastavení prototypu obnovena",
-    "updateOk": "GitHub Releases zkontrolován — verze 1.0.0 je aktuální",
+    "updateOk": "GitHub Releases zkontrolováno — verze 1.0.0 je aktuální",
     "openGithub": "Otevírání GitHub"
   },
   "location": {
@@ -132,10 +132,10 @@
   },
   "error": {
     "revisionConflict": "Konflikt konfigurace! Aktualizace...",
-    "saveFailed": "Uložení selhalo: ",
+    "saveFailed": "Uložení se nezdařilo: ",
     "connection": "Chyba připojení",
     "elevationFailed": "Chyba: Nepodařilo se získat oprávnění",
-    "minimizeFailed": "Aplikaci se nepodařilo minimalizovat"
+    "minimizeFailed": "Nepodařilo se minimalizovat aplikaci"
   },
   "elevation": {
     "restoring": "Obnovování...",

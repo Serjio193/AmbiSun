@@ -1,11 +1,11 @@
 {
   "nav": {
-    "home": "Home",
+    "home": "Start",
     "sources": "Bronnen & apps",
     "sun": "Zon & schema",
     "settings": "Instellingen",
     "language": "Taal",
-    "about": "Over"
+    "about": "Over AmbiSun"
   },
   "common": {
     "change": "Wijzigen",
@@ -17,7 +17,7 @@
   "home": {
     "currentState": "Huidige status",
     "ambilightOn": "Ambilight is ingeschakeld",
-    "modeSun": "Modus: Op basis van zon",
+    "modeSun": "Modus: Op zonsopgang/-ondergang",
     "currentSource": "Huidige bron",
     "nextOn": "Volgende inschakeling",
     "nextOff": "Volgende uitschakeling"
@@ -26,9 +26,9 @@
     "sunset": "Zonsondergang",
     "turnOn": "Inschakelen",
     "sunrise": "Zonsopgang",
-    "sunsetOffset": "Inschakelen relatief aan zonsondergang",
-    "sunriseOffset": "Uitschakelen relatief aan zonsopgang",
-    "localSchedule": "Schema wordt dagelijks toegepast en lokaal berekend.",
+    "sunsetOffset": "Inschakelen t.o.v. zonsondergang",
+    "sunriseOffset": "Uitschakelen t.o.v. zonsopgang",
+    "localSchedule": "Het schema wordt lokaal berekend en dagelijks toegepast.",
     "todaySunset": "Zonsondergang vandaag",
     "ambilightOn": "Ambilight AAN",
     "tomorrowSunrise": "Zonsopgang morgen"
@@ -59,7 +59,7 @@
     "invalid": "Ongeldig adres of poort"
   },
   "language": {
-    "system": "Hetzelfde als TV",
+    "system": "Zelfde als TV",
     "english": "English",
     "russian": "Русский",
     "estonian": "Eesti",
@@ -79,26 +79,26 @@
     "preparing": "Update voorbereiden…",
     "downloading": "Pakket downloaden en verifiëren…",
     "installing": "Update installeren…",
-    "restart": "AmbiSun start automatisch opnieuw op.",
+    "restart": "AmbiSun wordt automatisch opnieuw gestart.",
     "failed": "Update mislukt: ",
     "upToDate": "App is up-to-date"
   },
   "support": {
     "title": "❤ Steun het project",
-    "subtitle": "Ondersteuningsdetails van Legacy Bridge",
+    "subtitle": "Steuninformatie van Legacy Bridge",
     "scan": "Scan de QR-code met uw telefoon"
   },
   "rule": {
-    "sun": "Op basis van zon",
+    "sun": "Op zonsopgang/-ondergang",
     "on": "Altijd AAN",
     "off": "Altijd UIT"
   },
   "toast": {
-    "locationTodo": "TODO API: land / stad wizard",
+    "locationTodo": "TODO API: land/stad wizard",
     "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
     "test": "Ambilight-test: 5 seconden",
     "advancedTodo": "TODO: geavanceerde instellingen",
-    "reset": "Instellingen hersteld",
+    "reset": "Prototype-instellingen gereset",
     "updateOk": "GitHub Releases gecontroleerd — versie 1.0.0 is actueel",
     "openGithub": "GitHub openen"
   },
@@ -128,17 +128,17 @@
     "languageHint": "U kunt de taal later wijzigen in Instellingen."
   },
   "status": {
-    "waiting": "Wachten..."
+    "waiting": "Even geduld..."
   },
   "error": {
-    "revisionConflict": "Configuratieconflict! Bijwerken...",
+    "revisionConflict": "Configuratieconflict! Bezig met bijwerken...",
     "saveFailed": "Opslaan mislukt: ",
     "connection": "Verbindingsfout",
     "elevationFailed": "Fout: Kan geen machtigingen verkrijgen",
-    "minimizeFailed": "Kan toepassing niet minimaliseren"
+    "minimizeFailed": "Kan applicatie niet minimaliseren"
   },
   "elevation": {
-    "restoring": "Herstellen...",
-    "success": "Succes! Opnieuw opstarten..."
+    "restoring": "Bezig met herstellen...",
+    "success": "Geslaagd! Bezig met herstarten..."
   }
 }

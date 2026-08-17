@@ -945,3 +945,74 @@ service.register("minimizeApp", function (message) {
         }
     });
 });
+
+var translation = require("./lib/translation");
+
+service.register("getTranslationLanguages", function (message) {
+    var payload = message.payload || {};
+    translation.getTranslationLanguages(payload, function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "FETCH_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});
+
+service.register("getDownloadedLanguages", function (message) {
+    translation.getDownloadedLanguages(function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "FETCH_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});
+
+service.register("getTranslationLocale", function (message) {
+    var payload = message.payload || {};
+    translation.getTranslationLocale(payload.language, function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "FETCH_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});
+
+service.register("downloadTranslation", function (message) {
+    var payload = message.payload || {};
+    translation.downloadTranslation(payload, function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "DOWNLOAD_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});
+
+service.register("deleteTranslation", function (message) {
+    var payload = message.payload || {};
+    translation.deleteTranslation(payload.language, function(err, result) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "DELETE_FAILED",
+                errorText: err.message
+            });
+        }
+        message.respond(result);
+    });
+});

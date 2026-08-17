@@ -93,7 +93,27 @@ const ACTIONS = {
   'first-run-language': async ({el}) => { await AmbiSun.startup.completeLanguage(el.dataset.language || 'en'); },
 
   'first-run-other-language': () => {
-    showToast(AmbiSun.i18n.t('firstRun.otherLanguagesSoon', 'Other languages will be added later.'), 2600);
+    if (AmbiSun.translation && AmbiSun.translation.openOtherLanguages) {
+      AmbiSun.translation.openOtherLanguages(true);
+    }
+  },
+
+  'open-other-languages': () => {
+    if (AmbiSun.translation && AmbiSun.translation.openOtherLanguages) {
+      AmbiSun.translation.openOtherLanguages(false);
+    }
+  },
+
+  'close-other-languages': () => {
+    if (AmbiSun.translation && AmbiSun.translation.closeOtherLanguages) {
+      AmbiSun.translation.closeOtherLanguages();
+    }
+  },
+
+  'select-other-language': async ({el}) => {
+    if (AmbiSun.translation && AmbiSun.translation.selectLanguage) {
+      await AmbiSun.translation.selectLanguage(el);
+    }
   },
 
   'restore-elevation': async ({el}) => {
@@ -476,6 +496,14 @@ async function initUI(){
       return;
     }
 
+    const otherLangModal = document.getElementById('otherLanguagesModal');
+    if (otherLangModal && otherLangModal.classList.contains('open')) {
+      if (AmbiSun.translation && AmbiSun.translation.closeOtherLanguages) {
+        AmbiSun.translation.closeOtherLanguages();
+      }
+      return;
+    }
+
     if (wizard && wizard.classList.contains('open')) {
       if (AmbiSun.location && AmbiSun.location.back) {
         AmbiSun.location.back();
@@ -503,6 +531,9 @@ async function initUI(){
   updateBoolean('enabled');
   AmbiSun.sources.updateDefaultRule();
 
+  if (AmbiSun.i18n.loadDownloadedOnStartup) {
+    await AmbiSun.i18n.loadDownloadedOnStartup();
+  }
   const lang = AmbiSun.i18n.savedLanguage();
   await AmbiSun.i18n.setLanguage(lang);
   updateSettingsLanguageBadge();

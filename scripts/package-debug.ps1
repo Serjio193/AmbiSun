@@ -86,10 +86,12 @@ Write-Host "Verifying staging contents..."
 $EssentialFiles = @(
     "$AppStaging\appinfo.json",
     "$AppStaging\index.html",
+    "$AppStaging\js\translation.js",
     "$ServiceStaging\package.json",
     "$ServiceStaging\services.json",
     "$ServiceStaging\service.js",
     "$ServiceStaging\lib\runtime-info.js",
+    "$ServiceStaging\lib\translation.js",
     "$ServiceStaging\data\countries.json",
     "$ServiceStaging\data\manifest.json",
     "$ServiceStaging\data\cities\RU.json",

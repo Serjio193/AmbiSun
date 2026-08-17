@@ -107,6 +107,11 @@
   function checkForUpdate() { return requestService("checkForUpdate", {}); }
   function installUpdate(expectedVersion) { return requestService("installUpdate", { expectedVersion: expectedVersion }); }
   function minimizeApp() { return requestService("minimizeApp", {}); }
+  function getTranslationLanguages(params) { return requestService("getTranslationLanguages", params || {}); }
+  function getDownloadedLanguages() { return requestService("getDownloadedLanguages", {}); }
+  function getTranslationLocale(language) { return requestService("getTranslationLocale", { language: language }); }
+  function downloadTranslation(params) { return requestService("downloadTranslation", params || {}); }
+  function deleteTranslation(language) { return requestService("deleteTranslation", { language: language }); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;
   AmbiSun.webos.requestService = requestService;
@@ -128,4 +133,9 @@
   AmbiSun.webos.checkForUpdate = checkForUpdate;
   AmbiSun.webos.installUpdate = installUpdate;
   AmbiSun.webos.minimizeApp = minimizeApp;
+  AmbiSun.webos.getTranslationLanguages = getTranslationLanguages;
+  AmbiSun.webos.getDownloadedLanguages = getDownloadedLanguages;
+  AmbiSun.webos.getTranslationLocale = getTranslationLocale;
+  AmbiSun.webos.downloadTranslation = downloadTranslation;
+  AmbiSun.webos.deleteTranslation = deleteTranslation;
 })();

@@ -66,7 +66,13 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano"
+    "italian": "Italiano",
+    "otherTitle": "Інші мови",
+    "otherLanguages": "Інші мови…",
+    "loading": "Завантаження списку мов…",
+    "downloading": "Завантаження перекладу…",
+    "downloadFailed": "Не вдалося завантажити переклад",
+    "empty": "Мови не знайдено"
   },
   "about": {
     "version": "Версія",

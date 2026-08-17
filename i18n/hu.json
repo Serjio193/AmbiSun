@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: haladó beállítások",
     "reset": "Prototípus beállításai visszaállítva",
     "updateOk": "GitHub Releases ellenőrizve — az 1.0.0 verzió naprakész",
-    "openGithub": "GitHub megnyitása"
+    "openGithub": "GitHub megnyitása",
+    "resetting": "Beállítások visszaállítása…",
+    "saving": "Mentés…"
   },
   "location": {
     "title": "Helyszín",

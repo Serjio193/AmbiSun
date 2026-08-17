@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: cài đặt nâng cao",
     "reset": "Đã đặt lại cài đặt nguyên mẫu",
     "updateOk": "Đã kiểm tra GitHub Releases — phiên bản 1.0.0 là mới nhất",
-    "openGithub": "Đang mở GitHub"
+    "openGithub": "Đang mở GitHub",
+    "resetting": "Đang đặt lại cài đặt…",
+    "saving": "Đang lưu…"
   },
   "location": {
     "title": "Vị trí",

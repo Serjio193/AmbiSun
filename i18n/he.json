@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: הגדרות מתקדמות",
     "reset": "הגדרות האב-טיפוס אופסו",
     "updateOk": "נבדק ב-GitHub Releases — גרסה 1.0.0 מעודכנת",
-    "openGithub": "פותח את GitHub"
+    "openGithub": "פותח את GitHub",
+    "resetting": "מאפס הגדרות…",
+    "saving": "שומר…"
   },
   "location": {
     "title": "מיקום",

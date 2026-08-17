@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: setări avansate",
     "reset": "Setările prototipului au fost resetate",
     "updateOk": "GitHub Releases verificat — versiunea 1.0.0 este la zi",
-    "openGithub": "Se deschide GitHub"
+    "openGithub": "Se deschide GitHub",
+    "resetting": "Se resetează setările…",
+    "saving": "Se salvează…"
   },
   "location": {
     "title": "Locație",

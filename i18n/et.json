@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: täpsemad seaded",
     "reset": "Prototüübi seaded lähtestatud",
     "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on aktuaalne",
-    "openGithub": "GitHubi avamine"
+    "openGithub": "GitHubi avamine",
+    "resetting": "Seadete lähtestamine…",
+    "saving": "Salvestamine…"
   },
   "location": {
     "title": "Asukoht",

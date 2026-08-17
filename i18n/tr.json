@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: gelişmiş ayarlar",
     "reset": "Prototip ayarları sıfırlandı",
     "updateOk": "GitHub Releases kontrol edildi — 1.0.0 sürümü güncel",
-    "openGithub": "GitHub açılıyor"
+    "openGithub": "GitHub açılıyor",
+    "resetting": "Ayarlar sıfırlanıyor…",
+    "saving": "Kaydediliyor…"
   },
   "location": {
     "title": "Konum",

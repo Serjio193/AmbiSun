@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: расширенные настройки",
     "reset": "Настройки прототипа сброшены",
     "updateOk": "Проверка GitHub Releases — версия 1.0.0 актуальна",
-    "openGithub": "Переход на GitHub"
+    "openGithub": "Переход на GitHub",
+    "resetting": "Сброс настроек…",
+    "saving": "Сохранение…"
   },
   "location": {
     "title": "Местоположение",

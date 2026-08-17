@@ -100,7 +100,9 @@
     "advancedTodo": "TODO : paramètres avancés",
     "reset": "Paramètres du prototype réinitialisés",
     "updateOk": "Vérification GitHub Releases — la version 1.0.0 est actuelle",
-    "openGithub": "Ouverture de GitHub"
+    "openGithub": "Ouverture de GitHub",
+    "resetting": "Réinitialisation des paramètres…",
+    "saving": "Enregistrement…"
   },
   "location": {
     "title": "Emplacement",

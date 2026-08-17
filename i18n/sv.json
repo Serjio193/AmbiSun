@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: avancerade inställningar",
     "reset": "Prototypinställningar återställda",
     "updateOk": "GitHub Releases kontrollerat — version 1.0.0 är aktuell",
-    "openGithub": "Öppnar GitHub"
+    "openGithub": "Öppnar GitHub",
+    "resetting": "Återställer inställningar…",
+    "saving": "Sparar…"
   },
   "location": {
     "title": "Plats",

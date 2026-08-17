@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: avancerede indstillinger",
     "reset": "Prototypeindstillinger nulstillet",
     "updateOk": "GitHub Releases tjekket — version 1.0.0 er aktuel",
-    "openGithub": "Åbner GitHub"
+    "openGithub": "Åbner GitHub",
+    "resetting": "Nulstiller indstillinger…",
+    "saving": "Gemmer…"
   },
   "location": {
     "title": "Placering",

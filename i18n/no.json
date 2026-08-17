@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: avanserte innstillinger",
     "reset": "Prototypeinnstillinger tilbakestilt",
     "updateOk": "GitHub Releases sjekket — versjon 1.0.0 er oppdatert",
-    "openGithub": "Åpner GitHub"
+    "openGithub": "Åpner GitHub",
+    "resetting": "Tilbakestiller innstillinger…",
+    "saving": "Lagrer…"
   },
   "location": {
     "title": "Plassering",

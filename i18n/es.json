@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: ajustes avanzados",
     "reset": "Ajustes de prototipo restablecidos",
     "updateOk": "GitHub Releases comprobado — versión 1.0.0 al día",
-    "openGithub": "Abriendo GitHub"
+    "openGithub": "Abriendo GitHub",
+    "resetting": "Restableciendo ajustes…",
+    "saving": "Guardando…"
   },
   "location": {
     "title": "Ubicación",

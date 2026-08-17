@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: tetapan lanjutan",
     "reset": "Tetapan prototaip ditetapkan semula",
     "updateOk": "GitHub Releases disemak — versi 1.0.0 adalah terkini",
-    "openGithub": "Membuka GitHub"
+    "openGithub": "Membuka GitHub",
+    "resetting": "Menetapkan semula tetapan…",
+    "saving": "Menyimpan…"
   },
   "location": {
     "title": "Lokasi",

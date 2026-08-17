@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: उन्नत सेटिंग्स",
     "reset": "प्रोटोटाइप सेटिंग्स रीसेट",
     "updateOk": "GitHub Releases जाँचा गया — संस्करण 1.0.0 नवीनतम है",
-    "openGithub": "GitHub खोला जा रहा है"
+    "openGithub": "GitHub खोला जा रहा है",
+    "resetting": "सेटिंग्स रीसेट हो रही हैं…",
+    "saving": "सहेजा जा रहा है…"
   },
   "location": {
     "title": "स्थान",

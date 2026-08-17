@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: разширени настройки",
     "reset": "Настройките на прототипа са нулирани",
     "updateOk": "Проверено в GitHub Releases — версия 1.0.0 е актуална",
-    "openGithub": "Отваряне на GitHub"
+    "openGithub": "Отваряне на GitHub",
+    "resetting": "Нулиране на настройките…",
+    "saving": "Запазване…"
   },
   "location": {
     "title": "Местоположение",

@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: rozšírené nastavenia",
     "reset": "Nastavenia prototypu obnovené",
     "updateOk": "GitHub Releases skontrolované — verzia 1.0.0 je aktuálna",
-    "openGithub": "Otvára sa GitHub"
+    "openGithub": "Otvára sa GitHub",
+    "resetting": "Obnovovanie nastavení…",
+    "saving": "Ukladá sa…"
   },
   "location": {
     "title": "Poloha",

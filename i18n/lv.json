@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: papildu iestatījumi",
     "reset": "Prototipa iestatījumi atiestatīti",
     "updateOk": "Pārbaudīts GitHub Releases — versija 1.0.0 ir aktuāla",
-    "openGithub": "Atver GitHub"
+    "openGithub": "Atver GitHub",
+    "resetting": "Atiestata iestatījumus…",
+    "saving": "Saglabā…"
   },
   "location": {
     "title": "Atrašanās vieta",

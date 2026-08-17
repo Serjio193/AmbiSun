@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: geavanceerde instellingen",
     "reset": "Prototype-instellingen gereset",
     "updateOk": "GitHub Releases gecontroleerd — versie 1.0.0 is actueel",
-    "openGithub": "GitHub openen"
+    "openGithub": "GitHub openen",
+    "resetting": "Instellingen herstellen…",
+    "saving": "Bezig met opslaan…"
   },
   "location": {
     "title": "Locatie",

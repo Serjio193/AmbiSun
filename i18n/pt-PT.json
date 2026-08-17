@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: definições avançadas",
     "reset": "Definições do protótipo repostas",
     "updateOk": "GitHub Releases verificado — versão 1.0.0 atual",
-    "openGithub": "A abrir o GitHub"
+    "openGithub": "A abrir o GitHub",
+    "resetting": "A repor definições…",
+    "saving": "A guardar…"
   },
   "location": {
     "title": "Localização",

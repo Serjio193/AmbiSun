@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: 詳細設定",
     "reset": "プロトタイプ設定を初期化しました",
     "updateOk": "GitHub Releases 確認済み — バージョン 1.0.0 は最新です",
-    "openGithub": "GitHub を開いています"
+    "openGithub": "GitHub を開いています",
+    "resetting": "設定を初期化中…",
+    "saving": "保存中…"
   },
   "location": {
     "title": "地域設定",

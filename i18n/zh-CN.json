@@ -100,7 +100,9 @@
     "advancedTodo": "TODO：高级设置",
     "reset": "原型设置已重置",
     "updateOk": "已检查 GitHub Releases — 版本 1.0.0 为最新",
-    "openGithub": "正在打开 GitHub"
+    "openGithub": "正在打开 GitHub",
+    "resetting": "正在重置设置…",
+    "saving": "正在保存…"
   },
   "location": {
     "title": "位置",

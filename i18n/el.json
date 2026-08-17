@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: σύνθετες ρυθμίσεις",
     "reset": "Έγινε επαναφορά ρυθμίσεων πρωτοτύπου",
     "updateOk": "Έλεγχος GitHub Releases — η έκδοση 1.0.0 είναι η τρέχουσα",
-    "openGithub": "Άνοιγμα GitHub"
+    "openGithub": "Άνοιγμα GitHub",
+    "resetting": "Επαναφορά ρυθμίσεων…",
+    "saving": "Αποθήκευση…"
   },
   "location": {
     "title": "Τοποθεσία",

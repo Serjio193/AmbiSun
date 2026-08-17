@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: lisäasetukset",
     "reset": "Prototyypin asetukset palautettu",
     "updateOk": "GitHub Releases tarkistettu — versio 1.0.0 on ajan tasalla",
-    "openGithub": "Avataan GitHub"
+    "openGithub": "Avataan GitHub",
+    "resetting": "Palautetaan asetuksia…",
+    "saving": "Tallennetaan…"
   },
   "location": {
     "title": "Sijainti",

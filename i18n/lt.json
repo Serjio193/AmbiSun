@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: išplėstiniai nustatymai",
     "reset": "Prototipo nustatymai atkurti",
     "updateOk": "Patikrinta GitHub Releases — versija 1.0.0 naujausia",
-    "openGithub": "Atidaromas GitHub"
+    "openGithub": "Atidaromas GitHub",
+    "resetting": "Nustatymai atkuriami…",
+    "saving": "Išsaugoma…"
   },
   "location": {
     "title": "Vieta",

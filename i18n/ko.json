@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: 고급 설정",
     "reset": "프로토타입 설정이 초기화되었습니다",
     "updateOk": "GitHub Releases 확인 완료 — 최신 버전 1.0.0입니다",
-    "openGithub": "GitHub 여는 중"
+    "openGithub": "GitHub 여는 중",
+    "resetting": "설정 초기화 중…",
+    "saving": "저장 중…"
   },
   "location": {
     "title": "위치",

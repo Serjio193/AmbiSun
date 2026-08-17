@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: ustawienia zaawansowane",
     "reset": "Zresetowano ustawienia prototypu",
     "updateOk": "Sprawdzono GitHub Releases — wersja 1.0.0 jest aktualna",
-    "openGithub": "Otwieranie GitHub"
+    "openGithub": "Otwieranie GitHub",
+    "resetting": "Resetowanie ustawień…",
+    "saving": "Zapisywanie…"
   },
   "location": {
     "title": "Lokalizacja",

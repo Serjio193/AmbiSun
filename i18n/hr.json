@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: napredne postavke",
     "reset": "Postavke prototipa vraćene",
     "updateOk": "GitHub Releases provjeren — verzija 1.0.0 je aktualna",
-    "openGithub": "Otvaranje GitHub-a"
+    "openGithub": "Otvaranje GitHub-a",
+    "resetting": "Vraćanje postavki…",
+    "saving": "Spremanje…"
   },
   "location": {
     "title": "Lokacija",

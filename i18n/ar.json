@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: إعدادات متقدمة",
     "reset": "تمت إعادة تعيين إعدادات النموذج الأولي",
     "updateOk": "تم التحقق من GitHub Releases — الإصدار 1.0.0 هو الأحدث",
-    "openGithub": "جارٍ فتح GitHub"
+    "openGithub": "جارٍ فتح GitHub",
+    "resetting": "جارٍ إعادة ضبط الإعدادات…",
+    "saving": "جارٍ الحفظ…"
   },
   "location": {
     "title": "الموقع",

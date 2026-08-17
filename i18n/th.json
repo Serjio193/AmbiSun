@@ -100,7 +100,9 @@
     "advancedTodo": "TODO: การตั้งค่าขั้นสูง",
     "reset": "รีเซ็ตการตั้งค่าต้นแบบแล้ว",
     "updateOk": "ตรวจสอบ GitHub Releases แล้ว — เวอร์ชัน 1.0.0 เป็นปัจจุบัน",
-    "openGithub": "กำลังเปิด GitHub"
+    "openGithub": "กำลังเปิด GitHub",
+    "resetting": "กำลังรีเซ็ตการตั้งค่า…",
+    "saving": "กำลังบันทึก…"
   },
   "location": {
     "title": "ตำแหน่งที่ตั้ง",

@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "בית",
+    "sources": "מקורות ואפליקציות",
+    "sun": "שמש ולוח זמנים",
+    "settings": "הגדרות",
+    "language": "שפה",
+    "about": "אודות"
+  },
+  "common": {
+    "change": "שנה",
+    "yes": "כן",
+    "no": "לא",
+    "back": "חזרה",
+    "minimize": "מזער"
+  },
+  "home": {
+    "currentState": "מצב נוכחי",
+    "ambilightOn": "תאורת אמבילייט פועלת",
+    "modeSun": "מצב: לפי השמש",
+    "currentSource": "מקור נוכחי",
+    "nextOn": "ההדלקה הבאה",
+    "nextOff": "הכיבוי הבא"
+  },
+  "sun": {
+    "sunset": "שקיעה",
+    "turnOn": "הפעל",
+    "sunrise": "זריחה",
+    "sunsetOffset": "הפעל ביחס לשקיעה",
+    "sunriseOffset": "כבה ביחס לזריחה",
+    "localSchedule": "לוח הזמנים מיושם מדי יום ומחושב מקומית.",
+    "todaySunset": "שקיעה היום",
+    "ambilightOn": "אמבילייט פעיל",
+    "tomorrowSunrise": "זריחה מחר"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "שפה",
+    "autostart": "הפעל עם הטלוויזיה",
+    "defaultRule": "כלל ברירת מחדל לאפליקציות חדשות",
+    "test": "בדוק אמבילייט למשך 5 שניות",
+    "plasma": "רקע פלזמה HyperHDR · חלק",
+    "advanced": "הגדרות מתקדמות",
+    "reset": "איפוס הגדרות",
+    "saved": "ההגדרות נשמרו"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "כתובת שרת:",
+    "port": "יציאה:",
+    "test": "בדיקה",
+    "save": "שמור",
+    "cancel": "ביטול",
+    "testing": "בודק חיבור...",
+    "available": "HyperHDR זמין",
+    "unavailable": "לא זמין",
+    "connected": "מחובר",
+    "invalid": "כתובת או יציאה לא חוקיים"
+  },
+  "language": {
+    "system": "זהה לטלוויזיה",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "שפות נוספות",
+    "otherLanguages": "שפות נוספות…",
+    "loading": "טוען רשימת שפות…",
+    "downloading": "מוריד תרגום…",
+    "downloadFailed": "טעינת התרגום נכשלה",
+    "empty": "לא נמצאו שפות"
+  },
+  "about": {
+    "version": "גרסה",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "רישיון: MIT"
+  },
+  "update": {
+    "available": "עדכון זמין",
+    "install": "התקן עדכון",
+    "preparing": "מכין עדכון…",
+    "downloading": "מוריד ומאמת חבילה…",
+    "installing": "מתקין עדכון…",
+    "restart": "AmbiSun יופעל מחדש אוטומטית.",
+    "failed": "העדכון נכשל: ",
+    "upToDate": "האפליקציה מעודכנת"
+  },
+  "support": {
+    "title": "❤ תמיכה בפרויקט",
+    "subtitle": "פרטי תמיכה מ-Legacy Bridge",
+    "scan": "סרוק את קוד ה-QR עם הטלפון"
+  },
+  "rule": {
+    "sun": "לפי השמש",
+    "on": "תמיד מופעל",
+    "off": "תמיד כבוי"
+  },
+  "toast": {
+    "locationTodo": "TODO API: אשף מדינה / עיר",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "בדיקת אמבילייט: 5 שניות",
+    "advancedTodo": "TODO: הגדרות מתקדמות",
+    "reset": "הגדרות אב הטיפוס אופסו",
+    "updateOk": "נבדקו גרסאות GitHub — גרסה 1.0.0 מעודכנת",
+    "openGithub": "פותח את GitHub"
+  },
+  "location": {
+    "title": "מיקום",
+    "stepDetected": "זוהה לפי IP",
+    "stepRegion": "אזור",
+    "stepCountry": "מדינה",
+    "stepCity": "עיר",
+    "detectedLead": "מדינה שזוהתה לפי IP:",
+    "isCountryCorrect": "האם אתה במדינה זו?",
+    "chooseRegion": "בחר אזור",
+    "chooseCountry": "בחר מדינה",
+    "chooseCity": "בחר עיר",
+    "noKeyboard": "ללא מקלדת — שלט רחוק בלבד"
+  },
+  "region": {
+    "europe": "אירופה",
+    "asia": "אסיה",
+    "africa": "אפריקה",
+    "northAmerica": "צפון אמריקה",
+    "southAmerica": "דרום אמריקה",
+    "oceania": "אוקיאניה"
+  },
+  "firstRun": {
+    "chooseLanguage": "בחר שפה",
+    "languageHint": "תוכל לשנות את השפה מאוחר יותר בהגדרות.",
+    "otherLanguages": "שפות נוספות…",
+    "onlineTranslationTodo": "TODO: רשימת שפות מקוונת → תרגם en.json → שמור JSON חדש"
+  },
+  "status": {
+    "waiting": "ממתין..."
+  },
+  "error": {
+    "revisionConflict": "התנגשות הגדרות! מעדכן...",
+    "saveFailed": "השמירה נכשלה: ",
+    "connection": "שגיאת חיבור",
+    "elevationFailed": "שגיאה: קבלת הרשאות נכשלה",
+    "minimizeFailed": "מזעור האפליקציה נכשל"
+  },
+  "elevation": {
+    "restoring": "משחזר...",
+    "success": "הצלחה! מפעיל מחדש..."
+  }
+}

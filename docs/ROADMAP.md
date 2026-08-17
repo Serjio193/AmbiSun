@@ -20,11 +20,10 @@
 - [ ] move long-running automation to the service
 
 ## Phase 3 — Languages
-- [ ] translation backend/proxy
-- [ ] supported-language list
-- [ ] generate only missing translation keys
-- [ ] persist downloaded language JSON
-- [ ] RTL layout validation
+- [x] 39 built-in offline localizations
+- [x] webOS system language auto-selection
+- [x] RTL layout support (Arabic, Hebrew)
+- [x] offline locale integrity validation
 
 ## Phase 4 — Distribution
 - [ ] final launcher icon

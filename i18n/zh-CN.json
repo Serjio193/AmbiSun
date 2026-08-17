@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "主页",
+    "sources": "信号源与应用",
+    "sun": "日出日落与计划",
+    "settings": "设置",
+    "language": "语言",
+    "about": "关于"
+  },
+  "common": {
+    "change": "更改",
+    "yes": "是",
+    "no": "否",
+    "back": "返回",
+    "minimize": "最小化"
+  },
+  "home": {
+    "currentState": "当前状态",
+    "ambilightOn": "氛围灯已开启",
+    "modeSun": "模式：按太阳时间",
+    "currentSource": "当前信号源",
+    "nextOn": "下次开启",
+    "nextOff": "下次关闭"
+  },
+  "sun": {
+    "sunset": "日落",
+    "turnOn": "开启",
+    "sunrise": "日出",
+    "sunsetOffset": "相对于日落开启",
+    "sunriseOffset": "相对于日出关闭",
+    "localSchedule": "计划每日自动应用并在本地计算。",
+    "todaySunset": "今日日落",
+    "ambilightOn": "氛围灯 开启",
+    "tomorrowSunrise": "明日日出"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "语言",
+    "autostart": "随电视启动",
+    "defaultRule": "新应用默认规则",
+    "test": "测试氛围灯 5 秒",
+    "plasma": "HyperHDR 等离子背景 · 平滑",
+    "advanced": "高级设置",
+    "reset": "重置设置",
+    "saved": "设置已保存"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "服务器地址：",
+    "port": "端口：",
+    "test": "测试",
+    "save": "保存",
+    "cancel": "取消",
+    "testing": "正在测试连接...",
+    "available": "HyperHDR 可用",
+    "unavailable": "不可用",
+    "connected": "已连接",
+    "invalid": "无效的地址或端口"
+  },
+  "language": {
+    "system": "与电视一致",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "其他语言",
+    "otherLanguages": "其他语言…",
+    "loading": "正在加载语言列表…",
+    "downloading": "正在下载翻译…",
+    "downloadFailed": "加载翻译失败",
+    "empty": "未找到语言"
+  },
+  "about": {
+    "version": "版本",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "许可证: MIT"
+  },
+  "update": {
+    "available": "有可用更新",
+    "install": "安装更新",
+    "preparing": "正在准备更新…",
+    "downloading": "正在下载并验证软件包…",
+    "installing": "正在安装更新…",
+    "restart": "AmbiSun 将自动重启。",
+    "failed": "更新失败：",
+    "upToDate": "应用已是最新版本"
+  },
+  "support": {
+    "title": "❤ 支持项目",
+    "subtitle": "来自 Legacy Bridge 的支持信息",
+    "scan": "使用手机扫描二维码"
+  },
+  "rule": {
+    "sun": "按太阳时间",
+    "on": "始终开启",
+    "off": "始终关闭"
+  },
+  "toast": {
+    "locationTodo": "TODO API：国家 / 城市向导",
+    "hyperhdrTodo": "TODO API：HyperHDR 127.0.0.1:8090",
+    "test": "氛围灯测试：5 秒",
+    "advancedTodo": "TODO：高级设置",
+    "reset": "原型设置已重置",
+    "updateOk": "已检查 GitHub Releases — 版本 1.0.0 为最新",
+    "openGithub": "正在打开 GitHub"
+  },
+  "location": {
+    "title": "位置",
+    "stepDetected": "通过 IP 检测",
+    "stepRegion": "地区",
+    "stepCountry": "国家",
+    "stepCity": "城市",
+    "detectedLead": "通过 IP 检测到的国家：",
+    "isCountryCorrect": "您在此国家吗？",
+    "chooseRegion": "选择地区",
+    "chooseCountry": "选择国家",
+    "chooseCity": "选择城市",
+    "noKeyboard": "无键盘 — 仅使用遥控器"
+  },
+  "region": {
+    "europe": "欧洲",
+    "asia": "亚洲",
+    "africa": "非洲",
+    "northAmerica": "北美洲",
+    "southAmerica": "南美洲",
+    "oceania": "大洋洲"
+  },
+  "firstRun": {
+    "chooseLanguage": "选择语言",
+    "languageHint": "您可以稍后在“设置”中更改语言。",
+    "otherLanguages": "其他语言…",
+    "onlineTranslationTodo": "TODO：在线语言列表 → 翻译 en.json → 保存新 JSON"
+  },
+  "status": {
+    "waiting": "等待中..."
+  },
+  "error": {
+    "revisionConflict": "配置冲突！正在更新...",
+    "saveFailed": "保存失败：",
+    "connection": "连接错误",
+    "elevationFailed": "错误：获取权限失败",
+    "minimizeFailed": "无法最小化应用程序"
+  },
+  "elevation": {
+    "restoring": "正在恢复...",
+    "success": "成功！正在重启..."
+  }
+}

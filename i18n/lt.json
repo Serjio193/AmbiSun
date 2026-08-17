@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Pradžia",
+    "sources": "Šaltiniai ir programos",
+    "sun": "Saulė ir tvarkaraštis",
+    "settings": "Nustatymai",
+    "language": "Kalba",
+    "about": "Apie"
+  },
+  "common": {
+    "change": "Keisti",
+    "yes": "Taip",
+    "no": "Ne",
+    "back": "Atgal",
+    "minimize": "Suskleisti"
+  },
+  "home": {
+    "currentState": "Dabartinė būsena",
+    "ambilightOn": "Ambilight įjungtas",
+    "modeSun": "Režimas: Pagal saulę",
+    "currentSource": "Dabartinis šaltinis",
+    "nextOn": "Kitas įjungimas",
+    "nextOff": "Kitas išjungimas"
+  },
+  "sun": {
+    "sunset": "Saulėlydis",
+    "turnOn": "Įjungti",
+    "sunrise": "Saulėtekis",
+    "sunsetOffset": "Įjungti pagal saulėlydį",
+    "sunriseOffset": "Išjungti pagal saulėtekį",
+    "localSchedule": "Tvarkaraštis taikomas kasdien ir apskaičiuojamas vietoje.",
+    "todaySunset": "Saulėlydis šiandien",
+    "ambilightOn": "Ambilight ĮJUNGTA",
+    "tomorrowSunrise": "Saulėtekis rytoj"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Kalba",
+    "autostart": "Paleisti kartu su TV",
+    "defaultRule": "Numatytoji taisyklė naujoms programoms",
+    "test": "Išbandyti Ambilight 5 sekundes",
+    "plasma": "HyperHDR plazminis fonas · Sklandus",
+    "advanced": "Išplėstiniai nustatymai",
+    "reset": "Atkurti nustatymus",
+    "saved": "Nustatymai išsaugoti"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Serverio adresas:",
+    "port": "Prievadas:",
+    "test": "Bandyti",
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "testing": "Tikrinamas ryšys...",
+    "available": "HyperHDR pasiekiamas",
+    "unavailable": "Nepasiekiamas",
+    "connected": "Prisijungta",
+    "invalid": "Netinkamas adresas arba prievadas"
+  },
+  "language": {
+    "system": "Kaip televizoriuje",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Kitos kalbos",
+    "otherLanguages": "Kitos kalbos…",
+    "loading": "Įkeliamas kalbų sąrašas…",
+    "downloading": "Atsiunčiamas vertimas…",
+    "downloadFailed": "Nepavyko įkelti vertimo",
+    "empty": "Kalbų nerasta"
+  },
+  "about": {
+    "version": "Versija",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licencija: MIT"
+  },
+  "update": {
+    "available": "Yra atnaujinimas",
+    "install": "Įdiegti atnaujinimą",
+    "preparing": "Ruošiamas atnaujinimas…",
+    "downloading": "Atsiunčiamas ir tikrinamas paketas…",
+    "installing": "Diegiamas atnaujinimas…",
+    "restart": "AmbiSun persileis automatiškai.",
+    "failed": "Atnaujinti nepavyko: ",
+    "upToDate": "Programėlė yra atnaujinta"
+  },
+  "support": {
+    "title": "❤ Palaikykite projektą",
+    "subtitle": "Palaikymo informacija iš Legacy Bridge",
+    "scan": "Nuskenuokite QR kodą telefonu"
+  },
+  "rule": {
+    "sun": "Pagal saulę",
+    "on": "Visada ĮJUNGTA",
+    "off": "Visada IŠJUNGTA"
+  },
+  "toast": {
+    "locationTodo": "TODO API: šalies / miesto vedlys",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight bandymas: 5 sekundės",
+    "advancedTodo": "TODO: išplėstiniai nustatymai",
+    "reset": "Prototipo nustatymai atkurti",
+    "updateOk": "GitHub Releases patikrinta — 1.0.0 versija yra naujausia",
+    "openGithub": "Atidaromas GitHub"
+  },
+  "location": {
+    "title": "Vieta",
+    "stepDetected": "Nustatyta pagal IP",
+    "stepRegion": "Regionas",
+    "stepCountry": "Šalis",
+    "stepCity": "Miestas",
+    "detectedLead": "Šalis nustatyta pagal IP:",
+    "isCountryCorrect": "Ar esate šioje šalyje?",
+    "chooseRegion": "Pasirinkite regioną",
+    "chooseCountry": "Pasirinkite šalį",
+    "chooseCity": "Pasirinkite miestą",
+    "noKeyboard": "Nėra klaviatūros — tik nuotolinio valdymo pultas"
+  },
+  "region": {
+    "europe": "Europa",
+    "asia": "Azija",
+    "africa": "Afrika",
+    "northAmerica": "Šiaurės Amerika",
+    "southAmerica": "Pietų Amerika",
+    "oceania": "Okeanija"
+  },
+  "firstRun": {
+    "chooseLanguage": "Pasirinkite kalbą",
+    "languageHint": "Kalba galite pakeisti vėliau Nustatymuose.",
+    "otherLanguages": "Kitos kalbos…",
+    "onlineTranslationTodo": "TODO: internetinis kalbų sąrašas → išversti en.json → išsaugoti naują JSON"
+  },
+  "status": {
+    "waiting": "Laukiama..."
+  },
+  "error": {
+    "revisionConflict": "Konfigūracijos konfliktas! Atnaujinama...",
+    "saveFailed": "Išsaugoti nepavyko: ",
+    "connection": "Ryšio klaida",
+    "elevationFailed": "Klaida: Nepavyko gauti leidimų",
+    "minimizeFailed": "Nepavyko suskleisti programos"
+  },
+  "elevation": {
+    "restoring": "Atkuriama...",
+    "success": "Pavyko! Paleidžiama iš naujo..."
+  }
+}

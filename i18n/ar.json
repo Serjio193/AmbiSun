@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "sources": "المصادر والتطبيقات",
+    "sun": "الشمس والجدول",
+    "settings": "الإعدادات",
+    "language": "اللغة",
+    "about": "حول"
+  },
+  "common": {
+    "change": "تغيير",
+    "yes": "نعم",
+    "no": "لا",
+    "back": "رجوع",
+    "minimize": "تصغير"
+  },
+  "home": {
+    "currentState": "الحالة الحالية",
+    "ambilightOn": "الإضاءة المحيطة مفعّلة",
+    "modeSun": "الوضع: حسب الشمس",
+    "currentSource": "المصدر الحالي",
+    "nextOn": "التشغيل التالي",
+    "nextOff": "الإيقاف التالي"
+  },
+  "sun": {
+    "sunset": "الغروب",
+    "turnOn": "تشغيل",
+    "sunrise": "الشروق",
+    "sunsetOffset": "تشغيل بالنسبة للغروب",
+    "sunriseOffset": "إيقاف بالنسبة للشروق",
+    "localSchedule": "يتم تطبيق الجدول يومياً ويُحسب محلياً.",
+    "todaySunset": "غروب الشمس اليوم",
+    "ambilightOn": "الإضاءة المحيطة مشغلة",
+    "tomorrowSunrise": "شروق الشمس غداً"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "اللغة",
+    "autostart": "بدء مع التلفاز",
+    "defaultRule": "القاعدة الافتراضية للتطبيقات الجديدة",
+    "test": "اختبار الإضاءة المحيطة لمدة 5 ثوانٍ",
+    "plasma": "خلفية بلازما HyperHDR · سلسة",
+    "advanced": "إعدادات متقدمة",
+    "reset": "إعادة ضبط الإعدادات",
+    "saved": "تم حفظ الإعدادات"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "عنوان الخادم:",
+    "port": "المنفذ:",
+    "test": "اختبار",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "testing": "جارٍ اختبار الاتصال...",
+    "available": "HyperHDR متاح",
+    "unavailable": "غير متاح",
+    "connected": "متصل",
+    "invalid": "عنوان أو منفذ غير صالح"
+  },
+  "language": {
+    "system": "نفس لغة التلفاز",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "لغات أخرى",
+    "otherLanguages": "لغات أخرى…",
+    "loading": "جارٍ تحميل قائمة اللغات…",
+    "downloading": "جارٍ تنزيل الترجمة…",
+    "downloadFailed": "فشل تحميل الترجمة",
+    "empty": "لم يتم العثور على لغات"
+  },
+  "about": {
+    "version": "الإصدار",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "الترخيص: MIT"
+  },
+  "update": {
+    "available": "تحديث متاح",
+    "install": "تثبيت التحديث",
+    "preparing": "جارٍ تحضير التحديث…",
+    "downloading": "جارٍ تنزيل الحزمة والتحقق منها…",
+    "installing": "جارٍ تثبيت التحديث…",
+    "restart": "سيتم إعادة تشغيل AmbiSun تلقائياً.",
+    "failed": "فشل التحديث: ",
+    "upToDate": "التطبيق محدث إلى آخر إصدار"
+  },
+  "support": {
+    "title": "❤ دعم المشروع",
+    "subtitle": "تفاصيل الدعم من Legacy Bridge",
+    "scan": "امسح رمز الاستجابة السريعة (QR) بهاتفك"
+  },
+  "rule": {
+    "sun": "حسب الشمس",
+    "on": "تشغيل دائماً",
+    "off": "إيقاف دائماً"
+  },
+  "toast": {
+    "locationTodo": "TODO API: معالج الدولة / المدينة",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "اختبار الإضاءة المحيطة: 5 ثوانٍ",
+    "advancedTodo": "TODO: إعدادات متقدمة",
+    "reset": "تمت إعادة ضبط إعدادات النموذج",
+    "updateOk": "تم التحقق من GitHub Releases — الإصدار 1.0.0 هو الأحدث",
+    "openGithub": "جارٍ فتح GitHub"
+  },
+  "location": {
+    "title": "الموقع",
+    "stepDetected": "تم الكشف عبر IP",
+    "stepRegion": "المنطقة",
+    "stepCountry": "الدولة",
+    "stepCity": "المدينة",
+    "detectedLead": "الدولة المكتشفة عبر IP:",
+    "isCountryCorrect": "هل أنت في هذه الدولة؟",
+    "chooseRegion": "اختر منطقة",
+    "chooseCountry": "اختر دولة",
+    "chooseCity": "اختر مدينة",
+    "noKeyboard": "بدون لوحة مفاتيح — جهاز التحكم عن بُعد فقط"
+  },
+  "region": {
+    "europe": "أوروبا",
+    "asia": "آسيا",
+    "africa": "أفريقيا",
+    "northAmerica": "أمريكا الشمالية",
+    "southAmerica": "أمريكا الجنوبية",
+    "oceania": "أوقيانوسيا"
+  },
+  "firstRun": {
+    "chooseLanguage": "اختر لغة",
+    "languageHint": "يمكنك تغيير اللغة لاحقاً من الإعدادات.",
+    "otherLanguages": "لغات أخرى…",
+    "onlineTranslationTodo": "TODO: قائمة اللغات عبر الإنترنت → ترجمة en.json → حفظ JSON جديد"
+  },
+  "status": {
+    "waiting": "جارٍ الانتظار..."
+  },
+  "error": {
+    "revisionConflict": "تعارض في التكوين! جارٍ التحديث...",
+    "saveFailed": "فشل الحفظ: ",
+    "connection": "خطأ في الاتصال",
+    "elevationFailed": "خطأ: فشل في الحصول على الأذونات",
+    "minimizeFailed": "فشل تصغير التطبيق"
+  },
+  "elevation": {
+    "restoring": "جارٍ الاستعادة...",
+    "success": "تم بنجاح! جارٍ إعادة التشغيل..."
+  }
+}

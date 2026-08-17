@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Domů",
+    "sources": "Zdroje a aplikace",
+    "sun": "Slunce a plán",
+    "settings": "Nastavení",
+    "language": "Jazyk",
+    "about": "O aplikaci"
+  },
+  "common": {
+    "change": "Změnit",
+    "yes": "Ano",
+    "no": "Ne",
+    "back": "Zpět",
+    "minimize": "Minimalizovat"
+  },
+  "home": {
+    "currentState": "Aktuální stav",
+    "ambilightOn": "Ambilight je zapnutý",
+    "modeSun": "Režim: Podle slunce",
+    "currentSource": "Aktuální zdroj",
+    "nextOn": "Příští zapnutí",
+    "nextOff": "Příští vypnutí"
+  },
+  "sun": {
+    "sunset": "Západ slunce",
+    "turnOn": "Zapnout",
+    "sunrise": "Východ slunce",
+    "sunsetOffset": "Zapnout vzhledem k západu slunce",
+    "sunriseOffset": "Vypnout vzhledem k východu slunce",
+    "localSchedule": "Plán je aplikován denně a počítán lokálně.",
+    "todaySunset": "Dnešní západ slunce",
+    "ambilightOn": "Ambilight ZAPNUTO",
+    "tomorrowSunrise": "Zítřejší východ slunce"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Jazyk",
+    "autostart": "Spustit s TV",
+    "defaultRule": "Výchozí pravidlo pro nové aplikace",
+    "test": "Testovat Ambilight na 5 sekund",
+    "plasma": "Plazmové pozadí HyperHDR · Plynulé",
+    "advanced": "Pokročilá nastavení",
+    "reset": "Obnovit nastavení",
+    "saved": "Nastavení uložena"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Adresa serveru:",
+    "port": "Port:",
+    "test": "Test",
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "testing": "Testování připojení...",
+    "available": "HyperHDR k dispozici",
+    "unavailable": "Nedostupné",
+    "connected": "Připojeno",
+    "invalid": "Neplatná adresa nebo port"
+  },
+  "language": {
+    "system": "Stejný jako v TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Další jazyky",
+    "otherLanguages": "Další jazyky…",
+    "loading": "Načítání seznamu jazyků…",
+    "downloading": "Stahování překladu…",
+    "downloadFailed": "Nepodařilo se načíst překlad",
+    "empty": "Nebyly nalezeny žádné jazyky"
+  },
+  "about": {
+    "version": "Verze",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licence: MIT"
+  },
+  "update": {
+    "available": "Dostupná aktualizace",
+    "install": "Instalovat aktualizaci",
+    "preparing": "Příprava aktualizace…",
+    "downloading": "Stahování a ověřování balíčku…",
+    "installing": "Instalace aktualizace…",
+    "restart": "AmbiSun se automaticky restartuje.",
+    "failed": "Aktualizace selhala: ",
+    "upToDate": "Aplikace je aktuální"
+  },
+  "support": {
+    "title": "❤ Podpořit projekt",
+    "subtitle": "Podrobnosti podpory z Legacy Bridge",
+    "scan": "Naskenujte QR kód telefonem"
+  },
+  "rule": {
+    "sun": "Podle slunce",
+    "on": "Vždy ZAPNUTO",
+    "off": "Vždy VYPNUTO"
+  },
+  "toast": {
+    "locationTodo": "TODO API: průvodce zemí / městem",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Test Ambilight: 5 sekund",
+    "advancedTodo": "TODO: pokročilá nastavení",
+    "reset": "Nastavení prototypu obnovena",
+    "updateOk": "GitHub Releases zkontrolován — verze 1.0.0 je aktuální",
+    "openGithub": "Otevírání GitHub"
+  },
+  "location": {
+    "title": "Poloha",
+    "stepDetected": "Zjištěno podle IP",
+    "stepRegion": "Region",
+    "stepCountry": "Země",
+    "stepCity": "Město",
+    "detectedLead": "Země zjištěná podle IP:",
+    "isCountryCorrect": "Nacházíte se v této zemi?",
+    "chooseRegion": "Vyberte region",
+    "chooseCountry": "Vyberte zemi",
+    "chooseCity": "Vyberte město",
+    "noKeyboard": "Bez klávesnice — pouze dálkový ovladač"
+  },
+  "region": {
+    "europe": "Evropa",
+    "asia": "Asie",
+    "africa": "Afrika",
+    "northAmerica": "Severní Amerika",
+    "southAmerica": "Jižní Amerika",
+    "oceania": "Oceánie"
+  },
+  "firstRun": {
+    "chooseLanguage": "Vyberte jazyk",
+    "languageHint": "Jazyk můžete později změnit v Nastavení.",
+    "otherLanguages": "Další jazyky…",
+    "onlineTranslationTodo": "TODO: online seznam jazyků → přeložit en.json → uložit nový JSON"
+  },
+  "status": {
+    "waiting": "Čekání..."
+  },
+  "error": {
+    "revisionConflict": "Konflikt konfigurace! Aktualizace...",
+    "saveFailed": "Uložení selhalo: ",
+    "connection": "Chyba připojení",
+    "elevationFailed": "Chyba: Nepodařilo se získat oprávnění",
+    "minimizeFailed": "Aplikaci se nepodařilo minimalizovat"
+  },
+  "elevation": {
+    "restoring": "Obnovování...",
+    "success": "Úspěch! Restartování..."
+  }
+}

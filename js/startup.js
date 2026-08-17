@@ -25,13 +25,18 @@
     startup.setAttribute('aria-hidden', 'false');
 
     if (firstRun) {
-      // Always start on English so an unknown TV language cannot lock the user out.
+      if (AmbiSun.i18n && AmbiSun.i18n.renderFirstRunLanguageList) {
+        AmbiSun.i18n.renderFirstRunLanguageList();
+      }
+
+      const sysLang = AmbiSun.i18n && AmbiSun.i18n.systemLanguageCode ? AmbiSun.i18n.systemLanguageCode() : 'en';
       const preferred =
+        document.querySelector(`#firstRunLanguageList [data-language="${sysLang}"]`) ||
         document.querySelector('#firstRunLanguageList [data-language="en"]') ||
         document.querySelector('#firstRunLanguageList .startup-language');
 
       setTimeout(() => {
-        if (AmbiSun.navigation && AmbiSun.navigation.setFocus) {
+        if (AmbiSun.navigation && AmbiSun.navigation.setFocus && preferred) {
           AmbiSun.navigation.setFocus(preferred);
         }
       }, 80);

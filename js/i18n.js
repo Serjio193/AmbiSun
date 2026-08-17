@@ -2,6 +2,7 @@
   "use strict";
 
   window.AmbiSun = window.AmbiSun || {};
+  const AmbiSun = window.AmbiSun;
   AmbiSun.i18n = AmbiSun.i18n || {};
 
   const titleKeys = {
@@ -13,7 +14,47 @@
     about: 'nav.about'
   };
 
-  const BUILTIN_CODES = ['en', 'et', 'uk', 'ru'];
+  const SUPPORTED_LANGUAGES = [
+    { code: 'en', name: 'English', nativeName: 'English', dir: 'ltr' },
+    { code: 'de', name: 'German', nativeName: 'Deutsch', dir: 'ltr' },
+    { code: 'fr', name: 'French', nativeName: 'Français', dir: 'ltr' },
+    { code: 'es', name: 'Spanish', nativeName: 'Español', dir: 'ltr' },
+    { code: 'pt-BR', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', dir: 'ltr' },
+    { code: 'pt-PT', name: 'Portuguese (Portugal)', nativeName: 'Português (Portugal)', dir: 'ltr' },
+    { code: 'it', name: 'Italian', nativeName: 'Italiano', dir: 'ltr' },
+    { code: 'nl', name: 'Dutch', nativeName: 'Nederlands', dir: 'ltr' },
+    { code: 'pl', name: 'Polish', nativeName: 'Polski', dir: 'ltr' },
+    { code: 'cs', name: 'Czech', nativeName: 'Čeština', dir: 'ltr' },
+    { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', dir: 'ltr' },
+    { code: 'hu', name: 'Hungarian', nativeName: 'Magyar', dir: 'ltr' },
+    { code: 'ro', name: 'Romanian', nativeName: 'Română', dir: 'ltr' },
+    { code: 'bg', name: 'Bulgarian', nativeName: 'Български', dir: 'ltr' },
+    { code: 'el', name: 'Greek', nativeName: 'Ελληνικά', dir: 'ltr' },
+    { code: 'hr', name: 'Croatian', nativeName: 'Hrvatski', dir: 'ltr' },
+    { code: 'sl', name: 'Slovenian', nativeName: 'Slovenščina', dir: 'ltr' },
+    { code: 'sr', name: 'Serbian', nativeName: 'Српски', dir: 'ltr' },
+    { code: 'et', name: 'Estonian', nativeName: 'Eesti', dir: 'ltr' },
+    { code: 'lv', name: 'Latvian', nativeName: 'Latviešu', dir: 'ltr' },
+    { code: 'lt', name: 'Lithuanian', nativeName: 'Lietuvių', dir: 'ltr' },
+    { code: 'fi', name: 'Finnish', nativeName: 'Suomi', dir: 'ltr' },
+    { code: 'sv', name: 'Swedish', nativeName: 'Svenska', dir: 'ltr' },
+    { code: 'da', name: 'Danish', nativeName: 'Dansk', dir: 'ltr' },
+    { code: 'no', name: 'Norwegian', nativeName: 'Norsk', dir: 'ltr' },
+    { code: 'tr', name: 'Turkish', nativeName: 'Türkçe', dir: 'ltr' },
+    { code: 'ru', name: 'Russian', nativeName: 'Русский', dir: 'ltr' },
+    { code: 'uk', name: 'Ukrainian', nativeName: 'Українська', dir: 'ltr' },
+    { code: 'ar', name: 'Arabic', nativeName: 'العربية', dir: 'rtl' },
+    { code: 'he', name: 'Hebrew', nativeName: 'עברית', dir: 'rtl' },
+    { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी', dir: 'ltr' },
+    { code: 'id', name: 'Indonesian', nativeName: 'Bahasa Indonesia', dir: 'ltr' },
+    { code: 'ms', name: 'Malay', nativeName: 'Bahasa Melayu', dir: 'ltr' },
+    { code: 'th', name: 'Thai', nativeName: 'ไทย', dir: 'ltr' },
+    { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt', dir: 'ltr' },
+    { code: 'ko', name: 'Korean', nativeName: '한국어', dir: 'ltr' },
+    { code: 'ja', name: 'Japanese', nativeName: '日本語', dir: 'ltr' },
+    { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文', dir: 'ltr' },
+    { code: 'zh-TW', name: 'Chinese (Traditional)', nativeName: '繁體中文', dir: 'ltr' }
+  ];
 
   const I18N_FALLBACK = {
     en: {
@@ -24,9 +65,7 @@
   };
 
   let I18N = {};
-  let I18N_LANG = 'ru';
-  let dynamicLocales = {};
-  let dynamicNames = {};
+  let I18N_LANG = 'en';
 
   function t(key, fallback = key){
     const parts = key.split('.');
@@ -38,68 +77,63 @@
     return typeof cur === 'string' ? cur : fallback;
   }
 
-  function systemLanguageCode(){
-    return ((navigator.language || 'en').split('-')[0] || 'en').toLowerCase();
+  function normalizeLocale(rawLocale) {
+    if (!rawLocale || typeof rawLocale !== 'string') return 'en';
+    const tag = rawLocale.trim();
+    const lower = tag.toLowerCase();
+
+    // Exact code matches (case-insensitive check against supported list)
+    for (const item of SUPPORTED_LANGUAGES) {
+      if (item.code.toLowerCase() === lower) return item.code;
+    }
+
+    // Specific regional mappings
+    if (lower === 'zh-hans' || lower === 'zh-sg' || lower === 'zh-my' || lower.startsWith('zh-cn')) return 'zh-CN';
+    if (lower === 'zh-hant' || lower === 'zh-hk' || lower === 'zh-mo' || lower.startsWith('zh-tw')) return 'zh-TW';
+    if (lower === 'pt-br') return 'pt-BR';
+    if (lower === 'pt-pt' || lower === 'pt') return 'pt-PT';
+
+    // Prefix matching
+    const prefix = lower.split(/[-_]/)[0];
+    if (prefix === 'zh') return 'zh-CN';
+    if (prefix === 'pt') return 'pt-PT';
+
+    for (const item of SUPPORTED_LANGUAGES) {
+      if (item.code.toLowerCase() === prefix) return item.code;
+    }
+
+    return 'en';
   }
 
-  function registerDynamicLocale(code, localeObj, dir = 'ltr', displayName = code) {
-    if (!code || !localeObj) return;
-    dynamicLocales[code] = {
-      locale: localeObj,
-      dir: dir === 'rtl' ? 'rtl' : 'ltr',
-      name: displayName
-    };
-    dynamicNames[code] = displayName;
+  function systemLanguageCode(){
+    const raw = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en');
+    return normalizeLocale(raw);
   }
 
   async function loadLanguage(lang){
     const requested = lang === 'system'
       ? systemLanguageCode()
-      : lang;
+      : normalizeLocale(lang);
 
     let data = null;
     let used = null;
-    let direction = 'ltr';
 
-    if (dynamicLocales[requested] && dynamicLocales[requested].locale) {
-      data = dynamicLocales[requested].locale;
-      used = requested;
-      direction = dynamicLocales[requested].dir || 'ltr';
-    } else if (BUILTIN_CODES.indexOf(requested) !== -1) {
-      const candidates = [...new Set([requested, 'en'])];
-      for (const code of candidates) {
-        try {
-          const r = await fetch(`i18n/${code}.json`, { cache: 'no-store' });
-          if (!r.ok) continue;
-          data = await r.json();
-          used = code;
-          direction = 'ltr';
-          break;
-        } catch (_) {}
-      }
-    } else {
-      // Dynamic language fetch from service
-      try {
-        if (AmbiSun.webos && AmbiSun.webos.getTranslationLocale) {
-          const res = await AmbiSun.webos.getTranslationLocale(requested);
-          if (res && res.returnValue && res.locale) {
-            data = res.locale;
-            used = requested;
-            direction = res.dir || 'ltr';
-            registerDynamicLocale(requested, data, direction, res.nativeName || res.name || requested);
-          }
-        }
-      } catch (_) {}
-    }
+    const langMeta = SUPPORTED_LANGUAGES.find(l => l.code === requested) ||
+                     SUPPORTED_LANGUAGES.find(l => l.code === 'en');
+    const targetCode = langMeta ? langMeta.code : 'en';
+    const direction = langMeta && langMeta.dir === 'rtl' ? 'rtl' : 'ltr';
 
-    // Emergency fallback to en.json or local fallback
-    if (!data) {
+    // Load local JSON from i18n/<code_with_case>.json
+    const candidates = [targetCode];
+    if (targetCode !== 'en') candidates.push('en');
+
+    for (const code of candidates) {
       try {
-        const r = await fetch(`i18n/en.json`, { cache: 'no-store' });
-        if (r.ok) {
-          data = await r.json();
-          used = 'en';
-        }
+        const r = await fetch(`i18n/${code}.json`, { cache: 'no-store' });
+        if (!r.ok) continue;
+        data = await r.json();
+        used = code;
+        break;
       } catch (_) {}
     }
 
@@ -121,7 +155,7 @@
     document.documentElement.lang = used;
     document.documentElement.dir = direction;
 
-    const currentScreen = window.AmbiSun.state.screen;
+    const currentScreen = window.AmbiSun.state ? window.AmbiSun.state.screen : 'home';
     const titleEl = document.getElementById('screenTitle');
     if (titleEl && titleKeys[currentScreen]) {
       titleEl.textContent = t(titleKeys[currentScreen], currentScreen);
@@ -131,16 +165,19 @@
   }
 
   async function setLanguage(lang){
-    window.AmbiSun.state.language = lang;
+    const normalized = normalizeLocale(lang);
+    if (window.AmbiSun.state) {
+      window.AmbiSun.state.language = normalized;
+    }
     try {
-      localStorage.setItem(window.AmbiSun.constants.STORAGE_KEYS.language, lang);
+      localStorage.setItem(window.AmbiSun.constants.STORAGE_KEYS.language, normalized);
     } catch (_) {}
 
-    await loadLanguage(lang);
+    await loadLanguage(normalized);
 
     renderLanguageScreen();
 
-    const label = languageName(lang);
+    const label = languageName(normalized);
     const sub = document.querySelector('.nav-item[data-screen="language"] .sub');
     if (sub) sub.textContent = label;
 
@@ -153,87 +190,89 @@
     if (!container) return;
 
     const current = currentLanguage();
-    const builtin = [
-      { code: 'en', name: 'English', badge: 'EN' },
-      { code: 'et', name: 'Eesti', badge: 'ET' },
-      { code: 'uk', name: 'Українська', badge: 'UK' },
-      { code: 'ru', name: 'Русский', badge: 'RU' }
-    ];
+    const frag = document.createDocumentFragment();
 
-    let html = '';
-
-    builtin.forEach(item => {
+    SUPPORTED_LANGUAGES.forEach(item => {
       const isSel = item.code === current;
-      html += `<div class="list-item actionable ${isSel ? 'language-selected' : ''}" data-action="set-language" data-language="${item.code}" role="button" tabindex="-1">
-        <span>${isSel ? '◉' : '○'}</span>
-        <span>${item.name}</span>
-        <span>${item.badge}</span>
-      </div>`;
+      const row = document.createElement('div');
+      row.className = `list-item actionable ${isSel ? 'language-selected' : ''}`;
+      row.dataset.action = 'set-language';
+      row.dataset.language = item.code;
+      row.setAttribute('role', 'button');
+      row.setAttribute('tabindex', '-1');
+
+      const iconSpan = document.createElement('span');
+      iconSpan.textContent = isSel ? '◉' : '○';
+      row.appendChild(iconSpan);
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = item.nativeName;
+      if (item.name !== item.nativeName) {
+        nameSpan.title = item.name;
+      }
+      row.appendChild(nameSpan);
+
+      const badgeSpan = document.createElement('span');
+      badgeSpan.className = 'glyph-badge';
+      badgeSpan.textContent = item.code.toUpperCase();
+      row.appendChild(badgeSpan);
+
+      frag.appendChild(row);
     });
 
-    // Dynamic downloaded languages
-    for (const code in dynamicLocales) {
-      if (BUILTIN_CODES.indexOf(code) !== -1) continue;
-      const dyn = dynamicLocales[code];
-      const isSel = code === current;
-      html += `<div class="list-item actionable ${isSel ? 'language-selected' : ''}" data-action="set-language" data-language="${code}" role="button" tabindex="-1">
-        <span>${isSel ? '◉' : '○'}</span>
-        <span>${dyn.name || code}</span>
-        <span>${code.toUpperCase()}</span>
-      </div>`;
-    }
+    container.textContent = '';
+    container.appendChild(frag);
+  }
 
-    // Other languages action row
-    html += `<div class="list-item actionable other-languages" data-action="open-other-languages" role="button" tabindex="-1" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px">
-      <span>🌐</span>
-      <span data-i18n="language.otherLanguages">${t('language.otherLanguages', 'Другие языки…')}</span>
-      <span>›</span>
-    </div>`;
+  function renderFirstRunLanguageList() {
+    const container = document.getElementById('firstRunLanguageList');
+    if (!container) return;
 
-    container.innerHTML = html;
+    const frag = document.createDocumentFragment();
+    SUPPORTED_LANGUAGES.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'startup-language actionable';
+      el.dataset.action = 'first-run-language';
+      el.dataset.language = item.code;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '-1');
+
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = item.nativeName;
+      el.appendChild(nameSpan);
+
+      const badgeSmall = document.createElement('small');
+      badgeSmall.textContent = item.code.toUpperCase();
+      el.appendChild(badgeSmall);
+
+      frag.appendChild(el);
+    });
+
+    container.textContent = '';
+    container.appendChild(frag);
   }
 
   function currentLanguage(){
-    return I18N_LANG || window.AmbiSun.state.language || 'ru';
+    return I18N_LANG || (window.AmbiSun.state && window.AmbiSun.state.language) || 'en';
   }
 
   function languageName(lang){
-    if (dynamicNames[lang]) return dynamicNames[lang];
-    const names = {
-      en: 'English',
-      ru: 'Русский',
-      uk: 'Українська',
-      et: 'Eesti',
-      de: 'Deutsch',
-      fr: 'Français',
-      es: 'Español',
-      it: 'Italiano',
-      system: t('language.system', 'Как на телевизоре')
-    };
-    return names[lang] || lang;
+    const target = normalizeLocale(lang);
+    const found = SUPPORTED_LANGUAGES.find(l => l.code === target);
+    if (found) return found.nativeName;
+    return lang;
   }
 
   function savedLanguage(){
     try {
-      return localStorage.getItem(window.AmbiSun.constants.STORAGE_KEYS.language) || 'ru';
-    } catch (_) {
-      return 'ru';
-    }
-  }
-
-  async function loadDownloadedOnStartup() {
-    try {
-      if (AmbiSun.webos && AmbiSun.webos.getDownloadedLanguages) {
-        const res = await AmbiSun.webos.getDownloadedLanguages();
-        if (res && res.returnValue && Array.isArray(res.downloaded)) {
-          res.downloaded.forEach(item => {
-            dynamicNames[item.code] = item.nativeName || item.name || item.code;
-          });
-        }
-      }
+      const saved = localStorage.getItem(window.AmbiSun.constants.STORAGE_KEYS.language);
+      if (saved) return normalizeLocale(saved);
     } catch (_) {}
+    return systemLanguageCode();
   }
 
+  AmbiSun.i18n.SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES;
+  AmbiSun.i18n.normalizeLocale = normalizeLocale;
   AmbiSun.i18n.t = t;
   AmbiSun.i18n.loadLanguage = loadLanguage;
   AmbiSun.i18n.setLanguage = setLanguage;
@@ -242,6 +281,5 @@
   AmbiSun.i18n.currentLanguage = currentLanguage;
   AmbiSun.i18n.languageName = languageName;
   AmbiSun.i18n.renderLanguageScreen = renderLanguageScreen;
-  AmbiSun.i18n.registerDynamicLocale = registerDynamicLocale;
-  AmbiSun.i18n.loadDownloadedOnStartup = loadDownloadedOnStartup;
+  AmbiSun.i18n.renderFirstRunLanguageList = renderFirstRunLanguageList;
 })();

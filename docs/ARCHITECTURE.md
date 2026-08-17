@@ -24,9 +24,7 @@ behind that adapter.
 
 ## Localization
 
-Each locale is a JSON file. English is canonical. Extra languages will eventually be generated
-on demand by sending only missing keys to a translation backend. Existing user-installed
-translations should not be overwritten unnecessarily.
+All 39 supported locales are stored locally as JSON files (`i18n/*.json`). English (`i18n/en.json`) is the canonical source of truth. All localizations operate 100% offline without any network or proxy dependencies. Full RTL support is included for Arabic and Hebrew.
 
 ## Background service
 

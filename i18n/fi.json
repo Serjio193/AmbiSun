@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Koti",
+    "sources": "Lähteet ja sovellukset",
+    "sun": "Aurinko ja aikataulu",
+    "settings": "Asetukset",
+    "language": "Kieli",
+    "about": "Tietoja"
+  },
+  "common": {
+    "change": "Muuta",
+    "yes": "Kyllä",
+    "no": "Ei",
+    "back": "Takaisin",
+    "minimize": "Pienennä"
+  },
+  "home": {
+    "currentState": "Nykyinen tila",
+    "ambilightOn": "Ambilight on päällä",
+    "modeSun": "Tila: Auringon mukaan",
+    "currentSource": "Nykyinen lähde",
+    "nextOn": "Seuraava kytkentä",
+    "nextOff": "Seuraava sammutus"
+  },
+  "sun": {
+    "sunset": "Auringonlasku",
+    "turnOn": "Kytke päälle",
+    "sunrise": "Auringonnousu",
+    "sunsetOffset": "Kytke päälle auringonlaskun suhteen",
+    "sunriseOffset": "Sammuta auringonnousun suhteen",
+    "localSchedule": "Aikataulu sovelletaan päivittäin ja lasketaan paikallisesti.",
+    "todaySunset": "Auringonlasku tänään",
+    "ambilightOn": "Ambilight PÄÄLLÄ",
+    "tomorrowSunrise": "Auringonnousu huomenna"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Kieli",
+    "autostart": "Käynnistä TV:n kanssa",
+    "defaultRule": "Oletussääntö uusille sovelluksille",
+    "test": "Testaa Ambilightia 5 sekuntia",
+    "plasma": "HyperHDR-plasmatausta · Pehmeä",
+    "advanced": "Lisäasetukset",
+    "reset": "Palauta asetukset",
+    "saved": "Asetukset tallennettu"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Palvelimen osoite:",
+    "port": "Portti:",
+    "test": "Testaa",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "testing": "Testataan yhteyttä...",
+    "available": "HyperHDR saatavilla",
+    "unavailable": "Ei saatavilla",
+    "connected": "Yhdistetty",
+    "invalid": "Virheellinen osoite tai portti"
+  },
+  "language": {
+    "system": "Sama kuin TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Muut kielet",
+    "otherLanguages": "Muut kielet…",
+    "loading": "Ladataan kieliluetteloa…",
+    "downloading": "Ladataan käännöstä…",
+    "downloadFailed": "Käännöksen lataus epäonnistui",
+    "empty": "Kieliä ei löytynyt"
+  },
+  "about": {
+    "version": "Versio",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Lisenssi: MIT"
+  },
+  "update": {
+    "available": "Päivitys saatavilla",
+    "install": "Asenna päivitys",
+    "preparing": "Valmistellaan päivitystä…",
+    "downloading": "Ladataan ja tarkistetaan pakettia…",
+    "installing": "Asennetaan päivitystä…",
+    "restart": "AmbiSun käynnistyy automaattisesti uudelleen.",
+    "failed": "Päivitys epäonnistui: ",
+    "upToDate": "Sovellus on ajan tasalla"
+  },
+  "support": {
+    "title": "❤ Tue projektia",
+    "subtitle": "Tukitiedot Legacy Bridgestä",
+    "scan": "Skannaa QR-koodi puhelimellasi"
+  },
+  "rule": {
+    "sun": "Auringon mukaan",
+    "on": "Aina PÄÄLLÄ",
+    "off": "Aina POIS PÄÄLTÄ"
+  },
+  "toast": {
+    "locationTodo": "TODO API: maa / kaupunki ohjattu toiminto",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight-testi: 5 sekuntia",
+    "advancedTodo": "TODO: lisäasetukset",
+    "reset": "Prototyypin asetukset palautettu",
+    "updateOk": "GitHub Releases tarkistettu — versio 1.0.0 on ajan tasalla",
+    "openGithub": "Avataan GitHub"
+  },
+  "location": {
+    "title": "Sijainti",
+    "stepDetected": "Tunnistettu IP-osoitteesta",
+    "stepRegion": "Alue",
+    "stepCountry": "Maa",
+    "stepCity": "Kaupunki",
+    "detectedLead": "Maa tunnistettu IP-osoitteesta:",
+    "isCountryCorrect": "Oletko tässä maassa?",
+    "chooseRegion": "Valitse alue",
+    "chooseCountry": "Valitse maa",
+    "chooseCity": "Valitse kaupunki",
+    "noKeyboard": "Ei näppäimistöä — vain kaukosäädin"
+  },
+  "region": {
+    "europe": "Eurooppa",
+    "asia": "Aasia",
+    "africa": "Afrikka",
+    "northAmerica": "Pohjois-Amerikka",
+    "southAmerica": "Etelä-Amerikka",
+    "oceania": "Oseania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Valitse kieli",
+    "languageHint": "Voit vaihtaa kielen myöhemmin Asetuksissa.",
+    "otherLanguages": "Muut kielet…",
+    "onlineTranslationTodo": "TODO: verkkokieliluettelo → käännä en.json → tallenna uusi JSON"
+  },
+  "status": {
+    "waiting": "Odotetaan..."
+  },
+  "error": {
+    "revisionConflict": "Määrityskonflikti! Päivitetään...",
+    "saveFailed": "Tallennus epäonnistui: ",
+    "connection": "Yhteysvirhe",
+    "elevationFailed": "Virhe: Käyttöoikeuksien hankkiminen epäonnistui",
+    "minimizeFailed": "Sovelluksen pienentäminen epäonnistui"
+  },
+  "elevation": {
+    "restoring": "Palautetaan...",
+    "success": "Valmis! Käynnistetään uudelleen..."
+  }
+}

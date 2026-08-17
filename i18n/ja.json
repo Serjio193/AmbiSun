@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "sources": "ソースとアプリ",
+    "sun": "太陽とスケジュール",
+    "settings": "設定",
+    "language": "言語",
+    "about": "情報"
+  },
+  "common": {
+    "change": "変更",
+    "yes": "はい",
+    "no": "いいえ",
+    "back": "戻る",
+    "minimize": "最小化"
+  },
+  "home": {
+    "currentState": "現在の状態",
+    "ambilightOn": "Ambilight オン",
+    "modeSun": "モード: 太陽連動",
+    "currentSource": "現在のソース",
+    "nextOn": "次のオン",
+    "nextOff": "次のオフ"
+  },
+  "sun": {
+    "sunset": "日没",
+    "turnOn": "オン",
+    "sunrise": "日の出",
+    "sunsetOffset": "日没に合わせてオン",
+    "sunriseOffset": "日の出に合わせてオフ",
+    "localSchedule": "スケジュールは毎日適用され、ローカルで計算されます。",
+    "todaySunset": "今日の日没",
+    "ambilightOn": "Ambilight オン",
+    "tomorrowSunrise": "明日の日の出"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "言語",
+    "autostart": "TVと連動して起動",
+    "defaultRule": "新しいアプリのデフォルトルール",
+    "test": "Ambilightを5秒間テスト",
+    "plasma": "HyperHDR プラズマ背景 · スムーズ",
+    "advanced": "詳細設定",
+    "reset": "設定をリセット",
+    "saved": "設定が保存されました"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "サーバーアドレス:",
+    "port": "ポート:",
+    "test": "テスト",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "testing": "接続をテスト中...",
+    "available": "HyperHDR 利用可能",
+    "unavailable": "利用不可",
+    "connected": "接続済み",
+    "invalid": "無効なアドレスまたはポート"
+  },
+  "language": {
+    "system": "TVと同じ",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "その他の言語",
+    "otherLanguages": "その他の言語…",
+    "loading": "言語リストを読み込み中…",
+    "downloading": "翻訳をダウンロード中…",
+    "downloadFailed": "翻訳の読み込みに失敗しました",
+    "empty": "言語が見つかりません"
+  },
+  "about": {
+    "version": "バージョン",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "ライセンス: MIT"
+  },
+  "update": {
+    "available": "アップデートが利用可能です",
+    "install": "アップデートをインストール",
+    "preparing": "アップデートを準備中…",
+    "downloading": "パッケージをダウンロードして検証中…",
+    "installing": "アップデートをインストール中…",
+    "restart": "AmbiSun は自動的に再起動します。",
+    "failed": "アップデートに失敗しました: ",
+    "upToDate": "アプリは最新です"
+  },
+  "support": {
+    "title": "❤ プロジェクトを支援",
+    "subtitle": "Legacy Bridge からのサポート詳細",
+    "scan": "スマートフォンでQRコードをスキャン"
+  },
+  "rule": {
+    "sun": "太陽連動",
+    "on": "常にオン",
+    "off": "常にオフ"
+  },
+  "toast": {
+    "locationTodo": "TODO API: 国 / 都市ウィザード",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight テスト: 5秒間",
+    "advancedTodo": "TODO: 詳細設定",
+    "reset": "プロトタイプ設定をリセットしました",
+    "updateOk": "GitHub Releases 確認済み — バージョン 1.0.0 は最新です",
+    "openGithub": "GitHub を開いています"
+  },
+  "location": {
+    "title": "位置情報",
+    "stepDetected": "IPから検出",
+    "stepRegion": "地域",
+    "stepCountry": "国",
+    "stepCity": "都市",
+    "detectedLead": "IPから検出された国:",
+    "isCountryCorrect": "この国にいらっしゃいますか？",
+    "chooseRegion": "地域を選択",
+    "chooseCountry": "国を選択",
+    "chooseCity": "都市を選択",
+    "noKeyboard": "キーボードなし — リモコン専用"
+  },
+  "region": {
+    "europe": "ヨーロッパ",
+    "asia": "アジア",
+    "africa": "アフリカ",
+    "northAmerica": "北米",
+    "southAmerica": "南米",
+    "oceania": "オセアニア"
+  },
+  "firstRun": {
+    "chooseLanguage": "言語を選択してください",
+    "languageHint": "後から設定で言語を変更できます。",
+    "otherLanguages": "その他の言語…",
+    "onlineTranslationTodo": "TODO: オンライン言語リスト → en.json 翻訳 → 新しい JSON 保存"
+  },
+  "status": {
+    "waiting": "待機中..."
+  },
+  "error": {
+    "revisionConflict": "設定の競合が発生しました！更新中...",
+    "saveFailed": "保存に失敗しました: ",
+    "connection": "接続エラー",
+    "elevationFailed": "エラー: 権限を取得できませんでした",
+    "minimizeFailed": "アプリを最小化できませんでした"
+  },
+  "elevation": {
+    "restoring": "復元中...",
+    "success": "成功！再起動中..."
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Domov",
+    "sources": "Viri in aplikacije",
+    "sun": "Sonce in urnik",
+    "settings": "Nastavitve",
+    "language": "Jezik",
+    "about": "O programu"
+  },
+  "common": {
+    "change": "Spremeni",
+    "yes": "Da",
+    "no": "Ne",
+    "back": "Nazaj",
+    "minimize": "Pomanjšaj"
+  },
+  "home": {
+    "currentState": "Trenutno stanje",
+    "ambilightOn": "Ambilight je vklopljen",
+    "modeSun": "Način: Po soncu",
+    "currentSource": "Trenutni vir",
+    "nextOn": "Naslednji vklop",
+    "nextOff": "Naslednji izklop"
+  },
+  "sun": {
+    "sunset": "Sončni zahod",
+    "turnOn": "Vklopi",
+    "sunrise": "Sončni vzhod",
+    "sunsetOffset": "Vklopi glede na sončni zahod",
+    "sunriseOffset": "Izklopi glede na sončni vzhod",
+    "localSchedule": "Urnik se uporablja vsak dan in se izračuna lokalno.",
+    "todaySunset": "Sončni zahod danes",
+    "ambilightOn": "Ambilight VKLOPLJEN",
+    "tomorrowSunrise": "Sončni vzhod jutri"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Jezik",
+    "autostart": "Zaženi s TV",
+    "defaultRule": "Privzeto pravilo za nove aplikacije",
+    "test": "Preizkusi Ambilight za 5 sekund",
+    "plasma": "HyperHDR plazma ozadje · Gladko",
+    "advanced": "Napredne nastavitve",
+    "reset": "Ponastavi nastavitve",
+    "saved": "Nastavitve shranjene"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Naslov strežnika:",
+    "port": "Vrata:",
+    "test": "Preizkusi",
+    "save": "Shrani",
+    "cancel": "Prekliči",
+    "testing": "Preizkušanje povezave...",
+    "available": "HyperHDR na voljo",
+    "unavailable": "Ni na voljo",
+    "connected": "Povezano",
+    "invalid": "Neveljaven naslov ali vrata"
+  },
+  "language": {
+    "system": "Enako kot TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Drugi jeziki",
+    "otherLanguages": "Drugi jeziki…",
+    "loading": "Nalaganje seznama jezikov…",
+    "downloading": "Prenašanje prevoda…",
+    "downloadFailed": "Nalaganje prevoda ni uspelo",
+    "empty": "Ni najdenih jezikov"
+  },
+  "about": {
+    "version": "Različica",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licenca: MIT"
+  },
+  "update": {
+    "available": "Na voljo je posodobitev",
+    "install": "Namesti posodobitev",
+    "preparing": "Priprava posodobitve…",
+    "downloading": "Prenašanje in preverjanje paketa…",
+    "installing": "Nameščanje posodobitve…",
+    "restart": "AmbiSun se bo samodejno znova zagnal.",
+    "failed": "Posodobitev ni uspela: ",
+    "upToDate": "Aplikacija je posodobljena"
+  },
+  "support": {
+    "title": "❤ Podprite projekt",
+    "subtitle": "Podrobnosti podpore iz Legacy Bridge",
+    "scan": "Skenirajte kodo QR s telefonom"
+  },
+  "rule": {
+    "sun": "Po soncu",
+    "on": "Vedno VKLOPLJENO",
+    "off": "Vedno IZKLOPLJENO"
+  },
+  "toast": {
+    "locationTodo": "TODO API: čarovnik za državo / mesto",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Preizkus Ambilight: 5 sekund",
+    "advancedTodo": "TODO: napredne nastavitve",
+    "reset": "Nastavitve prototipa ponastavljene",
+    "updateOk": "GitHub Releases preverjen — različica 1.0.0 je posodobljena",
+    "openGithub": "Odpiranje GitHub"
+  },
+  "location": {
+    "title": "Lokacija",
+    "stepDetected": "Zaznano prek IP",
+    "stepRegion": "Regija",
+    "stepCountry": "Država",
+    "stepCity": "Mesto",
+    "detectedLead": "Država zaznana prek IP:",
+    "isCountryCorrect": "Ali ste v tej državi?",
+    "chooseRegion": "Izberite regijo",
+    "chooseCountry": "Izberite državo",
+    "chooseCity": "Izberite mesto",
+    "noKeyboard": "Brez tipkovnice — samo daljinec"
+  },
+  "region": {
+    "europe": "Evropa",
+    "asia": "Azija",
+    "africa": "Afrika",
+    "northAmerica": "Severna Amerika",
+    "southAmerica": "Južna Amerika",
+    "oceania": "Oceanija"
+  },
+  "firstRun": {
+    "chooseLanguage": "Izberite jezik",
+    "languageHint": "Jezik lahko pozneje spremenite v Nastavitvah.",
+    "otherLanguages": "Drugi jeziki…",
+    "onlineTranslationTodo": "TODO: spletni seznam jezikov → prevedi en.json → shrani nov JSON"
+  },
+  "status": {
+    "waiting": "Čakanje..."
+  },
+  "error": {
+    "revisionConflict": "Konflikt konfiguracije! Posodabljanje...",
+    "saveFailed": "Shranjevanje ni uspelo: ",
+    "connection": "Napaka povezave",
+    "elevationFailed": "Napaka: Pridobivanje dovoljenj ni uspelo",
+    "minimizeFailed": "Aplikacije ni bilo mogoče pomanjšati"
+  },
+  "elevation": {
+    "restoring": "Obnavljanje...",
+    "success": "Uspeh! Ponovni zagon..."
+  }
+}

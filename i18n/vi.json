@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "sources": "Nguồn & ứng dụng",
+    "sun": "Mặt trời & lịch trình",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "about": "Giới thiệu"
+  },
+  "common": {
+    "change": "Thay đổi",
+    "yes": "Có",
+    "no": "Không",
+    "back": "Quay lại",
+    "minimize": "Thu nhỏ"
+  },
+  "home": {
+    "currentState": "Trạng thái hiện tại",
+    "ambilightOn": "Ambilight đang bật",
+    "modeSun": "Chế độ: Theo mặt trời",
+    "currentSource": "Nguồn hiện tại",
+    "nextOn": "Bật tiếp theo",
+    "nextOff": "Tắt tiếp theo"
+  },
+  "sun": {
+    "sunset": "Hoàng hôn",
+    "turnOn": "Bật",
+    "sunrise": "Bình minh",
+    "sunsetOffset": "Bật tương đối theo hoàng hôn",
+    "sunriseOffset": "Tắt tương đối theo bình minh",
+    "localSchedule": "Lịch trình được áp dụng hàng ngày và tính toán cục bộ.",
+    "todaySunset": "Hoàng hôn hôm nay",
+    "ambilightOn": "Ambilight BẬT",
+    "tomorrowSunrise": "Bình minh ngày mai"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Ngôn ngữ",
+    "autostart": "Khởi động cùng TV",
+    "defaultRule": "Quy tắc mặc định cho ứng dụng mới",
+    "test": "Kiểm tra Ambilight trong 5 giây",
+    "plasma": "Nền Plasma HyperHDR · Mượt mà",
+    "advanced": "Cài đặt nâng cao",
+    "reset": "Đặt lại cài đặt",
+    "saved": "Đã lưu cài đặt"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Địa chỉ máy chủ:",
+    "port": "Cổng:",
+    "test": "Kiểm tra",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "testing": "Đang kiểm tra kết nối...",
+    "available": "HyperHDR khả dụng",
+    "unavailable": "Không khả dụng",
+    "connected": "Đã kết nối",
+    "invalid": "Địa chỉ hoặc cổng không hợp lệ"
+  },
+  "language": {
+    "system": "Giống như TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Ngôn ngữ khác",
+    "otherLanguages": "Ngôn ngữ khác…",
+    "loading": "Đang tải danh sách ngôn ngữ…",
+    "downloading": "Đang tải bản dịch…",
+    "downloadFailed": "Không thể tải bản dịch",
+    "empty": "Không tìm thấy ngôn ngữ nào"
+  },
+  "about": {
+    "version": "Phiên bản",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Giấy phép: MIT"
+  },
+  "update": {
+    "available": "Có bản cập nhật mới",
+    "install": "Cài đặt bản cập nhật",
+    "preparing": "Đang chuẩn bị cập nhật…",
+    "downloading": "Đang tải xuống và xác minh gói…",
+    "installing": "Đang cài đặt bản cập nhật…",
+    "restart": "AmbiSun sẽ tự động khởi động lại.",
+    "failed": "Cập nhật thất bại: ",
+    "upToDate": "Ứng dụng đã được cập nhật"
+  },
+  "support": {
+    "title": "❤ Ủng hộ dự án",
+    "subtitle": "Chi tiết hỗ trợ từ Legacy Bridge",
+    "scan": "Quét mã QR bằng điện thoại của bạn"
+  },
+  "rule": {
+    "sun": "Theo mặt trời",
+    "on": "Luôn BẬT",
+    "off": "Luôn TẮT"
+  },
+  "toast": {
+    "locationTodo": "TODO API: trình hướng dẫn quốc gia / thành phố",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Kiểm tra Ambilight: 5 giây",
+    "advancedTodo": "TODO: cài đặt nâng cao",
+    "reset": "Đã đặt lại cài đặt nguyên mẫu",
+    "updateOk": "Đã kiểm tra GitHub Releases — phiên bản 1.0.0 là mới nhất",
+    "openGithub": "Đang mở GitHub"
+  },
+  "location": {
+    "title": "Vị trí",
+    "stepDetected": "Phát hiện qua IP",
+    "stepRegion": "Khu vực",
+    "stepCountry": "Quốc gia",
+    "stepCity": "Thành phố",
+    "detectedLead": "Quốc gia được phát hiện qua IP:",
+    "isCountryCorrect": "Bạn có ở quốc gia này không?",
+    "chooseRegion": "Chọn một khu vực",
+    "chooseCountry": "Chọn một quốc gia",
+    "chooseCity": "Chọn một thành phố",
+    "noKeyboard": "Không có bàn phím — chỉ dùng điều khiển từ xa"
+  },
+  "region": {
+    "europe": "Châu Âu",
+    "asia": "Châu Á",
+    "africa": "Châu Phi",
+    "northAmerica": "Bắc Mỹ",
+    "southAmerica": "Nam Mỹ",
+    "oceania": "Châu Đại Dương"
+  },
+  "firstRun": {
+    "chooseLanguage": "Chọn một ngôn ngữ",
+    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong Cài đặt.",
+    "otherLanguages": "Ngôn ngữ khác…",
+    "onlineTranslationTodo": "TODO: danh sách ngôn ngữ trực tuyến → dịch en.json → lưu JSON mới"
+  },
+  "status": {
+    "waiting": "Đang chờ..."
+  },
+  "error": {
+    "revisionConflict": "Xung đột cấu hình! Đang cập nhật...",
+    "saveFailed": "Lưu thất bại: ",
+    "connection": "Lỗi kết nối",
+    "elevationFailed": "Lỗi: Không thể lấy quyền",
+    "minimizeFailed": "Không thể thu nhỏ ứng dụng"
+  },
+  "elevation": {
+    "restoring": "Đang khôi phục...",
+    "success": "Thành công! Đang khởi động lại..."
+  }
+}

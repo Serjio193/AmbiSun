@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Főoldal",
+    "sources": "Források és alkalmazások",
+    "sun": "Nap és időzítés",
+    "settings": "Beállítások",
+    "language": "Nyelv",
+    "about": "Névjegy"
+  },
+  "common": {
+    "change": "Módosítás",
+    "yes": "Igen",
+    "no": "Nem",
+    "back": "Vissza",
+    "minimize": "Kicsinyítés"
+  },
+  "home": {
+    "currentState": "Jelenlegi állapot",
+    "ambilightOn": "Ambilight be van kapcsolva",
+    "modeSun": "Mód: Nap szerint",
+    "currentSource": "Jelenlegi forrás",
+    "nextOn": "Következő bekapcsolás",
+    "nextOff": "Következő kikapcsolás"
+  },
+  "sun": {
+    "sunset": "Napnyugta",
+    "turnOn": "Bekapcsolás",
+    "sunrise": "Napkelte",
+    "sunsetOffset": "Bekapcsolás a napnyugtához képest",
+    "sunriseOffset": "Kikapcsolás a napkeltéhez képest",
+    "localSchedule": "Az ütemezés naponta érvényesül és helyileg kerül kiszámításra.",
+    "todaySunset": "Napnyugta ma",
+    "ambilightOn": "Ambilight BE",
+    "tomorrowSunrise": "Napkelte holnap"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Nyelv",
+    "autostart": "Indítás a TV-vel",
+    "defaultRule": "Alapértelmezett szabály új appokhoz",
+    "test": "Ambilight tesztelése 5 másodpercig",
+    "plasma": "HyperHDR Plazma háttér · Sima",
+    "advanced": "Speciális beállítások",
+    "reset": "Beállítások visszaállítása",
+    "saved": "Beállítások elmentve"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Szerver címe:",
+    "port": "Port:",
+    "test": "Teszt",
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "testing": "Kapcsolat tesztelése...",
+    "available": "HyperHDR elérhető",
+    "unavailable": "Nem érhető el",
+    "connected": "Csatlakoztatva",
+    "invalid": "Érvénytelen cím vagy port"
+  },
+  "language": {
+    "system": "A TV-vel megegyező",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Egyéb nyelvek",
+    "otherLanguages": "Egyéb nyelvek…",
+    "loading": "Nyelvlista betöltése…",
+    "downloading": "Fordítás letöltése…",
+    "downloadFailed": "Fordítás letöltése sikertelen",
+    "empty": "Nem találhatók nyelvek"
+  },
+  "about": {
+    "version": "Verzió",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licenc: MIT"
+  },
+  "update": {
+    "available": "Frissítés elérhető",
+    "install": "Frissítés telepítése",
+    "preparing": "Frissítés előkészítése…",
+    "downloading": "Csomag letöltése és ellenőrzése…",
+    "installing": "Frissítés telepítése…",
+    "restart": "Az AmbiSun automatikusan újraindul.",
+    "failed": "Frissítés sikertelen: ",
+    "upToDate": "Az alkalmazás naprakész"
+  },
+  "support": {
+    "title": "❤ Projekt támogatása",
+    "subtitle": "Támogatási részletek a Legacy Bridge-ből",
+    "scan": "Olvassa be a QR-kódot telefonjával"
+  },
+  "rule": {
+    "sun": "Nap szerint",
+    "on": "Mindig BE",
+    "off": "Mindig KI"
+  },
+  "toast": {
+    "locationTodo": "TODO API: ország / város varázsló",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight teszt: 5 másodperc",
+    "advancedTodo": "TODO: speciális beállítások",
+    "reset": "Prototípus beállításai visszaállítva",
+    "updateOk": "GitHub Releases ellenőrizve — az 1.0.0-s verzió aktuális",
+    "openGithub": "GitHub megnyitása"
+  },
+  "location": {
+    "title": "Helyzet",
+    "stepDetected": "IP alapján észlelve",
+    "stepRegion": "Régió",
+    "stepCountry": "Ország",
+    "stepCity": "Város",
+    "detectedLead": "IP alapján észlelt ország:",
+    "isCountryCorrect": "Ebben az országban tartózkodik?",
+    "chooseRegion": "Válasszon régiót",
+    "chooseCountry": "Válasszon országot",
+    "chooseCity": "Válasszon várost",
+    "noKeyboard": "Nincs billentyűzet — csak távirányító"
+  },
+  "region": {
+    "europe": "Európa",
+    "asia": "Ázsia",
+    "africa": "Afrika",
+    "northAmerica": "Észak-Amerika",
+    "southAmerica": "Dél-Amerika",
+    "oceania": "Óceánia"
+  },
+  "firstRun": {
+    "chooseLanguage": "Válasszon nyelvet",
+    "languageHint": "A nyelvet később a Beállításokban módosíthatja.",
+    "otherLanguages": "Egyéb nyelvek…",
+    "onlineTranslationTodo": "TODO: online nyelvlista → en.json fordítása → új JSON mentése"
+  },
+  "status": {
+    "waiting": "Várakozás..."
+  },
+  "error": {
+    "revisionConflict": "Konfigurációs ütközés! Frissítés...",
+    "saveFailed": "Mentés sikertelen: ",
+    "connection": "Kapcsolódási hiba",
+    "elevationFailed": "Hiba: Engedélyek megszerzése sikertelen",
+    "minimizeFailed": "Nem sikerült kicsinyíteni az alkalmazást"
+  },
+  "elevation": {
+    "restoring": "Helyreállítás...",
+    "success": "Sikeres! Újraindítás..."
+  }
+}

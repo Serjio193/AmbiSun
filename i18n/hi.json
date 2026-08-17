@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "होम",
+    "sources": "स्रोत और ऐप्स",
+    "sun": "सूर्य और समय सारिणी",
+    "settings": "सेटिंग्स",
+    "language": "भाषा",
+    "about": "के बारे में"
+  },
+  "common": {
+    "change": "बदलें",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "back": "पीछे",
+    "minimize": "छोटा करें"
+  },
+  "home": {
+    "currentState": "वर्तमान स्थिति",
+    "ambilightOn": "एम्बीलाइट चालू है",
+    "modeSun": "मोड: सूर्य के अनुसार",
+    "currentSource": "वर्तमान स्रोत",
+    "nextOn": "अगला चालू होना",
+    "nextOff": "अगला बंद होना"
+  },
+  "sun": {
+    "sunset": "सूर्यास्त",
+    "turnOn": "चालू करें",
+    "sunrise": "सूर्योदय",
+    "sunsetOffset": "सूर्यास्त के सापेक्ष चालू करें",
+    "sunriseOffset": "सूर्योदय के सापेक्ष बंद करें",
+    "localSchedule": "समय सारिणी दैनिक रूप से लागू होती है और स्थानीय रूप से गणना की जाती है।",
+    "todaySunset": "आज का सूर्यास्त",
+    "ambilightOn": "एम्बीलाइट चालू",
+    "tomorrowSunrise": "कल का सूर्योदय"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "भाषा",
+    "autostart": "टीवी के साथ प्रारंभ करें",
+    "defaultRule": "नए ऐप्स के लिए डिफ़ॉल्ट नियम",
+    "test": "5 सेकंड के लिए एम्बीलाइट का परीक्षण करें",
+    "plasma": "HyperHDR प्लाज्मा पृष्ठभूमि · सुचारू",
+    "advanced": "उन्नत सेटिंग्स",
+    "reset": "सेटिंग्स रीसेट करें",
+    "saved": "सेटिंग्स सहेजी गईं"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "सर्वर पता:",
+    "port": "पोर्ट:",
+    "test": "परीक्षण",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "testing": "कनेक्शन का परीक्षण हो रहा है...",
+    "available": "HyperHDR उपलब्ध है",
+    "unavailable": "अनुपलब्ध",
+    "connected": "कनेक्टेड",
+    "invalid": "अमान्य पता या पोर्ट"
+  },
+  "language": {
+    "system": "टीवी के समान",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "अन्य भाषाएँ",
+    "otherLanguages": "अन्य भाषाएँ…",
+    "loading": "भाषा सूची लोड हो रही है…",
+    "downloading": "अनुवाद डाउनलोड हो रहा है…",
+    "downloadFailed": "अनुवाद लोड करने में विफल",
+    "empty": "कोई भाषा नहीं मिली"
+  },
+  "about": {
+    "version": "संस्करण",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "लाइसेंस: MIT"
+  },
+  "update": {
+    "available": "अपडेट उपलब्ध है",
+    "install": "अपडेट इंस्टॉल करें",
+    "preparing": "अपडेट तैयार हो रहा है…",
+    "downloading": "पैकेज डाउनलोड और सत्यापित हो रहा है…",
+    "installing": "अपडेट इंस्टॉल हो रहा है…",
+    "restart": "AmbiSun स्वचालित रूप से पुनरारंभ होगा।",
+    "failed": "अपडेट विफल रहा: ",
+    "upToDate": "ऐप अप टू डेट है"
+  },
+  "support": {
+    "title": "❤ प्रोजेक्ट का समर्थन करें",
+    "subtitle": "Legacy Bridge से समर्थन विवरण",
+    "scan": "अपने फ़ोन से QR कोड स्कैन करें"
+  },
+  "rule": {
+    "sun": "सूर्य के अनुसार",
+    "on": "हमेशा चालू",
+    "off": "हमेशा बंद"
+  },
+  "toast": {
+    "locationTodo": "TODO API: देश / शहर विज़ार्ड",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "एम्बीलाइट परीक्षण: 5 सेकंड",
+    "advancedTodo": "TODO: उन्नत सेटिंग्स",
+    "reset": "प्रोटोटाइप सेटिंग्स रीसेट",
+    "updateOk": "GitHub Releases जाँचा गया — संस्करण 1.0.0 नवीनतम है",
+    "openGithub": "GitHub खोला जा रहा है"
+  },
+  "location": {
+    "title": "स्थान",
+    "stepDetected": "IP द्वारा पता लगाया गया",
+    "stepRegion": "क्षेत्र",
+    "stepCountry": "देश",
+    "stepCity": "शहर",
+    "detectedLead": "IP द्वारा पता लगाया गया देश:",
+    "isCountryCorrect": "क्या आप इस देश में हैं?",
+    "chooseRegion": "एक क्षेत्र चुनें",
+    "chooseCountry": "एक देश चुनें",
+    "chooseCity": "एक शहर चुनें",
+    "noKeyboard": "कोई कीबोर्ड नहीं — केवल रिमोट"
+  },
+  "region": {
+    "europe": "यूरोप",
+    "asia": "एशिया",
+    "africa": "अफ्रीका",
+    "northAmerica": "उत्तरी अमेरिका",
+    "southAmerica": "दक्षिण अमेरिका",
+    "oceania": "ओशिनिया"
+  },
+  "firstRun": {
+    "chooseLanguage": "एक भाषा चुनें",
+    "languageHint": "आप बाद में सेटिंग्स में भाषा बदल सकते हैं।",
+    "otherLanguages": "अन्य भाषाएँ…",
+    "onlineTranslationTodo": "TODO: ऑनलाइन भाषा सूची → en.json अनुवाद करें → नया JSON सहेजें"
+  },
+  "status": {
+    "waiting": "प्रतीक्षा कर रहा है..."
+  },
+  "error": {
+    "revisionConflict": "कॉन्फ़िगरेशन विरोध! अपडेट हो रहा है...",
+    "saveFailed": "सहेजना विफल रहा: ",
+    "connection": "कनेक्शन त्रुटि",
+    "elevationFailed": "त्रुटि: अनुमतियाँ प्राप्त करने में विफल",
+    "minimizeFailed": "एप्लिकेशन को छोटा करने में विफल"
+  },
+  "elevation": {
+    "restoring": "पुनर्स्थापित हो रहा है...",
+    "success": "सफलता! पुनरारंभ हो रहा है..."
+  }
+}

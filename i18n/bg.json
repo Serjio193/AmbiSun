@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Начало",
+    "sources": "Източници и приложения",
+    "sun": "Слънце и график",
+    "settings": "Настройки",
+    "language": "Език",
+    "about": "Относно"
+  },
+  "common": {
+    "change": "Промяна",
+    "yes": "Да",
+    "no": "Не",
+    "back": "Назад",
+    "minimize": "Минимизиране"
+  },
+  "home": {
+    "currentState": "Текущо състояние",
+    "ambilightOn": "Ambilight е включен",
+    "modeSun": "Режим: По слънцето",
+    "currentSource": "Текущ източник",
+    "nextOn": "Следващо включване",
+    "nextOff": "Следващо изключване"
+  },
+  "sun": {
+    "sunset": "Залез",
+    "turnOn": "Включване",
+    "sunrise": "Изгрев",
+    "sunsetOffset": "Включване спрямо залеза",
+    "sunriseOffset": "Изключване спрямо изгрева",
+    "localSchedule": "Графикът се прилага ежедневно и се изчислява локално.",
+    "todaySunset": "Залез днес",
+    "ambilightOn": "Ambilight ВКЛ",
+    "tomorrowSunrise": "Изгрев утре"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Език",
+    "autostart": "Стартиране с телевизора",
+    "defaultRule": "Правило по подразбиране за нови приложения",
+    "test": "Тест на Ambilight за 5 секунди",
+    "plasma": "Плазмен фон HyperHDR · Плавен",
+    "advanced": "Разширени настройки",
+    "reset": "Нулиране на настройките",
+    "saved": "Настройките са запазени"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Адрес на сървъра:",
+    "port": "Порт:",
+    "test": "Тест",
+    "save": "Запазване",
+    "cancel": "Отказ",
+    "testing": "Тестване на връзката...",
+    "available": "HyperHDR е наличен",
+    "unavailable": "Недостъпен",
+    "connected": "Свързан",
+    "invalid": "Невалиден адрес или порт"
+  },
+  "language": {
+    "system": "Както телевизора",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Други езици",
+    "otherLanguages": "Други езици…",
+    "loading": "Зареждане на списъка с езици…",
+    "downloading": "Изтегляне на превода…",
+    "downloadFailed": "Неуспешно зареждане на превода",
+    "empty": "Няма намерени езици"
+  },
+  "about": {
+    "version": "Версия",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Лиценз: MIT"
+  },
+  "update": {
+    "available": "Налична е актуализация",
+    "install": "Инсталиране на актуализация",
+    "preparing": "Подготовка на актуализация…",
+    "downloading": "Изтегляне и проверка на пакета…",
+    "installing": "Инсталиране на актуализация…",
+    "restart": "AmbiSun ще се рестартира автоматично.",
+    "failed": "Неуспешна актуализация: ",
+    "upToDate": "Приложението е актуално"
+  },
+  "support": {
+    "title": "❤ Подкрепете проекта",
+    "subtitle": "Данни за поддръжка от Legacy Bridge",
+    "scan": "Сканирайте QR кода с телефона си"
+  },
+  "rule": {
+    "sun": "По слънцето",
+    "on": "Винаги ВКЛ",
+    "off": "Винаги ИЗКЛ"
+  },
+  "toast": {
+    "locationTodo": "TODO API: помощник за държава / град",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Тест на Ambilight: 5 секунди",
+    "advancedTodo": "TODO: разширени настройки",
+    "reset": "Настройките на прототипа са нулирани",
+    "updateOk": "GitHub Releases проверен — версия 1.0.0 е актуална",
+    "openGithub": "Отваряне на GitHub"
+  },
+  "location": {
+    "title": "Местоположение",
+    "stepDetected": "Открито по IP",
+    "stepRegion": "Регион",
+    "stepCountry": "Държава",
+    "stepCity": "Град",
+    "detectedLead": "Държава, открита по IP:",
+    "isCountryCorrect": "В тази държава ли се намирате?",
+    "chooseRegion": "Изберете регион",
+    "chooseCountry": "Изберете държава",
+    "chooseCity": "Изберете град",
+    "noKeyboard": "Без клавиатура — само дистанционно"
+  },
+  "region": {
+    "europe": "Европа",
+    "asia": "Азия",
+    "africa": "Африка",
+    "northAmerica": "Северна Америка",
+    "southAmerica": "Южна Америка",
+    "oceania": "Океания"
+  },
+  "firstRun": {
+    "chooseLanguage": "Изберете език",
+    "languageHint": "Можете да промените езика по-късно в Настройки.",
+    "otherLanguages": "Други езици…",
+    "onlineTranslationTodo": "TODO: онлайн списък с езици → превод на en.json → запазване на нов JSON"
+  },
+  "status": {
+    "waiting": "Изчакване..."
+  },
+  "error": {
+    "revisionConflict": "Конфликт в конфигурацията! Актуализиране...",
+    "saveFailed": "Неуспешно запазване: ",
+    "connection": "Грешка при свързване",
+    "elevationFailed": "Грешка: Неуспешно получаване на разрешения",
+    "minimizeFailed": "Неуспешно минимизиране на приложението"
+  },
+  "elevation": {
+    "restoring": "Възстановяване...",
+    "success": "Успех! Рестартиране..."
+  }
+}

@@ -92,30 +92,6 @@ const STORAGE_KEYS = window.AmbiSun.constants.STORAGE_KEYS;
 const ACTIONS = {
   'first-run-language': async ({el}) => { await AmbiSun.startup.completeLanguage(el.dataset.language || 'en'); },
 
-  'first-run-other-language': () => {
-    if (AmbiSun.translation && AmbiSun.translation.openOtherLanguages) {
-      AmbiSun.translation.openOtherLanguages(true);
-    }
-  },
-
-  'open-other-languages': () => {
-    if (AmbiSun.translation && AmbiSun.translation.openOtherLanguages) {
-      AmbiSun.translation.openOtherLanguages(false);
-    }
-  },
-
-  'close-other-languages': () => {
-    if (AmbiSun.translation && AmbiSun.translation.closeOtherLanguages) {
-      AmbiSun.translation.closeOtherLanguages();
-    }
-  },
-
-  'select-other-language': async ({el}) => {
-    if (AmbiSun.translation && AmbiSun.translation.selectLanguage) {
-      await AmbiSun.translation.selectLanguage(el);
-    }
-  },
-
   'restore-elevation': async ({el}) => {
     const statusEl = document.getElementById('elevationStatus');
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Восстановление...');
@@ -496,14 +472,6 @@ async function initUI(){
       return;
     }
 
-    const otherLangModal = document.getElementById('otherLanguagesModal');
-    if (otherLangModal && otherLangModal.classList.contains('open')) {
-      if (AmbiSun.translation && AmbiSun.translation.closeOtherLanguages) {
-        AmbiSun.translation.closeOtherLanguages();
-      }
-      return;
-    }
-
     if (wizard && wizard.classList.contains('open')) {
       if (AmbiSun.location && AmbiSun.location.back) {
         AmbiSun.location.back();
@@ -531,9 +499,6 @@ async function initUI(){
   updateBoolean('enabled');
   AmbiSun.sources.updateDefaultRule();
 
-  if (AmbiSun.i18n.loadDownloadedOnStartup) {
-    await AmbiSun.i18n.loadDownloadedOnStartup();
-  }
   const lang = AmbiSun.i18n.savedLanguage();
   await AmbiSun.i18n.setLanguage(lang);
   updateSettingsLanguageBadge();

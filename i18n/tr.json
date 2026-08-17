@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "sources": "Kaynaklar ve Uygulamalar",
+    "sun": "Güneş ve Zamanlama",
+    "settings": "Ayarlar",
+    "language": "Dil",
+    "about": "Hakkında"
+  },
+  "common": {
+    "change": "Değiştir",
+    "yes": "Evet",
+    "no": "Hayır",
+    "back": "Geri",
+    "minimize": "Küçült"
+  },
+  "home": {
+    "currentState": "Mevcut durum",
+    "ambilightOn": "Ambilight açık",
+    "modeSun": "Mod: Güneşe göre",
+    "currentSource": "Mevcut kaynak",
+    "nextOn": "Sonraki açılış",
+    "nextOff": "Sonraki kapanış"
+  },
+  "sun": {
+    "sunset": "Gün batımı",
+    "turnOn": "Aç",
+    "sunrise": "Gün doğumu",
+    "sunsetOffset": "Gün batımına göre aç",
+    "sunriseOffset": "Gün doğumuna göre kapat",
+    "localSchedule": "Zamanlama günlük olarak uygulanır ve yerel olarak hesaplanır.",
+    "todaySunset": "Bugün gün batımı",
+    "ambilightOn": "Ambilight AÇIK",
+    "tomorrowSunrise": "Yarın gün doğumu"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Dil",
+    "autostart": "TV ile başlat",
+    "defaultRule": "Yeni uygulamalar için varsayılan kural",
+    "test": "Ambilight'ı 5 saniye test et",
+    "plasma": "HyperHDR Plazma arka planı · Akıcı",
+    "advanced": "Gelişmiş ayarlar",
+    "reset": "Ayarları sıfırla",
+    "saved": "Ayarlar kaydedildi"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Sunucu adresi:",
+    "port": "Bağlantı noktası:",
+    "test": "Test Et",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "testing": "Bağlantı test ediliyor...",
+    "available": "HyperHDR kullanılabilir",
+    "unavailable": "Kullanılamıyor",
+    "connected": "Bağlandı",
+    "invalid": "Geçersiz adres veya bağlantı noktası"
+  },
+  "language": {
+    "system": "TV ile aynı",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Diğer diller",
+    "otherLanguages": "Diğer diller…",
+    "loading": "Dil listesi yükleniyor…",
+    "downloading": "Çeviri indiriliyor…",
+    "downloadFailed": "Çeviri yüklenemedi",
+    "empty": "Dil bulunamadı"
+  },
+  "about": {
+    "version": "Sürüm",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Lisans: MIT"
+  },
+  "update": {
+    "available": "Güncelleme mevcut",
+    "install": "Güncellemeyi yükle",
+    "preparing": "Güncelleme hazırlanıyor…",
+    "downloading": "Paket indiriliyor ve doğrulanıyor…",
+    "installing": "Güncelleme yükleniyor…",
+    "restart": "AmbiSun otomatik olarak yeniden başlatılacak.",
+    "failed": "Güncelleme başarısız: ",
+    "upToDate": "Uygulama güncel"
+  },
+  "support": {
+    "title": "❤ Projeyi destekleyin",
+    "subtitle": "Legacy Bridge'den destek ayrıntıları",
+    "scan": "Telefonunuzla QR kodunu tarayın"
+  },
+  "rule": {
+    "sun": "Güneşe göre",
+    "on": "Her zaman AÇIK",
+    "off": "Her zaman KAPALI"
+  },
+  "toast": {
+    "locationTodo": "TODO API: ülke / şehir sihirbazı",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight testi: 5 saniye",
+    "advancedTodo": "TODO: gelişmiş ayarlar",
+    "reset": "Prototip ayarları sıfırlandı",
+    "updateOk": "GitHub Releases kontrol edildi — 1.0.0 sürümü güncel",
+    "openGithub": "GitHub açılıyor"
+  },
+  "location": {
+    "title": "Konum",
+    "stepDetected": "IP ile tespit edildi",
+    "stepRegion": "Bölge",
+    "stepCountry": "Ülke",
+    "stepCity": "Şehir",
+    "detectedLead": "IP ile tespit edilen ülke:",
+    "isCountryCorrect": "Bu ülkede misiniz?",
+    "chooseRegion": "Bölge seçin",
+    "chooseCountry": "Ülke seçin",
+    "chooseCity": "Şehir seçin",
+    "noKeyboard": "Klavye yok — yalnızca uzaktan kumanda"
+  },
+  "region": {
+    "europe": "Avrupa",
+    "asia": "Asya",
+    "africa": "Afrika",
+    "northAmerica": "Kuzey Amerika",
+    "southAmerica": "Güney Amerika",
+    "oceania": "Okyanusya"
+  },
+  "firstRun": {
+    "chooseLanguage": "Bir dil seçin",
+    "languageHint": "Dili daha sonra Ayarlar'dan değiştirebilirsiniz.",
+    "otherLanguages": "Diğer diller…",
+    "onlineTranslationTodo": "TODO: çevrimiçi dil listesi → en.json çevir → yeni JSON kaydet"
+  },
+  "status": {
+    "waiting": "Bekleniyor..."
+  },
+  "error": {
+    "revisionConflict": "Yapılandırma çakışması! Güncelleniyor...",
+    "saveFailed": "Kaydetme başarısız: ",
+    "connection": "Bağlantı hatası",
+    "elevationFailed": "Hata: İzinler alınamadı",
+    "minimizeFailed": "Uygulama küçültülemedi"
+  },
+  "elevation": {
+    "restoring": "Geri yükleniyor...",
+    "success": "Başarılı! Yeniden başlatılıyor..."
+  }
+}

@@ -9,7 +9,6 @@
 <script defer src="js/i18n.js"></script>
 <script defer src="js/hyperhdr.js"></script>
 <script defer src="js/location.js"></script>
-<script defer src="js/translation.js"></script>
 <script defer src="js/sources.js"></script>
 <script defer src="js/navigation.js"></script>
 <script defer src="js/startup.js"></script>
@@ -164,15 +163,7 @@
 <section class="screen" id="language">
 <div class="simple-page">
 <div class="card page-card">
-  <div class="list-item actionable" data-action="set-language" data-language="en" role="button" tabindex="-1"><span>◉</span><span>English</span><span>EN</span></div>
-  <div class="list-item actionable" data-action="set-language" data-language="et" role="button" tabindex="-1"><span>○</span><span>Eesti</span><span>ET</span></div>
-  <div class="list-item actionable" data-action="set-language" data-language="uk" role="button" tabindex="-1"><span>○</span><span>Українська</span><span>UK</span></div>
-  <div class="list-item actionable" data-action="set-language" data-language="ru" role="button" tabindex="-1"><span>○</span><span>Русский</span><span>RU</span></div>
-  <div class="list-item actionable other-languages" data-action="open-other-languages" role="button" tabindex="-1" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.06); padding-top:14px">
-    <span>🌐</span>
-    <span data-i18n="language.otherLanguages">Другие языки…</span>
-    <span>›</span>
-  </div>
+  <!-- Rendered dynamically with 39 offline languages -->
 </div>
 </div>
 </section>
@@ -267,27 +258,6 @@
   </div>
 </div>
 
-<!-- OTHER LANGUAGES MODAL -->
-<div aria-hidden="true" class="location-wizard" id="otherLanguagesModal">
-  <div class="location-dialog" style="max-width:640px; height:80vh; max-height:680px; display:flex; flex-direction:column">
-    <div class="location-head" style="flex-shrink:0">
-      <div class="location-title" data-i18n="language.otherTitle">Другие языки</div>
-      <div class="location-step" id="otherLanguagesStatusLabel"></div>
-    </div>
-    <div class="location-body" style="flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding:16px 24px">
-      <div id="otherLanguagesLoading" style="text-align:center; padding:30px; font-size:18px; color:var(--muted); display:none">
-        <span data-i18n="language.loading">Загрузка списка языков…</span>
-      </div>
-      <div id="otherLanguagesList" style="flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch">
-        <!-- Rendered language rows -->
-      </div>
-      <div style="flex-shrink:0; margin-top:16px; text-align:center">
-        <button class="pill actionable" data-action="close-other-languages" type="button" tabindex="-1" data-i18n="common.back">Назад</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- FIRST RUN / STARTUP SCREEN -->
 <div aria-hidden="false" class="startup-screen open" id="startupScreen">
 <div class="startup-brand">
@@ -297,21 +267,7 @@
 </div>
 <div class="startup-language-panel" id="startupLanguagePanel">
 <div class="startup-language-list" id="firstRunLanguageList">
-<div class="startup-language actionable" data-action="first-run-language" data-language="en" role="button" tabindex="-1">
-<span>English</span><small>EN</small>
-</div>
-<div class="startup-language actionable" data-action="first-run-language" data-language="et" role="button" tabindex="-1">
-<span>Eesti</span><small>ET</small>
-</div>
-<div class="startup-language actionable" data-action="first-run-language" data-language="uk" role="button" tabindex="-1">
-<span>Українська</span><small>UK</small>
-</div>
-<div class="startup-language actionable" data-action="first-run-language" data-language="ru" role="button" tabindex="-1">
-<span>Русский</span><small>RU</small>
-</div>
-<div class="startup-language actionable other" data-action="first-run-other-language" role="button" tabindex="-1">
-<span>Другие языки…</span><small>›</small>
-</div>
+  <!-- Rendered dynamically with 39 offline languages -->
 </div>
 </div>
 </div>

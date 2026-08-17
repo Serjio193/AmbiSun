@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Почетна",
+    "sources": "Извори и апликације",
+    "sun": "Сунце и распоред",
+    "settings": "Подешавања",
+    "language": "Језик",
+    "about": "О апликацији"
+  },
+  "common": {
+    "change": "Промени",
+    "yes": "Да",
+    "no": "Не",
+    "back": "Назад",
+    "minimize": "Минимизирај"
+  },
+  "home": {
+    "currentState": "Тренутно стање",
+    "ambilightOn": "Ambilight је укључен",
+    "modeSun": "Режим: Према сунцу",
+    "currentSource": "Тренутни извор",
+    "nextOn": "Следеће укључивање",
+    "nextOff": "Следеће искључивање"
+  },
+  "sun": {
+    "sunset": "Залазак сунца",
+    "turnOn": "Укључи",
+    "sunrise": "Излазак сунца",
+    "sunsetOffset": "Укључи у односу на залазак сунца",
+    "sunriseOffset": "Искључи у односу на излазак сунца",
+    "localSchedule": "Распоред се примењује свакодневно и рачуна локално.",
+    "todaySunset": "Залазак сунца данас",
+    "ambilightOn": "Ambilight УКЉУЧЕН",
+    "tomorrowSunrise": "Излазак сунца сутра"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Језик",
+    "autostart": "Покрени са ТВ-ом",
+    "defaultRule": "Подразумевано правило за нове апликације",
+    "test": "Тестирај Ambilight на 5 секунди",
+    "plasma": "HyperHDR плазма позадина · Глатка",
+    "advanced": "Напредна подешавања",
+    "reset": "Ресетуј подешавања",
+    "saved": "Подешавања сачувана"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Адреса сервера:",
+    "port": "Порт:",
+    "test": "Тестирај",
+    "save": "Сачувај",
+    "cancel": "Откажи",
+    "testing": "Тестирање везе...",
+    "available": "HyperHDR доступан",
+    "unavailable": "Недоступно",
+    "connected": "Повезано",
+    "invalid": "Неважећа адреса или порт"
+  },
+  "language": {
+    "system": "Исто као на ТВ-у",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Други језици",
+    "otherLanguages": "Други језици…",
+    "loading": "Учитавање листе језика…",
+    "downloading": "Преузимање превода…",
+    "downloadFailed": "Неуспешно учитавање превода",
+    "empty": "Нема пронађених језика"
+  },
+  "about": {
+    "version": "Верзија",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Лиценца: MIT"
+  },
+  "update": {
+    "available": "Доступно ажурирање",
+    "install": "Инсталирај ажурирање",
+    "preparing": "Припрема ажурирања…",
+    "downloading": "Преузимање и верификација пакета…",
+    "installing": "Инсталирање ажурирања…",
+    "restart": "AmbiSun ће се аутоматски поново покренути.",
+    "failed": "Ажурирање није успело: ",
+    "upToDate": "Апликација је ажурна"
+  },
+  "support": {
+    "title": "❤ Подржите пројекат",
+    "subtitle": "Детаљи подршке са Legacy Bridge-а",
+    "scan": "Скенирајте QR код телефоном"
+  },
+  "rule": {
+    "sun": "Према сунцу",
+    "on": "Увек УКЉУЧЕНО",
+    "off": "Увек ИСКЉУЧЕНО"
+  },
+  "toast": {
+    "locationTodo": "TODO API: чаробњак за државу / град",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Тест Ambilight-а: 5 секунди",
+    "advancedTodo": "TODO: напредна подешавања",
+    "reset": "Подешавања прототипа ресетована",
+    "updateOk": "GitHub Releases проверен — верзија 1.0.0 је ажурна",
+    "openGithub": "Отварање GitHub-а"
+  },
+  "location": {
+    "title": "Локација",
+    "stepDetected": "Откривено преко IP-а",
+    "stepRegion": "Регион",
+    "stepCountry": "Држава",
+    "stepCity": "Град",
+    "detectedLead": "Држава откривена преко IP-а:",
+    "isCountryCorrect": "Да ли се налазите у овој држави?",
+    "chooseRegion": "Изаберите регион",
+    "chooseCountry": "Изаберите државу",
+    "chooseCity": "Изаберите град",
+    "noKeyboard": "Без тастатуре — само даљински"
+  },
+  "region": {
+    "europe": "Европа",
+    "asia": "Азија",
+    "africa": "Африка",
+    "northAmerica": "Северна Америка",
+    "southAmerica": "Јужна Америка",
+    "oceania": "Океанија"
+  },
+  "firstRun": {
+    "chooseLanguage": "Изаберите језик",
+    "languageHint": "Језик можете променити касније у Подешавањима.",
+    "otherLanguages": "Други језици…",
+    "onlineTranslationTodo": "TODO: онлајн листа језика → преведи en.json → сачувај нови JSON"
+  },
+  "status": {
+    "waiting": "Чекање..."
+  },
+  "error": {
+    "revisionConflict": "Конфликт конфигурације! Ажурирање...",
+    "saveFailed": "Чување није успело: ",
+    "connection": "Грешка везе",
+    "elevationFailed": "Грешка: Није успело добијање дозвола",
+    "minimizeFailed": "Неуспешно минимизирање апликације"
+  },
+  "elevation": {
+    "restoring": "Враћање...",
+    "success": "Успех! Поновно покретање..."
+  }
+}

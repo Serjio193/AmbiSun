@@ -40,7 +40,7 @@ Later, I expanded the concept to support per-source rules — so lighting can fo
 - **Offline GeoNames Database**: Select countries and cities from an integrated offline database without requiring third-party location APIs.
 - **TV Remote Navigation**: Intuitive D-pad spatial navigation tailored for the LG Magic Remote.
 - **Clean Minimize**: Quickly return to the webOS Home launcher with the *Minimize* button while background services continue running.
-- **Multilingual UI**: Native support for English, Eesti (Estonian), Українська (Ukrainian), and Русский (Russian).
+- **Multilingual UI**: 39 built-in offline languages with RTL support for Arabic and Hebrew.
 - **Update Infrastructure**: Built-in GitHub Releases update checker with badge notifications. *(In-app self-update is implemented and pending final physical release validation).*
 - **Homebrew Channel Custom Repository**: Ready for installation via the webOS Homebrew Channel repository ecosystem.
 
@@ -149,10 +149,8 @@ These versions are planned for the future and do not have a release date yet.
 
 ### Supported Languages
 
-- **English**
-- **Eesti** (Estonian)
-- **Українська** (Ukrainian)
-- **Русский** (Russian)
+AmbiSun includes **39 fully offline built-in localizations**:
+English, Deutsch, Français, Español, Português (Brasil), Português (Portugal), Italiano, Nederlands, Polski, Čeština, Slovenčina, Magyar, Română, Български, Ελληνικά, Hrvatski, Slovenščina, Српски, Eesti, Latviešu, Lietuvių, Suomi, Svenska, Dansk, Norsk, Türkçe, Русский, Українська, العربية (RTL), עברית (RTL), हिन्दी, Bahasa Indonesia, Bahasa Melayu, ไทย, Tiếng Việt, 한국어, 日本語, 简体中文, 繁體中文. See [TRANSLATIONS.md](docs/TRANSLATIONS.md) for details.
 
 ### Support
 
@@ -255,7 +253,7 @@ AmbiSun — приложение и фоновый сервис для теле�
 - **Встроенная база городов GeoNames**: выбор страны и города офлайн без обращения к сторонним интернет-сервисам.
 - **Удобное управление с пульта**: полноценная адаптация под стрелки и колесо пульта LG Magic Remote.
 - **Кнопка «Свернуть»**: быстрый переход в системный LG Home без выключения фонового сервиса.
-- **Многоязычный интерфейс**: поддержка английского, эстонского, украинского и русского языков.
+- **Многоязычный интерфейс**: 39 встроенных офлайн-локалей с поддержкой RTL (арабский, иврит).
 - **Проверка обновлений**: проверка новых релизов на GitHub Releases. *(Встроенный установщик обновлений реализован и готовится к релизному тестированию).*
 - **Поддержка репозитория Homebrew Channel**: готовность к установке через каталог Homebrew.
 
@@ -351,10 +349,8 @@ AmbiSun автоматически проверяет наличие новых 
 
 ### Поддерживаемые языки
 
-- **English** (Английский)
-- **Eesti** (Эстонский)
-- **Українська** (Украинский)
-- **Русский** (Русский)
+AmbiSun содержит **39 полностью встроенных офлайн-локалей**:
+English, Deutsch, Français, Español, Português (Brasil), Português (Portugal), Italiano, Nederlands, Polski, Čeština, Slovenčina, Magyar, Română, Български, Ελληνικά, Hrvatski, Slovenščina, Српски, Eesti, Latviešu, Lietuvių, Suomi, Svenska, Dansk, Norsk, Türkçe, Русский, Українська, العربية (RTL), עברית (RTL), हिन्दी, Bahasa Indonesia, Bahasa Melayu, ไทย, Tiếng Việt, 한국어, 日本語, 简体中文, 繁體中文. Подробнее в [TRANSLATIONS.md](docs/TRANSLATIONS.md).
 
 ### Поддержать проект
 
@@ -405,7 +401,7 @@ AmbiSun — застосунок та фоновий сервіс для тел�
 - **Вбудована база міст GeoNames**: вибір країни та міста офлайн без звернення до сторонніх інтернет-сервісів.
 - **Зручне керування пультом**: повна оптимізація під навігацію D-pad пульта LG Magic Remote.
 - **Кнопка «Згорнути»**: плавний перехід до домашнього екрана LG Home зі збереженням роботи фонового сервісу.
-- **Багатомовний інтерфейс**: підтримка англійської, естонської, української та російської мов.
+- **Багатомовний інтерфейс**: 39 вбудованих офлайн-локалей із підтримкою RTL (арабська, іврит).
 - **Перевірка оновлень**: моніторинг нових релізів на GitHub Releases. *(Вбудоване оновлення реалізовано та готується до релізного тестування).*
 - **Підтримка репозиторію Homebrew Channel**: сумісність із каталогом Homebrew.
 
@@ -501,10 +497,8 @@ AmbiSun автоматично перевіряє вихід нових верс
 
 ### Підтримувані мови
 
-- **English** (Англійська)
-- **Eesti** (Естонська)
-- **Українська** (Українська)
-- **Русский** (Російська)
+AmbiSun містить **39 повністю вбудованих офлайн-локалей**:
+English, Deutsch, Français, Español, Português (Brasil), Português (Portugal), Italiano, Nederlands, Polski, Čeština, Slovenčina, Magyar, Română, Български, Ελληνικά, Hrvatski, Slovenščina, Српски, Eesti, Latviešu, Lietuvių, Suomi, Svenska, Dansk, Norsk, Türkçe, Русский, Українська, العربية (RTL), עברית (RTL), हिन्दी, Bahasa Indonesia, Bahasa Melayu, ไทย, Tiếng Việt, 한국어, 日本語, 简体中文, 繁體中文. Детальніше в [TRANSLATIONS.md](docs/TRANSLATIONS.md).
 
 ### Підтримати проєкт
 

@@ -89,21 +89,6 @@
         },
         {
           "name": "minimizeApp"
-        },
-        {
-          "name": "getTranslationLanguages"
-        },
-        {
-          "name": "getDownloadedLanguages"
-        },
-        {
-          "name": "getTranslationLocale"
-        },
-        {
-          "name": "downloadTranslation"
-        },
-        {
-          "name": "deleteTranslation"
         }
       ]
     }

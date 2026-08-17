@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "sources": "Sumber & aplikasi",
+    "sun": "Matahari & jadwal",
+    "settings": "Pengaturan",
+    "language": "Bahasa",
+    "about": "Tentang"
+  },
+  "common": {
+    "change": "Ubah",
+    "yes": "Ya",
+    "no": "Tidak",
+    "back": "Kembali",
+    "minimize": "Minimalkan"
+  },
+  "home": {
+    "currentState": "Status saat ini",
+    "ambilightOn": "Ambilight menyala",
+    "modeSun": "Mode: Berdasarkan matahari",
+    "currentSource": "Sumber saat ini",
+    "nextOn": "Menyala berikutnya",
+    "nextOff": "Mati berikutnya"
+  },
+  "sun": {
+    "sunset": "Matahari terbenam",
+    "turnOn": "Nyalakan",
+    "sunrise": "Matahari terbit",
+    "sunsetOffset": "Nyalakan relatif terhadap terbenam",
+    "sunriseOffset": "Matikan relatif terhadap terbit",
+    "localSchedule": "Jadwal diterapkan setiap hari dan dihitung secara lokal.",
+    "todaySunset": "Matahari terbenam hari ini",
+    "ambilightOn": "Ambilight NYALA",
+    "tomorrowSunrise": "Matahari terbit besok"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Bahasa",
+    "autostart": "Mulai bersama TV",
+    "defaultRule": "Aturan default untuk aplikasi baru",
+    "test": "Uji Ambilight selama 5 detik",
+    "plasma": "Latar Belakang Plasma HyperHDR · Halus",
+    "advanced": "Pengaturan lanjutan",
+    "reset": "Atur ulang pengaturan",
+    "saved": "Pengaturan disimpan"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Alamat server:",
+    "port": "Port:",
+    "test": "Uji",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "testing": "Menguji koneksi...",
+    "available": "HyperHDR tersedia",
+    "unavailable": "Tidak tersedia",
+    "connected": "Terhubung",
+    "invalid": "Alamat atau port tidak valid"
+  },
+  "language": {
+    "system": "Sama seperti TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Bahasa lain",
+    "otherLanguages": "Bahasa lain…",
+    "loading": "Memuat daftar bahasa…",
+    "downloading": "Mengunduh terjemahan…",
+    "downloadFailed": "Gagal memuat terjemahan",
+    "empty": "Tidak ada bahasa ditemukan"
+  },
+  "about": {
+    "version": "Versi",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Lisensi: MIT"
+  },
+  "update": {
+    "available": "Pembaruan tersedia",
+    "install": "Instal pembaruan",
+    "preparing": "Menyiapkan pembaruan…",
+    "downloading": "Mengunduh dan memverifikasi paket…",
+    "installing": "Menginstal pembaruan…",
+    "restart": "AmbiSun akan dimulai ulang secara otomatis.",
+    "failed": "Pembaruan gagal: ",
+    "upToDate": "Aplikasi sudah versi terbaru"
+  },
+  "support": {
+    "title": "❤ Dukung proyek ini",
+    "subtitle": "Detail dukungan dari Legacy Bridge",
+    "scan": "Pindai kode QR dengan ponsel Anda"
+  },
+  "rule": {
+    "sun": "Berdasarkan matahari",
+    "on": "Selalu NYALA",
+    "off": "Selalu MATI"
+  },
+  "toast": {
+    "locationTodo": "TODO API: wizard negara / kota",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Uji Ambilight: 5 detik",
+    "advancedTodo": "TODO: pengaturan lanjutan",
+    "reset": "Pengaturan prototipe diatur ulang",
+    "updateOk": "GitHub Releases diperiksa — versi 1.0.0 adalah yang terbaru",
+    "openGithub": "Membuka GitHub"
+  },
+  "location": {
+    "title": "Lokasi",
+    "stepDetected": "Terdeteksi melalui IP",
+    "stepRegion": "Wilayah",
+    "stepCountry": "Negara",
+    "stepCity": "Kota",
+    "detectedLead": "Negara terdeteksi melalui IP:",
+    "isCountryCorrect": "Apakah Anda berada di negara ini?",
+    "chooseRegion": "Pilih wilayah",
+    "chooseCountry": "Pilih negara",
+    "chooseCity": "Pilih kota",
+    "noKeyboard": "Tanpa keyboard — hanya remote"
+  },
+  "region": {
+    "europe": "Eropa",
+    "asia": "Asia",
+    "africa": "Afrika",
+    "northAmerica": "Amerika Utara",
+    "southAmerica": "Amerika Selatan",
+    "oceania": "Oseania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Pilih bahasa",
+    "languageHint": "Anda dapat mengubah bahasa nanti di Pengaturan.",
+    "otherLanguages": "Bahasa lain…",
+    "onlineTranslationTodo": "TODO: daftar bahasa online → terjemahkan en.json → simpan JSON baru"
+  },
+  "status": {
+    "waiting": "Menunggu..."
+  },
+  "error": {
+    "revisionConflict": "Konflik konfigurasi! Memperbarui...",
+    "saveFailed": "Gagal menyimpan: ",
+    "connection": "Kesalahan koneksi",
+    "elevationFailed": "Kesalahan: Gagal mendapatkan izin",
+    "minimizeFailed": "Gagal meminimalkan aplikasi"
+  },
+  "elevation": {
+    "restoring": "Memulihkan...",
+    "success": "Berhasil! Memulai ulang..."
+  }
+}

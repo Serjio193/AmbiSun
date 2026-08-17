@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Home",
+    "sources": "Sorgenti e app",
+    "sun": "Sole e programmazione",
+    "settings": "Impostazioni",
+    "language": "Lingua",
+    "about": "Informazioni"
+  },
+  "common": {
+    "change": "Modifica",
+    "yes": "Sì",
+    "no": "No",
+    "back": "Indietro",
+    "minimize": "Riduci a icona"
+  },
+  "home": {
+    "currentState": "Stato attuale",
+    "ambilightOn": "Ambilight attivo",
+    "modeSun": "Modalità: In base al sole",
+    "currentSource": "Sorgente attuale",
+    "nextOn": "Prossima accensione",
+    "nextOff": "Prossimo spegnimento"
+  },
+  "sun": {
+    "sunset": "Tramonto",
+    "turnOn": "Accendi",
+    "sunrise": "Alba",
+    "sunsetOffset": "Accendi rispetto al tramonto",
+    "sunriseOffset": "Spegni rispetto all'alba",
+    "localSchedule": "La programmazione viene applicata quotidianamente e calcolata localmente.",
+    "todaySunset": "Tramonto oggi",
+    "ambilightOn": "Ambilight ACCESO",
+    "tomorrowSunrise": "Alba domani"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Lingua",
+    "autostart": "Avvia con la TV",
+    "defaultRule": "Regola predefinita per nuove app",
+    "test": "Testa Ambilight per 5 secondi",
+    "plasma": "Sfondo Plasma HyperHDR · Fluido",
+    "advanced": "Impostazioni avanzate",
+    "reset": "Reimposta impostazioni",
+    "saved": "Impostazioni salvate"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Indirizzo server:",
+    "port": "Porta:",
+    "test": "Test",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "testing": "Test connessione in corso...",
+    "available": "HyperHDR disponibile",
+    "unavailable": "Non disponibile",
+    "connected": "Connesso",
+    "invalid": "Indirizzo o porta non validi"
+  },
+  "language": {
+    "system": "Uguale alla TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Altre lingue",
+    "otherLanguages": "Altre lingue…",
+    "loading": "Caricamento elenco lingue…",
+    "downloading": "Download traduzione in corso…",
+    "downloadFailed": "Caricamento traduzione non riuscito",
+    "empty": "Nessuna lingua trovata"
+  },
+  "about": {
+    "version": "Versione",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licenza: MIT"
+  },
+  "update": {
+    "available": "Aggiornamento disponibile",
+    "install": "Installa aggiornamento",
+    "preparing": "Preparazione aggiornamento…",
+    "downloading": "Download e verifica del pacchetto…",
+    "installing": "Installazione aggiornamento…",
+    "restart": "AmbiSun si riavvierà automaticamente.",
+    "failed": "Aggiornamento non riuscito: ",
+    "upToDate": "L'app è aggiornata"
+  },
+  "support": {
+    "title": "❤ Sostieni il progetto",
+    "subtitle": "Dettagli supporto da Legacy Bridge",
+    "scan": "Scansiona il codice QR con il tuo smartphone"
+  },
+  "rule": {
+    "sun": "In base al sole",
+    "on": "Sempre ACCESO",
+    "off": "Sempre SPENTO"
+  },
+  "toast": {
+    "locationTodo": "TODO API: procedura guidata paese / città",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Test Ambilight: 5 secondi",
+    "advancedTodo": "TODO: impostazioni avanzate",
+    "reset": "Impostazioni ripristinate",
+    "updateOk": "GitHub Releases verificato — versione 1.0.0 attuale",
+    "openGithub": "Apertura di GitHub"
+  },
+  "location": {
+    "title": "Posizione",
+    "stepDetected": "Rilevato tramite IP",
+    "stepRegion": "Regione",
+    "stepCountry": "Paese",
+    "stepCity": "Città",
+    "detectedLead": "Paese rilevato tramite IP:",
+    "isCountryCorrect": "Ti trovi in questo paese?",
+    "chooseRegion": "Scegli una regione",
+    "chooseCountry": "Scegli un paese",
+    "chooseCity": "Scegli una città",
+    "noKeyboard": "Senza tastiera — solo telecomando"
+  },
+  "region": {
+    "europe": "Europa",
+    "asia": "Asia",
+    "africa": "Africa",
+    "northAmerica": "Nord America",
+    "southAmerica": "Sud America",
+    "oceania": "Oceania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Scegli una lingua",
+    "languageHint": "Puoi modificare la lingua in seguito nelle Impostazioni.",
+    "otherLanguages": "Altre lingue…",
+    "onlineTranslationTodo": "TODO: elenco lingue online → traduci en.json → salva nuovo JSON"
+  },
+  "status": {
+    "waiting": "In attesa..."
+  },
+  "error": {
+    "revisionConflict": "Conflitto di configurazione! Aggiornamento...",
+    "saveFailed": "Salvataggio non riuscito: ",
+    "connection": "Errore di connessione",
+    "elevationFailed": "Errore: impossibile ottenere i permessi",
+    "minimizeFailed": "Impossibile ridurre l'applicazione"
+  },
+  "elevation": {
+    "restoring": "Ripristino...",
+    "success": "Operazione riuscita! Riavvio..."
+  }
+}

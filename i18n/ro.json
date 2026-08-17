@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Acasă",
+    "sources": "Surse și aplicații",
+    "sun": "Soare și program",
+    "settings": "Setări",
+    "language": "Limbă",
+    "about": "Despre"
+  },
+  "common": {
+    "change": "Modifică",
+    "yes": "Da",
+    "no": "Nu",
+    "back": "Înapoi",
+    "minimize": "Minimizare"
+  },
+  "home": {
+    "currentState": "Stare curentă",
+    "ambilightOn": "Ambilight este pornit",
+    "modeSun": "Mod: După soare",
+    "currentSource": "Sursă curentă",
+    "nextOn": "Următoarea pornire",
+    "nextOff": "Următoarea oprire"
+  },
+  "sun": {
+    "sunset": "Apus de soare",
+    "turnOn": "Pornire",
+    "sunrise": "Răsărit de soare",
+    "sunsetOffset": "Pornire relativ la apus",
+    "sunriseOffset": "Oprire relativ la răsărit",
+    "localSchedule": "Programul este aplicat zilnic și calculat local.",
+    "todaySunset": "Apusul astăzi",
+    "ambilightOn": "Ambilight PORNIT",
+    "tomorrowSunrise": "Răsăritul mâine"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Limbă",
+    "autostart": "Pornire odată cu televizorul",
+    "defaultRule": "Regulă implicită pentru aplicații noi",
+    "test": "Testează Ambilight timp de 5 secunde",
+    "plasma": "Fundal Plasmă HyperHDR · Fluid",
+    "advanced": "Setări avansate",
+    "reset": "Resetare setări",
+    "saved": "Setări salvate"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Adresă server:",
+    "port": "Port:",
+    "test": "Testare",
+    "save": "Salvare",
+    "cancel": "Anulare",
+    "testing": "Se testează conexiunea...",
+    "available": "HyperHDR disponibil",
+    "unavailable": "Indisponibil",
+    "connected": "Conectat",
+    "invalid": "Adresă sau port nevalid"
+  },
+  "language": {
+    "system": "La fel ca televizorul",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Alte limbi",
+    "otherLanguages": "Alte limbi…",
+    "loading": "Se încarcă lista de limbi…",
+    "downloading": "Se descarcă traducerea…",
+    "downloadFailed": "Încărcarea traducerii a eșuat",
+    "empty": "Nu s-au găsit limbi"
+  },
+  "about": {
+    "version": "Versiune",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licență: MIT"
+  },
+  "update": {
+    "available": "Actualizare disponibilă",
+    "install": "Instalare actualizare",
+    "preparing": "Se pregătește actualizarea…",
+    "downloading": "Se descarcă și se verifică pachetul…",
+    "installing": "Se instalează actualizarea…",
+    "restart": "AmbiSun se va reporni automat.",
+    "failed": "Actualizare eșuată: ",
+    "upToDate": "Aplicația este la zi"
+  },
+  "support": {
+    "title": "❤ Susține proiectul",
+    "subtitle": "Detalii de asistență de la Legacy Bridge",
+    "scan": "Scanați codul QR cu telefonul"
+  },
+  "rule": {
+    "sun": "După soare",
+    "on": "Întotdeauna PORNIT",
+    "off": "Întotdeauna OPRIT"
+  },
+  "toast": {
+    "locationTodo": "TODO API: asistent țară / oraș",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Test Ambilight: 5 secunde",
+    "advancedTodo": "TODO: setări avansate",
+    "reset": "Setări prototip resetate",
+    "updateOk": "GitHub Releases verificat — versiunea 1.0.0 este actuală",
+    "openGithub": "Se deschide GitHub"
+  },
+  "location": {
+    "title": "Locație",
+    "stepDetected": "Detectat prin IP",
+    "stepRegion": "Regiune",
+    "stepCountry": "Țară",
+    "stepCity": "Oraș",
+    "detectedLead": "Țară detectată prin IP:",
+    "isCountryCorrect": "Vă aflați în această țară?",
+    "chooseRegion": "Alegeți o regiune",
+    "chooseCountry": "Alegeți o țară",
+    "chooseCity": "Alegeți un oraș",
+    "noKeyboard": "Fără tastatură — doar telecomandă"
+  },
+  "region": {
+    "europe": "Europa",
+    "asia": "Asia",
+    "africa": "Africa",
+    "northAmerica": "America de Nord",
+    "southAmerica": "America de Sud",
+    "oceania": "Oceania"
+  },
+  "firstRun": {
+    "chooseLanguage": "Alegeți o limbă",
+    "languageHint": "Puteți schimba limba mai târziu în Setări.",
+    "otherLanguages": "Alte limbi…",
+    "onlineTranslationTodo": "TODO: listă limbi online → traduce en.json → salvează JSON nou"
+  },
+  "status": {
+    "waiting": "Se așteaptă..."
+  },
+  "error": {
+    "revisionConflict": "Conflict de configurare! Se actualizează...",
+    "saveFailed": "Salvare eșuată: ",
+    "connection": "Eroare de conexiune",
+    "elevationFailed": "Eroare: Nu s-au putut obține permisiunile",
+    "minimizeFailed": "Nu s-a putut minimiza aplicația"
+  },
+  "elevation": {
+    "restoring": "Se restaurează...",
+    "success": "Succes! Se repornește..."
+  }
+}

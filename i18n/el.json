@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Αρχική",
+    "sources": "Πηγές & εφαρμογές",
+    "sun": "Ήλιος & πρόγραμμα",
+    "settings": "Ρυθμίσεις",
+    "language": "Γλώσσα",
+    "about": "Σχετικά"
+  },
+  "common": {
+    "change": "Αλλαγή",
+    "yes": "Ναι",
+    "no": "Όχι",
+    "back": "Πίσω",
+    "minimize": "Ελαχιστοποίηση"
+  },
+  "home": {
+    "currentState": "Τρέχουσα κατάσταση",
+    "ambilightOn": "Το Ambilight είναι ενεργό",
+    "modeSun": "Λειτουργία: Βάσει ήλιου",
+    "currentSource": "Τρέχουσα πηγή",
+    "nextOn": "Επόμενη ενεργοποίηση",
+    "nextOff": "Επόμενη απενεργοποίηση"
+  },
+  "sun": {
+    "sunset": "Ηλιοβασίλεμα",
+    "turnOn": "Ενεργοποίηση",
+    "sunrise": "Ανατολή",
+    "sunsetOffset": "Ενεργοποίηση σε σχέση με το ηλιοβασίλεμα",
+    "sunriseOffset": "Απενεργοποίηση σε σχέση με την ανατολή",
+    "localSchedule": "Το πρόγραμμα εφαρμόζεται καθημερινά και υπολογίζεται τοπικά.",
+    "todaySunset": "Ηλιοβασίλεμα σήμερα",
+    "ambilightOn": "Ambilight ΕΝΕΡΓΟ",
+    "tomorrowSunrise": "Ανατολή αύριο"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Γλώσσα",
+    "autostart": "Εκκίνηση με την τηλεόραση",
+    "defaultRule": "Προεπιλεγμένος κανόνας για νέες εφαρμογές",
+    "test": "Δοκιμή Ambilight για 5 δευτερόλεπτα",
+    "plasma": "Φόντο πλάσματος HyperHDR · Ομαλό",
+    "advanced": "Σύνθετες ρυθμίσεις",
+    "reset": "Επαναφορά ρυθμίσεων",
+    "saved": "Οι ρυθμίσεις αποθηκεύτηκαν"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Διεύθυνση διακομιστή:",
+    "port": "Θύρα:",
+    "test": "Δοκιμή",
+    "save": "Αποθήκευση",
+    "cancel": "Ακύρωση",
+    "testing": "Δοκιμή σύνδεσης...",
+    "available": "HyperHDR διαθέσιμο",
+    "unavailable": "Μη διαθέσιμο",
+    "connected": "Συνδέθηκε",
+    "invalid": "Μη έγκυρη διεύθυνση ή θύρα"
+  },
+  "language": {
+    "system": "Όπως στην τηλεόραση",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Άλλες γλώσσες",
+    "otherLanguages": "Άλλες γλώσσες…",
+    "loading": "Φόρτωση λίστας γλωσσών…",
+    "downloading": "Λήψη μετάφρασης…",
+    "downloadFailed": "Αποτυχία φόρτωσης μετάφρασης",
+    "empty": "Δεν βρέθηκαν γλώσσες"
+  },
+  "about": {
+    "version": "Έκδοση",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Άδεια: MIT"
+  },
+  "update": {
+    "available": "Διαθέσιμη ενημέρωση",
+    "install": "Εγκατάσταση ενημέρωσης",
+    "preparing": "Προετοιμασία ενημέρωσης…",
+    "downloading": "Λήψη και επαλήθευση πακέτου…",
+    "installing": "Εγκατάσταση ενημέρωσης…",
+    "restart": "Το AmbiSun θα επανεκκινηθεί αυτόματα.",
+    "failed": "Η ενημέρωση απέτυχε: ",
+    "upToDate": "Η εφαρμογή είναι ενημερωμένη"
+  },
+  "support": {
+    "title": "❤ Υποστήριξη του έργου",
+    "subtitle": "Λεπτομέρειες υποστήριξης από το Legacy Bridge",
+    "scan": "Σαρώστε τον κωδικό QR με το τηλέφωνό σας"
+  },
+  "rule": {
+    "sun": "Βάσει ήλιου",
+    "on": "Πάντα ΕΝΕΡΓΟ",
+    "off": "Πάντα ΑΠΕΝΕΡΓΟΠΟΙΗΜΕΝΟ"
+  },
+  "toast": {
+    "locationTodo": "TODO API: οδηγός χώρας / πόλης",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Δοκιμή Ambilight: 5 δευτερόλεπτα",
+    "advancedTodo": "TODO: σύνθετες ρυθμίσεις",
+    "reset": "Οι ρυθμίσεις του πρωτοτύπου επαναφέρθηκαν",
+    "updateOk": "Το GitHub Releases ελέγχθηκε — η έκδοση 1.0.0 είναι η τρέχουσα",
+    "openGithub": "Άνοιγμα του GitHub"
+  },
+  "location": {
+    "title": "Τοποθεσία",
+    "stepDetected": "Εντοπίστηκε μέσω IP",
+    "stepRegion": "Περιοχή",
+    "stepCountry": "Χώρα",
+    "stepCity": "Πόλη",
+    "detectedLead": "Χώρα που εντοπίστηκε μέσω IP:",
+    "isCountryCorrect": "Βρίσκεστε σε αυτή τη χώρα;",
+    "chooseRegion": "Επιλέξτε περιοχή",
+    "chooseCountry": "Επιλέξτε χώρα",
+    "chooseCity": "Επιλέξτε πόλη",
+    "noKeyboard": "Χωρίς πληκτρολόγιο — μόνο τηλεχειριστήριο"
+  },
+  "region": {
+    "europe": "Ευρώπη",
+    "asia": "Ασία",
+    "africa": "Αφρική",
+    "northAmerica": "Βόρεια Αμερική",
+    "southAmerica": "Νότια Αμερική",
+    "oceania": "Ωκεανία"
+  },
+  "firstRun": {
+    "chooseLanguage": "Επιλέξτε γλώσσα",
+    "languageHint": "Μπορείτε να αλλάξετε τη γλώσσα αργότερα στις Ρυθμίσεις.",
+    "otherLanguages": "Άλλες γλώσσες…",
+    "onlineTranslationTodo": "TODO: ηλεκτρονική λίστα γλωσσών → μετάφραση en.json → αποθήκευση νέου JSON"
+  },
+  "status": {
+    "waiting": "Αναμονή..."
+  },
+  "error": {
+    "revisionConflict": "Διένεξη διαμόρφωσης! Ενημέρωση...",
+    "saveFailed": "Η αποθήκευση απέτυχε: ",
+    "connection": "Σφάλμα σύνδεσης",
+    "elevationFailed": "Σφάλμα: Αποτυχία λήψης δικαιωμάτων",
+    "minimizeFailed": "Αποτυχία ελαχιστοποίησης εφαρμογής"
+  },
+  "elevation": {
+    "restoring": "Επαναφορά...",
+    "success": "Επιτυχία! Επανεκκίνηση..."
+  }
+}

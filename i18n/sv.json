@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Hem",
+    "sources": "Källor och appar",
+    "sun": "Sol och schema",
+    "settings": "Inställningar",
+    "language": "Språk",
+    "about": "Om"
+  },
+  "common": {
+    "change": "Ändra",
+    "yes": "Ja",
+    "no": "Nej",
+    "back": "Tillbaka",
+    "minimize": "Minimera"
+  },
+  "home": {
+    "currentState": "Aktuell status",
+    "ambilightOn": "Ambilight är på",
+    "modeSun": "Läge: Efter solen",
+    "currentSource": "Aktuell källa",
+    "nextOn": "Nästa påslagning",
+    "nextOff": "Nästa avstängning"
+  },
+  "sun": {
+    "sunset": "Solnedgång",
+    "turnOn": "Slå på",
+    "sunrise": "Soluppgång",
+    "sunsetOffset": "Slå på relativt till solnedgång",
+    "sunriseOffset": "Stäng av relativt till soluppgång",
+    "localSchedule": "Schemat tillämpas dagligen och beräknas lokalt.",
+    "todaySunset": "Solnedgång idag",
+    "ambilightOn": "Ambilight PÅ",
+    "tomorrowSunrise": "Soluppgång imorgon"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Språk",
+    "autostart": "Starta med TV:n",
+    "defaultRule": "Standardregel för nya appar",
+    "test": "Testa Ambilight i 5 sekunder",
+    "plasma": "HyperHDR Plasmabakgrund · Mjuk",
+    "advanced": "Avancerade inställningar",
+    "reset": "Återställ inställningar",
+    "saved": "Inställningar sparade"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Serveradress:",
+    "port": "Port:",
+    "test": "Testa",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "testing": "Testar anslutning...",
+    "available": "HyperHDR tillgänglig",
+    "unavailable": "Inte tillgänglig",
+    "connected": "Ansluten",
+    "invalid": "Ogiltig adress eller port"
+  },
+  "language": {
+    "system": "Samma som TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Andra språk",
+    "otherLanguages": "Andra språk…",
+    "loading": "Laddar språklista…",
+    "downloading": "Laddar ner översättning…",
+    "downloadFailed": "Kunde inte ladda översättning",
+    "empty": "Inga språk hittades"
+  },
+  "about": {
+    "version": "Version",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licens: MIT"
+  },
+  "update": {
+    "available": "Uppdatering tillgänglig",
+    "install": "Installera uppdatering",
+    "preparing": "Förbereder uppdatering…",
+    "downloading": "Laddar ner och verifierar paket…",
+    "installing": "Installerar uppdatering…",
+    "restart": "AmbiSun startar om automatiskt.",
+    "failed": "Uppdatering misslyckades: ",
+    "upToDate": "Appen är uppdaterad"
+  },
+  "support": {
+    "title": "❤ Stöd projektet",
+    "subtitle": "Stöddetaljer från Legacy Bridge",
+    "scan": "Skanna QR-koden med din telefon"
+  },
+  "rule": {
+    "sun": "Efter solen",
+    "on": "Alltid PÅ",
+    "off": "Alltid AV"
+  },
+  "toast": {
+    "locationTodo": "TODO API: guide för land / stad",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight-test: 5 sekunder",
+    "advancedTodo": "TODO: avancerade inställningar",
+    "reset": "Prototypinställningar återställda",
+    "updateOk": "GitHub Releases kontrollerat — version 1.0.0 är aktuell",
+    "openGithub": "Öppnar GitHub"
+  },
+  "location": {
+    "title": "Plats",
+    "stepDetected": "Identifierad via IP",
+    "stepRegion": "Region",
+    "stepCountry": "Land",
+    "stepCity": "Stad",
+    "detectedLead": "Land identifierat via IP:",
+    "isCountryCorrect": "Är du i det här landet?",
+    "chooseRegion": "Välj en region",
+    "chooseCountry": "Välj ett land",
+    "chooseCity": "Välj en stad",
+    "noKeyboard": "Inget tangentbord — endast fjärrkontroll"
+  },
+  "region": {
+    "europe": "Europa",
+    "asia": "Asien",
+    "africa": "Afrika",
+    "northAmerica": "Nordamerika",
+    "southAmerica": "Sydamerika",
+    "oceania": "Oceanien"
+  },
+  "firstRun": {
+    "chooseLanguage": "Välj ett språk",
+    "languageHint": "Du kan ändra språket senare i Inställningar.",
+    "otherLanguages": "Andra språk…",
+    "onlineTranslationTodo": "TODO: onlinespråklista → översätt en.json → spara ny JSON"
+  },
+  "status": {
+    "waiting": "Väntar..."
+  },
+  "error": {
+    "revisionConflict": "Konfigurationskonflikt! Uppdaterar...",
+    "saveFailed": "Kunde inte spara: ",
+    "connection": "Anslutningsfel",
+    "elevationFailed": "Fel: Kunde inte erhålla behörigheter",
+    "minimizeFailed": "Kunde inte minimera applikationen"
+  },
+  "elevation": {
+    "restoring": "Återställer...",
+    "success": "Klart! Startar om..."
+  }
+}

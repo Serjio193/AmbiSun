@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Home",
+    "sources": "Bronnen & apps",
+    "sun": "Zon & schema",
+    "settings": "Instellingen",
+    "language": "Taal",
+    "about": "Over"
+  },
+  "common": {
+    "change": "Wijzigen",
+    "yes": "Ja",
+    "no": "Nee",
+    "back": "Terug",
+    "minimize": "Minimaliseren"
+  },
+  "home": {
+    "currentState": "Huidige status",
+    "ambilightOn": "Ambilight is ingeschakeld",
+    "modeSun": "Modus: Op basis van zon",
+    "currentSource": "Huidige bron",
+    "nextOn": "Volgende inschakeling",
+    "nextOff": "Volgende uitschakeling"
+  },
+  "sun": {
+    "sunset": "Zonsondergang",
+    "turnOn": "Inschakelen",
+    "sunrise": "Zonsopgang",
+    "sunsetOffset": "Inschakelen relatief aan zonsondergang",
+    "sunriseOffset": "Uitschakelen relatief aan zonsopgang",
+    "localSchedule": "Schema wordt dagelijks toegepast en lokaal berekend.",
+    "todaySunset": "Zonsondergang vandaag",
+    "ambilightOn": "Ambilight AAN",
+    "tomorrowSunrise": "Zonsopgang morgen"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Taal",
+    "autostart": "Starten met TV",
+    "defaultRule": "Standaardregel voor nieuwe apps",
+    "test": "Ambilight 5 seconden testen",
+    "plasma": "HyperHDR Plasma-achtergrond · Vloeiend",
+    "advanced": "Geavanceerde instellingen",
+    "reset": "Instellingen herstellen",
+    "saved": "Instellingen opgeslagen"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Serveradres:",
+    "port": "Poort:",
+    "test": "Testen",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "testing": "Verbinding testen...",
+    "available": "HyperHDR beschikbaar",
+    "unavailable": "Niet beschikbaar",
+    "connected": "Verbonden",
+    "invalid": "Ongeldig adres of poort"
+  },
+  "language": {
+    "system": "Hetzelfde als TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Andere talen",
+    "otherLanguages": "Andere talen…",
+    "loading": "Taallijst laden…",
+    "downloading": "Vertaling downloaden…",
+    "downloadFailed": "Vertaling laden mislukt",
+    "empty": "Geen talen gevonden"
+  },
+  "about": {
+    "version": "Versie",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licentie: MIT"
+  },
+  "update": {
+    "available": "Update beschikbaar",
+    "install": "Update installeren",
+    "preparing": "Update voorbereiden…",
+    "downloading": "Pakket downloaden en verifiëren…",
+    "installing": "Update installeren…",
+    "restart": "AmbiSun start automatisch opnieuw op.",
+    "failed": "Update mislukt: ",
+    "upToDate": "App is up-to-date"
+  },
+  "support": {
+    "title": "❤ Steun het project",
+    "subtitle": "Ondersteuningsdetails van Legacy Bridge",
+    "scan": "Scan de QR-code met uw telefoon"
+  },
+  "rule": {
+    "sun": "Op basis van zon",
+    "on": "Altijd AAN",
+    "off": "Altijd UIT"
+  },
+  "toast": {
+    "locationTodo": "TODO API: land / stad wizard",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight-test: 5 seconden",
+    "advancedTodo": "TODO: geavanceerde instellingen",
+    "reset": "Instellingen hersteld",
+    "updateOk": "GitHub Releases gecontroleerd — versie 1.0.0 is actueel",
+    "openGithub": "GitHub openen"
+  },
+  "location": {
+    "title": "Locatie",
+    "stepDetected": "Gedetecteerd via IP",
+    "stepRegion": "Regio",
+    "stepCountry": "Land",
+    "stepCity": "Stad",
+    "detectedLead": "Land gedetecteerd via IP:",
+    "isCountryCorrect": "Bent u in dit land?",
+    "chooseRegion": "Kies een regio",
+    "chooseCountry": "Kies een land",
+    "chooseCity": "Kies een stad",
+    "noKeyboard": "Geen toetsenbord — alleen afstandsbediening"
+  },
+  "region": {
+    "europe": "Europa",
+    "asia": "Azië",
+    "africa": "Afrika",
+    "northAmerica": "Noord-Amerika",
+    "southAmerica": "Zuid-Amerika",
+    "oceania": "Oceanië"
+  },
+  "firstRun": {
+    "chooseLanguage": "Kies een taal",
+    "languageHint": "U kunt de taal later wijzigen in Instellingen.",
+    "otherLanguages": "Andere talen…",
+    "onlineTranslationTodo": "TODO: online taallijst → vertaal en.json → sla nieuwe JSON op"
+  },
+  "status": {
+    "waiting": "Wachten..."
+  },
+  "error": {
+    "revisionConflict": "Configuratieconflict! Bijwerken...",
+    "saveFailed": "Opslaan mislukt: ",
+    "connection": "Verbindingsfout",
+    "elevationFailed": "Fout: Kan geen machtigingen verkrijgen",
+    "minimizeFailed": "Kan toepassing niet minimaliseren"
+  },
+  "elevation": {
+    "restoring": "Herstellen...",
+    "success": "Succes! Opnieuw opstarten..."
+  }
+}

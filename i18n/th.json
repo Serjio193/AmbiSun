@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "หน้าแรก",
+    "sources": "แหล่งสัญญาณและแอป",
+    "sun": "ดวงอาทิตย์และตารางเวลา",
+    "settings": "การตั้งค่า",
+    "language": "ภาษา",
+    "about": "เกี่ยวกับ"
+  },
+  "common": {
+    "change": "เปลี่ยน",
+    "yes": "ใช่",
+    "no": "ไม่",
+    "back": "ย้อนกลับ",
+    "minimize": "ย่อเล็กสุด"
+  },
+  "home": {
+    "currentState": "สถานะปัจจุบัน",
+    "ambilightOn": "Ambilight เปิดอยู่",
+    "modeSun": "โหมด: ตามดวงอาทิตย์",
+    "currentSource": "แหล่งสัญญาณปัจจุบัน",
+    "nextOn": "การเปิดครั้งถัดไป",
+    "nextOff": "การปิดครั้งถัดไป"
+  },
+  "sun": {
+    "sunset": "พระอาทิตย์ตก",
+    "turnOn": "เปิด",
+    "sunrise": "พระอาทิตย์ขึ้น",
+    "sunsetOffset": "เปิดตามเวลาพระอาทิตย์ตก",
+    "sunriseOffset": "ปิดตามเวลาพระอาทิตย์ขึ้น",
+    "localSchedule": "ตารางเวลาจะถูกนำไปใช้ทุกวันและคำนวณในเครื่อง",
+    "todaySunset": "พระอาทิตย์ตกวันนี้",
+    "ambilightOn": "Ambilight เปิด",
+    "tomorrowSunrise": "พระอาทิตย์ขึ้นพรุ่งนี้"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "ภาษา",
+    "autostart": "เริ่มพร้อมทีวี",
+    "defaultRule": "กฎเริ่มต้นสำหรับแอปใหม่",
+    "test": "ทดสอบ Ambilight เป็นเวลา 5 วินาที",
+    "plasma": "พื้นหลังพลาสมา HyperHDR · นุ่มนวล",
+    "advanced": "การตั้งค่าขั้นสูง",
+    "reset": "รีเซ็ตการตั้งค่า",
+    "saved": "บันทึกการตั้งค่าแล้ว"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "ที่อยู่เซิร์ฟเวอร์:",
+    "port": "พอร์ต:",
+    "test": "ทดสอบ",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "testing": "กำลังทดสอบการเชื่อมต่อ...",
+    "available": "HyperHDR พร้อมใช้งาน",
+    "unavailable": "ไม่พร้อมใช้งาน",
+    "connected": "เชื่อมต่อแล้ว",
+    "invalid": "ที่อยู่หรือพอร์ตไม่ถูกต้อง"
+  },
+  "language": {
+    "system": "เหมือนกับทีวี",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "ภาษาอื่น ๆ",
+    "otherLanguages": "ภาษาอื่น ๆ…",
+    "loading": "กำลังโหลดรายการภาษา…",
+    "downloading": "กำลังดาวน์โหลดคำแปล…",
+    "downloadFailed": "โหลดคำแปลไม่สำเร็จ",
+    "empty": "ไม่พบภาษา"
+  },
+  "about": {
+    "version": "เวอร์ชัน",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "ใบอนุญาต: MIT"
+  },
+  "update": {
+    "available": "มีอัปเดตใหม่",
+    "install": "ติดตั้งการอัปเดต",
+    "preparing": "กำลังเตรียมการอัปเดต…",
+    "downloading": "กำลังดาวน์โหลดและตรวจสอบแพ็กเกจ…",
+    "installing": "กำลังติดตั้งการอัปเดต…",
+    "restart": "AmbiSun จะรีสตาร์ทโดยอัตโนมัติ",
+    "failed": "การอัปเดตล้มเหลว: ",
+    "upToDate": "แอปเป็นเวอร์ชันล่าสุดแล้ว"
+  },
+  "support": {
+    "title": "❤ สนับสนุนโครงการ",
+    "subtitle": "รายละเอียดการสนับสนุนจาก Legacy Bridge",
+    "scan": "สแกนคิวอาร์โค้ดด้วยโทรศัพท์ของคุณ"
+  },
+  "rule": {
+    "sun": "ตามดวงอาทิตย์",
+    "on": "เปิดตลอดเวลา",
+    "off": "ปิดตลอดเวลา"
+  },
+  "toast": {
+    "locationTodo": "TODO API: วิซาร์ดประเทศ / เมือง",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "ทดสอบ Ambilight: 5 วินาที",
+    "advancedTodo": "TODO: การตั้งค่าขั้นสูง",
+    "reset": "รีเซ็ตการตั้งค่าต้นแบบแล้ว",
+    "updateOk": "ตรวจสอบ GitHub Releases แล้ว — เวอร์ชัน 1.0.0 เป็นเวอร์ชันปัจจุบัน",
+    "openGithub": "กำลังเปิด GitHub"
+  },
+  "location": {
+    "title": "ตำแหน่งที่ตั้ง",
+    "stepDetected": "ตรวจพบโดย IP",
+    "stepRegion": "ภูมิภาค",
+    "stepCountry": "ประเทศ",
+    "stepCity": "เมือง",
+    "detectedLead": "ตรวจพบประเทศโดย IP:",
+    "isCountryCorrect": "คุณอยู่ในประเทศนี้หรือไม่?",
+    "chooseRegion": "เลือกภูมิภาค",
+    "chooseCountry": "เลือกประเทศ",
+    "chooseCity": "เลือกเมือง",
+    "noKeyboard": "ไม่มีแป้นพิมพ์ — ใช้รีโมทเท่านั้น"
+  },
+  "region": {
+    "europe": "ยุโรป",
+    "asia": "เอเชีย",
+    "africa": "แอฟริกา",
+    "northAmerica": "อเมริกาเหนือ",
+    "southAmerica": "อเมริกาใต้",
+    "oceania": "โอเชียเนีย"
+  },
+  "firstRun": {
+    "chooseLanguage": "เลือกภาษา",
+    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังในการตั้งค่า",
+    "otherLanguages": "ภาษาอื่น ๆ…",
+    "onlineTranslationTodo": "TODO: รายการภาษาออนไลน์ → แปล en.json → บันทึก JSON ใหม่"
+  },
+  "status": {
+    "waiting": "กำลังรอ..."
+  },
+  "error": {
+    "revisionConflict": "การกำหนดค่าขัดแย้งกัน! กำลังอัปเดต...",
+    "saveFailed": "บันทึกไม่สำเร็จ: ",
+    "connection": "ข้อผิดพลาดในการเชื่อมต่อ",
+    "elevationFailed": "ข้อผิดพลาด: ไม่สามารถรับสิทธิ์ได้",
+    "minimizeFailed": "ไม่สามารถย่อแอปพลิเคชันได้"
+  },
+  "elevation": {
+    "restoring": "กำลังกู้คืน...",
+    "success": "สำเร็จ! กำลังรีสตาร์ท..."
+  }
+}

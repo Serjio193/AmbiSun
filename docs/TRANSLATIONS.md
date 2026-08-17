@@ -1,22 +1,56 @@
-# Translations
+# Translations & Localization
 
-The source language is `i18n/en.json`.
+AmbiSun features **39 fully built-in, offline localizations**. All translation files are stored locally within the application package (`i18n/*.json`), ensuring 100% offline functionality without any network dependencies, external APIs, or proxy services.
 
-Built-in languages:
-- `en` — English
-- `et` — Eesti
-- `uk` — Українська
-- `ru` — Русский
+The source reference file is [`i18n/en.json`](file:///e:/Github/AmbiSun/i18n/en.json) (114 keys).
 
-## Planned generated-language flow
+## Supported Locales (39 Languages)
 
-1. User selects **Other languages…**.
-2. AmbiSun loads the supported language list from the translation backend.
-3. User chooses a language using the remote.
-4. AmbiSun sends only the source keys that do not already exist locally.
-5. Backend returns translated values without changing JSON keys.
-6. AmbiSun stores the resulting locale and applies it immediately.
-7. Future app updates translate only new/missing keys.
+| Code | Language | Native Name | Direction |
+|---|---|---|---|
+| `en` | English | English | LTR |
+| `de` | German | Deutsch | LTR |
+| `fr` | French | Français | LTR |
+| `es` | Spanish | Español | LTR |
+| `pt-BR` | Portuguese (Brazil) | Português (Brasil) | LTR |
+| `pt-PT` | Portuguese (Portugal) | Português (Portugal) | LTR |
+| `it` | Italian | Italiano | LTR |
+| `nl` | Dutch | Nederlands | LTR |
+| `pl` | Polish | Polski | LTR |
+| `cs` | Czech | Čeština | LTR |
+| `sk` | Slovak | Slovenčina | LTR |
+| `hu` | Hungarian | Magyar | LTR |
+| `ro` | Romanian | Română | LTR |
+| `bg` | Bulgarian | Български | LTR |
+| `el` | Greek | Ελληνικά | LTR |
+| `hr` | Croatian | Hrvatski | LTR |
+| `sl` | Slovenian | Slovenščina | LTR |
+| `sr` | Serbian | Српски | LTR |
+| `et` | Estonian | Eesti | LTR |
+| `lv` | Latvian | Latviešu | LTR |
+| `lt` | Lithuanian | Lietuvių | LTR |
+| `fi` | Finnish | Suomi | LTR |
+| `sv` | Swedish | Svenska | LTR |
+| `da` | Danish | Dansk | LTR |
+| `no` | Norwegian | Norsk | LTR |
+| `tr` | Turkish | Türkçe | LTR |
+| `ru` | Russian | Русский | LTR |
+| `uk` | Ukrainian | Українська | LTR |
+| `ar` | Arabic | العربية | RTL |
+| `he` | Hebrew | עברית | RTL |
+| `hi` | Hindi | हिन्दी | LTR |
+| `id` | Indonesian | Bahasa Indonesia | LTR |
+| `ms` | Malay | Bahasa Melayu | LTR |
+| `th` | Thai | ไทย | LTR |
+| `vi` | Vietnamese | Tiếng Việt | LTR |
+| `ko` | Korean | 한국어 | LTR |
+| `ja` | Japanese | 日本語 | LTR |
+| `zh-CN` | Chinese (Simplified) | 简体中文 | LTR |
+| `zh-TW` | Chinese (Traditional) | 繁體中文 | LTR |
 
-API credentials must not be embedded in the TV application. A small translation proxy/backend
-should hold provider credentials.
+## Key Features
+
+- **100% Offline & Private**: Zero runtime network requests for localization.
+- **RTL Support**: Automatic text direction switching (`dir="rtl"`) for Arabic (`ar`) and Hebrew (`he`).
+- **System Language Auto-Selection**: Automatically matches the webOS TV system language on first run with regional fallback.
+- **TV Magic Remote Ready**: Smooth D-pad spatial navigation in both First-Run and Settings language menus.

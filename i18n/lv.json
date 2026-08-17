@@ -1,0 +1,152 @@
+{
+  "nav": {
+    "home": "Sākums",
+    "sources": "Avoti un lietotnes",
+    "sun": "Saule un grafiks",
+    "settings": "Iestatījumi",
+    "language": "Valoda",
+    "about": "Par lietotni"
+  },
+  "common": {
+    "change": "Mainīt",
+    "yes": "Jā",
+    "no": "Nē",
+    "back": "Atpakaļ",
+    "minimize": "Minimizēt"
+  },
+  "home": {
+    "currentState": "Pašreizējais statuss",
+    "ambilightOn": "Ambilight ir ieslēgts",
+    "modeSun": "Režīms: Pēc saules",
+    "currentSource": "Pašreizējais avots",
+    "nextOn": "Nākamā ieslēgšanās",
+    "nextOff": "Nākamā izslēgšanās"
+  },
+  "sun": {
+    "sunset": "Saulriets",
+    "turnOn": "Ieslēgt",
+    "sunrise": "Saullēkts",
+    "sunsetOffset": "Ieslēgt attiecībā pret saulrietu",
+    "sunriseOffset": "Izslēgt attiecībā pret saullēktu",
+    "localSchedule": "Grafiks tiek piemērots katru dienu un aprēķināts lokāli.",
+    "todaySunset": "Saulriets šodien",
+    "ambilightOn": "Ambilight IESLĒGTS",
+    "tomorrowSunrise": "Saullēkts rīt"
+  },
+  "settings": {
+    "enabled": "AmbiSun",
+    "hyperhdr": "HyperHDR",
+    "language": "Valoda",
+    "autostart": "Sākt kopā ar TV",
+    "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
+    "test": "Testēt Ambilight 5 sekundes",
+    "plasma": "HyperHDR plazmas fons · Plūstošs",
+    "advanced": "Papildu iestatījumi",
+    "reset": "Atiestatīt iestatījumus",
+    "saved": "Iestatījumi saglabāti"
+  },
+  "hyperhdr": {
+    "title": "HyperHDR",
+    "host": "Servera adrese:",
+    "port": "Ports:",
+    "test": "Testēt",
+    "save": "Saglabāt",
+    "cancel": "Atcelt",
+    "testing": "Pārbauda savienojumu...",
+    "available": "HyperHDR pieejams",
+    "unavailable": "Nav pieejams",
+    "connected": "Savienots",
+    "invalid": "Nederīga adrese vai ports"
+  },
+  "language": {
+    "system": "Tāpat kā TV",
+    "english": "English",
+    "russian": "Русский",
+    "estonian": "Eesti",
+    "german": "Deutsch",
+    "french": "Français",
+    "spanish": "Español",
+    "italian": "Italiano",
+    "otherTitle": "Citas valodas",
+    "otherLanguages": "Citas valodas…",
+    "loading": "Ielādē valodu sarakstu…",
+    "downloading": "Lejupielādē tulkojumu…",
+    "downloadFailed": "Neizdevās ielādēt tulkojumu",
+    "empty": "Valodas nav atrastas"
+  },
+  "about": {
+    "version": "Versija",
+    "github": "GitHub: Serjio193 / AmbiSun",
+    "license": "Licence: MIT"
+  },
+  "update": {
+    "available": "Pieejams atjauninājums",
+    "install": "Instalēt atjauninājumu",
+    "preparing": "Sagatavo atjauninājumu…",
+    "downloading": "Lejupielādē un pārbauda pakotni…",
+    "installing": "Instalē atjauninājumu…",
+    "restart": "AmbiSun automātiski restartēsies.",
+    "failed": "Atjaunināšana neizdevās: ",
+    "upToDate": "Lietotne ir atjaunināta"
+  },
+  "support": {
+    "title": "❤ Atbalstīt projektu",
+    "subtitle": "Atbalsta informācija no Legacy Bridge",
+    "scan": "Skenējiet QR kodu ar tālruni"
+  },
+  "rule": {
+    "sun": "Pēc saules",
+    "on": "Vienmēr IESLĒGTS",
+    "off": "Vienmēr IZSLĒGTS"
+  },
+  "toast": {
+    "locationTodo": "TODO API: valsts / pilsētas vednis",
+    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
+    "test": "Ambilight tests: 5 sekundes",
+    "advancedTodo": "TODO: papildu iestatījumi",
+    "reset": "Prototipa iestatījumi atiestatīti",
+    "updateOk": "GitHub Releases pārbaudīts — versija 1.0.0 ir jaunākā",
+    "openGithub": "Atver GitHub"
+  },
+  "location": {
+    "title": "Atrašanās vieta",
+    "stepDetected": "Noteikts pēc IP",
+    "stepRegion": "Reģions",
+    "stepCountry": "Valsts",
+    "stepCity": "Pilsēta",
+    "detectedLead": "Valsts noteikta pēc IP:",
+    "isCountryCorrect": "Vai atrodaties šajā valstī?",
+    "chooseRegion": "Izvēlieties reģionu",
+    "chooseCountry": "Izvēlieties valsti",
+    "chooseCity": "Izvēlieties pilsētu",
+    "noKeyboard": "Nav tastatūras — tikai tālvadības pults"
+  },
+  "region": {
+    "europe": "Eiropa",
+    "asia": "Āzija",
+    "africa": "Āfrika",
+    "northAmerica": "Ziemeļamerika",
+    "southAmerica": "Dienvidamerika",
+    "oceania": "Okeānija"
+  },
+  "firstRun": {
+    "chooseLanguage": "Izvēlieties valodu",
+    "languageHint": "Valodu varat mainīt vēlāk Iestatījumos.",
+    "otherLanguages": "Citas valodas…",
+    "onlineTranslationTodo": "TODO: tiešsaistes valodu saraksts → tulkot en.json → saglabāt jaunu JSON"
+  },
+  "status": {
+    "waiting": "Gaida..."
+  },
+  "error": {
+    "revisionConflict": "Konfigurācijas konflikts! Atjaunina...",
+    "saveFailed": "Saglabāšana neizdevās: ",
+    "connection": "Savienojuma kļūda",
+    "elevationFailed": "Kļūda: Neizdevās iegūt atļaujas",
+    "minimizeFailed": "Neizdevās minimizēt lietotni"
+  },
+  "elevation": {
+    "restoring": "Atjauno...",
+    "success": "Veiksmīgi! Restartē..."
+  }
+}

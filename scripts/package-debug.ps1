@@ -86,12 +86,11 @@ Write-Host "Verifying staging contents..."
 $EssentialFiles = @(
     "$AppStaging\appinfo.json",
     "$AppStaging\index.html",
-    "$AppStaging\js\translation.js",
+    "$AppStaging\js\i18n.js",
     "$ServiceStaging\package.json",
     "$ServiceStaging\services.json",
     "$ServiceStaging\service.js",
     "$ServiceStaging\lib\runtime-info.js",
-    "$ServiceStaging\lib\translation.js",
     "$ServiceStaging\data\countries.json",
     "$ServiceStaging\data\manifest.json",
     "$ServiceStaging\data\cities\RU.json",
@@ -104,22 +103,25 @@ foreach ($file in $EssentialFiles) {
     }
 }
 
-# 6b. Verify that service/data/en.json and i18n/en.json are strictly identical
-$AppEnJsonPath = Join-Path $RepoRoot "i18n\en.json"
-$ServiceEnJsonPath = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service\data\en.json"
+# 6b. Verify all 39 built-in locale JSON files in staging
+Write-Host "Validating all 39 built-in locale JSON files..."
+$RequiredLocales = @(
+    "en", "de", "fr", "es", "pt-BR", "pt-PT", "it", "nl", "pl", "cs",
+    "sk", "hu", "ro", "bg", "el", "hr", "sl", "sr", "et", "lv",
+    "lt", "fi", "sv", "da", "no", "tr", "ru", "uk", "ar", "he",
+    "hi", "id", "ms", "th", "vi", "ko", "ja", "zh-CN", "zh-TW"
+)
 
+$AppEnJsonPath = Join-Path $AppStaging "i18n\en.json"
 if (-not (Test-Path $AppEnJsonPath)) {
-    throw "Source locale file missing: $AppEnJsonPath"
-}
-if (-not (Test-Path $ServiceEnJsonPath)) {
-    throw "Service source locale file missing: $ServiceEnJsonPath"
+    throw "Source locale file missing from staging: $AppEnJsonPath"
 }
 
-$AppEnHash = (Get-FileHash -Path $AppEnJsonPath -Algorithm SHA256).Hash
-$ServiceEnHash = (Get-FileHash -Path $ServiceEnJsonPath -Algorithm SHA256).Hash
-
-if ($AppEnHash -ne $ServiceEnHash) {
-    throw "LOCALE SYNC ERROR: service/org.webosbrew.ambisun.service/data/en.json does not match i18n/en.json. Run sync before packaging."
+foreach ($loc in $RequiredLocales) {
+    $locPath = Join-Path $AppStaging "i18n\$loc.json"
+    if (-not (Test-Path $locPath)) {
+        throw "Built-in locale file missing from staging: $locPath"
+    }
 }
 
 # 7. Check ares-package availability

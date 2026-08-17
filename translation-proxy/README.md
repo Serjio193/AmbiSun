@@ -81,7 +81,7 @@ Translates an English JSON dictionary into the target language while preserving 
 
 ## 3. Rate Limiting Configuration (`wrangler.jsonc`)
 
-The worker uses Cloudflare Workers native rate limiting:
+The worker uses Cloudflare Workers native rate limiting (requires Wrangler >= 4.36.0):
 
 ```jsonc
 {
@@ -93,7 +93,7 @@ The worker uses Cloudflare Workers native rate limiting:
   ],
   "ratelimits": [
     {
-      "binding": "TRANSLATION_RATE_LIMITER",
+      "name": "TRANSLATION_RATE_LIMITER",
       "namespace_id": "1001",
       "simple": {
         "limit": 30,
@@ -112,6 +112,7 @@ The worker uses Cloudflare Workers native rate limiting:
 1. [Node.js](https://nodejs.org/) (v16+)
 2. [Cloudflare Account](https://dash.cloudflare.com/)
 3. [Azure Translator](https://portal.azure.com/) resource (Cognitive Services)
+4. Wrangler CLI (>= 4.36.0)
 
 ### Step 1: Install Dependencies
 ```bash

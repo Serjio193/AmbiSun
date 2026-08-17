@@ -8,7 +8,7 @@
   ],
   "ratelimits": [
     {
-      "binding": "TRANSLATION_RATE_LIMITER",
+      "name": "TRANSLATION_RATE_LIMITER",
       "namespace_id": "1001",
       "simple": {
         "limit": 30,

@@ -18,6 +18,6 @@
   "author": "Serjio193",
   "license": "MIT",
   "devDependencies": {
-    "wrangler": "^3.109.0"
+    "wrangler": "^4.36.0"
   }
 }

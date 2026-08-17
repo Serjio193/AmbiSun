@@ -1,6 +1,7 @@
-﻿param (
+param (
     [Parameter(Mandatory=$true)]
     [string]$Version,
+    [string]$SigningKeyPath,
     [switch]$DryRun
 )
 
@@ -12,7 +13,28 @@ if ($Version -notmatch $SemverRegex) {
     throw "Invalid SemVer format: '$Version'. Must strictly match MAJOR.MINOR.PATCH (e.g. 0.1.1)."
 }
 
-# 2. Paths
+# 2. Resolve signing key
+$EffectiveSigningKey = $SigningKeyPath
+if (-not $EffectiveSigningKey -and $env:AMBISUN_SIGNING_KEY_PATH) {
+    $EffectiveSigningKey = $env:AMBISUN_SIGNING_KEY_PATH
+}
+
+$EphemeralKeyUsed = $false
+if (-not $EffectiveSigningKey) {
+    $DefaultHomeKey = Join-Path $HOME "ambisun-release-signing-ed25519.key"
+    if (Test-Path $DefaultHomeKey) {
+        $EffectiveSigningKey = $DefaultHomeKey
+    } elseif ($DryRun) {
+        $EphemeralKeyUsed = $true
+        Write-Host "Notice: No signing key provided for DryRun. Using ephemeral in-memory Ed25519 key for simulation."
+    } else {
+        throw "RELEASE ERROR: Private Ed25519 signing key is required for real release preparation. Pass -SigningKeyPath <path> or set `$env:AMBISUN_SIGNING_KEY_PATH."
+    }
+} elseif (-not (Test-Path $EffectiveSigningKey)) {
+    throw "Signing key file not found: $EffectiveSigningKey"
+}
+
+# 3. Paths
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RepoRoot = Split-Path -Parent $ScriptDir
 $AppInfoPath = Join-Path $RepoRoot "appinfo.json"
@@ -21,7 +43,7 @@ $DistDir = Join-Path $RepoRoot "dist"
 
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
-# 3. Read exact original bytes for byte-for-byte DryRun restoration
+# 4. Read exact original bytes for byte-for-byte DryRun restoration
 $OriginalAppInfoBytes = [System.IO.File]::ReadAllBytes($AppInfoPath)
 $OriginalServicePackageBytes = [System.IO.File]::ReadAllBytes($ServicePackagePath)
 
@@ -30,7 +52,7 @@ $OriginalAppInfoText = [System.Text.Encoding]::UTF8.GetString($OriginalAppInfoBy
 $OriginalServicePackageText = [System.Text.Encoding]::UTF8.GetString($OriginalServicePackageBytes)
 
 try {
-    # 4. Determine expected IPK path and prevent stale IPK usage
+    # 5. Determine expected IPK path and prevent stale IPK usage
     $ExpectedIpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
     $ExpectedIpkPath = Join-Path $DistDir $ExpectedIpkName
 
@@ -63,7 +85,7 @@ try {
         throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
     }
 
-    # 5. Verify build artifact freshness and integrity
+    # 6. Verify build artifact freshness and integrity
     if (-not (Test-Path $ExpectedIpkPath)) {
         throw "Expected IPK artifact not found after build: $ExpectedIpkPath"
     }
@@ -77,14 +99,46 @@ try {
         throw "Generated IPK artifact is older than build start time: $ExpectedIpkPath"
     }
 
-    # 6. Compute SHA-256 and size
+    # 7. Compute SHA-256 and size
     $Hash = (Get-FileHash -Path $ExpectedIpkPath -Algorithm SHA256).Hash.ToLower()
     $IpkSize = $IpkItem.Length
 
-    # 7. Generate dist/update.json (in-app updater manifest)
+    # 8. Sign canonical payload
+    $Canonical = "ambisun-update-v1`nversion=$Version`nsha256=$Hash`nsize=$IpkSize`n"
+    if ($EphemeralKeyUsed) {
+        $NodeSignScript = @"
+const crypto = require('crypto');
+const canonical = process.argv[1];
+const { privateKey } = crypto.generateKeyPairSync('ed25519');
+const sig = crypto.sign(null, Buffer.from(canonical, 'utf8'), privateKey);
+process.stdout.write(sig.toString('base64'));
+"@
+        $Signature = & node -e $NodeSignScript $Canonical
+    } else {
+        $NodeSignScript = @"
+const crypto = require('crypto');
+const fs = require('fs');
+const keyPath = process.argv[1];
+const canonical = process.argv[2];
+const privPem = fs.readFileSync(keyPath, 'utf8');
+const privKey = crypto.createPrivateKey(privPem);
+const sig = crypto.sign(null, Buffer.from(canonical, 'utf8'), privKey);
+process.stdout.write(sig.toString('base64'));
+"@
+        $Signature = & node -e $NodeSignScript $EffectiveSigningKey $Canonical
+    }
+
+    if ($LASTEXITCODE -ne 0 -or -not $Signature) {
+        throw "Failed to cryptographically sign update manifest"
+    }
+    $Signature = $Signature.Trim()
+
+    # 9. Generate dist/update.json (in-app updater manifest)
     $UpdateManifest = [ordered]@{
         version = $Version
         sha256 = $Hash
+        size = $IpkSize
+        signature = $Signature
         notes = [ordered]@{
             ru = "Исправления и улучшения"
             en = "Fixes and improvements"
@@ -96,7 +150,7 @@ try {
     $UpdateJsonContent = $UpdateManifest | ConvertTo-Json -Depth 10
     [System.IO.File]::WriteAllText($UpdateJsonPath, $UpdateJsonContent, $Utf8NoBom)
 
-    # 8. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
+    # 10. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
     $HomebrewManifest = [ordered]@{
         id = "org.webosbrew.ambisun"
         version = $Version
@@ -123,6 +177,7 @@ try {
     Write-Host "IPK Path:   $ExpectedIpkPath"
     Write-Host "IPK Size:   $IpkSize bytes"
     Write-Host "SHA-256:    $Hash"
+    Write-Host "Signature:  $Signature"
     Write-Host "Manifest:   $UpdateJsonPath"
     Write-Host "Homebrew:   $HomebrewManifestPath"
     Write-Host ""

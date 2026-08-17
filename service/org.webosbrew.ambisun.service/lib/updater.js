@@ -15,6 +15,13 @@ var TEMP_DIR = "/media/developer/temp";
 var SEMVER_REGEX = /^(\d+)\.(\d+)\.(\d+)$/;
 var SHA256_REGEX = /^[a-f0-9]{64}$/i;
 
+// Public verification key only.
+// Private signing key must never be committed to the repository or bundled into the application.
+var PRODUCTION_PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n" +
+    "MCowBQYDK2VwAyEA+RfgUWfN5e9kI520tAU8ibgzHX0avakHFI23enIhQ7M=\n" +
+    "-----END PUBLIC KEY-----\n";
+
+var activePublicKey = PRODUCTION_PUBLIC_KEY;
 var cachedManifest = null;
 var isInstalling = false;
 var installStartedAt = 0;
@@ -57,7 +64,49 @@ function getExpectedIpkUrl(version) {
     return "https://github.com/Serjio193/AmbiSun/releases/download/v" + version + "/org.webosbrew.ambisun_" + version + "_all.ipk";
 }
 
-function validateManifest(manifest) {
+function getCanonicalPayload(version, sha256, size) {
+    return "ambisun-update-v1\nversion=" + version + "\nsha256=" + sha256 + "\nsize=" + size + "\n";
+}
+
+function verifyManifestSignature(manifest, publicKeyPem) {
+    if (!manifest || typeof manifest !== 'object') return false;
+    if (typeof manifest.signature !== 'string' || !manifest.signature.trim()) return false;
+    if (typeof manifest.version !== 'string' || typeof manifest.sha256 !== 'string' || typeof manifest.size !== 'number') return false;
+
+    var canonical = getCanonicalPayload(
+        manifest.version.trim(),
+        manifest.sha256.trim().toLowerCase(),
+        manifest.size
+    );
+    var data = Buffer.from(canonical, 'utf8');
+    var sigBuf;
+    try {
+        sigBuf = Buffer.from(manifest.signature.trim(), 'base64');
+        if (sigBuf.length !== 64) return false;
+    } catch (_) {
+        return false;
+    }
+
+    try {
+        var keyObj = crypto.createPublicKey(publicKeyPem || activePublicKey);
+        return crypto.verify(null, data, keyObj, sigBuf);
+    } catch (_) {
+        return false;
+    }
+}
+
+function isAllowedHost(hostname) {
+    if (!hostname || typeof hostname !== 'string') return false;
+    var h = hostname.toLowerCase();
+    return h === 'github.com' ||
+           h === 'raw.githubusercontent.com' ||
+           h === 'objects.githubusercontent.com' ||
+           h === 'github-releases.githubusercontent.com' ||
+           h.endsWith('.githubusercontent.com') ||
+           h.endsWith('.github.com');
+}
+
+function validateManifest(manifest, publicKeyPem) {
     if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
         return "Manifest is not a valid JSON object";
     }
@@ -66,6 +115,15 @@ function validateManifest(manifest) {
     }
     if (typeof manifest.sha256 !== 'string' || !SHA256_REGEX.test(manifest.sha256.trim())) {
         return "Manifest missing or invalid sha256 (must be 64 hex chars)";
+    }
+    if (typeof manifest.size !== 'number' || !Number.isInteger(manifest.size) || manifest.size <= 0 || manifest.size > IPK_MAX_BYTES) {
+        return "Manifest missing or invalid size (must be positive integer <= " + IPK_MAX_BYTES + " bytes)";
+    }
+    if (typeof manifest.signature !== 'string' || !manifest.signature.trim()) {
+        return "Manifest missing signature";
+    }
+    if (!verifyManifestSignature(manifest, publicKeyPem)) {
+        return "Signature verification failed";
     }
     return null;
 }
@@ -91,6 +149,10 @@ function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
 
     if (parsedUrl.protocol !== 'https:') {
         return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
+    }
+
+    if (!isAllowedHost(parsedUrl.hostname)) {
+        return finish(new Error("UNTRUSTED_REDIRECT_HOST: Target or redirect host '" + parsedUrl.hostname + "' is not in allowed GitHub domains"));
     }
 
     var options = {
@@ -169,7 +231,7 @@ function checkForUpdate(callback) {
             });
         }
 
-        var valErr = validateManifest(manifest);
+        var valErr = validateManifest(manifest, activePublicKey);
         if (valErr) {
             return callback(null, {
                 returnValue: false,
@@ -181,12 +243,15 @@ function checkForUpdate(callback) {
 
         var latestVer = manifest.version.trim();
         var sha256 = manifest.sha256.trim().toLowerCase();
+        var size = manifest.size;
         var updateAvail = isUpdateAvailable(currentVer, latestVer);
         var ipkUrl = getExpectedIpkUrl(latestVer);
 
         cachedManifest = {
             version: latestVer,
             sha256: sha256,
+            size: size,
+            signature: manifest.signature.trim(),
             notes: manifest.notes || {},
             ipkUrl: ipkUrl,
             fetchedAt: Date.now()
@@ -202,7 +267,7 @@ function checkForUpdate(callback) {
     });
 }
 
-function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, callback) {
+function downloadFileWithHash(targetUrl, destPath, expectedSize, maxBytes, redirectCount, callback) {
     var settled = false;
     function finish(err, result) {
         if (settled) return;
@@ -225,6 +290,10 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
         return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
     }
 
+    if (!isAllowedHost(parsedUrl.hostname)) {
+        return finish(new Error("UNTRUSTED_REDIRECT_HOST: Target or redirect host '" + parsedUrl.hostname + "' is not in allowed GitHub domains"));
+    }
+
     var options = {
         protocol: parsedUrl.protocol,
         hostname: parsedUrl.hostname,
@@ -240,7 +309,7 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
             var nextUrl = url.resolve(targetUrl, res.headers.location);
             res.resume();
-            return downloadFileWithHash(nextUrl, destPath, maxBytes, redirectCount + 1, finish);
+            return downloadFileWithHash(nextUrl, destPath, expectedSize, maxBytes, redirectCount + 1, finish);
         }
 
         if (res.statusCode !== 200) {
@@ -252,12 +321,12 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
         var outStream = fs.createWriteStream(destPath);
         var totalBytes = 0;
 
-        function cleanup(err, computedHash) {
+        function cleanup(err, computedResult) {
             if (err) {
                 try { fs.unlinkSync(destPath); } catch (_) {}
                 return finish(err);
             }
-            finish(null, computedHash);
+            finish(null, computedResult);
         }
 
         res.on('data', function(chunk) {
@@ -273,8 +342,11 @@ function downloadFileWithHash(targetUrl, destPath, maxBytes, redirectCount, call
 
         res.on('end', function() {
             outStream.end(function() {
+                if (typeof expectedSize === 'number' && expectedSize > 0 && totalBytes !== expectedSize) {
+                    return cleanup(new Error("UPDATE_SIZE_MISMATCH: Downloaded " + totalBytes + " bytes, expected " + expectedSize));
+                }
                 var computedHash = hash.digest('hex').toLowerCase();
-                cleanup(null, computedHash);
+                cleanup(null, { hash: computedHash, size: totalBytes });
             });
         });
 
@@ -403,6 +475,17 @@ function installUpdate(payload, serviceHandle, callback) {
         return callback(new Error("VERSION_MISMATCH: Expected version " + expectedVer + " does not match cached version " + cachedManifest.version));
     }
 
+    // Require target version to be strictly newer than installed version (prevent downgrade / same-version reinstall)
+    var currentVer = getCurrentVersion();
+    if (compareSemver(cachedManifest.version, currentVer) !== 1) {
+        return callback(new Error("NO_DOWNGRADE_OR_REINSTALL: Target version " + cachedManifest.version + " is not newer than current installed version " + currentVer));
+    }
+
+    // Double check signature of cached manifest
+    if (!verifyManifestSignature(cachedManifest, activePublicKey)) {
+        return callback(new Error("SIGNATURE_INVALID: Cached update manifest signature verification failed"));
+    }
+
     // Acquire lock
     isInstalling = true;
     installStartedAt = now;
@@ -414,7 +497,8 @@ function installUpdate(payload, serviceHandle, callback) {
 
     var targetVersion = cachedManifest.version;
     var targetSha256 = cachedManifest.sha256;
-    var downloadUrl = cachedManifest.ipkUrl;
+    var targetSize = cachedManifest.size;
+    var downloadUrl = getExpectedIpkUrl(targetVersion);
 
     // Ensure temp dir exists
     try {
@@ -429,12 +513,19 @@ function installUpdate(payload, serviceHandle, callback) {
     var resultPath = path.join(TEMP_DIR, "ambisun-install-result.json");
     var logPath = path.join(TEMP_DIR, "ambisun-update.log");
 
-    downloadFileWithHash(downloadUrl, ipkPath, IPK_MAX_BYTES, 0, function(err, computedHash) {
+    // Clean up any existing temp files before download
+    try { fs.unlinkSync(ipkPath); } catch (_) {}
+    try { fs.unlinkSync(helperPath); } catch (_) {}
+    try { fs.unlinkSync(resultPath); } catch (_) {}
+
+    downloadFileWithHash(downloadUrl, ipkPath, targetSize, IPK_MAX_BYTES, 0, function(err, downloadResult) {
         if (err) {
+            try { fs.unlinkSync(ipkPath); } catch (_) {}
             releaseLock();
             return callback(new Error("DOWNLOAD_FAILED: " + err.message));
         }
 
+        var computedHash = downloadResult && downloadResult.hash;
         if (computedHash !== targetSha256) {
             try { fs.unlinkSync(ipkPath); } catch (_) {}
             releaseLock();
@@ -485,8 +576,12 @@ module.exports = {
     getCurrentVersion: getCurrentVersion,
     checkForUpdate: checkForUpdate,
     installUpdate: installUpdate,
+    PRODUCTION_PUBLIC_KEY: PRODUCTION_PUBLIC_KEY,
     _compareSemver: compareSemver,
     _isUpdateAvailable: isUpdateAvailable,
+    _getCanonicalPayload: getCanonicalPayload,
+    _verifyManifestSignature: verifyManifestSignature,
+    _isAllowedHost: isAllowedHost,
     _validateManifest: validateManifest,
     _setCachedManifest: function(m) { cachedManifest = m; },
     _getCachedManifest: function() { return cachedManifest; },
@@ -495,6 +590,8 @@ module.exports = {
     _isInstalling: function() { return isInstalling; },
     _releaseLock: function() { isInstalling = false; installStartedAt = 0; },
     _acquireLock: function() { isInstalling = true; installStartedAt = Date.now(); },
+    _setPublicKey: function(pk) { activePublicKey = pk; },
+    _resetPublicKey: function() { activePublicKey = PRODUCTION_PUBLIC_KEY; },
     _fetchWithRedirects: fetchWithRedirects,
     _downloadFileWithHash: downloadFileWithHash
 };

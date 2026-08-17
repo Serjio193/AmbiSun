@@ -11,7 +11,7 @@ const EXPECTED_LOCALES = [
   "hi", "id", "ms", "th", "vi", "ko", "ja", "zh-CN", "zh-TW"
 ];
 
-const PLACEHOLDER_REGEX = /(?:%[0-9]*\$?[sdf])|(?:{{[^{}]+}})|(?:{[^{}]+})|(?:\${[^{}]+})/g;
+const PLACEHOLDER_REGEX = /(?:\${[^{}]+})|(?:{{[^{}]+}})|(?:{[^{}]+})|(?:%[0-9]*\$?[sdf])/g;
 
 function extractPlaceholders(val) {
   if (typeof val !== "string") return [];

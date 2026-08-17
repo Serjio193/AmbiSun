@@ -13,7 +13,23 @@ if ($Version -notmatch $SemverRegex) {
     throw "Invalid SemVer format: '$Version'. Must strictly match MAJOR.MINOR.PATCH (e.g. 0.1.1)."
 }
 
-# 2. Resolve signing key
+# 2. Paths
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$RepoRoot = Split-Path -Parent $ScriptDir
+$AppInfoPath = Join-Path $RepoRoot "appinfo.json"
+$ServicePackagePath = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service\package.json"
+$PublicKeyPath = Join-Path $RepoRoot "release\update-public-key.pem"
+$DistDir = Join-Path $RepoRoot "dist"
+
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+
+# 3. Read production public key
+if (-not (Test-Path $PublicKeyPath)) {
+    throw "Production public key file not found: $PublicKeyPath"
+}
+$ProductionPublicKeyPem = [System.IO.File]::ReadAllText($PublicKeyPath, [System.Text.Encoding]::UTF8)
+
+# 4. Resolve and verify signing key BEFORE build or metadata changes
 $EffectiveSigningKey = $SigningKeyPath
 if (-not $EffectiveSigningKey -and $env:AMBISUN_SIGNING_KEY_PATH) {
     $EffectiveSigningKey = $env:AMBISUN_SIGNING_KEY_PATH
@@ -27,23 +43,67 @@ if (-not $EffectiveSigningKey) {
     } elseif ($DryRun) {
         $EphemeralKeyUsed = $true
         Write-Host "Notice: No signing key provided for DryRun. Using ephemeral in-memory Ed25519 key for simulation."
+        Write-Host "SIGNATURE TYPE: EPHEMERAL TEST SIGNATURE (NOT VALID FOR PRODUCTION UPDATER)"
     } else {
         throw "RELEASE ERROR: Private Ed25519 signing key is required for real release preparation. Pass -SigningKeyPath <path> or set `$env:AMBISUN_SIGNING_KEY_PATH."
     }
-} elseif (-not (Test-Path $EffectiveSigningKey)) {
-    throw "Signing key file not found: $EffectiveSigningKey"
 }
 
-# 3. Paths
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$RepoRoot = Split-Path -Parent $ScriptDir
-$AppInfoPath = Join-Path $RepoRoot "appinfo.json"
-$ServicePackagePath = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service\package.json"
-$DistDir = Join-Path $RepoRoot "dist"
+if (-not $EphemeralKeyUsed) {
+    if (-not (Test-Path $EffectiveSigningKey)) {
+        throw "Signing key file not found: $EffectiveSigningKey"
+    }
 
-$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    # Verify that private key matches production public key
+    $PreVerifyScript = @"
+const crypto = require('crypto');
+const fs = require('fs');
+const privPath = process.argv[1];
+const pubPem = process.argv[2];
 
-# 4. Read exact original bytes for byte-for-byte DryRun restoration
+try {
+    const privPem = fs.readFileSync(privPath, 'utf8');
+    const privKey = crypto.createPrivateKey(privPem);
+    const derivedPub = crypto.createPublicKey(privKey);
+    const derivedDer = derivedPub.export({ type: 'spki', format: 'der' });
+    const derivedFingerprint = crypto.createHash('sha256').update(derivedDer).digest('hex');
+
+    const expectedPub = crypto.createPublicKey(pubPem);
+    const expectedDer = expectedPub.export({ type: 'spki', format: 'der' });
+    const expectedFingerprint = crypto.createHash('sha256').update(expectedDer).digest('hex');
+
+    const challenge = 'ambisun-signing-key-check-v1\n';
+    const sig = crypto.sign(null, Buffer.from(challenge, 'utf8'), privKey);
+    const verified = crypto.verify(null, Buffer.from(challenge, 'utf8'), expectedPub, sig);
+
+    process.stdout.write(JSON.stringify({
+        match: verified && (derivedFingerprint === expectedFingerprint),
+        derivedFingerprint: 'sha256:' + derivedFingerprint,
+        expectedFingerprint: 'sha256:' + expectedFingerprint
+    }));
+} catch (e) {
+    process.stdout.write(JSON.stringify({
+        match: false,
+        error: e.message
+    }));
+}
+"@
+    $VerifyOutput = & node -e $PreVerifyScript $EffectiveSigningKey $ProductionPublicKeyPem
+    if ($LASTEXITCODE -ne 0 -or -not $VerifyOutput) {
+        throw "Failed to execute signing key verification helper"
+    }
+
+    $VerifyResult = $VerifyOutput | ConvertFrom-Json
+    Write-Host "Production public key fingerprint: $($VerifyResult.expectedFingerprint)"
+    Write-Host "Signing key public fingerprint:    $($VerifyResult.derivedFingerprint)"
+
+    if (-not $VerifyResult.match) {
+        throw "SIGNING KEY MISMATCH: Private signing key does not match AmbiSun production public key."
+    }
+    Write-Host "Signing key validation:            MATCH (Verified)`n"
+}
+
+# 5. Read exact original bytes for byte-for-byte DryRun restoration
 $OriginalAppInfoBytes = [System.IO.File]::ReadAllBytes($AppInfoPath)
 $OriginalServicePackageBytes = [System.IO.File]::ReadAllBytes($ServicePackagePath)
 
@@ -52,7 +112,7 @@ $OriginalAppInfoText = [System.Text.Encoding]::UTF8.GetString($OriginalAppInfoBy
 $OriginalServicePackageText = [System.Text.Encoding]::UTF8.GetString($OriginalServicePackageBytes)
 
 try {
-    # 5. Determine expected IPK path and prevent stale IPK usage
+    # 6. Determine expected IPK path and prevent stale IPK usage
     $ExpectedIpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
     $ExpectedIpkPath = Join-Path $DistDir $ExpectedIpkName
 
@@ -85,7 +145,7 @@ try {
         throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
     }
 
-    # 6. Verify build artifact freshness and integrity
+    # 7. Verify build artifact freshness and integrity
     if (-not (Test-Path $ExpectedIpkPath)) {
         throw "Expected IPK artifact not found after build: $ExpectedIpkPath"
     }
@@ -99,11 +159,11 @@ try {
         throw "Generated IPK artifact is older than build start time: $ExpectedIpkPath"
     }
 
-    # 7. Compute SHA-256 and size
+    # 8. Compute SHA-256 and size
     $Hash = (Get-FileHash -Path $ExpectedIpkPath -Algorithm SHA256).Hash.ToLower()
     $IpkSize = $IpkItem.Length
 
-    # 8. Sign canonical payload
+    # 9. Sign canonical payload
     $Canonical = "ambisun-update-v1`nversion=$Version`nsha256=$Hash`nsize=$IpkSize`n"
     if ($EphemeralKeyUsed) {
         $NodeSignScript = @"
@@ -133,7 +193,7 @@ process.stdout.write(sig.toString('base64'));
     }
     $Signature = $Signature.Trim()
 
-    # 9. Generate dist/update.json (in-app updater manifest)
+    # 10. Generate dist/update.json (in-app updater manifest)
     $UpdateManifest = [ordered]@{
         version = $Version
         sha256 = $Hash
@@ -150,7 +210,7 @@ process.stdout.write(sig.toString('base64'));
     $UpdateJsonContent = $UpdateManifest | ConvertTo-Json -Depth 10
     [System.IO.File]::WriteAllText($UpdateJsonPath, $UpdateJsonContent, $Utf8NoBom)
 
-    # 10. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
+    # 11. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
     $HomebrewManifest = [ordered]@{
         id = "org.webosbrew.ambisun"
         version = $Version
@@ -178,6 +238,11 @@ process.stdout.write(sig.toString('base64'));
     Write-Host "IPK Size:   $IpkSize bytes"
     Write-Host "SHA-256:    $Hash"
     Write-Host "Signature:  $Signature"
+    if ($EphemeralKeyUsed) {
+        Write-Host "Sig Status: EPHEMERAL TEST SIGNATURE (NOT VALID FOR PRODUCTION UPDATER)"
+    } else {
+        Write-Host "Sig Status: PRODUCTION ED25519 SIGNATURE (MATCHES PRODUCTION PUBLIC KEY)"
+    }
     Write-Host "Manifest:   $UpdateJsonPath"
     Write-Host "Homebrew:   $HomebrewManifestPath"
     Write-Host ""

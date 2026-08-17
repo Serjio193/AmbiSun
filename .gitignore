@@ -4,3 +4,5 @@ dist/
 .DS_Store
 node_modules/
 .vscode/
+.dev.vars
+.wrangler/

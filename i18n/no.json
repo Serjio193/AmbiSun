@@ -70,7 +70,7 @@
     "off": "Alltid AV"
   },
   "toast": {
-    "reset": "Prototypeinnstillinger tilbakestilt",
+    "reset": "Innstillinger tilbakestilt",
     "openGithub": "Åpner GitHub",
     "resetting": "Tilbakestiller innstillinger…",
     "saving": "Lagrer…"

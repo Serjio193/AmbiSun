@@ -70,7 +70,7 @@
     "off": "Aina POIS"
   },
   "toast": {
-    "reset": "Prototyypin asetukset palautettu",
+    "reset": "Asetukset palautettu",
     "openGithub": "Avataan GitHub",
     "resetting": "Palautetaan asetuksia…",
     "saving": "Tallennetaan…"

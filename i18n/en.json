@@ -70,7 +70,7 @@
     "off": "Always OFF"
   },
   "toast": {
-    "reset": "Prototype settings reset",
+    "reset": "Settings reset",
     "openGithub": "Opening GitHub",
     "resetting": "Resetting settings…",
     "saving": "Saving…"

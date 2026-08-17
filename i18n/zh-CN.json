@@ -70,7 +70,7 @@
     "off": "始终关闭"
   },
   "toast": {
-    "reset": "原型设置已重置",
+    "reset": "设置已重置",
     "openGithub": "正在打开 GitHub",
     "resetting": "正在重置设置…",
     "saving": "正在保存…"

@@ -70,7 +70,7 @@
     "off": "常に消灯"
   },
   "toast": {
-    "reset": "プロトタイプ設定を初期化しました",
+    "reset": "設定を初期化しました",
     "openGithub": "GitHub を開いています",
     "resetting": "設定を初期化中…",
     "saving": "保存中…"

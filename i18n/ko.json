@@ -70,7 +70,7 @@
     "off": "항상 꺼짐"
   },
   "toast": {
-    "reset": "프로토타입 설정이 초기화되었습니다",
+    "reset": "설정이 초기화되었습니다",
     "openGithub": "GitHub 여는 중",
     "resetting": "설정 초기화 중…",
     "saving": "저장 중…"

@@ -70,7 +70,7 @@
     "off": "Sempre DESLIGADO"
   },
   "toast": {
-    "reset": "Configurações do protótipo redefinidas",
+    "reset": "Configurações redefinidas",
     "openGithub": "Abrindo GitHub",
     "resetting": "Redefinindo configurações…",
     "saving": "Salvando…"

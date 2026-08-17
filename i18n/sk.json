@@ -70,7 +70,7 @@
     "off": "Vždy VYPNUTÉ"
   },
   "toast": {
-    "reset": "Nastavenia prototypu obnovené",
+    "reset": "Nastavenia boli obnovené",
     "openGithub": "Otvára sa GitHub",
     "resetting": "Obnovovanie nastavení…",
     "saving": "Ukladá sa…"

@@ -70,7 +70,7 @@
     "off": "Uvijek ISKLJUČENO"
   },
   "toast": {
-    "reset": "Postavke prototipa vraćene",
+    "reset": "Postavke vraćene na zadano",
     "openGithub": "Otvaranje GitHub-a",
     "resetting": "Vraćanje postavki…",
     "saving": "Spremanje…"

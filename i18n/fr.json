@@ -70,7 +70,7 @@
     "off": "Toujours ÉTEINT"
   },
   "toast": {
-    "reset": "Paramètres du prototype réinitialisés",
+    "reset": "Paramètres réinitialisés",
     "openGithub": "Ouverture de GitHub",
     "resetting": "Réinitialisation des paramètres…",
     "saving": "Enregistrement…"

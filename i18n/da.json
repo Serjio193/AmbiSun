@@ -70,7 +70,7 @@
     "off": "Altid SLUKKET"
   },
   "toast": {
-    "reset": "Prototypeindstillinger nulstillet",
+    "reset": "Indstillinger nulstillet",
     "openGithub": "Åbner GitHub",
     "resetting": "Nulstiller indstillinger…",
     "saving": "Gemmer…"

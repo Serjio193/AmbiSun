@@ -70,7 +70,7 @@
     "off": "Siempre APAGADO"
   },
   "toast": {
-    "reset": "Ajustes de prototipo restablecidos",
+    "reset": "Ajustes restablecidos",
     "openGithub": "Abriendo GitHub",
     "resetting": "Restableciendo ajustes…",
     "saving": "Guardando…"

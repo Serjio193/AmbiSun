@@ -3,6 +3,7 @@
  * 
  * Secure on-demand translation proxy for AmbiSun webOS application.
  * Integrates with Azure Translator API v3.0 while keeping credentials strictly secret.
+ * Uses official Cloudflare Workers Rate Limiting bindings for distributed quota protection.
  */
 
 const DEFAULT_AZURE_ENDPOINT = "https://api.cognitive.microsofttranslator.com";
@@ -23,45 +24,6 @@ const RTL_LANGUAGES = new Set([
   'ar', 'arc', 'bcc', 'bqi', 'ckb', 'dv', 'fa', 'glk', 'he', 'iw',
   'ku', 'mzn', 'pnb', 'ps', 'sd', 'ug', 'ur', 'yi'
 ]);
-
-// Rate limiter: 30 requests per minute per IP for translation endpoint
-const rateLimitMap = new Map();
-const RATE_LIMIT_WINDOW_MS = 60000;
-const RATE_LIMIT_MAX_REQUESTS = 30;
-
-function checkRateLimit(ip) {
-  if (!ip) return true;
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip) || { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
-
-  if (now > entry.resetAt) {
-    entry.count = 1;
-    entry.resetAt = now + RATE_LIMIT_WINDOW_MS;
-    rateLimitMap.set(ip, entry);
-    return true;
-  }
-
-  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false;
-  }
-
-  entry.count++;
-  rateLimitMap.set(ip, entry);
-  return true;
-}
-
-// Periodic cleanup of rate limit map
-const cleanupTimer = setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of rateLimitMap.entries()) {
-    if (now > entry.resetAt + 60000) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, 300000);
-if (cleanupTimer && typeof cleanupTimer.unref === 'function') {
-  cleanupTimer.unref();
-}
 
 function jsonResponse(data, status = 200, headers = {}) {
   const defaultHeaders = {
@@ -275,10 +237,21 @@ async function handleTranslateLocale(request, env, ctx) {
     return jsonError("METHOD_NOT_ALLOWED", "Method not allowed for /translate-locale", 405);
   }
 
-  // 1. Rate Limiting Check
-  const clientIp = request.headers.get('CF-Connecting-IP') || request.headers.get('x-real-ip') || 'unknown';
-  if (!checkRateLimit(clientIp)) {
-    return jsonError("RATE_LIMITED", "Too many translation requests. Please slow down.", 429);
+  // 1. Fail-closed Rate Limiting Check using official Cloudflare binding
+  if (!env || !env.TRANSLATION_RATE_LIMITER || typeof env.TRANSLATION_RATE_LIMITER.limit !== 'function') {
+    return jsonError("RATE_LIMIT_UNAVAILABLE", "Rate limiting service is not configured or unavailable", 503);
+  }
+
+  // Strictly use CF-Connecting-IP (never trust user-provided x-real-ip)
+  const clientIp = request.headers.get('CF-Connecting-IP') || 'unknown';
+  try {
+    const limitResult = await env.TRANSLATION_RATE_LIMITER.limit({ key: clientIp });
+    if (!limitResult || limitResult.success !== true) {
+      return jsonError("RATE_LIMITED", "Too many translation requests. Please slow down.", 429);
+    }
+  } catch (rateLimitErr) {
+    // If rate limiter execution fails, fail closed
+    return jsonError("RATE_LIMIT_UNAVAILABLE", "Failed to verify rate limit status", 503);
   }
 
   // 2. Content-Type check
@@ -329,7 +302,6 @@ async function handleTranslateLocale(request, env, ctx) {
     return jsonError("INVALID_REQUEST", "Field 'locale' must be a plain JSON object", 400);
   }
 
-  // Disallow prototype pollution keys
   if (hasDisallowedKeys(locale)) {
     return jsonError("INVALID_REQUEST", "Disallowed object property key detected", 400);
   }
@@ -427,7 +399,7 @@ async function handleTranslateLocale(request, env, ctx) {
       if (transItem && Array.isArray(transItem.translations) && transItem.translations[0]) {
         batch[i].translatedText = transItem.translations[0].text;
       } else {
-        batch[i].translatedText = batch[i].text; // Fallback
+        batch[i].translatedText = batch[i].text;
       }
     }
   }
@@ -473,7 +445,6 @@ export default {
   _flattenLocale: flattenLocale,
   _rebuildLocale: rebuildLocale,
   _sanitizeString: sanitizeString,
-  _checkRateLimit: checkRateLimit,
   _hasDisallowedKeys: hasDisallowedKeys,
   _handleLanguages: handleLanguages,
   _handleTranslateLocale: handleTranslateLocale

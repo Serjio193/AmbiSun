@@ -12,7 +12,10 @@ The proxy connects to the official **Azure Translator REST API (v3.0)**, handlin
 - **Strict Endpoint Surface**: Only two endpoints are exposed: `GET /languages` and `POST /translate-locale`. All other paths/methods return `404` or `405`.
 - **JSON Key Integrity**: JSON structure and property keys are flattened, text values are translated in batches, and the exact tree structure is rebuilt without translating object keys.
 - **Prototype Pollution Protection**: Keys matching `__proto__`, `prototype`, and `constructor` are strictly blocked.
-- **Abuse & Rate Limiting**: Per-IP token-bucket rate limiting (30 requests/minute/IP) and payload size limit (256 KB).
+- **Cloudflare Rate Limiting Binding**: Distributed rate limiting enforced via official Cloudflare Workers Rate Limiting (`env.TRANSLATION_RATE_LIMITER`):
+  - **Limit**: 30 translation requests per 60 seconds per IP (`CF-Connecting-IP`).
+  - **Fail-Closed**: If the rate limiting binding is unconfigured, requests fail closed with `503 RATE_LIMIT_UNAVAILABLE` rather than allowing unthrottled upstream access.
+  - **IP Spoofing Protection**: `x-real-ip` and client headers are never trusted; only Cloudflare's verified `CF-Connecting-IP` is used.
 - **Edge Caching**:
   - `GET /languages`: Cached at Cloudflare edge for 24 hours (`s-maxage=86400`).
   - `POST /translate-locale`: Cached by SHA-256 hash of canonical request for 7 days (`s-maxage=604800`).
@@ -76,7 +79,34 @@ Translates an English JSON dictionary into the target language while preserving 
 
 ---
 
-## 3. Deployment Instructions
+## 3. Rate Limiting Configuration (`wrangler.jsonc`)
+
+The worker uses Cloudflare Workers native rate limiting:
+
+```jsonc
+{
+  "name": "ambisun-translation-proxy",
+  "main": "src/index.js",
+  "compatibility_date": "2024-04-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "ratelimits": [
+    {
+      "binding": "TRANSLATION_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
+  ]
+}
+```
+
+---
+
+## 4. Deployment Instructions
 
 ### Prerequisites
 1. [Node.js](https://nodejs.org/) (v16+)
@@ -119,7 +149,7 @@ Once deployed, Wrangler will output your worker URL (e.g. `https://ambisun-trans
 
 ---
 
-## 4. Local Development & Testing
+## 5. Local Development & Testing
 
 ```bash
 # 1. Create local development variables file

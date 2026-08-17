@@ -3,7 +3,7 @@ import worker from '../src/index.js';
 
 console.log("=== RUNNING AMBISUN TRANSLATION PROXY TEST SUITE ===");
 
-// Lightweight Node.js mock for Web Request/Response if not globally present (e.g. Node 16/17)
+// Lightweight Node.js mock for Web Request/Response if not globally present
 class MockHeaders {
   constructor(init = {}) {
     this._map = {};
@@ -65,17 +65,38 @@ if (typeof globalThis.Response === 'undefined') {
   globalThis.Response = MockResponse;
 }
 
-const mockEnv = {
-  AZURE_TRANSLATOR_KEY: "dummy_test_key_12345",
-  AZURE_TRANSLATOR_REGION: "westeurope",
-  AZURE_TRANSLATOR_ENDPOINT: "https://api.cognitive.microsofttranslator.com"
-};
+// Mock Cloudflare Rate Limiting binding
+class MockRateLimiter {
+  constructor(limit = 30) {
+    this.limitCount = limit;
+    this.counts = new Map();
+    this.callLog = [];
+  }
+  async limit({ key }) {
+    this.callLog.push(key);
+    const cur = this.counts.get(key) || 0;
+    if (cur >= this.limitCount) {
+      return { success: false };
+    }
+    this.counts.set(key, cur + 1);
+    return { success: true };
+  }
+}
 
 const dummyCtx = {
   waitUntil: function() {}
 };
 
 async function runTests() {
+  const rateLimiter = new MockRateLimiter(30);
+
+  const mockEnv = {
+    AZURE_TRANSLATOR_KEY: "dummy_test_key_12345",
+    AZURE_TRANSLATOR_REGION: "westeurope",
+    AZURE_TRANSLATOR_ENDPOINT: "https://api.cognitive.microsofttranslator.com",
+    TRANSLATION_RATE_LIMITER: rateLimiter
+  };
+
   // TEST 1: flatten & rebuild structure
   const inputLocale = {
     nav: {
@@ -96,7 +117,6 @@ async function runTests() {
   assert.deepStrictEqual(flattened[0].path, ['nav', 'home']);
   assert.strictEqual(flattened[0].text, 'Home');
 
-  // Simulate translations
   flattened[0].translatedText = "Startseite";
   flattened[1].translatedText = "Quellen & Apps";
   flattened[2].translatedText = "Ja";
@@ -157,49 +177,47 @@ async function runTests() {
   console.log("PASS 4: Unsupported routes (404) and methods (405) handled safely");
 
   // TEST 5: POST /translate-locale validation checks
-  // Non-JSON content type
   const reqNoJson = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
+    headers: { 'Content-Type': 'text/plain', 'CF-Connecting-IP': '1.2.3.4' },
     body: "Hello"
   });
   const resNoJson = await worker.fetch(reqNoJson, mockEnv, dummyCtx);
   assert.strictEqual(resNoJson.status, 400);
 
-  // Array instead of object
   const reqArray = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '1.2.3.4' },
     body: JSON.stringify(["not", "an", "object"])
   });
   const resArray = await worker.fetch(reqArray, mockEnv, dummyCtx);
   assert.strictEqual(resArray.status, 400);
 
-  // Non-en source
   const reqBadSource = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '1.2.3.4' },
     body: JSON.stringify({ source: "fr", target: "de", locale: { nav: { home: "Accueil" } } })
   });
   const resBadSource = await worker.fetch(reqBadSource, mockEnv, dummyCtx);
   assert.strictEqual(resBadSource.status, 400);
 
-  // Invalid target
   const reqBadTarget = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '1.2.3.4' },
     body: JSON.stringify({ source: "en", target: "en", locale: { nav: { home: "Home" } } })
   });
   const resBadTarget = await worker.fetch(reqBadTarget, mockEnv, dummyCtx);
   assert.strictEqual(resBadTarget.status, 400);
-
   console.log("PASS 5: POST /translate-locale strict input validation");
 
   // TEST 6: Missing Azure secret on Worker returns 503
-  const envNoSecret = { AZURE_TRANSLATOR_KEY: "" };
+  const envNoSecret = {
+    AZURE_TRANSLATOR_KEY: "",
+    TRANSLATION_RATE_LIMITER: new MockRateLimiter(30)
+  };
   const reqNoSecret = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '10.0.0.1' },
     body: JSON.stringify({ source: "en", target: "de", locale: { nav: { home: "Home" } } })
   });
   const resNoSecret = await worker.fetch(reqNoSecret, envNoSecret, dummyCtx);
@@ -212,7 +230,7 @@ async function runTests() {
   const hugeString = "a".repeat(300 * 1024);
   const reqHuge = new globalThis.Request("https://proxy.example.com/translate-locale", {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': '10.0.0.2' },
     body: hugeString
   });
   const resHuge = await worker.fetch(reqHuge, mockEnv, dummyCtx);
@@ -221,13 +239,81 @@ async function runTests() {
   assert.strictEqual(dataHuge.errorCode, "REQUEST_TOO_LARGE");
   console.log("PASS 7: Oversized requests (> 256 KB) return 413");
 
-  // TEST 8: Rate Limiter Token Bucket
-  const testIp = "192.168.1.100";
-  for (let i = 0; i < 30; i++) {
-    assert.strictEqual(worker._checkRateLimit(testIp), true);
+  // TEST 8: Cloudflare Rate Limiting Binding (First 30 calls allowed, 31st returns 429)
+  const ipRateLimiter = new MockRateLimiter(30);
+  const rateLimitEnv = {
+    AZURE_TRANSLATOR_KEY: "dummy_key",
+    TRANSLATION_RATE_LIMITER: ipRateLimiter
+  };
+  const targetIp = "203.0.113.195";
+
+  for (let i = 1; i <= 30; i++) {
+    const req = new globalThis.Request("https://proxy.example.com/translate-locale", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': targetIp },
+      body: JSON.stringify({ source: "en", target: "de", locale: {} })
+    });
+    const res = await worker.fetch(req, rateLimitEnv, dummyCtx);
+    assert.strictEqual(res.status, 200, `Request ${i} should succeed within limit`);
   }
-  assert.strictEqual(worker._checkRateLimit(testIp), false);
-  console.log("PASS 8: Per-IP rate limiting enforcement");
+
+  // 31st request from same IP must return 429
+  const req31 = new globalThis.Request("https://proxy.example.com/translate-locale", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': targetIp },
+    body: JSON.stringify({ source: "en", target: "de", locale: {} })
+  });
+  const res31 = await worker.fetch(req31, rateLimitEnv, dummyCtx);
+  assert.strictEqual(res31.status, 429, "31st request must be rate limited with HTTP 429");
+  const data31 = await res31.json();
+  assert.strictEqual(data31.errorCode, "RATE_LIMITED");
+  console.log("PASS 8: Cloudflare Rate Limiting binding enforces 30 req/min/IP limit");
+
+  // TEST 9: Different IP has independent limit
+  const otherIp = "198.51.100.22";
+  const reqOther = new globalThis.Request("https://proxy.example.com/translate-locale", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': otherIp },
+    body: JSON.stringify({ source: "en", target: "de", locale: {} })
+  });
+  const resOther = await worker.fetch(reqOther, rateLimitEnv, dummyCtx);
+  assert.strictEqual(resOther.status, 200, "Different IP should not be blocked by another IP's rate limit");
+  console.log("PASS 9: Different IP has independent rate limit count");
+
+  // TEST 10: Missing Rate Limiting Binding -> Fail Closed (503 RATE_LIMIT_UNAVAILABLE)
+  const envNoLimiter = {
+    AZURE_TRANSLATOR_KEY: "dummy_key"
+  };
+  const reqNoLimiter = new globalThis.Request("https://proxy.example.com/translate-locale", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'CF-Connecting-IP': "1.1.1.1" },
+    body: JSON.stringify({ source: "en", target: "de", locale: {} })
+  });
+  const resNoLimiter = await worker.fetch(reqNoLimiter, envNoLimiter, dummyCtx);
+  assert.strictEqual(resNoLimiter.status, 503, "Missing rate limiter binding must fail closed with HTTP 503");
+  const dataNoLimiter = await resNoLimiter.json();
+  assert.strictEqual(dataNoLimiter.errorCode, "RATE_LIMIT_UNAVAILABLE");
+  console.log("PASS 10: Fail-closed behavior when Rate Limiting binding is not configured");
+
+  // TEST 11: Spoofed x-real-ip is ignored; strictly CF-Connecting-IP is used
+  const spoofLimiter = new MockRateLimiter(30);
+  const spoofEnv = {
+    AZURE_TRANSLATOR_KEY: "dummy_key",
+    TRANSLATION_RATE_LIMITER: spoofLimiter
+  };
+  const reqSpoof = new globalThis.Request("https://proxy.example.com/translate-locale", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'CF-Connecting-IP': '100.64.0.1',
+      'x-real-ip': '8.8.8.8', // Attacker attempt to spoof IP
+      'x-forwarded-for': '9.9.9.9'
+    },
+    body: JSON.stringify({ source: "en", target: "de", locale: {} })
+  });
+  await worker.fetch(reqSpoof, spoofEnv, dummyCtx);
+  assert.strictEqual(spoofLimiter.callLog[0], '100.64.0.1', "Limiter must use CF-Connecting-IP and ignore x-real-ip");
+  console.log("PASS 11: Spoofed x-real-ip / x-forwarded-for headers are strictly ignored");
 
   console.log("=== ALL TRANSLATION PROXY TESTS PASSED SUCCESSFULLY ===");
 }

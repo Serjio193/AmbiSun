@@ -5,5 +5,15 @@
   "compatibility_date": "2024-04-01",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "ratelimits": [
+    {
+      "binding": "TRANSLATION_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
+    }
   ]
 }

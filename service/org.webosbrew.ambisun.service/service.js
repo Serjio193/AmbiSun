@@ -949,8 +949,7 @@ service.register("minimizeApp", function (message) {
 var translation = require("./lib/translation");
 
 service.register("getTranslationLanguages", function (message) {
-    var payload = message.payload || {};
-    translation.getTranslationLanguages(payload, function(err, result) {
+    translation.getTranslationLanguages({}, function(err, result) {
         if (err) {
             return message.respond({
                 returnValue: false,
@@ -977,7 +976,8 @@ service.register("getDownloadedLanguages", function (message) {
 
 service.register("getTranslationLocale", function (message) {
     var payload = message.payload || {};
-    translation.getTranslationLocale(payload.language, function(err, result) {
+    var language = String(payload.language || "").trim();
+    translation.getTranslationLocale(language, function(err, result) {
         if (err) {
             return message.respond({
                 returnValue: false,
@@ -991,7 +991,13 @@ service.register("getTranslationLocale", function (message) {
 
 service.register("downloadTranslation", function (message) {
     var payload = message.payload || {};
-    translation.downloadTranslation(payload, function(err, result) {
+    var safeParams = {
+        language: String(payload.language || "").trim(),
+        name: String(payload.name || "").trim(),
+        nativeName: String(payload.nativeName || "").trim(),
+        dir: String(payload.dir || "ltr").trim()
+    };
+    translation.downloadTranslation(safeParams, function(err, result) {
         if (err) {
             return message.respond({
                 returnValue: false,

@@ -1,46 +1,51 @@
 var https = require('https');
-var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
 
-var DEFAULT_PROXY_URL = "https://ambisun-translate.webosbrew.org";
+var TRANSLATION_PROXY_URL = ""; // Unconfigured by default. Must be configured with trusted HTTPS proxy endpoint.
 var STORAGE_DIR_PRIMARY = "/media/internal/ambisun/translations";
-var STORAGE_DIR_FALLBACK = path.join(__dirname, "../data/translations");
 var REQUEST_TIMEOUT_MS = 15000;
 var MAX_RESPONSE_BYTES = 524288; // 512 KB
+var MAX_LANGUAGES_COUNT = 500;
+var MAX_NAME_LENGTH = 100;
 var BUILTIN_LANGUAGES = ['en', 'et', 'uk', 'ru'];
 var LANG_CODE_REGEX = /^[a-z]{2,3}(-[a-z0-9]+)?$/i;
 
-var activeStorageDir = null;
+var customStorageDir = null;
+var customProxyUrl = null;
 
-function getStorageDir() {
-    if (activeStorageDir) return activeStorageDir;
-    try {
-        if (!fs.existsSync(STORAGE_DIR_PRIMARY)) {
-            fs.mkdirSync(STORAGE_DIR_PRIMARY, { recursive: true });
-        }
-        activeStorageDir = STORAGE_DIR_PRIMARY;
-        return activeStorageDir;
-    } catch (_) {
-        try {
-            if (!fs.existsSync(STORAGE_DIR_FALLBACK)) {
-                fs.mkdirSync(STORAGE_DIR_FALLBACK, { recursive: true });
-            }
-            activeStorageDir = STORAGE_DIR_FALLBACK;
-            return activeStorageDir;
-        } catch (e) {
-            activeStorageDir = path.join(__dirname, "../translations");
-            try { fs.mkdirSync(activeStorageDir, { recursive: true }); } catch (_) {}
-            return activeStorageDir;
-        }
+function getTrustedProxyUrl() {
+    if (customProxyUrl !== null) return customProxyUrl;
+    return TRANSLATION_PROXY_URL;
+}
+
+function _setTrustedProxyUrl(urlStr) {
+    customProxyUrl = urlStr;
+}
+
+function _resetTrustedProxyUrl() {
+    customProxyUrl = null;
+}
+
+function getStorageDir(callback) {
+    if (customStorageDir) {
+        return callback(null, customStorageDir);
     }
+    fs.mkdir(STORAGE_DIR_PRIMARY, { recursive: true }, function(err) {
+        if (err && err.code !== 'EEXIST') {
+            return callback(new Error("STORAGE_UNAVAILABLE"));
+        }
+        callback(null, STORAGE_DIR_PRIMARY);
+    });
 }
 
 function setCustomStorageDir(customPath) {
-    activeStorageDir = customPath;
-    try { fs.mkdirSync(customPath, { recursive: true }); } catch (_) {}
+    customStorageDir = customPath;
+    if (customPath) {
+        try { fs.mkdirSync(customPath, { recursive: true }); } catch (_) {}
+    }
 }
 
 function getSourceEnLocale() {
@@ -57,7 +62,6 @@ function getSourceEnLocale() {
             }
         } catch (_) {}
     }
-    // Minimal fallback dictionary if file read fails
     return {
         nav: { home: "Home", sources: "Sources & apps", sun: "Sun & schedule", settings: "Settings", language: "Language", about: "About" },
         common: { yes: "Yes", no: "No", back: "Back", change: "Change", minimize: "Minimize" }
@@ -71,6 +75,12 @@ function getSourceFingerprint(localeObj) {
 
 function isPlainObject(val) {
     return val !== null && typeof val === 'object' && !Array.isArray(val);
+}
+
+function sanitizeString(val) {
+    if (typeof val !== 'string') return '';
+    // Strip control characters (C0 and C1 control blocks) and truncate
+    return val.replace(/[\x00-\x1F\x7F-\x9F]/g, '').trim().slice(0, MAX_NAME_LENGTH);
 }
 
 function extractMissingKeys(source, current) {
@@ -223,8 +233,18 @@ function getTranslationLanguages(options, callback) {
         options = {};
     }
     options = options || {};
-    var proxyUrl = (options.proxyUrl || DEFAULT_PROXY_URL).replace(/\/+$/, '');
-    var languagesEndpoint = proxyUrl + "/languages";
+
+    var proxyUrl = getTrustedProxyUrl();
+    if (!proxyUrl || typeof proxyUrl !== 'string' || !proxyUrl.trim()) {
+        return callback(null, {
+            returnValue: false,
+            errorCode: "TRANSLATION_PROXY_NOT_CONFIGURED",
+            errorText: "Translation proxy endpoint is not configured"
+        });
+    }
+
+    var baseProxy = proxyUrl.trim().replace(/\/+$/, '');
+    var languagesEndpoint = baseProxy + "/languages";
 
     requestJson(languagesEndpoint, 'GET', null, function(err, data) {
         if (err) {
@@ -243,23 +263,28 @@ function getTranslationLanguages(options, callback) {
             });
         }
 
+        var rawList = data.languages.slice(0, MAX_LANGUAGES_COUNT);
         var validLanguages = [];
-        for (var i = 0; i < data.languages.length; i++) {
-            var item = data.languages[i];
+
+        for (var i = 0; i < rawList.length; i++) {
+            var item = rawList[i];
             if (!item || typeof item !== 'object') continue;
             var code = String(item.code || '').trim().toLowerCase();
             if (!code || !LANG_CODE_REGEX.test(code)) continue;
-            if (BUILTIN_LANGUAGES.indexOf(code) !== -1) continue; // Exclude built-in languages
+            if (BUILTIN_LANGUAGES.indexOf(code) !== -1) continue;
+
+            var sanitizedName = sanitizeString(item.name) || code;
+            var sanitizedNative = sanitizeString(item.nativeName) || sanitizedName;
+            var dir = (String(item.dir || 'ltr').toLowerCase() === 'rtl') ? 'rtl' : 'ltr';
 
             validLanguages.push({
                 code: code,
-                name: String(item.name || code).trim(),
-                nativeName: String(item.nativeName || item.name || code).trim(),
-                dir: (String(item.dir || 'ltr').toLowerCase() === 'rtl') ? 'rtl' : 'ltr'
+                name: sanitizedName,
+                nativeName: sanitizedNative,
+                dir: dir
             });
         }
 
-        // Sort alphabetically by name
         validLanguages.sort(function(a, b) {
             return a.name.localeCompare(b.name);
         });
@@ -272,37 +297,42 @@ function getTranslationLanguages(options, callback) {
 }
 
 function getDownloadedLanguages(callback) {
-    var dir = getStorageDir();
-    fs.readdir(dir, function(err, files) {
+    getStorageDir(function(err, dir) {
         if (err) {
             return callback(null, { returnValue: true, downloaded: [] });
         }
 
-        var list = [];
-        files.forEach(function(f) {
-            if (!f.endsWith('.json')) return;
-            var langCode = f.slice(0, -5).toLowerCase();
-            try {
-                var content = fs.readFileSync(path.join(dir, f), 'utf8');
-                var parsed = JSON.parse(content);
-                list.push({
-                    code: langCode,
-                    name: parsed.name || langCode,
-                    nativeName: parsed.nativeName || langCode,
-                    dir: parsed.dir || 'ltr',
-                    updatedAt: parsed.updatedAt || 0,
-                    sourceFingerprint: parsed.sourceFingerprint || ''
-                });
-            } catch (_) {}
-        });
+        fs.readdir(dir, function(readErr, files) {
+            if (readErr) {
+                return callback(null, { returnValue: true, downloaded: [] });
+            }
 
-        list.sort(function(a, b) {
-            return a.name.localeCompare(b.name);
-        });
+            var list = [];
+            files.forEach(function(f) {
+                if (!f.endsWith('.json')) return;
+                var langCode = f.slice(0, -5).toLowerCase();
+                try {
+                    var content = fs.readFileSync(path.join(dir, f), 'utf8');
+                    var parsed = JSON.parse(content);
+                    list.push({
+                        code: langCode,
+                        name: sanitizeString(parsed.name) || langCode,
+                        nativeName: sanitizeString(parsed.nativeName) || langCode,
+                        dir: parsed.dir === 'rtl' ? 'rtl' : 'ltr',
+                        updatedAt: parsed.updatedAt || 0,
+                        sourceFingerprint: parsed.sourceFingerprint || ''
+                    });
+                } catch (_) {}
+            });
 
-        callback(null, {
-            returnValue: true,
-            downloaded: list
+            list.sort(function(a, b) {
+                return a.name.localeCompare(b.name);
+            });
+
+            callback(null, {
+                returnValue: true,
+                downloaded: list
+            });
         });
     });
 }
@@ -312,35 +342,44 @@ function getTranslationLocale(languageCode, callback) {
         return callback(null, { returnValue: false, errorCode: "INVALID_LANGUAGE_CODE" });
     }
     var code = languageCode.trim().toLowerCase();
-    var dir = getStorageDir();
-    var filePath = path.join(dir, code + ".json");
 
-    fs.readFile(filePath, 'utf8', function(err, content) {
+    getStorageDir(function(err, dir) {
         if (err) {
             return callback(null, {
                 returnValue: false,
-                errorCode: "LOCALE_NOT_FOUND",
-                errorText: "Translation for '" + code + "' is not downloaded"
+                errorCode: "STORAGE_UNAVAILABLE",
+                errorText: "Primary translation storage is unavailable"
             });
         }
 
-        try {
-            var parsed = JSON.parse(content);
-            callback(null, {
-                returnValue: true,
-                language: code,
-                name: parsed.name || code,
-                nativeName: parsed.nativeName || code,
-                dir: parsed.dir || 'ltr',
-                locale: parsed.locale || {}
-            });
-        } catch (e) {
-            callback(null, {
-                returnValue: false,
-                errorCode: "INVALID_CACHED_LOCALE",
-                errorText: "Failed to parse cached translation file"
-            });
-        }
+        var filePath = path.join(dir, code + ".json");
+        fs.readFile(filePath, 'utf8', function(fileErr, content) {
+            if (fileErr) {
+                return callback(null, {
+                    returnValue: false,
+                    errorCode: "LOCALE_NOT_FOUND",
+                    errorText: "Translation for '" + code + "' is not downloaded"
+                });
+            }
+
+            try {
+                var parsed = JSON.parse(content);
+                callback(null, {
+                    returnValue: true,
+                    language: code,
+                    name: sanitizeString(parsed.name) || code,
+                    nativeName: sanitizeString(parsed.nativeName) || code,
+                    dir: parsed.dir === 'rtl' ? 'rtl' : 'ltr',
+                    locale: parsed.locale || {}
+                });
+            } catch (e) {
+                callback(null, {
+                    returnValue: false,
+                    errorCode: "INVALID_CACHED_LOCALE",
+                    errorText: "Failed to parse cached translation file"
+                });
+            }
+        });
     });
 }
 
@@ -355,84 +394,178 @@ function downloadTranslation(params, callback) {
         });
     }
 
-    var proxyUrl = (params.proxyUrl || DEFAULT_PROXY_URL).replace(/\/+$/, '');
-    var translateEndpoint = proxyUrl + "/translate-locale";
-    var sourceLocale = getSourceEnLocale();
-    var sourceFingerprint = getSourceFingerprint(sourceLocale);
-    var dir = getStorageDir();
-    var filePath = path.join(dir, targetCode + ".json");
-
-    // Check if cached version exists
-    var cachedData = null;
-    try {
-        if (fs.existsSync(filePath)) {
-            cachedData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        }
-    } catch (_) {}
-
-    if (cachedData && cachedData.locale) {
-        var missingKeys = extractMissingKeys(sourceLocale, cachedData.locale);
-        if (Object.keys(missingKeys).length === 0 && cachedData.sourceFingerprint === sourceFingerprint) {
-            // Complete cache hit: 0 network calls required
+    getStorageDir(function(err, dir) {
+        if (err) {
             return callback(null, {
-                returnValue: true,
-                language: targetCode,
-                name: cachedData.name || targetCode,
-                nativeName: cachedData.nativeName || targetCode,
-                dir: cachedData.dir || 'ltr',
-                locale: cachedData.locale,
-                cached: true
+                returnValue: false,
+                errorCode: "STORAGE_UNAVAILABLE",
+                errorText: "Primary storage is unavailable for saving translation"
             });
         }
 
-        if (Object.keys(missingKeys).length === 0) {
-            // All keys exist, just update fingerprint
-            cachedData.sourceFingerprint = sourceFingerprint;
-            cachedData.updatedAt = Date.now();
-            try { fs.writeFileSync(filePath, JSON.stringify(cachedData, null, 2), 'utf8'); } catch (_) {}
-            return callback(null, {
-                returnValue: true,
-                language: targetCode,
-                name: cachedData.name || targetCode,
-                nativeName: cachedData.nativeName || targetCode,
-                dir: cachedData.dir || 'ltr',
-                locale: cachedData.locale,
-                cached: true
-            });
-        }
+        var filePath = path.join(dir, targetCode + ".json");
+        var sourceLocale = getSourceEnLocale();
+        var sourceFingerprint = getSourceFingerprint(sourceLocale);
 
-        // Incremental update: request only missing keys
-        var incrementalReq = {
-            source: "en",
-            target: targetCode,
-            locale: missingKeys
-        };
+        // Check if cached version exists
+        var cachedData = null;
+        try {
+            if (fs.existsSync(filePath)) {
+                cachedData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+            }
+        } catch (_) {}
 
-        requestJson(translateEndpoint, 'POST', incrementalReq, function(err, resp) {
-            if (err) {
-                // If API call fails but we have cached version, fallback to existing cache with English fill
-                var fallbackLocale = validateAndSanitizeLocale(sourceLocale, cachedData.locale);
+        if (cachedData && cachedData.locale) {
+            var missingKeys = extractMissingKeys(sourceLocale, cachedData.locale);
+            if (Object.keys(missingKeys).length === 0 && cachedData.sourceFingerprint === sourceFingerprint) {
                 return callback(null, {
                     returnValue: true,
                     language: targetCode,
-                    name: cachedData.name || targetCode,
-                    nativeName: cachedData.nativeName || targetCode,
-                    dir: cachedData.dir || 'ltr',
-                    locale: fallbackLocale,
-                    warning: "INCREMENTAL_UPDATE_FAILED_USING_CACHED",
+                    name: sanitizeString(cachedData.name) || targetCode,
+                    nativeName: sanitizeString(cachedData.nativeName) || targetCode,
+                    dir: cachedData.dir === 'rtl' ? 'rtl' : 'ltr',
+                    locale: cachedData.locale,
                     cached: true
                 });
             }
 
-            var incomingMissing = (resp && isPlainObject(resp.locale)) ? resp.locale : {};
-            deepMerge(cachedData.locale, incomingMissing);
-            cachedData.locale = validateAndSanitizeLocale(sourceLocale, cachedData.locale);
-            cachedData.sourceFingerprint = sourceFingerprint;
-            cachedData.updatedAt = Date.now();
-            if (resp.dir) cachedData.dir = (String(resp.dir).toLowerCase() === 'rtl') ? 'rtl' : 'ltr';
+            if (Object.keys(missingKeys).length === 0) {
+                cachedData.sourceFingerprint = sourceFingerprint;
+                cachedData.updatedAt = Date.now();
+                try { fs.writeFileSync(filePath, JSON.stringify(cachedData, null, 2), 'utf8'); } catch (_) {}
+                return callback(null, {
+                    returnValue: true,
+                    language: targetCode,
+                    name: sanitizeString(cachedData.name) || targetCode,
+                    nativeName: sanitizeString(cachedData.nativeName) || targetCode,
+                    dir: cachedData.dir === 'rtl' ? 'rtl' : 'ltr',
+                    locale: cachedData.locale,
+                    cached: true
+                });
+            }
+
+            // Incremental update requires proxy
+            var proxyUrl = getTrustedProxyUrl();
+            if (!proxyUrl || typeof proxyUrl !== 'string' || !proxyUrl.trim()) {
+                // If proxy is not configured but we have cached version, fallback to existing cache with English fill
+                var fallbackLocale = validateAndSanitizeLocale(sourceLocale, cachedData.locale);
+                return callback(null, {
+                    returnValue: true,
+                    language: targetCode,
+                    name: sanitizeString(cachedData.name) || targetCode,
+                    nativeName: sanitizeString(cachedData.nativeName) || targetCode,
+                    dir: cachedData.dir === 'rtl' ? 'rtl' : 'ltr',
+                    locale: fallbackLocale,
+                    warning: "PROXY_NOT_CONFIGURED_USING_CACHED",
+                    cached: true
+                });
+            }
+
+            var baseProxy = proxyUrl.trim().replace(/\/+$/, '');
+            var translateEndpoint = baseProxy + "/translate-locale";
+            var incrementalReq = {
+                source: "en",
+                target: targetCode,
+                locale: missingKeys
+            };
+
+            requestJson(translateEndpoint, 'POST', incrementalReq, function(reqErr, resp) {
+                if (reqErr) {
+                    var fallbackLocale = validateAndSanitizeLocale(sourceLocale, cachedData.locale);
+                    return callback(null, {
+                        returnValue: true,
+                        language: targetCode,
+                        name: sanitizeString(cachedData.name) || targetCode,
+                        nativeName: sanitizeString(cachedData.nativeName) || targetCode,
+                        dir: cachedData.dir === 'rtl' ? 'rtl' : 'ltr',
+                        locale: fallbackLocale,
+                        warning: "INCREMENTAL_UPDATE_FAILED_USING_CACHED",
+                        cached: true
+                    });
+                }
+
+                var incomingMissing = (resp && isPlainObject(resp.locale)) ? resp.locale : {};
+                deepMerge(cachedData.locale, incomingMissing);
+                cachedData.locale = validateAndSanitizeLocale(sourceLocale, cachedData.locale);
+                cachedData.sourceFingerprint = sourceFingerprint;
+                cachedData.updatedAt = Date.now();
+                if (resp.dir) cachedData.dir = (String(resp.dir).toLowerCase() === 'rtl') ? 'rtl' : 'ltr';
+
+                try {
+                    fs.writeFileSync(filePath, JSON.stringify(cachedData, null, 2), 'utf8');
+                } catch (writeErr) {
+                    return callback(null, {
+                        returnValue: false,
+                        errorCode: "CACHE_WRITE_FAILED",
+                        errorText: writeErr.message
+                    });
+                }
+
+                callback(null, {
+                    returnValue: true,
+                    language: targetCode,
+                    name: sanitizeString(cachedData.name) || targetCode,
+                    nativeName: sanitizeString(cachedData.nativeName) || targetCode,
+                    dir: cachedData.dir,
+                    locale: cachedData.locale,
+                    updated: true
+                });
+            });
+            return;
+        }
+
+        // Full download requires proxy
+        var proxyUrl = getTrustedProxyUrl();
+        if (!proxyUrl || typeof proxyUrl !== 'string' || !proxyUrl.trim()) {
+            return callback(null, {
+                returnValue: false,
+                errorCode: "TRANSLATION_PROXY_NOT_CONFIGURED",
+                errorText: "Translation proxy endpoint is not configured"
+            });
+        }
+
+        var baseProxy = proxyUrl.trim().replace(/\/+$/, '');
+        var translateEndpoint = baseProxy + "/translate-locale";
+        var fullReq = {
+            source: "en",
+            target: targetCode,
+            locale: sourceLocale
+        };
+
+        requestJson(translateEndpoint, 'POST', fullReq, function(reqErr, resp) {
+            if (reqErr) {
+                return callback(null, {
+                    returnValue: false,
+                    errorCode: "TRANSLATION_DOWNLOAD_FAILED",
+                    errorText: reqErr.message
+                });
+            }
+
+            if (!resp || !isPlainObject(resp.locale)) {
+                return callback(null, {
+                    returnValue: false,
+                    errorCode: "INVALID_TRANSLATION_RESPONSE",
+                    errorText: "Expected locale object in response"
+                });
+            }
+
+            var validated = validateAndSanitizeLocale(sourceLocale, resp.locale);
+            var dirValue = (String(resp.dir || 'ltr').toLowerCase() === 'rtl') ? 'rtl' : 'ltr';
+            var sanitizedName = sanitizeString(params.name) || targetCode;
+            var sanitizedNative = sanitizeString(params.nativeName) || sanitizedName;
+
+            var saveObj = {
+                language: targetCode,
+                name: sanitizedName,
+                nativeName: sanitizedNative,
+                dir: dirValue,
+                sourceFingerprint: sourceFingerprint,
+                updatedAt: Date.now(),
+                locale: validated
+            };
 
             try {
-                fs.writeFileSync(filePath, JSON.stringify(cachedData, null, 2), 'utf8');
+                fs.writeFileSync(filePath, JSON.stringify(saveObj, null, 2), 'utf8');
             } catch (writeErr) {
                 return callback(null, {
                     returnValue: false,
@@ -444,70 +577,12 @@ function downloadTranslation(params, callback) {
             callback(null, {
                 returnValue: true,
                 language: targetCode,
-                name: cachedData.name || targetCode,
-                nativeName: cachedData.nativeName || targetCode,
-                dir: cachedData.dir || 'ltr',
-                locale: cachedData.locale,
-                updated: true
+                name: saveObj.name,
+                nativeName: saveObj.nativeName,
+                dir: saveObj.dir,
+                locale: validated,
+                downloaded: true
             });
-        });
-        return;
-    }
-
-    // Full initial download
-    var fullReq = {
-        source: "en",
-        target: targetCode,
-        locale: sourceLocale
-    };
-
-    requestJson(translateEndpoint, 'POST', fullReq, function(err, resp) {
-        if (err) {
-            return callback(null, {
-                returnValue: false,
-                errorCode: "TRANSLATION_DOWNLOAD_FAILED",
-                errorText: err.message
-            });
-        }
-
-        if (!resp || !isPlainObject(resp.locale)) {
-            return callback(null, {
-                returnValue: false,
-                errorCode: "INVALID_TRANSLATION_RESPONSE",
-                errorText: "Expected locale object in response"
-            });
-        }
-
-        var validated = validateAndSanitizeLocale(sourceLocale, resp.locale);
-        var dirValue = (String(resp.dir || 'ltr').toLowerCase() === 'rtl') ? 'rtl' : 'ltr';
-        var saveObj = {
-            language: targetCode,
-            name: String(params.name || targetCode).trim(),
-            nativeName: String(params.nativeName || params.name || targetCode).trim(),
-            dir: dirValue,
-            sourceFingerprint: sourceFingerprint,
-            updatedAt: Date.now(),
-            locale: validated
-        };
-
-        try {
-            fs.writeFileSync(filePath, JSON.stringify(saveObj, null, 2), 'utf8');
-        } catch (writeErr) {
-            return callback(null, {
-                returnValue: false,
-                errorCode: "CACHE_WRITE_FAILED",
-                errorText: writeErr.message
-            });
-        }
-
-        callback(null, {
-            returnValue: true,
-            language: targetCode,
-            name: saveObj.name,
-            nativeName: saveObj.nativeName,
-            dir: saveObj.dir,
-            locale: validated,
-            downloaded: true
         });
     });
 }
@@ -517,20 +592,24 @@ function deleteTranslation(languageCode, callback) {
         return callback(null, { returnValue: false, errorCode: "INVALID_LANGUAGE_CODE" });
     }
     var code = languageCode.trim().toLowerCase();
-    var dir = getStorageDir();
-    var filePath = path.join(dir, code + ".json");
-    try {
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
+
+    getStorageDir(function(err, dir) {
+        if (err) {
+            return callback(null, { returnValue: false, errorCode: "STORAGE_UNAVAILABLE" });
         }
-        callback(null, { returnValue: true, language: code });
-    } catch (e) {
-        callback(null, { returnValue: false, errorCode: "DELETE_FAILED", errorText: e.message });
-    }
+        var filePath = path.join(dir, code + ".json");
+        try {
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+            callback(null, { returnValue: true, language: code });
+        } catch (e) {
+            callback(null, { returnValue: false, errorCode: "DELETE_FAILED", errorText: e.message });
+        }
+    });
 }
 
 module.exports = {
-    DEFAULT_PROXY_URL: DEFAULT_PROXY_URL,
     BUILTIN_LANGUAGES: BUILTIN_LANGUAGES,
     getTranslationLanguages: getTranslationLanguages,
     getDownloadedLanguages: getDownloadedLanguages,
@@ -542,6 +621,9 @@ module.exports = {
     _extractMissingKeys: extractMissingKeys,
     _deepMerge: deepMerge,
     _validateAndSanitizeLocale: validateAndSanitizeLocale,
+    _sanitizeString: sanitizeString,
     _setCustomStorageDir: setCustomStorageDir,
+    _setTrustedProxyUrl: _setTrustedProxyUrl,
+    _resetTrustedProxyUrl: _resetTrustedProxyUrl,
     _requestJson: requestJson
 };

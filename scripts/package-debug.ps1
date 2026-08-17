@@ -104,6 +104,24 @@ foreach ($file in $EssentialFiles) {
     }
 }
 
+# 6b. Verify that service/data/en.json and i18n/en.json are strictly identical
+$AppEnJsonPath = Join-Path $RepoRoot "i18n\en.json"
+$ServiceEnJsonPath = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service\data\en.json"
+
+if (-not (Test-Path $AppEnJsonPath)) {
+    throw "Source locale file missing: $AppEnJsonPath"
+}
+if (-not (Test-Path $ServiceEnJsonPath)) {
+    throw "Service source locale file missing: $ServiceEnJsonPath"
+}
+
+$AppEnHash = (Get-FileHash -Path $AppEnJsonPath -Algorithm SHA256).Hash
+$ServiceEnHash = (Get-FileHash -Path $ServiceEnJsonPath -Algorithm SHA256).Hash
+
+if ($AppEnHash -ne $ServiceEnHash) {
+    throw "LOCALE SYNC ERROR: service/org.webosbrew.ambisun.service/data/en.json does not match i18n/en.json. Run sync before packaging."
+}
+
 # 7. Check ares-package availability
 if (-not (Get-Command ares-package.cmd -ErrorAction SilentlyContinue)) {
     throw "ares-package.cmd not found in PATH. Please install webOS CLI and ensure it's in your PATH."

@@ -7,6 +7,13 @@
   let isFirstRunContext = false;
   let cachedLanguagesList = null;
 
+  function clearElement(el) {
+    if (!el) return;
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
   function openOtherLanguages(isFirstRun = false) {
     isFirstRunContext = !!isFirstRun;
     const modal = document.getElementById('otherLanguagesModal');
@@ -25,7 +32,7 @@
       loadingEl.style.display = 'block';
     }
     if (listEl) {
-      listEl.innerHTML = '';
+      clearElement(listEl);
       listEl.style.display = 'block';
     }
 
@@ -50,10 +57,23 @@
     }
   }
 
-  async function loadLanguagesList() {
+  function renderError(msg) {
     const listEl = document.getElementById('otherLanguagesList');
-    const loadingEl = document.getElementById('otherLanguagesLoading');
     const statusLabel = document.getElementById('otherLanguagesStatusLabel');
+    if (statusLabel) statusLabel.textContent = msg;
+    if (listEl) {
+      clearElement(listEl);
+      const errDiv = document.createElement('div');
+      errDiv.style.textAlign = 'center';
+      errDiv.style.padding = '30px';
+      errDiv.style.color = 'var(--danger)';
+      errDiv.textContent = msg;
+      listEl.appendChild(errDiv);
+    }
+  }
+
+  async function loadLanguagesList() {
+    const loadingEl = document.getElementById('otherLanguagesLoading');
 
     if (cachedLanguagesList && cachedLanguagesList.length > 0) {
       if (loadingEl) loadingEl.style.display = 'none';
@@ -74,18 +94,12 @@
       } else {
         if (loadingEl) loadingEl.style.display = 'none';
         const errMsg = (res && (res.errorText || res.errorCode)) || AmbiSun.i18n.t('language.downloadFailed', 'Не удалось загрузить список языков');
-        if (statusLabel) statusLabel.textContent = errMsg;
-        if (listEl) {
-          listEl.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger)">${errMsg}</div>`;
-        }
+        renderError(errMsg);
       }
     } catch (e) {
       if (loadingEl) loadingEl.style.display = 'none';
-      const errMsg = AmbiSun.i18n.t('language.downloadFailed', 'Не удалось загрузить список языков');
-      if (statusLabel) statusLabel.textContent = errMsg;
-      if (listEl) {
-        listEl.innerHTML = `<div style="text-align:center; padding:30px; color:var(--danger)">${errMsg}</div>`;
-      }
+      const errMsg = (e && e.message) || AmbiSun.i18n.t('language.downloadFailed', 'Не удалось загрузить список языков');
+      renderError(errMsg);
     }
   }
 
@@ -93,10 +107,15 @@
     const listEl = document.getElementById('otherLanguagesList');
     if (!listEl) return;
 
-    listEl.innerHTML = '';
+    clearElement(listEl);
 
     if (!languages || languages.length === 0) {
-      listEl.innerHTML = `<div style="text-align:center; padding:30px; color:var(--muted)">${AmbiSun.i18n.t('language.empty', 'Языки не найдены')}</div>`;
+      const emptyDiv = document.createElement('div');
+      emptyDiv.style.textAlign = 'center';
+      emptyDiv.style.padding = '30px';
+      emptyDiv.style.color = 'var(--muted)';
+      emptyDiv.textContent = AmbiSun.i18n.t('language.empty', 'Языки не найдены');
+      listEl.appendChild(emptyDiv);
       return;
     }
 
@@ -112,11 +131,25 @@
       row.setAttribute('role', 'button');
       row.setAttribute('tabindex', '-1');
 
-      row.innerHTML = `
-        <span class="glyph-badge">${lang.code.toUpperCase()}</span>
-        <span style="font-weight:600">${lang.nativeName || lang.name}</span>
-        <span style="color:var(--muted); font-size:16px; margin-left:auto">${lang.name !== lang.nativeName ? lang.name : ''}</span>
-      `;
+      const badgeSpan = document.createElement('span');
+      badgeSpan.className = 'glyph-badge';
+      badgeSpan.textContent = String(lang.code || '').toUpperCase();
+      row.appendChild(badgeSpan);
+
+      const nameSpan = document.createElement('span');
+      nameSpan.style.fontWeight = '600';
+      nameSpan.textContent = String(lang.nativeName || lang.name || lang.code);
+      row.appendChild(nameSpan);
+
+      if (lang.name && lang.name !== lang.nativeName) {
+        const subSpan = document.createElement('span');
+        subSpan.style.color = 'var(--muted)';
+        subSpan.style.fontSize = '16px';
+        subSpan.style.marginLeft = 'auto';
+        subSpan.textContent = String(lang.name);
+        row.appendChild(subSpan);
+      }
+
       frag.appendChild(row);
     });
 
@@ -184,7 +217,7 @@
     } catch (err) {
       if (loadingEl) loadingEl.style.display = 'none';
       if (listEl) listEl.style.display = 'block';
-      const errMsg = AmbiSun.i18n.t('language.downloadFailed', 'Не удалось загрузить перевод');
+      const errMsg = (err && err.message) || AmbiSun.i18n.t('language.downloadFailed', 'Не удалось загрузить перевод');
       if (statusLabel) statusLabel.textContent = errMsg;
     }
   }

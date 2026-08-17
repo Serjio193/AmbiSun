@@ -12,7 +12,8 @@
     "yes": "是",
     "no": "否",
     "back": "返回",
-    "minimize": "最小化"
+    "minimize": "最小化",
+    "retry": "重試"
   },
   "home": {
     "currentState": "目前狀態",
@@ -115,7 +116,8 @@
     "chooseRegion": "選擇地區",
     "chooseCountry": "選擇國家",
     "chooseCity": "選擇城市",
-    "noKeyboard": "無需鍵盤 — 僅使用遙控器"
+    "noKeyboard": "無需鍵盤 — 僅使用遙控器",
+    "apiError": "無法載入資料。請檢查連線。"
   },
   "region": {
     "europe": "歐洲",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "正在復原…",
-    "success": "成功！正在重新啟動…"
+    "success": "成功！正在重新啟動…",
+    "title": "需要存取權限",
+    "desc": "更新應用程式後，必須還原存取權限。請選取下方按鈕以套用 Homebrew Channel 設定。",
+    "button": "還原存取權限"
   }
 }

@@ -12,7 +12,8 @@
     "yes": "Ja",
     "no": "Nein",
     "back": "Zurück",
-    "minimize": "Minimieren"
+    "minimize": "Minimieren",
+    "retry": "Wiederholen"
   },
   "home": {
     "currentState": "Aktueller Status",
@@ -115,7 +116,8 @@
     "chooseRegion": "Region wählen",
     "chooseCountry": "Land wählen",
     "chooseCity": "Stadt wählen",
-    "noKeyboard": "Keine Tastatur — nur Fernbedienung"
+    "noKeyboard": "Keine Tastatur — nur Fernbedienung",
+    "apiError": "Daten konnten nicht geladen werden. Bitte Verbindung prüfen."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Wiederherstellung...",
-    "success": "Erfolgreich! Neustart..."
+    "success": "Erfolgreich! Neustart...",
+    "title": "Zugriffsrechte erforderlich",
+    "desc": "Nach der Aktualisierung der App müssen die Zugriffsrechte wiederhergestellt werden. Wählen Sie die Schaltfläche unten, um die Homebrew Channel-Konfiguration anzuwenden.",
+    "button": "Zugriff wiederherstellen"
   }
 }

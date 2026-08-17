@@ -12,7 +12,8 @@
     "yes": "Tak",
     "no": "Nie",
     "back": "Wstecz",
-    "minimize": "Zminimalizuj"
+    "minimize": "Zminimalizuj",
+    "retry": "Ponów"
   },
   "home": {
     "currentState": "Aktualny stan",
@@ -115,7 +116,8 @@
     "chooseRegion": "Wybierz region",
     "chooseCountry": "Wybierz kraj",
     "chooseCity": "Wybierz miasto",
-    "noKeyboard": "Brak klawiatury — tylko pilot"
+    "noKeyboard": "Brak klawiatury — tylko pilot",
+    "apiError": "Nie udało się załadować danych. Sprawdź połączenie."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Przywracanie...",
-    "success": "Sukces! Ponowne uruchamianie..."
+    "success": "Sukces! Ponowne uruchamianie...",
+    "title": "Wymagane uprawnienia dostępu",
+    "desc": "Po zaktualizowaniu aplikacji należy przywrócić uprawnienia dostępu. Wybierz przycisk poniżej, aby zastosować konfigurację Homebrew Channel.",
+    "button": "Przywróć dostęp"
   }
 }

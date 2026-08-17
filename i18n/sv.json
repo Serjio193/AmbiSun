@@ -12,7 +12,8 @@
     "yes": "Ja",
     "no": "Nej",
     "back": "Tillbaka",
-    "minimize": "Minimera"
+    "minimize": "Minimera",
+    "retry": "Försök igen"
   },
   "home": {
     "currentState": "Aktuell status",
@@ -115,7 +116,8 @@
     "chooseRegion": "Välj en region",
     "chooseCountry": "Välj ett land",
     "chooseCity": "Välj en stad",
-    "noKeyboard": "Inget tangentbord — endast fjärrkontroll"
+    "noKeyboard": "Inget tangentbord — endast fjärrkontroll",
+    "apiError": "Kunde inte ladda data. Kontrollera anslutningen."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Återställer...",
-    "success": "Klart! Startar om..."
+    "success": "Klart! Startar om...",
+    "title": "Åtkomstbehörigheter krävs",
+    "desc": "Efter uppdatering av appen måste åtkomstbehörigheterna återställas. Välj knappen nedan för att tillämpa Homebrew Channel-konfigurationen.",
+    "button": "Återställ åtkomst"
   }
 }

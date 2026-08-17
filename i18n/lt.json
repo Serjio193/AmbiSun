@@ -12,7 +12,8 @@
     "yes": "Taip",
     "no": "Ne",
     "back": "Atgal",
-    "minimize": "Suskleisti"
+    "minimize": "Suskleisti",
+    "retry": "Bandyti dar kartą"
   },
   "home": {
     "currentState": "Dabartinė būsena",
@@ -115,7 +116,8 @@
     "chooseRegion": "Pasirinkite regioną",
     "chooseCountry": "Pasirinkite šalį",
     "chooseCity": "Pasirinkite miestą",
-    "noKeyboard": "Be klaviatūros — tik nuotolinio valdymo pultas"
+    "noKeyboard": "Be klaviatūros — tik nuotolinio valdymo pultas",
+    "apiError": "Nepavyko įkelti duomenų. Patikrinkite ryšį."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Atkuriama...",
-    "success": "Pavyko! Paleidžiama iš naujo..."
+    "success": "Pavyko! Paleidžiama iš naujo...",
+    "title": "Reikalingi prieigos leidimai",
+    "desc": "Atnaujinus programą, būtina atkurti prieigos leidimus. Pasirinkite žemiau esantį mygtuką, kad pritaikytumėte Homebrew Channel konfigūraciją.",
+    "button": "Atkurti prieigą"
   }
 }

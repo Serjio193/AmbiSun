@@ -12,7 +12,8 @@
     "yes": "Jā",
     "no": "Nē",
     "back": "Atpakaļ",
-    "minimize": "Minimizēt"
+    "minimize": "Minimizēt",
+    "retry": "Mēģināt vēlreiz"
   },
   "home": {
     "currentState": "Pašreizējais statuss",
@@ -115,7 +116,8 @@
     "chooseRegion": "Izvēlieties reģionu",
     "chooseCountry": "Izvēlieties valsti",
     "chooseCity": "Izvēlieties pilsētu",
-    "noKeyboard": "Bez tastatūras — tikai tālvadības pults"
+    "noKeyboard": "Bez tastatūras — tikai tālvadības pults",
+    "apiError": "Neizdevās ielādēt datus. Pārbaudiet savienojumu."
   },
   "region": {
     "europe": "Eiropa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Atjauno...",
-    "success": "Veiksmīgi! Restartē..."
+    "success": "Veiksmīgi! Restartē...",
+    "title": "Nepieciešamas piekļuves atļaujas",
+    "desc": "Pēc lietotnes atjaunināšanas ir jāatjauno piekļuves atļaujas. Atlasiet zemāk esošo pogu, lai lietotu Homebrew Channel konfigurāciju.",
+    "button": "Atjaunot piekļuvi"
   }
 }

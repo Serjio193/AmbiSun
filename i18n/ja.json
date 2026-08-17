@@ -12,7 +12,8 @@
     "yes": "はい",
     "no": "いいえ",
     "back": "戻る",
-    "minimize": "最小化"
+    "minimize": "最小化",
+    "retry": "再試行"
   },
   "home": {
     "currentState": "現在の状態",
@@ -115,7 +116,8 @@
     "chooseRegion": "地域を選択",
     "chooseCountry": "国を選択",
     "chooseCity": "都市を選択",
-    "noKeyboard": "キーボードなし — リモコン専用"
+    "noKeyboard": "キーボードなし — リモコン専用",
+    "apiError": "データを読み込めませんでした。接続を確認してください。"
   },
   "region": {
     "europe": "ヨーロッパ",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "復元中…",
-    "success": "完了しました。再起動中…"
+    "success": "完了しました。再起動中…",
+    "title": "アクセス権限が必要です",
+    "desc": "アプリの更新後、アクセス権限を復元する必要があります。下のボタンを選択して Homebrew Channel の設定を適用してください。",
+    "button": "アクセス権を復元"
   }
 }

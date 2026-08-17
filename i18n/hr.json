@@ -12,7 +12,8 @@
     "yes": "Da",
     "no": "Ne",
     "back": "Natrag",
-    "minimize": "Smanji"
+    "minimize": "Smanji",
+    "retry": "Pokušaj ponovo"
   },
   "home": {
     "currentState": "Trenutno stanje",
@@ -115,7 +116,8 @@
     "chooseRegion": "Odaberite regiju",
     "chooseCountry": "Odaberite državu",
     "chooseCity": "Odaberite grad",
-    "noKeyboard": "Bez tipkovnice — samo daljinski upravljač"
+    "noKeyboard": "Bez tipkovnice — samo daljinski upravljač",
+    "apiError": "Učitavanje podataka nije uspjelo. Provjerite vezu."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Vraćanje...",
-    "success": "Uspjeh! Ponovno pokretanje..."
+    "success": "Uspjeh! Ponovno pokretanje...",
+    "title": "Potrebna su dopuštenja za pristup",
+    "desc": "Nakon ažuriranja aplikacije potrebno je vratiti dopuštenja za pristup. Odaberite gumb u nastavku za primjenu konfiguracije Homebrew Channela.",
+    "button": "Vrati pristup"
   }
 }

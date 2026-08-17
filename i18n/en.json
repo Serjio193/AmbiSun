@@ -12,7 +12,8 @@
     "yes": "Yes",
     "no": "No",
     "back": "Back",
-    "minimize": "Minimize"
+    "minimize": "Minimize",
+    "retry": "Retry"
   },
   "home": {
     "currentState": "Current status",
@@ -115,7 +116,8 @@
     "chooseRegion": "Choose a region",
     "chooseCountry": "Choose a country",
     "chooseCity": "Choose a city",
-    "noKeyboard": "No keyboard — remote only"
+    "noKeyboard": "No keyboard — remote only",
+    "apiError": "Failed to load data. Check your connection."
   },
   "region": {
     "europe": "Europe",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Restoring...",
-    "success": "Success! Restarting..."
+    "success": "Success! Restarting...",
+    "title": "Access permissions required",
+    "desc": "After updating the app, access permissions must be restored. Select the button below to apply the Homebrew Channel configuration.",
+    "button": "Restore access"
   }
 }

@@ -12,7 +12,8 @@
     "yes": "Ano",
     "no": "Ne",
     "back": "Zpět",
-    "minimize": "Minimalizovat"
+    "minimize": "Minimalizovat",
+    "retry": "Opakovat"
   },
   "home": {
     "currentState": "Aktuální stav",
@@ -115,7 +116,8 @@
     "chooseRegion": "Vyberte region",
     "chooseCountry": "Vyberte zemi",
     "chooseCity": "Vyberte město",
-    "noKeyboard": "Bez klávesnice — pouze dálkový ovladač"
+    "noKeyboard": "Bez klávesnice — pouze dálkový ovladač",
+    "apiError": "Nepodařilo se načíst data. Zkontrolujte připojení."
   },
   "region": {
     "europe": "Evropa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Obnovování...",
-    "success": "Úspěch! Restartování..."
+    "success": "Úspěch! Restartování...",
+    "title": "Vyžadována přístupová oprávnění",
+    "desc": "Po aktualizaci aplikace je nutné obnovit přístupová oprávnění. Stiskněte tlačítko níže pro použití konfigurace Homebrew Channel.",
+    "button": "Obnovit přístup"
   }
 }

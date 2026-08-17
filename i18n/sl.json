@@ -12,7 +12,8 @@
     "yes": "Da",
     "no": "Ne",
     "back": "Nazaj",
-    "minimize": "Pomanjšaj"
+    "minimize": "Pomanjšaj",
+    "retry": "Poskusi znova"
   },
   "home": {
     "currentState": "Trenutno stanje",
@@ -115,7 +116,8 @@
     "chooseRegion": "Izberite regijo",
     "chooseCountry": "Izberite državo",
     "chooseCity": "Izberite mesto",
-    "noKeyboard": "Brez tipkovnice — samo daljinec"
+    "noKeyboard": "Brez tipkovnice — samo daljinec",
+    "apiError": "Podatkov ni bilo mogoče naložiti. Preverite povezavo."
   },
   "region": {
     "europe": "Evropa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Obnavljanje...",
-    "success": "Uspešno! Ponovni zagon..."
+    "success": "Uspešno! Ponovni zagon...",
+    "title": "Zahtevana so dovoljenja za dostop",
+    "desc": "Po posodobitvi aplikacije je treba obnoviti dovoljenja za dostop. Izberite spodnji gumb za uveljavitev konfiguracije Homebrew Channel.",
+    "button": "Obnovi dostop"
   }
 }

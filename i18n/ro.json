@@ -12,7 +12,8 @@
     "yes": "Da",
     "no": "Nu",
     "back": "Înapoi",
-    "minimize": "Minimizare"
+    "minimize": "Minimizare",
+    "retry": "Reîncearcă"
   },
   "home": {
     "currentState": "Stare actuală",
@@ -115,7 +116,8 @@
     "chooseRegion": "Alegeți o regiune",
     "chooseCountry": "Alegeți o țară",
     "chooseCity": "Alegeți un oraș",
-    "noKeyboard": "Fără tastatură — doar telecomandă"
+    "noKeyboard": "Fără tastatură — doar telecomandă",
+    "apiError": "Eroare la încărcarea datelor. Verificați conexiunea."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Se restaurează...",
-    "success": "Succes! Se repornește..."
+    "success": "Succes! Se repornește...",
+    "title": "Permisiuni de acces necesare",
+    "desc": "După actualizarea aplicației, permisiunile de acces trebuie restaurate. Selectați butonul de mai jos pentru a aplica configurarea Homebrew Channel.",
+    "button": "Restaurează accesul"
   }
 }

@@ -12,7 +12,8 @@
     "yes": "Sì",
     "no": "No",
     "back": "Indietro",
-    "minimize": "Riduci a icona"
+    "minimize": "Riduci a icona",
+    "retry": "Riprova"
   },
   "home": {
     "currentState": "Stato attuale",
@@ -115,7 +116,8 @@
     "chooseRegion": "Scegli una regione",
     "chooseCountry": "Scegli un paese",
     "chooseCity": "Scegli una città",
-    "noKeyboard": "Nessuna tastiera — solo telecomando"
+    "noKeyboard": "Nessuna tastiera — solo telecomando",
+    "apiError": "Impossibile caricare i dati. Verifica la connessione."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Ripristino in corso...",
-    "success": "Operazione riuscita! Riavvio in corso..."
+    "success": "Operazione riuscita! Riavvio in corso...",
+    "title": "Autorizzazioni di accesso richieste",
+    "desc": "Dopo l'aggiornamento dell'app, è necessario ripristinare le autorizzazioni di accesso. Seleziona il pulsante in basso per applicare la configurazione di Homebrew Channel.",
+    "button": "Ripristina accesso"
   }
 }

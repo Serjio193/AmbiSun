@@ -12,7 +12,8 @@
     "yes": "Sí",
     "no": "No",
     "back": "Atrás",
-    "minimize": "Minimizar"
+    "minimize": "Minimizar",
+    "retry": "Reintentar"
   },
   "home": {
     "currentState": "Estado actual",
@@ -115,7 +116,8 @@
     "chooseRegion": "Elegir una región",
     "chooseCountry": "Elegir un país",
     "chooseCity": "Elegir una ciudad",
-    "noKeyboard": "Sin teclado — solo mando a distancia"
+    "noKeyboard": "Sin teclado — solo mando a distancia",
+    "apiError": "Error al cargar los datos. Compruebe la conexión."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Restaurando...",
-    "success": "¡Listo! Reiniciando..."
+    "success": "¡Listo! Reiniciando...",
+    "title": "Permisos de acceso requeridos",
+    "desc": "Tras actualizar la aplicación, es necesario restaurar los permisos de acceso. Seleccione el botón siguiente para aplicar la configuración de Homebrew Channel.",
+    "button": "Restaurar acceso"
   }
 }

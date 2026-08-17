@@ -12,7 +12,8 @@
     "yes": "예",
     "no": "아니요",
     "back": "뒤로",
-    "minimize": "최소화"
+    "minimize": "최소화",
+    "retry": "다시 시도"
   },
   "home": {
     "currentState": "현재 상태",
@@ -115,7 +116,8 @@
     "chooseRegion": "지역 선택",
     "chooseCountry": "국가 선택",
     "chooseCity": "도시 선택",
-    "noKeyboard": "키보드 없음 — 리모컨 전용"
+    "noKeyboard": "키보드 없음 — 리모컨 전용",
+    "apiError": "데이터를 불러오지 못했습니다. 연결 상태를 확인하세요."
   },
   "region": {
     "europe": "유럽",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "복원 중...",
-    "success": "완료! 다시 시작 중..."
+    "success": "완료! 다시 시작 중...",
+    "title": "접근 권한 필요",
+    "desc": "앱을 업데이트한 후에는 접근 권한을 복원해야 합니다. 아래 버튼을 선택하여 Homebrew Channel 설정을 적용하세요.",
+    "button": "접근 권한 복원"
   }
 }

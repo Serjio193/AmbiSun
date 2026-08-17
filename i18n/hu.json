@@ -12,7 +12,8 @@
     "yes": "Igen",
     "no": "Nem",
     "back": "Vissza",
-    "minimize": "Kis méret"
+    "minimize": "Kis méret",
+    "retry": "Újra"
   },
   "home": {
     "currentState": "Jelenlegi állapot",
@@ -115,7 +116,8 @@
     "chooseRegion": "Válasszon régiót",
     "chooseCountry": "Válasszon országot",
     "chooseCity": "Válasszon várost",
-    "noKeyboard": "Nincs billentyűzet — csak távirányító"
+    "noKeyboard": "Nincs billentyűzet — csak távirányító",
+    "apiError": "Nem sikerült betölteni az adatokat. Ellenőrizze a kapcsolatot."
   },
   "region": {
     "europe": "Európa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Visszaállítás...",
-    "success": "Sikeres! Újraindítás..."
+    "success": "Sikeres! Újraindítás...",
+    "title": "Hozzáférési engedélyek szükségesek",
+    "desc": "Az alkalmazás frissítése után a hozzáférési jogosultságokat vissza kell állítani. Válassza az alábbi gombot a Homebrew Channel konfiguráció alkalmazásához.",
+    "button": "Hozzáférés visszaállítása"
   }
 }

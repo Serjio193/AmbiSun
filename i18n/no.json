@@ -12,7 +12,8 @@
     "yes": "Ja",
     "no": "Nei",
     "back": "Tilbake",
-    "minimize": "Minimer"
+    "minimize": "Minimer",
+    "retry": "Prøv igjen"
   },
   "home": {
     "currentState": "Nåværende status",
@@ -115,7 +116,8 @@
     "chooseRegion": "Velg en region",
     "chooseCountry": "Velg et land",
     "chooseCity": "Velg en by",
-    "noKeyboard": "Ikke noe tastatur — kun fjernkontroll"
+    "noKeyboard": "Ikke noe tastatur — kun fjernkontroll",
+    "apiError": "Kunne ikke laste inn data. Sjekk tilkoblingen."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Gjenoppretter...",
-    "success": "Vellykket! Starter på nytt..."
+    "success": "Vellykket! Starter på nytt...",
+    "title": "Tilgangstillatelser kreves",
+    "desc": "Etter oppdatering av appen må tilgangstillatelser gjenopprettes. Velg knappen nedenfor for å bruke Homebrew Channel-konfigurasjonen.",
+    "button": "Gjenopprett tilgang"
   }
 }

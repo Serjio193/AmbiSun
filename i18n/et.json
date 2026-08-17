@@ -12,7 +12,8 @@
     "yes": "Jah",
     "no": "Ei",
     "back": "Tagasi",
-    "minimize": "Minimeeri"
+    "minimize": "Minimeeri",
+    "retry": "Proovi uuesti"
   },
   "home": {
     "currentState": "Hetkeseis",
@@ -115,7 +116,8 @@
     "chooseRegion": "Vali regioon",
     "chooseCountry": "Vali riik",
     "chooseCity": "Vali linn",
-    "noKeyboard": "Klaviatuurita — ainult pult"
+    "noKeyboard": "Klaviatuurita — ainult pult",
+    "apiError": "Andmete laadimine ebaõnnestus. Kontrollige ühendust."
   },
   "region": {
     "europe": "Euroopa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Taastamine...",
-    "success": "Õnnestus! Taaskäivitamine..."
+    "success": "Õnnestus! Taaskäivitamine...",
+    "title": "Vajalikud on juurdepääsuõigused",
+    "desc": "Pärast rakenduse värskendamist tuleb juurdepääsuõigused taastada. Homebrew Channeli konfiguratsiooni rakendamiseks vajutage allolevat nuppu.",
+    "button": "Taasta juurdepääs"
   }
 }

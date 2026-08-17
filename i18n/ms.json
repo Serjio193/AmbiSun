@@ -12,7 +12,8 @@
     "yes": "Ya",
     "no": "Tidak",
     "back": "Kembali",
-    "minimize": "Minimumkan"
+    "minimize": "Minimumkan",
+    "retry": "Cuba lagi"
   },
   "home": {
     "currentState": "Status semasa",
@@ -115,7 +116,8 @@
     "chooseRegion": "Pilih wilayah",
     "chooseCountry": "Pilih negara",
     "chooseCity": "Pilih bandar",
-    "noKeyboard": "Tiada papan kekunci — alat kawalan jauh sahaja"
+    "noKeyboard": "Tiada papan kekunci — alat kawalan jauh sahaja",
+    "apiError": "Gagal memuatkan data. Sila semak sambungan anda."
   },
   "region": {
     "europe": "Eropah",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Memulihkan...",
-    "success": "Berjaya! Memulakan semula..."
+    "success": "Berjaya! Memulakan semula...",
+    "title": "Kebenaran akses diperlukan",
+    "desc": "Selepas mengemas kini aplikasi, kebenaran akses mesti dipulihkan. Pilih butang di bawah untuk menggunakan konfigurasi Homebrew Channel.",
+    "button": "Pulihkan akses"
   }
 }

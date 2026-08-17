@@ -12,7 +12,8 @@
     "yes": "Ya",
     "no": "Tidak",
     "back": "Kembali",
-    "minimize": "Minimalkan"
+    "minimize": "Minimalkan",
+    "retry": "Coba lagi"
   },
   "home": {
     "currentState": "Status saat ini",
@@ -115,7 +116,8 @@
     "chooseRegion": "Pilih wilayah",
     "chooseCountry": "Pilih negara",
     "chooseCity": "Pilih kota",
-    "noKeyboard": "Tanpa keyboard — hanya remote"
+    "noKeyboard": "Tanpa keyboard — hanya remote",
+    "apiError": "Gagal memuat data. Periksa koneksi Anda."
   },
   "region": {
     "europe": "Eropa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Memulihkan...",
-    "success": "Berhasil! Memulai ulang..."
+    "success": "Berhasil! Memulai ulang...",
+    "title": "Izin akses diperlukan",
+    "desc": "Setelah memperbarui aplikasi, izin akses harus dipulihkan. Pilih tombol di bawah untuk menerapkan konfigurasi Homebrew Channel.",
+    "button": "Pulihkan akses"
   }
 }

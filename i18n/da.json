@@ -12,7 +12,8 @@
     "yes": "Ja",
     "no": "Nej",
     "back": "Tilbage",
-    "minimize": "Minimer"
+    "minimize": "Minimer",
+    "retry": "Prøv igen"
   },
   "home": {
     "currentState": "Nuværende status",
@@ -115,7 +116,8 @@
     "chooseRegion": "Vælg en region",
     "chooseCountry": "Vælg et land",
     "chooseCity": "Vælg en by",
-    "noKeyboard": "Intet tastatur — kun fjernbetjening"
+    "noKeyboard": "Intet tastatur — kun fjernbetjening",
+    "apiError": "Kunne ikke indlæse data. Tjek forbindelsen."
   },
   "region": {
     "europe": "Europa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Gendanner...",
-    "success": "Fuldført! Genstarter..."
+    "success": "Fuldført! Genstarter...",
+    "title": "Adgangstilladelser påkrævet",
+    "desc": "Efter opdatering af appen skal adgangstilladelser genoprettes. Vælg knappen nedenfor for at anvende Homebrew Channel-konfigurationen.",
+    "button": "Genopret adgang"
   }
 }

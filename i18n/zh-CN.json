@@ -12,7 +12,8 @@
     "yes": "是",
     "no": "否",
     "back": "返回",
-    "minimize": "最小化"
+    "minimize": "最小化",
+    "retry": "重试"
   },
   "home": {
     "currentState": "当前状态",
@@ -115,7 +116,8 @@
     "chooseRegion": "选择地区",
     "chooseCountry": "选择国家",
     "chooseCity": "选择城市",
-    "noKeyboard": "无需键盘 — 仅使用遥控器"
+    "noKeyboard": "无需键盘 — 仅使用遥控器",
+    "apiError": "无法加载数据。请检查网络连接。"
   },
   "region": {
     "europe": "欧洲",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "正在恢复…",
-    "success": "成功！正在重启…"
+    "success": "成功！正在重启…",
+    "title": "需要访问权限",
+    "desc": "更新应用后，必须恢复访问权限。请选择下方按钮以应用 Homebrew Channel 配置。",
+    "button": "恢复权限"
   }
 }

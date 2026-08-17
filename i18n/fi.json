@@ -12,7 +12,8 @@
     "yes": "Kyllä",
     "no": "Ei",
     "back": "Takaisin",
-    "minimize": "Pienennä"
+    "minimize": "Pienennä",
+    "retry": "Yritä uudelleen"
   },
   "home": {
     "currentState": "Nykyinen tila",
@@ -115,7 +116,8 @@
     "chooseRegion": "Valitse alue",
     "chooseCountry": "Valitse maa",
     "chooseCity": "Valitse kaupunki",
-    "noKeyboard": "Ei näppäimistöä — vain kaukosäädin"
+    "noKeyboard": "Ei näppäimistöä — vain kaukosäädin",
+    "apiError": "Tietojen lataaminen epäonnistui. Tarkista yhteys."
   },
   "region": {
     "europe": "Eurooppa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Palautetaan...",
-    "success": "Onnistui! Käynnistetään uudelleen..."
+    "success": "Onnistui! Käynnistetään uudelleen...",
+    "title": "Käyttöoikeudet vaaditaan",
+    "desc": "Sovelluksen päivittämisen jälkeen käyttöoikeudet on palautettava. Ota Homebrew Channel -määritykset käyttöön valitsemalla alla oleva painike.",
+    "button": "Palauta käyttöoikeudet"
   }
 }

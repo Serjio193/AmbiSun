@@ -12,7 +12,8 @@
     "yes": "Có",
     "no": "Không",
     "back": "Quay lại",
-    "minimize": "Thu nhỏ"
+    "minimize": "Thu nhỏ",
+    "retry": "Thử lại"
   },
   "home": {
     "currentState": "Trạng thái hiện tại",
@@ -115,7 +116,8 @@
     "chooseRegion": "Chọn một khu vực",
     "chooseCountry": "Chọn một quốc gia",
     "chooseCity": "Chọn một thành phố",
-    "noKeyboard": "Không có bàn phím — chỉ dùng điều khiển từ xa"
+    "noKeyboard": "Không có bàn phím — chỉ dùng điều khiển từ xa",
+    "apiError": "Không thể tải dữ liệu. Vui lòng kiểm tra kết nối."
   },
   "region": {
     "europe": "Châu Âu",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Đang khôi phục...",
-    "success": "Thành công! Đang khởi động lại..."
+    "success": "Thành công! Đang khởi động lại...",
+    "title": "Yêu cầu quyền truy cập",
+    "desc": "Sau khi cập nhật ứng dụng, quyền truy cập phải được khôi phục. Chọn nút bên dưới để áp dụng cấu hình Homebrew Channel.",
+    "button": "Khôi phục quyền truy cập"
   }
 }

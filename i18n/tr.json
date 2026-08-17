@@ -12,7 +12,8 @@
     "yes": "Evet",
     "no": "Hayır",
     "back": "Geri",
-    "minimize": "Simge durumuna küçült"
+    "minimize": "Simge durumuna küçült",
+    "retry": "Tekrar dene"
   },
   "home": {
     "currentState": "Mevcut durum",
@@ -115,7 +116,8 @@
     "chooseRegion": "Bir bölge seçin",
     "chooseCountry": "Bir ülke seçin",
     "chooseCity": "Bir şehir seçin",
-    "noKeyboard": "Klavye yok — sadece uzaktan kumanda"
+    "noKeyboard": "Klavye yok — sadece uzaktan kumanda",
+    "apiError": "Veriler yüklenemedi. Bağlantınızı kontrol edin."
   },
   "region": {
     "europe": "Avrupa",
@@ -141,6 +143,9 @@
   },
   "elevation": {
     "restoring": "Geri yükleniyor...",
-    "success": "Başarılı! Yeniden başlatılıyor..."
+    "success": "Başarılı! Yeniden başlatılıyor...",
+    "title": "Erişim izinleri gerekiyor",
+    "desc": "Uygulama güncellendikten sonra erişim izinlerinin geri yüklenmesi gerekir. Homebrew Channel yapılandırmasını uygulamak için aşağıdaki düğmeyi seçin.",
+    "button": "Erişimi geri yükle"
   }
 }

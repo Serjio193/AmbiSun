@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "เปลี่ยน",
-    "yes": "ใช่",
-    "no": "ไม่",
     "back": "ย้อนกลับ",
     "minimize": "ย่อเล็กสุด",
     "retry": "ลองใหม่อีกครั้ง"
@@ -29,25 +27,16 @@
     "sunrise": "พระอาทิตย์ขึ้น",
     "sunsetOffset": "เปิดโดยสัมพันธ์กับพระอาทิตย์ตก",
     "sunriseOffset": "ปิดโดยสัมพันธ์กับพระอาทิตย์ขึ้น",
-    "localSchedule": "กำหนดการคำนวณในอุปกรณ์และทำงานทุกวัน",
-    "todaySunset": "พระอาทิตย์ตกวันนี้",
-    "ambilightOn": "Ambilight เปิด",
-    "tomorrowSunrise": "พระอาทิตย์ขึ้นพรุ่งนี้"
+    "localSchedule": "กำหนดการคำนวณในอุปกรณ์และทำงานทุกวัน"
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "ภาษา",
-    "autostart": "เริ่มทำงานพร้อมทีวี",
     "defaultRule": "กฎเริ่มต้นสำหรับแอปใหม่",
-    "test": "ทดสอบ Ambilight 5 วินาที",
-    "plasma": "พื้นหลังพลาสมา HyperHDR · นุ่มนวล",
-    "advanced": "การตั้งค่าขั้นสูง",
     "reset": "รีเซ็ตการตั้งค่า",
     "saved": "บันทึกการตั้งค่าแล้ว"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "ที่อยู่เซิร์ฟเวอร์:",
     "port": "พอร์ต:",
     "test": "ทดสอบ",
@@ -56,18 +45,7 @@
     "testing": "กำลังทดสอบการเชื่อมต่อ...",
     "available": "HyperHDR พร้อมใช้งาน",
     "unavailable": "ไม่พร้อมใช้งาน",
-    "connected": "เชื่อมต่อแล้ว",
     "invalid": "ที่อยู่หรือพอร์ตไม่ถูกต้อง"
-  },
-  "language": {
-    "system": "เหมือนกับทีวี",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "เวอร์ชัน",
@@ -78,15 +56,12 @@
     "available": "มีการอัปเดตใหม่",
     "install": "ติดตั้งการอัปเดต",
     "preparing": "กำลังเตรียมการอัปเดต…",
-    "downloading": "กำลังดาวน์โหลดและตรวจสอบแพ็กเกจ…",
     "installing": "กำลังติดตั้งการอัปเดต…",
     "restart": "AmbiSun จะรีสตาร์ทโดยอัตโนมัติ",
-    "failed": "การอัปเดตล้มเหลว: ",
-    "upToDate": "แอปเป็นเวอร์ชันล่าสุดแล้ว"
+    "failed": "การอัปเดตล้มเหลว: "
   },
   "support": {
     "title": "❤ สนับสนุนโครงการ",
-    "subtitle": "รายละเอียดการสนับสนุนจาก Legacy Bridge",
     "scan": "สแกนคิวอาร์โค้ดด้วยโทรศัพท์ของคุณ"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "ปิดตลอดเวลา"
   },
   "toast": {
-    "locationTodo": "TODO API: ตัวช่วยสร้างประเทศ / เมือง",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "ทดสอบ Ambilight: 5 วินาที",
-    "advancedTodo": "TODO: การตั้งค่าขั้นสูง",
     "reset": "รีเซ็ตการตั้งค่าต้นแบบแล้ว",
-    "updateOk": "ตรวจสอบ GitHub Releases แล้ว — เวอร์ชัน 1.0.0 เป็นปัจจุบัน",
     "openGithub": "กำลังเปิด GitHub",
     "resetting": "กำลังรีเซ็ตการตั้งค่า…",
     "saving": "กำลังบันทึก…"
@@ -112,11 +82,9 @@
     "stepCountry": "ประเทศ",
     "stepCity": "เมือง",
     "detectedLead": "ประเทศที่ตรวจพบตาม IP:",
-    "isCountryCorrect": "คุณอยู่ในประเทศนี้หรือไม่?",
     "chooseRegion": "เลือกภูมิภาค",
     "chooseCountry": "เลือกประเทศ",
     "chooseCity": "เลือกเมือง",
-    "noKeyboard": "ไม่มีแป้นพิมพ์ — ใช้รีโมตเท่านั้น",
     "apiError": "โหลดข้อมูลไม่สำเร็จ โปรดตรวจสอบการเชื่อมต่อของคุณ"
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "อเมริกาใต้",
     "oceania": "โอเชียเนีย"
   },
-  "firstRun": {
-    "chooseLanguage": "เลือกภาษา",
-    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังที่ การตั้งค่า"
-  },
-  "status": {
-    "waiting": "กำลังรอ..."
-  },
   "error": {
-    "revisionConflict": "เกิดข้อขัดแย้งของการตั้งค่า! กำลังอัปเดต...",
     "saveFailed": "บันทึกล้มเหลว: ",
     "connection": "ข้อผิดพลาดในการเชื่อมต่อ",
-    "elevationFailed": "ข้อผิดพลาด: ไม่สามารถรับสิทธิ์การเข้าถึง",
     "minimizeFailed": "ไม่สามารถย่อแอปพลิเคชันได้"
   },
   "elevation": {

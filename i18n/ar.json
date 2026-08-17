@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "تغيير",
-    "yes": "نعم",
-    "no": "لا",
     "back": "رجوع",
     "minimize": "تصغير",
     "retry": "إعادة المحاولة"
@@ -29,25 +27,16 @@
     "sunrise": "شروق الشمس",
     "sunsetOffset": "التشغيل بالنسبة لغروب الشمس",
     "sunriseOffset": "الإيقاف بالنسبة لشروق الشمس",
-    "localSchedule": "يتم حساب الجدول محليًا وتطبيقه يوميًا.",
-    "todaySunset": "غروب الشمس اليوم",
-    "ambilightOn": "Ambilight مشغّل",
-    "tomorrowSunrise": "شروق الشمس غدًا"
+    "localSchedule": "يتم حساب الجدول محليًا وتطبيقه يوميًا."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "اللغة",
-    "autostart": "التشغيل مع التلفاز",
     "defaultRule": "القاعدة الافتراضية للتطبيقات الجديدة",
-    "test": "اختبار Ambilight لمدة 5 ثوانٍ",
-    "plasma": "خلفية بلازما HyperHDR · سلسة",
-    "advanced": "إعدادات متقدمة",
     "reset": "إعادة ضبط الإعدادات",
     "saved": "تم حفظ الإعدادات"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "عنوان الخادم:",
     "port": "المنفذ:",
     "test": "اختبار",
@@ -56,18 +45,7 @@
     "testing": "جارٍ اختبار الاتصال...",
     "available": "HyperHDR متاح",
     "unavailable": "غير متاح",
-    "connected": "متصل",
     "invalid": "عنوان أو منفذ غير صالح"
-  },
-  "language": {
-    "system": "نفس لغة التلفاز",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "الإصدار",
@@ -78,15 +56,12 @@
     "available": "تحديث متاح",
     "install": "تثبيت التحديث",
     "preparing": "جارٍ إعداد التحديث…",
-    "downloading": "جارٍ تنزيل الحزمة والتحقق منها…",
     "installing": "جارٍ تثبيت التحديث…",
     "restart": "سيتم إعادة تشغيل AmbiSun تلقائيًا.",
-    "failed": "فشل التحديث: ",
-    "upToDate": "التطبيق محدث إلى آخر إصدار"
+    "failed": "فشل التحديث: "
   },
   "support": {
     "title": "❤ دعم المشروع",
-    "subtitle": "تفاصيل الدعم من Legacy Bridge",
     "scan": "امسح رمز QR بهاتفك"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "إيقاف دائمًا"
   },
   "toast": {
-    "locationTodo": "TODO API: معالج الدولة / المدينة",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "اختبار Ambilight: 5 ثوانٍ",
-    "advancedTodo": "TODO: إعدادات متقدمة",
     "reset": "تمت إعادة تعيين إعدادات النموذج الأولي",
-    "updateOk": "تم التحقق من GitHub Releases — الإصدار 1.0.0 هو الأحدث",
     "openGithub": "جارٍ فتح GitHub",
     "resetting": "جارٍ إعادة ضبط الإعدادات…",
     "saving": "جارٍ الحفظ…"
@@ -112,11 +82,9 @@
     "stepCountry": "الدولة",
     "stepCity": "المدينة",
     "detectedLead": "الدولة المحددة عبر IP:",
-    "isCountryCorrect": "هل أنت في هذه الدولة؟",
     "chooseRegion": "اختر المنطقة",
     "chooseCountry": "اختر الدولة",
     "chooseCity": "اختر المدينة",
-    "noKeyboard": "لا توجد لوحة مفاتيح — جهاز التحكم عن بُعد فقط",
     "apiError": "فشل تحميل البيانات. تحقق من الاتصال."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "أمريكا الجنوبية",
     "oceania": "أوقيانوسيا"
   },
-  "firstRun": {
-    "chooseLanguage": "اختر اللغة",
-    "languageHint": "يمكنك تغيير اللغة لاحقًا في الإعدادات."
-  },
-  "status": {
-    "waiting": "جارٍ الانتظار..."
-  },
   "error": {
-    "revisionConflict": "تعارض في الإعدادات! جارٍ التحديث...",
     "saveFailed": "فشل الحفظ: ",
     "connection": "خطأ في الاتصال",
-    "elevationFailed": "خطأ: فشل في الحصول على الأذونات",
     "minimizeFailed": "فشل في تصغير التطبيق"
   },
   "elevation": {

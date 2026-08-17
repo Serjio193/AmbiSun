@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Thay đổi",
-    "yes": "Có",
-    "no": "Không",
     "back": "Quay lại",
     "minimize": "Thu nhỏ",
     "retry": "Thử lại"
@@ -29,25 +27,16 @@
     "sunrise": "Bình minh",
     "sunsetOffset": "Bật theo thời gian hoàng hôn",
     "sunriseOffset": "Tắt theo thời gian bình minh",
-    "localSchedule": "Lịch trình được tính toán cục bộ và áp dụng hàng ngày.",
-    "todaySunset": "Hoàng hôn hôm nay",
-    "ambilightOn": "Ambilight BẬT",
-    "tomorrowSunrise": "Bình minh ngày mai"
+    "localSchedule": "Lịch trình được tính toán cục bộ và áp dụng hàng ngày."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Ngôn ngữ",
-    "autostart": "Khởi động cùng TV",
     "defaultRule": "Quy tắc mặc định cho ứng dụng mới",
-    "test": "Kiểm tra Ambilight trong 5 giây",
-    "plasma": "Nền Plasma HyperHDR · Mượt mà",
-    "advanced": "Cài đặt nâng cao",
     "reset": "Đặt lại cài đặt",
     "saved": "Đã lưu cài đặt"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Địa chỉ máy chủ:",
     "port": "Cổng:",
     "test": "Kiểm tra",
@@ -56,18 +45,7 @@
     "testing": "Đang kiểm tra kết nối...",
     "available": "HyperHDR khả dụng",
     "unavailable": "Không khả dụng",
-    "connected": "Đã kết nối",
     "invalid": "Địa chỉ hoặc cổng không hợp lệ"
-  },
-  "language": {
-    "system": "Giống như TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Phiên bản",
@@ -78,15 +56,12 @@
     "available": "Có bản cập nhật mới",
     "install": "Cài đặt bản cập nhật",
     "preparing": "Đang chuẩn bị cập nhật…",
-    "downloading": "Đang tải xuống và xác minh gói…",
     "installing": "Đang cài đặt bản cập nhật…",
     "restart": "AmbiSun sẽ tự động khởi động lại.",
-    "failed": "Cập nhật thất bại: ",
-    "upToDate": "Ứng dụng đã được cập nhật"
+    "failed": "Cập nhật thất bại: "
   },
   "support": {
     "title": "❤ Ủng hộ dự án",
-    "subtitle": "Chi tiết ủng hộ từ Legacy Bridge",
     "scan": "Quét mã QR bằng điện thoại của bạn"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Luôn TẮT"
   },
   "toast": {
-    "locationTodo": "TODO API: trình hướng dẫn quốc gia / thành phố",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Kiểm tra Ambilight: 5 giây",
-    "advancedTodo": "TODO: cài đặt nâng cao",
     "reset": "Đã đặt lại cài đặt nguyên mẫu",
-    "updateOk": "Đã kiểm tra GitHub Releases — phiên bản 1.0.0 là mới nhất",
     "openGithub": "Đang mở GitHub",
     "resetting": "Đang đặt lại cài đặt…",
     "saving": "Đang lưu…"
@@ -112,11 +82,9 @@
     "stepCountry": "Quốc gia",
     "stepCity": "Thành phố",
     "detectedLead": "Quốc gia phát hiện qua IP:",
-    "isCountryCorrect": "Bạn có ở quốc gia này không?",
     "chooseRegion": "Chọn một khu vực",
     "chooseCountry": "Chọn một quốc gia",
     "chooseCity": "Chọn một thành phố",
-    "noKeyboard": "Không có bàn phím — chỉ dùng điều khiển từ xa",
     "apiError": "Không thể tải dữ liệu. Vui lòng kiểm tra kết nối."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Nam Mỹ",
     "oceania": "Châu Đại Dương"
   },
-  "firstRun": {
-    "chooseLanguage": "Chọn một ngôn ngữ",
-    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong phần Cài đặt."
-  },
-  "status": {
-    "waiting": "Đang chờ..."
-  },
   "error": {
-    "revisionConflict": "Xung đột cấu hình! Đang cập nhật...",
     "saveFailed": "Lưu thất bại: ",
     "connection": "Lỗi kết nối",
-    "elevationFailed": "Lỗi: Không thể lấy quyền truy cập",
     "minimizeFailed": "Không thể thu nhỏ ứng dụng"
   },
   "elevation": {

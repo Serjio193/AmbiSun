@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Muuda",
-    "yes": "Jah",
-    "no": "Ei",
     "back": "Tagasi",
     "minimize": "Minimeeri",
     "retry": "Proovi uuesti"
@@ -29,25 +27,16 @@
     "sunrise": "Päikesetõus",
     "sunsetOffset": "Sisselülitus loojangu suhtes",
     "sunriseOffset": "Väljalülitus tõusu suhtes",
-    "localSchedule": "Ajakava arvutatakse kohapeal ja rakendatakse iga päev.",
-    "todaySunset": "Päikeseloojang täna",
-    "ambilightOn": "Ambilight SEES",
-    "tomorrowSunrise": "Päikesetõus homme"
+    "localSchedule": "Ajakava arvutatakse kohapeal ja rakendatakse iga päev."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Keel",
-    "autostart": "Käivita koos teleriga",
     "defaultRule": "Vaikereegel uutele rakendustele",
-    "test": "Testi Ambilighti 5 sekundit",
-    "plasma": "HyperHDR Plasma taust · Sujuv",
-    "advanced": "Täpsemad seaded",
     "reset": "Lähtesta seaded",
     "saved": "Seaded salvestatud"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Serveri aadress:",
     "port": "Port:",
     "test": "Testi",
@@ -56,18 +45,7 @@
     "testing": "Ühenduse kontrollimine...",
     "available": "HyperHDR on saadaval",
     "unavailable": "Pole saadaval",
-    "connected": "Ühendatud",
     "invalid": "Vigane aadress või port"
-  },
-  "language": {
-    "system": "Sama mis teleril",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versioon",
@@ -78,15 +56,12 @@
     "available": "Uuendus on saadaval",
     "install": "Paigalda uuendus",
     "preparing": "Uuenduse ettevalmistamine…",
-    "downloading": "Paketi allalaadimine ja kontroll…",
     "installing": "Uuenduse paigaldamine…",
     "restart": "AmbiSun taaskäivitub automaatselt.",
-    "failed": "Uuendamine ebaõnnestus: ",
-    "upToDate": "Rakendus on ajakohane"
+    "failed": "Uuendamine ebaõnnestus: "
   },
   "support": {
     "title": "❤ Toeta projekti",
-    "subtitle": "Toetuse info Legacy Bridge'ilt",
     "scan": "Skanni QR-kood telefoniga"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Alati VÄLJAS"
   },
   "toast": {
-    "locationTodo": "TODO API: riigi / linna viisard",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilighti test: 5 sekundit",
-    "advancedTodo": "TODO: täpsemad seaded",
     "reset": "Prototüübi seaded lähtestatud",
-    "updateOk": "GitHub Releases kontrollitud — versioon 1.0.0 on aktuaalne",
     "openGithub": "GitHubi avamine",
     "resetting": "Seadete lähtestamine…",
     "saving": "Salvestamine…"
@@ -112,11 +82,9 @@
     "stepCountry": "Riik",
     "stepCity": "Linn",
     "detectedLead": "IP järgi tuvastatud riik:",
-    "isCountryCorrect": "Kas asute selles riigis?",
     "chooseRegion": "Vali regioon",
     "chooseCountry": "Vali riik",
     "chooseCity": "Vali linn",
-    "noKeyboard": "Klaviatuurita — ainult pult",
     "apiError": "Andmete laadimine ebaõnnestus. Kontrollige ühendust."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Lõuna-Ameerika",
     "oceania": "Okeaania"
   },
-  "firstRun": {
-    "chooseLanguage": "Vali keel",
-    "languageHint": "Keelt saab hiljem Seadetes muuta."
-  },
-  "status": {
-    "waiting": "Ootel..."
-  },
   "error": {
-    "revisionConflict": "Seadistuste konflikt! Uuendamine...",
     "saveFailed": "Salvestamine ebaõnnestus: ",
     "connection": "Ühenduse viga",
-    "elevationFailed": "Viga: Õiguste hankimine ebaõnnestus",
     "minimizeFailed": "Rakenduse minimeerimine ebaõnnestus"
   },
   "elevation": {

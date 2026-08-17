@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Αλλαγή",
-    "yes": "Ναι",
-    "no": "Όχι",
     "back": "Πίσω",
     "minimize": "Ελαχιστοποίηση",
     "retry": "Δοκιμάστε ξανά"
@@ -29,25 +27,16 @@
     "sunrise": "Ανατολή",
     "sunsetOffset": "Ενεργοποίηση σε σχέση με τη δύση",
     "sunriseOffset": "Απενεργοποίηση σε σχέση με την ανατολή",
-    "localSchedule": "Το πρόγραμμα υπολογίζεται τοπικά και εφαρμόζεται καθημερινά.",
-    "todaySunset": "Δύση σήμερα",
-    "ambilightOn": "Ambilight ΕΝΕΡΓΟ",
-    "tomorrowSunrise": "Ανατολή αύριο"
+    "localSchedule": "Το πρόγραμμα υπολογίζεται τοπικά και εφαρμόζεται καθημερινά."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Γλώσσα",
-    "autostart": "Εκκίνηση με την τηλεόραση",
     "defaultRule": "Προεπιλεγμένος κανόνας για νέες εφαρμογές",
-    "test": "Δοκιμή Ambilight για 5 δευτερόλεπτα",
-    "plasma": "Φόντο Plasma HyperHDR · Ομαλό",
-    "advanced": "Σύνθετες ρυθμίσεις",
     "reset": "Επαναφορά ρυθμίσεων",
     "saved": "Οι ρυθμίσεις αποθηκεύτηκαν"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Διεύθυνση διακομιστή:",
     "port": "Θύρα:",
     "test": "Δοκιμή",
@@ -56,18 +45,7 @@
     "testing": "Έλεγχος σύνδεσης...",
     "available": "Το HyperHDR είναι διαθέσιμο",
     "unavailable": "Μη διαθέσιμο",
-    "connected": "Συνδέθηκε",
     "invalid": "Μη έγκυρη διεύθυνση ή θύρα"
-  },
-  "language": {
-    "system": "Ίδια με την τηλεόραση",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Έκδοση",
@@ -78,15 +56,12 @@
     "available": "Διαθέσιμη ενημέρωση",
     "install": "Εγκατάσταση ενημέρωσης",
     "preparing": "Προετοιμασία ενημέρωσης…",
-    "downloading": "Λήψη και επαλήθευση πακέτου…",
     "installing": "Εγκατάσταση ενημέρωσης…",
     "restart": "Το AmbiSun θα επανεκκινηθεί αυτόματα.",
-    "failed": "Η ενημέρωση απέτυχε: ",
-    "upToDate": "Η εφαρμογή είναι ενημερωμένη"
+    "failed": "Η ενημέρωση απέτυχε: "
   },
   "support": {
     "title": "❤ Υποστηρίξτε το έργο",
-    "subtitle": "Στοιχεία υποστήριξης από το Legacy Bridge",
     "scan": "Σαρώστε τον κωδικό QR με το τηλέφωνό σας"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Πάντα ΑΝΕΝΕΡΓΟ"
   },
   "toast": {
-    "locationTodo": "TODO API: οδηγός χώρας / πόλης",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Δοκιμή Ambilight: 5 δευτερόλεπτα",
-    "advancedTodo": "TODO: σύνθετες ρυθμίσεις",
     "reset": "Έγινε επαναφορά ρυθμίσεων πρωτοτύπου",
-    "updateOk": "Έλεγχος GitHub Releases — η έκδοση 1.0.0 είναι η τρέχουσα",
     "openGithub": "Άνοιγμα GitHub",
     "resetting": "Επαναφορά ρυθμίσεων…",
     "saving": "Αποθήκευση…"
@@ -112,11 +82,9 @@
     "stepCountry": "Χώρα",
     "stepCity": "Πόλη",
     "detectedLead": "Χώρα που εντοπίστηκε μέσω IP:",
-    "isCountryCorrect": "Βρίσκεστε σε αυτή τη χώρα;",
     "chooseRegion": "Επιλέξτε περιοχή",
     "chooseCountry": "Επιλέξτε χώρα",
     "chooseCity": "Επιλέξτε πόλη",
-    "noKeyboard": "Χωρίς πληκτρολόγιο — μόνο τηλεχειριστήριο",
     "apiError": "Αποτυχία φόρτωσης δεδομένων. Ελέγξτε τη σύνδεσή σας."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Νότια Αμερική",
     "oceania": "Ωκεανία"
   },
-  "firstRun": {
-    "chooseLanguage": "Επιλέξτε γλώσσα",
-    "languageHint": "Μπορείτε να αλλάξετε τη γλώσσα αργότερα στις Ρυθμίσεις."
-  },
-  "status": {
-    "waiting": "Αναμονή..."
-  },
   "error": {
-    "revisionConflict": "Διένεξη ρυθμίσεων! Ενημέρωση...",
     "saveFailed": "Η αποθήκευση απέτυχε: ",
     "connection": "Σφάλμα σύνδεσης",
-    "elevationFailed": "Σφάλμα: Αποτυχία λήψης δικαιωμάτων",
     "minimizeFailed": "Αποτυχία ελαχιστοποίησης της εφαρμογής"
   },
   "elevation": {

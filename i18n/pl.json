@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Zmień",
-    "yes": "Tak",
-    "no": "Nie",
     "back": "Wstecz",
     "minimize": "Zminimalizuj",
     "retry": "Ponów"
@@ -29,25 +27,16 @@
     "sunrise": "Wschód słońca",
     "sunsetOffset": "Włączanie względem zachodu słońca",
     "sunriseOffset": "Wyłączanie względem wschodu słońca",
-    "localSchedule": "Harmonogram jest obliczany lokalnie i stosowany codziennie.",
-    "todaySunset": "Zachód słońca dzisiaj",
-    "ambilightOn": "Ambilight WŁĄCZONY",
-    "tomorrowSunrise": "Wschód słońca jutro"
+    "localSchedule": "Harmonogram jest obliczany lokalnie i stosowany codziennie."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Język",
-    "autostart": "Uruchamiaj z TV",
     "defaultRule": "Domyślna reguła dla nowych aplikacji",
-    "test": "Testuj Ambilight przez 5 sekund",
-    "plasma": "Tło plazmowe HyperHDR · Płynne",
-    "advanced": "Ustawienia zaawansowane",
     "reset": "Resetuj ustawienia",
     "saved": "Ustawienia zapisane"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Adres serwera:",
     "port": "Port:",
     "test": "Testuj",
@@ -56,18 +45,7 @@
     "testing": "Testowanie połączenia...",
     "available": "HyperHDR dostępny",
     "unavailable": "Niedostępny",
-    "connected": "Połączono",
     "invalid": "Nieprawidłowy adres lub port"
-  },
-  "language": {
-    "system": "Taki jak w TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Wersja",
@@ -78,15 +56,12 @@
     "available": "Dostępna aktualizacja",
     "install": "Zainstaluj aktualizację",
     "preparing": "Przygotowywanie aktualizacji…",
-    "downloading": "Pobieranie i weryfikacja pakietu…",
     "installing": "Instalowanie aktualizacji…",
     "restart": "AmbiSun uruchomi się ponownie automatycznie.",
-    "failed": "Aktualizacja nie powiodła się: ",
-    "upToDate": "Aplikacja jest aktualna"
+    "failed": "Aktualizacja nie powiodła się: "
   },
   "support": {
     "title": "❤ Wesprzyj projekt",
-    "subtitle": "Szczegóły wsparcia z Legacy Bridge",
     "scan": "Zeskanuj kod QR telefonem"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Zawsze WYŁĄCZONE"
   },
   "toast": {
-    "locationTodo": "TODO API: kreator kraju / miasta",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Test Ambilight: 5 sekund",
-    "advancedTodo": "TODO: ustawienia zaawansowane",
     "reset": "Zresetowano ustawienia prototypu",
-    "updateOk": "Sprawdzono GitHub Releases — wersja 1.0.0 jest aktualna",
     "openGithub": "Otwieranie GitHub",
     "resetting": "Resetowanie ustawień…",
     "saving": "Zapisywanie…"
@@ -112,11 +82,9 @@
     "stepCountry": "Kraj",
     "stepCity": "Miasto",
     "detectedLead": "Kraj wykryty po IP:",
-    "isCountryCorrect": "Czy jesteś w tym kraju?",
     "chooseRegion": "Wybierz region",
     "chooseCountry": "Wybierz kraj",
     "chooseCity": "Wybierz miasto",
-    "noKeyboard": "Brak klawiatury — tylko pilot",
     "apiError": "Nie udało się załadować danych. Sprawdź połączenie."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Ameryka Południowa",
     "oceania": "Oceania"
   },
-  "firstRun": {
-    "chooseLanguage": "Wybierz język",
-    "languageHint": "Język można zmienić później w Ustawieniach."
-  },
-  "status": {
-    "waiting": "Oczekiwanie..."
-  },
   "error": {
-    "revisionConflict": "Konflikt konfiguracji! Aktualizowanie...",
     "saveFailed": "Zapisywanie nie powiodło się: ",
     "connection": "Błąd połączenia",
-    "elevationFailed": "Błąd: Nie udało się uzyskać uprawnień",
     "minimizeFailed": "Nie udało się zminimalizować aplikacji"
   },
   "elevation": {

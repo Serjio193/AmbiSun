@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Tukar",
-    "yes": "Ya",
-    "no": "Tidak",
     "back": "Kembali",
     "minimize": "Minimumkan",
     "retry": "Cuba lagi"
@@ -29,25 +27,16 @@
     "sunrise": "Matahari terbit",
     "sunsetOffset": "Hidupkan relatif kepada matahari terbenam",
     "sunriseOffset": "Matikan relatif kepada matahari terbit",
-    "localSchedule": "Jadual dikira secara tempatan dan digunakan setiap hari.",
-    "todaySunset": "Matahari terbenam hari ini",
-    "ambilightOn": "Ambilight HIDUP",
-    "tomorrowSunrise": "Matahari terbit esok"
+    "localSchedule": "Jadual dikira secara tempatan dan digunakan setiap hari."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Bahasa",
-    "autostart": "Mula bersama TV",
     "defaultRule": "Peraturan lalai untuk aplikasi baharu",
-    "test": "Uji Ambilight selama 5 saat",
-    "plasma": "Latar belakang Plasma HyperHDR · Lancar",
-    "advanced": "Tetapan lanjutan",
     "reset": "Tetapkan semula tetapan",
     "saved": "Tetapan disimpan"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Alamat pelayan:",
     "port": "Port:",
     "test": "Uji",
@@ -56,18 +45,7 @@
     "testing": "Menguji sambungan...",
     "available": "HyperHDR tersedia",
     "unavailable": "Tidak tersedia",
-    "connected": "Disambungkan",
     "invalid": "Alamat atau port tidak sah"
-  },
-  "language": {
-    "system": "Sama seperti TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versi",
@@ -78,15 +56,12 @@
     "available": "Kemas kini tersedia",
     "install": "Pasang kemas kini",
     "preparing": "Menyediakan kemas kini…",
-    "downloading": "Memuat turun dan mengesahkan pakej…",
     "installing": "Memasang kemas kini…",
     "restart": "AmbiSun akan dimulakan semula secara automatik.",
-    "failed": "Kemas kini gagal: ",
-    "upToDate": "Aplikasi adalah terkini"
+    "failed": "Kemas kini gagal: "
   },
   "support": {
     "title": "❤ Sokong projek ini",
-    "subtitle": "Butiran sokongan daripada Legacy Bridge",
     "scan": "Imbas kod QR dengan telefon anda"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Sentiasa MATI"
   },
   "toast": {
-    "locationTodo": "TODO API: wizard negara / bandar",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ujian Ambilight: 5 saat",
-    "advancedTodo": "TODO: tetapan lanjutan",
     "reset": "Tetapan prototaip ditetapkan semula",
-    "updateOk": "GitHub Releases disemak — versi 1.0.0 adalah terkini",
     "openGithub": "Membuka GitHub",
     "resetting": "Menetapkan semula tetapan…",
     "saving": "Menyimpan…"
@@ -112,11 +82,9 @@
     "stepCountry": "Negara",
     "stepCity": "Bandar",
     "detectedLead": "Negara dikesan melalui IP:",
-    "isCountryCorrect": "Adakah anda berada di negara ini?",
     "chooseRegion": "Pilih wilayah",
     "chooseCountry": "Pilih negara",
     "chooseCity": "Pilih bandar",
-    "noKeyboard": "Tiada papan kekunci — alat kawalan jauh sahaja",
     "apiError": "Gagal memuatkan data. Sila semak sambungan anda."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Amerika Selatan",
     "oceania": "Oceania"
   },
-  "firstRun": {
-    "chooseLanguage": "Pilih bahasa",
-    "languageHint": "Anda boleh menukar bahasa kemudian dalam Tetapan."
-  },
-  "status": {
-    "waiting": "Menunggu..."
-  },
   "error": {
-    "revisionConflict": "Konflik konfigurasi! Mengemas kini...",
     "saveFailed": "Gagal menyimpan: ",
     "connection": "Ralat sambungan",
-    "elevationFailed": "Ralat: Gagal mendapatkan kebenaran",
     "minimizeFailed": "Gagal meminimumkan aplikasi"
   },
   "elevation": {

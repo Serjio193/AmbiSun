@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Değiştir",
-    "yes": "Evet",
-    "no": "Hayır",
     "back": "Geri",
     "minimize": "Simge durumuna küçült",
     "retry": "Tekrar dene"
@@ -29,25 +27,16 @@
     "sunrise": "Gün doğumu",
     "sunsetOffset": "Gün batımına göre açılma",
     "sunriseOffset": "Gün doğumuna göre kapanma",
-    "localSchedule": "Zamanlama yerel olarak hesaplanır ve günlük uygulanır.",
-    "todaySunset": "Bugün gün batımı",
-    "ambilightOn": "Ambilight AÇIK",
-    "tomorrowSunrise": "Yarın gün doğumu"
+    "localSchedule": "Zamanlama yerel olarak hesaplanır ve günlük uygulanır."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Dil",
-    "autostart": "TV ile birlikte başlat",
     "defaultRule": "Yeni uygulamalar için varsayılan kural",
-    "test": "Ambilight'ı 5 saniye test et",
-    "plasma": "HyperHDR Plazma arka planı · Akıcı",
-    "advanced": "Gelişmiş ayarlar",
     "reset": "Ayarları sıfırla",
     "saved": "Ayarlar kaydedildi"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Sunucu adresi:",
     "port": "Bağlantı noktası:",
     "test": "Test Et",
@@ -56,18 +45,7 @@
     "testing": "Bağlantı test ediliyor...",
     "available": "HyperHDR kullanılabilir",
     "unavailable": "Kullanılamıyor",
-    "connected": "Bağlandı",
     "invalid": "Geçersiz adres veya bağlantı noktası"
-  },
-  "language": {
-    "system": "TV ile aynı",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Sürüm",
@@ -78,15 +56,12 @@
     "available": "Güncelleme mevcut",
     "install": "Güncellemeyi yükle",
     "preparing": "Güncelleme hazırlanıyor…",
-    "downloading": "Paket indiriliyor ve doğrulanıyor…",
     "installing": "Güncelleme yükleniyor…",
     "restart": "AmbiSun otomatik olarak yeniden başlatılacak.",
-    "failed": "Güncelleme başarısız: ",
-    "upToDate": "Uygulama güncel"
+    "failed": "Güncelleme başarısız: "
   },
   "support": {
     "title": "❤ Projeyi destekleyin",
-    "subtitle": "Legacy Bridge destek detayları",
     "scan": "QR kodunu telefonunuzla tarayın"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Her zaman KAPALI"
   },
   "toast": {
-    "locationTodo": "TODO API: ülke / şehir sihirbazı",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight testi: 5 saniye",
-    "advancedTodo": "TODO: gelişmiş ayarlar",
     "reset": "Prototip ayarları sıfırlandı",
-    "updateOk": "GitHub Releases kontrol edildi — 1.0.0 sürümü güncel",
     "openGithub": "GitHub açılıyor",
     "resetting": "Ayarlar sıfırlanıyor…",
     "saving": "Kaydediliyor…"
@@ -112,11 +82,9 @@
     "stepCountry": "Ülke",
     "stepCity": "Şehir",
     "detectedLead": "IP üzerinden tespit edilen ülke:",
-    "isCountryCorrect": "Bu ülkede misiniz?",
     "chooseRegion": "Bir bölge seçin",
     "chooseCountry": "Bir ülke seçin",
     "chooseCity": "Bir şehir seçin",
-    "noKeyboard": "Klavye yok — sadece uzaktan kumanda",
     "apiError": "Veriler yüklenemedi. Bağlantınızı kontrol edin."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Güney Amerika",
     "oceania": "Okyanusya"
   },
-  "firstRun": {
-    "chooseLanguage": "Bir dil seçin",
-    "languageHint": "Dili daha sonra Ayarlar bölümünden değiştirebilirsiniz."
-  },
-  "status": {
-    "waiting": "Bekleniyor..."
-  },
   "error": {
-    "revisionConflict": "Yapılandırma çakışması! Güncelleniyor...",
     "saveFailed": "Kaydetme başarısız: ",
     "connection": "Bağlantı hatası",
-    "elevationFailed": "Hata: İzinler alınamadı",
     "minimizeFailed": "Uygulama simge durumuna küçültülemedi"
   },
   "elevation": {

@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Módosítás",
-    "yes": "Igen",
-    "no": "Nem",
     "back": "Vissza",
     "minimize": "Kis méret",
     "retry": "Újra"
@@ -29,25 +27,16 @@
     "sunrise": "Napkelte",
     "sunsetOffset": "Bekapcsolás a napnyugtához képest",
     "sunriseOffset": "Kikapcsolás a napkeltéhez képest",
-    "localSchedule": "Az időzítés helyileg számított és naponta érvényesül.",
-    "todaySunset": "Napnyugta ma",
-    "ambilightOn": "Ambilight BE",
-    "tomorrowSunrise": "Napkelte holnap"
+    "localSchedule": "Az időzítés helyileg számított és naponta érvényesül."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Nyelv",
-    "autostart": "Indítás a TV-vel",
     "defaultRule": "Alapértelmezett szabály új appokhoz",
-    "test": "Ambilight tesztelése 5 másodpercig",
-    "plasma": "HyperHDR Plazma háttér · Finom átmenet",
-    "advanced": "Haladó beállítások",
     "reset": "Beállítások visszaállítása",
     "saved": "Beállítások mentve"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Kiszolgáló címe:",
     "port": "Port:",
     "test": "Teszt",
@@ -56,18 +45,7 @@
     "testing": "Kapcsolat tesztelése...",
     "available": "HyperHDR elérhető",
     "unavailable": "Nem érhető el",
-    "connected": "Csatlakoztatva",
     "invalid": "Érvénytelen cím vagy port"
-  },
-  "language": {
-    "system": "Ugyanaz, mint a TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Verzió",
@@ -78,15 +56,12 @@
     "available": "Frissítés érhető el",
     "install": "Frissítés telepítése",
     "preparing": "Frissítés előkészítése…",
-    "downloading": "Csomag letöltése és ellenőrzése…",
     "installing": "Frissítés telepítése…",
     "restart": "Az AmbiSun automatikusan újraindul.",
-    "failed": "A frissítés sikertelen: ",
-    "upToDate": "Az alkalmazás naprakész"
+    "failed": "A frissítés sikertelen: "
   },
   "support": {
     "title": "❤ A projekt támogatása",
-    "subtitle": "Támogatási részletek a Legacy Bridge-től",
     "scan": "Olvassa be a QR-kódot a telefonjával"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Mindig KI"
   },
   "toast": {
-    "locationTodo": "TODO API: ország / város varázsló",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight teszt: 5 másodperc",
-    "advancedTodo": "TODO: haladó beállítások",
     "reset": "Prototípus beállításai visszaállítva",
-    "updateOk": "GitHub Releases ellenőrizve — az 1.0.0 verzió naprakész",
     "openGithub": "GitHub megnyitása",
     "resetting": "Beállítások visszaállítása…",
     "saving": "Mentés…"
@@ -112,11 +82,9 @@
     "stepCountry": "Ország",
     "stepCity": "Város",
     "detectedLead": "IP alapján észlelt ország:",
-    "isCountryCorrect": "Ebben az országban tartózkodik?",
     "chooseRegion": "Válasszon régiót",
     "chooseCountry": "Válasszon országot",
     "chooseCity": "Válasszon várost",
-    "noKeyboard": "Nincs billentyűzet — csak távirányító",
     "apiError": "Nem sikerült betölteni az adatokat. Ellenőrizze a kapcsolatot."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Dél-Amerika",
     "oceania": "Óceánia"
   },
-  "firstRun": {
-    "chooseLanguage": "Válasszon nyelvet",
-    "languageHint": "A nyelvet később a Beállításokban módosíthatja."
-  },
-  "status": {
-    "waiting": "Várakozás..."
-  },
   "error": {
-    "revisionConflict": "Konfigurációs ütközés! Frissítés...",
     "saveFailed": "A mentés sikertelen: ",
     "connection": "Csatlakozási hiba",
-    "elevationFailed": "Hiba: Nem sikerült megszerezni a jogosultságokat",
     "minimizeFailed": "Az alkalmazás kis méretre állítása sikertelen"
   },
   "elevation": {

@@ -2,7 +2,7 @@
 
 AmbiSun features **39 fully built-in, offline localizations**. All translation files are stored locally within the application package (`i18n/*.json`), ensuring 100% offline functionality without any network dependencies, external APIs, or proxy services.
 
-The source reference file is [`i18n/en.json`](file:///e:/Github/AmbiSun/i18n/en.json) (113 keys).
+The source reference file is [`i18n/en.json`](file:///e:/Github/AmbiSun/i18n/en.json) (78 keys).
 
 ## Supported Locales (39 Languages)
 

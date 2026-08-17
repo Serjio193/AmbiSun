@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "変更",
-    "yes": "はい",
-    "no": "いいえ",
     "back": "戻る",
     "minimize": "最小化",
     "retry": "再試行"
@@ -29,25 +27,16 @@
     "sunrise": "日の出",
     "sunsetOffset": "日没に連動して点灯",
     "sunriseOffset": "日の出に連動して消灯",
-    "localSchedule": "スケジュールはローカルで計算され、毎日自動適用されます。",
-    "todaySunset": "今日の日没",
-    "ambilightOn": "Ambilight 点灯",
-    "tomorrowSunrise": "明日の日の出"
+    "localSchedule": "スケジュールはローカルで計算され、毎日自動適用されます。"
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "言語",
-    "autostart": "テレビ起動時に自動開始",
     "defaultRule": "新規アプリのデフォルト規則",
-    "test": "Ambilight を5秒間テスト",
-    "plasma": "HyperHDR プラズマ背景 · スムーズ",
-    "advanced": "詳細設定",
     "reset": "設定を初期化",
     "saved": "設定を保存しました"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "サーバーアドレス:",
     "port": "ポート:",
     "test": "テスト",
@@ -56,18 +45,7 @@
     "testing": "接続テスト中...",
     "available": "HyperHDR 利用可能",
     "unavailable": "利用不可",
-    "connected": "接続完了",
     "invalid": "無効なアドレスまたはポートです"
-  },
-  "language": {
-    "system": "テレビと同じ",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "バージョン",
@@ -78,15 +56,12 @@
     "available": "アップデートがあります",
     "install": "アップデートをインストール",
     "preparing": "アップデートを準備中…",
-    "downloading": "パッケージをダウンロードして検証中…",
     "installing": "アップデートをインストール中…",
     "restart": "AmbiSun は自動的に再起動します。",
-    "failed": "アップデート失敗: ",
-    "upToDate": "最新バージョンです"
+    "failed": "アップデート失敗: "
   },
   "support": {
     "title": "❤ プロジェクトを支援",
-    "subtitle": "Legacy Bridge からの支援詳細",
     "scan": "スマートフォンで QR コードをスキャン"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "常に消灯"
   },
   "toast": {
-    "locationTodo": "TODO API: 国 / 都市ウィザード",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight テスト: 5秒間",
-    "advancedTodo": "TODO: 詳細設定",
     "reset": "プロトタイプ設定を初期化しました",
-    "updateOk": "GitHub Releases 確認済み — バージョン 1.0.0 は最新です",
     "openGithub": "GitHub を開いています",
     "resetting": "設定を初期化中…",
     "saving": "保存中…"
@@ -112,11 +82,9 @@
     "stepCountry": "国",
     "stepCity": "都市",
     "detectedLead": "IP から検出された国:",
-    "isCountryCorrect": "この国でよろしいですか？",
     "chooseRegion": "地域を選択",
     "chooseCountry": "国を選択",
     "chooseCity": "都市を選択",
-    "noKeyboard": "キーボードなし — リモコン専用",
     "apiError": "データを読み込めませんでした。接続を確認してください。"
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "南アメリカ",
     "oceania": "オセアニア"
   },
-  "firstRun": {
-    "chooseLanguage": "言語を選択",
-    "languageHint": "言語は後から設定画面で変更できます。"
-  },
-  "status": {
-    "waiting": "待機中..."
-  },
   "error": {
-    "revisionConflict": "設定の競合が発生しました。更新中…",
     "saveFailed": "保存に失敗しました: ",
     "connection": "接続エラー",
-    "elevationFailed": "エラー: 権限を取得できませんでした",
     "minimizeFailed": "アプリの最小化に失敗しました"
   },
   "elevation": {

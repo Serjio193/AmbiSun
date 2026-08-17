@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Schimbă",
-    "yes": "Da",
-    "no": "Nu",
     "back": "Înapoi",
     "minimize": "Minimizare",
     "retry": "Reîncearcă"
@@ -29,25 +27,16 @@
     "sunrise": "Răsărit",
     "sunsetOffset": "Pornire relativă la apus",
     "sunriseOffset": "Oprire relativă la răsărit",
-    "localSchedule": "Programul este calculat local și aplicat zilnic.",
-    "todaySunset": "Apusul astăzi",
-    "ambilightOn": "Ambilight PORNIT",
-    "tomorrowSunrise": "Răsăritul mâine"
+    "localSchedule": "Programul este calculat local și aplicat zilnic."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Limbă",
-    "autostart": "Pornire odată cu televizorul",
     "defaultRule": "Regulă implicită pentru aplicații noi",
-    "test": "Testare Ambilight timp de 5 secunde",
-    "plasma": "Fundal Plasma HyperHDR · Fin",
-    "advanced": "Setări avansate",
     "reset": "Resetare setări",
     "saved": "Setări salvate"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Adresă server:",
     "port": "Port:",
     "test": "Test",
@@ -56,18 +45,7 @@
     "testing": "Se testează conexiunea...",
     "available": "HyperHDR disponibil",
     "unavailable": "Indisponibil",
-    "connected": "Conectat",
     "invalid": "Adresă sau port nevalid"
-  },
-  "language": {
-    "system": "La fel ca televizorul",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versiune",
@@ -78,15 +56,12 @@
     "available": "Actualizare disponibilă",
     "install": "Instalare actualizare",
     "preparing": "Se pregătește actualizarea…",
-    "downloading": "Se descarcă și se verifică pachetul…",
     "installing": "Se instalează actualizarea…",
     "restart": "AmbiSun va reporni automat.",
-    "failed": "Actualizarea a eșuat: ",
-    "upToDate": "Aplicația este la zi"
+    "failed": "Actualizarea a eșuat: "
   },
   "support": {
     "title": "❤ Susține proiectul",
-    "subtitle": "Detalii de susținere din Legacy Bridge",
     "scan": "Scanați codul QR cu telefonul"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Întotdeauna OPRIT"
   },
   "toast": {
-    "locationTodo": "TODO API: asistent țară / oraș",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Test Ambilight: 5 secunde",
-    "advancedTodo": "TODO: setări avansate",
     "reset": "Setările prototipului au fost resetate",
-    "updateOk": "GitHub Releases verificat — versiunea 1.0.0 este la zi",
     "openGithub": "Se deschide GitHub",
     "resetting": "Se resetează setările…",
     "saving": "Se salvează…"
@@ -112,11 +82,9 @@
     "stepCountry": "Țară",
     "stepCity": "Oraș",
     "detectedLead": "Țară detectată după IP:",
-    "isCountryCorrect": "Vă aflați în această țară?",
     "chooseRegion": "Alegeți o regiune",
     "chooseCountry": "Alegeți o țară",
     "chooseCity": "Alegeți un oraș",
-    "noKeyboard": "Fără tastatură — doar telecomandă",
     "apiError": "Eroare la încărcarea datelor. Verificați conexiunea."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "America de Sud",
     "oceania": "Oceania"
   },
-  "firstRun": {
-    "chooseLanguage": "Alegeți limba",
-    "languageHint": "Puteți schimba limba ulterior din Setări."
-  },
-  "status": {
-    "waiting": "Se așteaptă..."
-  },
   "error": {
-    "revisionConflict": "Conflict de configurare! Se actualizează...",
     "saveFailed": "Salvarea a eșuat: ",
     "connection": "Eroare de conexiune",
-    "elevationFailed": "Eroare: Nu s-au putut obține permisiunile",
     "minimizeFailed": "Nu s-a putut minimiza aplicația"
   },
   "elevation": {

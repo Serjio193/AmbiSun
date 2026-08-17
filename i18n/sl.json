@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Spremeni",
-    "yes": "Da",
-    "no": "Ne",
     "back": "Nazaj",
     "minimize": "Pomanjšaj",
     "retry": "Poskusi znova"
@@ -29,25 +27,16 @@
     "sunrise": "Sončni vzhod",
     "sunsetOffset": "Vklop glede na sončni zahod",
     "sunriseOffset": "Izklop glede na sončni vzhod",
-    "localSchedule": "Urnik se izračunava lokalno in se uveljavlja vsak dan.",
-    "todaySunset": "Sončni zahod danes",
-    "ambilightOn": "Ambilight VKLOPLJEN",
-    "tomorrowSunrise": "Sončni vzhod jutri"
+    "localSchedule": "Urnik se izračunava lokalno in se uveljavlja vsak dan."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Jezik",
-    "autostart": "Zaženi s TV-jem",
     "defaultRule": "Privzeto pravilo za nove aplikacije",
-    "test": "Preizkusi Ambilight za 5 sekund",
-    "plasma": "Plazma ozadje HyperHDR · Gladko",
-    "advanced": "Napredne nastavitve",
     "reset": "Ponastavi nastavitve",
     "saved": "Nastavitve shranjene"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Naslov strežnika:",
     "port": "Vrata:",
     "test": "Preizkusi",
@@ -56,18 +45,7 @@
     "testing": "Preverjanje povezave...",
     "available": "HyperHDR je na voljo",
     "unavailable": "Ni na voljo",
-    "connected": "Povezano",
     "invalid": "Neveljaven naslov ali vrata"
-  },
-  "language": {
-    "system": "Enako kot TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Različica",
@@ -78,15 +56,12 @@
     "available": "Na voljo je posodobitev",
     "install": "Namesti posodobitev",
     "preparing": "Priprava posodobitve…",
-    "downloading": "Prenašanje in preverjanje paketa…",
     "installing": "Nameščanje posodobitve…",
     "restart": "AmbiSun se bo samodejno znova zagnal.",
-    "failed": "Posodobitev ni uspela: ",
-    "upToDate": "Aplikacija je posodobljena"
+    "failed": "Posodobitev ni uspela: "
   },
   "support": {
     "title": "❤ Podprite projekt",
-    "subtitle": "Podrobnosti o podpori iz Legacy Bridge",
     "scan": "S telefonom optično preberite kodo QR"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Vedno IZKLOPLJENO"
   },
   "toast": {
-    "locationTodo": "TODO API: čarovnik za državo / mesto",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Preizkus Ambilight: 5 sekund",
-    "advancedTodo": "TODO: napredne nastavitve",
     "reset": "Nastavitve prototipa ponastavljene",
-    "updateOk": "GitHub Releases preverjen — različica 1.0.0 je posodobljena",
     "openGithub": "Odpiranje GitHub",
     "resetting": "Ponastavljanje nastavitev…",
     "saving": "Shranjevanje…"
@@ -112,11 +82,9 @@
     "stepCountry": "Država",
     "stepCity": "Mesto",
     "detectedLead": "Država, zaznana prek IP:",
-    "isCountryCorrect": "Ali ste v tej državi?",
     "chooseRegion": "Izberite regijo",
     "chooseCountry": "Izberite državo",
     "chooseCity": "Izberite mesto",
-    "noKeyboard": "Brez tipkovnice — samo daljinec",
     "apiError": "Podatkov ni bilo mogoče naložiti. Preverite povezavo."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Južna Amerika",
     "oceania": "Oceanija"
   },
-  "firstRun": {
-    "chooseLanguage": "Izberite jezik",
-    "languageHint": "Jezik lahko pozneje spremenite v Nastavitvah."
-  },
-  "status": {
-    "waiting": "Čakanje..."
-  },
   "error": {
-    "revisionConflict": "Konflikt konfiguracije! Posodabljanje...",
     "saveFailed": "Shranjevanje ni uspelo: ",
     "connection": "Napaka pri povezavi",
-    "elevationFailed": "Napaka: Pridobivanje dovoljenj ni uspelo",
     "minimizeFailed": "Pomanjšanje aplikacije ni uspelo"
   },
   "elevation": {

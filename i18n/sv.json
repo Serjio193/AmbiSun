@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Ändra",
-    "yes": "Ja",
-    "no": "Nej",
     "back": "Tillbaka",
     "minimize": "Minimera",
     "retry": "Försök igen"
@@ -29,25 +27,16 @@
     "sunrise": "Soluppgång",
     "sunsetOffset": "Start i förhållande till solnedgång",
     "sunriseOffset": "Avstängning i förhållande till soluppgång",
-    "localSchedule": "Schemat beräknas lokalt och tillämpas dagligen.",
-    "todaySunset": "Solnedgång idag",
-    "ambilightOn": "Ambilight PÅ",
-    "tomorrowSunrise": "Soluppgång imorgon"
+    "localSchedule": "Schemat beräknas lokalt och tillämpas dagligen."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Språk",
-    "autostart": "Starta med TV:n",
     "defaultRule": "Standardregel för nya appar",
-    "test": "Testa Ambilight i 5 sekunder",
-    "plasma": "HyperHDR Plasmabakgrund · Mjuk",
-    "advanced": "Avancerade inställningar",
     "reset": "Återställ inställningar",
     "saved": "Inställningarna sparades"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Serveradress:",
     "port": "Port:",
     "test": "Testa",
@@ -56,18 +45,7 @@
     "testing": "Testar anslutning...",
     "available": "HyperHDR är tillgänglig",
     "unavailable": "Inte tillgänglig",
-    "connected": "Ansluten",
     "invalid": "Ogiltig adress eller port"
-  },
-  "language": {
-    "system": "Samma som TV:n",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Version",
@@ -78,15 +56,12 @@
     "available": "Uppdatering tillgänglig",
     "install": "Installera uppdatering",
     "preparing": "Förbereder uppdatering…",
-    "downloading": "Laddar ner och verifierar paket…",
     "installing": "Installerar uppdatering…",
     "restart": "AmbiSun startar om automatiskt.",
-    "failed": "Uppdateringen misslyckades: ",
-    "upToDate": "Appen är uppdaterad"
+    "failed": "Uppdateringen misslyckades: "
   },
   "support": {
     "title": "❤ Stöd projektet",
-    "subtitle": "Stöddetaljer från Legacy Bridge",
     "scan": "Skanna QR-koden med mobilen"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Alltid AV"
   },
   "toast": {
-    "locationTodo": "TODO API: land-/stadsguide",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight-test: 5 sekunder",
-    "advancedTodo": "TODO: avancerade inställningar",
     "reset": "Prototypinställningar återställda",
-    "updateOk": "GitHub Releases kontrollerat — version 1.0.0 är aktuell",
     "openGithub": "Öppnar GitHub",
     "resetting": "Återställer inställningar…",
     "saving": "Sparar…"
@@ -112,11 +82,9 @@
     "stepCountry": "Land",
     "stepCity": "Stad",
     "detectedLead": "Land identifierat via IP:",
-    "isCountryCorrect": "Befinner du dig i detta land?",
     "chooseRegion": "Välj en region",
     "chooseCountry": "Välj ett land",
     "chooseCity": "Välj en stad",
-    "noKeyboard": "Inget tangentbord — endast fjärrkontroll",
     "apiError": "Kunde inte ladda data. Kontrollera anslutningen."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Sydamerika",
     "oceania": "Oceanien"
   },
-  "firstRun": {
-    "chooseLanguage": "Välj ett språk",
-    "languageHint": "Du kan ändra språk senare i Inställningar."
-  },
-  "status": {
-    "waiting": "Väntar..."
-  },
   "error": {
-    "revisionConflict": "Konfigurationskonflikt! Uppdaterar...",
     "saveFailed": "Kunde inte spara: ",
     "connection": "Anslutningsfel",
-    "elevationFailed": "Fel: Kunde inte få behörigheter",
     "minimizeFailed": "Kunde inte minimera applikationen"
   },
   "elevation": {

@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "बदलें",
-    "yes": "हाँ",
-    "no": "नहीं",
     "back": "पीछे",
     "minimize": "छोटा करें",
     "retry": "पुनः प्रयास करें"
@@ -29,25 +27,16 @@
     "sunrise": "सूर्योदय",
     "sunsetOffset": "सूर्यास्त के सापेक्ष चालू करें",
     "sunriseOffset": "सूर्योदय के सापेक्ष बंद करें",
-    "localSchedule": "समय सारिणी स्थानीय रूप से गणना की जाती है और दैनिक लागू होती है।",
-    "todaySunset": "आज सूर्यास्त",
-    "ambilightOn": "Ambilight चालू",
-    "tomorrowSunrise": "कल सूर्योदय"
+    "localSchedule": "समय सारिणी स्थानीय रूप से गणना की जाती है और दैनिक लागू होती है।"
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "भाषा",
-    "autostart": "टीवी के साथ शुरू करें",
     "defaultRule": "नए ऐप्स के लिए डिफ़ॉल्ट नियम",
-    "test": "5 सेकंड के लिए Ambilight का परीक्षण करें",
-    "plasma": "HyperHDR प्लाज्मा पृष्ठभूमि · सहज",
-    "advanced": "उन्नत सेटिंग्स",
     "reset": "सेटिंग्स रीसेट करें",
     "saved": "सेटिंग्स सहेजी गईं"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "सर्वर पता:",
     "port": "पोर्ट:",
     "test": "परीक्षण",
@@ -56,18 +45,7 @@
     "testing": "कनेक्शन का परीक्षण हो रहा है...",
     "available": "HyperHDR उपलब्ध है",
     "unavailable": "अनुपलब्ध",
-    "connected": "कनेक्टेड",
     "invalid": "अमान्य पता या पोर्ट"
-  },
-  "language": {
-    "system": "टीवी के समान",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "संस्करण",
@@ -78,15 +56,12 @@
     "available": "अपडेट उपलब्ध है",
     "install": "अपडेट इंस्टॉल करें",
     "preparing": "अपडेट तैयार हो रहा है…",
-    "downloading": "पैकेज डाउनलोड और सत्यापित हो रहा है…",
     "installing": "अपडेट इंस्टॉल हो रहा है…",
     "restart": "AmbiSun स्वचालित रूप से पुनरारंभ होगा।",
-    "failed": "अपडेट विफल रहा: ",
-    "upToDate": "ऐप अप-टू-डेट है"
+    "failed": "अपडेट विफल रहा: "
   },
   "support": {
     "title": "❤ परियोजना का समर्थन करें",
-    "subtitle": "Legacy Bridge से समर्थन विवरण",
     "scan": "फ़ोन से QR कोड स्कैन करें"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "हमेशा बंद"
   },
   "toast": {
-    "locationTodo": "TODO API: देश / शहर विज़ार्ड",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight परीक्षण: 5 सेकंड",
-    "advancedTodo": "TODO: उन्नत सेटिंग्स",
     "reset": "प्रोटोटाइप सेटिंग्स रीसेट",
-    "updateOk": "GitHub Releases जाँचा गया — संस्करण 1.0.0 नवीनतम है",
     "openGithub": "GitHub खोला जा रहा है",
     "resetting": "सेटिंग्स रीसेट हो रही हैं…",
     "saving": "सहेजा जा रहा है…"
@@ -112,11 +82,9 @@
     "stepCountry": "देश",
     "stepCity": "शहर",
     "detectedLead": "IP द्वारा पता लगाया गया देश:",
-    "isCountryCorrect": "क्या आप इस देश में हैं?",
     "chooseRegion": "क्षेत्र चुनें",
     "chooseCountry": "देश चुनें",
     "chooseCity": "शहर चुनें",
-    "noKeyboard": "कीबोर्ड नहीं — केवल रिमोट",
     "apiError": "डेटा लोड करने में विफल। अपना कनेक्शन जांचें।"
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "दक्षिण अमेरिका",
     "oceania": "ओशिनिया"
   },
-  "firstRun": {
-    "chooseLanguage": "भाषा चुनें",
-    "languageHint": "आप बाद में सेटिंग्स में भाषा बदल सकते हैं।"
-  },
-  "status": {
-    "waiting": "प्रतीक्षा कर रहे हैं..."
-  },
   "error": {
-    "revisionConflict": "कॉन्फ़िगरेशन विरोध! अपडेट हो रहा है...",
     "saveFailed": "सहेजना विफल रहा: ",
     "connection": "कनेक्शन त्रुटि",
-    "elevationFailed": "त्रुटि: अनुमतियाँ प्राप्त करने में विफल",
     "minimizeFailed": "एप्लिकेशन को छोटा करने में विफल"
   },
   "elevation": {

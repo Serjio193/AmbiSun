@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Wijzigen",
-    "yes": "Ja",
-    "no": "Nee",
     "back": "Terug",
     "minimize": "Minimaliseren",
     "retry": "Opnieuw proberen"
@@ -29,25 +27,16 @@
     "sunrise": "Zonsopgang",
     "sunsetOffset": "Inschakelen t.o.v. zonsondergang",
     "sunriseOffset": "Uitschakelen t.o.v. zonsopgang",
-    "localSchedule": "Het schema wordt lokaal berekend en dagelijks toegepast.",
-    "todaySunset": "Zonsondergang vandaag",
-    "ambilightOn": "Ambilight AAN",
-    "tomorrowSunrise": "Zonsopgang morgen"
+    "localSchedule": "Het schema wordt lokaal berekend en dagelijks toegepast."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Taal",
-    "autostart": "Starten met TV",
     "defaultRule": "Standaardregel voor nieuwe apps",
-    "test": "Ambilight 5 seconden testen",
-    "plasma": "HyperHDR Plasma-achtergrond · Vloeiend",
-    "advanced": "Geavanceerde instellingen",
     "reset": "Instellingen herstellen",
     "saved": "Instellingen opgeslagen"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Serveradres:",
     "port": "Poort:",
     "test": "Testen",
@@ -56,18 +45,7 @@
     "testing": "Verbinding testen...",
     "available": "HyperHDR beschikbaar",
     "unavailable": "Niet beschikbaar",
-    "connected": "Verbonden",
     "invalid": "Ongeldig adres of poort"
-  },
-  "language": {
-    "system": "Zelfde als TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versie",
@@ -78,15 +56,12 @@
     "available": "Update beschikbaar",
     "install": "Update installeren",
     "preparing": "Update voorbereiden…",
-    "downloading": "Pakket downloaden en verifiëren…",
     "installing": "Update installeren…",
     "restart": "AmbiSun wordt automatisch opnieuw gestart.",
-    "failed": "Update mislukt: ",
-    "upToDate": "App is up-to-date"
+    "failed": "Update mislukt: "
   },
   "support": {
     "title": "❤ Steun het project",
-    "subtitle": "Steuninformatie van Legacy Bridge",
     "scan": "Scan de QR-code met uw telefoon"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Altijd UIT"
   },
   "toast": {
-    "locationTodo": "TODO API: land/stad wizard",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight-test: 5 seconden",
-    "advancedTodo": "TODO: geavanceerde instellingen",
     "reset": "Prototype-instellingen gereset",
-    "updateOk": "GitHub Releases gecontroleerd — versie 1.0.0 is actueel",
     "openGithub": "GitHub openen",
     "resetting": "Instellingen herstellen…",
     "saving": "Bezig met opslaan…"
@@ -112,11 +82,9 @@
     "stepCountry": "Land",
     "stepCity": "Stad",
     "detectedLead": "Land gedetecteerd via IP:",
-    "isCountryCorrect": "Bent u in dit land?",
     "chooseRegion": "Kies een regio",
     "chooseCountry": "Kies een land",
     "chooseCity": "Kies een stad",
-    "noKeyboard": "Geen toetsenbord — alleen afstandsbediening",
     "apiError": "Gegevens laden mislukt. Controleer uw verbinding."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Zuid-Amerika",
     "oceania": "Oceanië"
   },
-  "firstRun": {
-    "chooseLanguage": "Kies een taal",
-    "languageHint": "U kunt de taal later wijzigen in Instellingen."
-  },
-  "status": {
-    "waiting": "Even geduld..."
-  },
   "error": {
-    "revisionConflict": "Configuratieconflict! Bezig met bijwerken...",
     "saveFailed": "Opslaan mislukt: ",
     "connection": "Verbindingsfout",
-    "elevationFailed": "Fout: Kan geen machtigingen verkrijgen",
     "minimizeFailed": "Kan applicatie niet minimaliseren"
   },
   "elevation": {

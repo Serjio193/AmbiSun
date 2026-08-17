@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Keisti",
-    "yes": "Taip",
-    "no": "Ne",
     "back": "Atgal",
     "minimize": "Suskleisti",
     "retry": "Bandyti dar kartą"
@@ -29,25 +27,16 @@
     "sunrise": "Saulėtekis",
     "sunsetOffset": "Įjungimas atsižvelgiant į saulėlydį",
     "sunriseOffset": "Išjungimas atsižvelgiant į saulėtekį",
-    "localSchedule": "Tvarkaraštis apskaičiuojamas vietoje ir taikomas kasdien.",
-    "todaySunset": "Saulėlydis šiandien",
-    "ambilightOn": "Ambilight ĮJUNGTAS",
-    "tomorrowSunrise": "Saulėtekis rytoj"
+    "localSchedule": "Tvarkaraštis apskaičiuojamas vietoje ir taikomas kasdien."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Kalba",
-    "autostart": "Paleisti kartu su televizoriumi",
     "defaultRule": "Numatytoji taisyklė naujoms programoms",
-    "test": "Išbandyti Ambilight 5 sekundes",
-    "plasma": "HyperHDR plazminis fonas · Sklandus",
-    "advanced": "Išplėstiniai nustatymai",
     "reset": "Atkurti nustatymus",
     "saved": "Nustatymai išsaugoti"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Serverio adresas:",
     "port": "Prievadas:",
     "test": "Bandyti",
@@ -56,18 +45,7 @@
     "testing": "Tikrinamas ryšys...",
     "available": "HyperHDR pasiekiamas",
     "unavailable": "Nepasiekiamas",
-    "connected": "Prisijungta",
     "invalid": "Neteisingas adresas arba prievadas"
-  },
-  "language": {
-    "system": "Tokia pati kaip televizoriuje",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versija",
@@ -78,15 +56,12 @@
     "available": "Yra atnaujinimas",
     "install": "Įdiegti atnaujinimą",
     "preparing": "Ruošiamas atnaujinimas…",
-    "downloading": "Atsiunčiamas ir tikrinamas paketas…",
     "installing": "Diegiamas atnaujinimas…",
     "restart": "AmbiSun persikraus automatiškai.",
-    "failed": "Atnaujinti nepavyko: ",
-    "upToDate": "Programa yra atnaujinta"
+    "failed": "Atnaujinti nepavyko: "
   },
   "support": {
     "title": "❤ Paremkite projektą",
-    "subtitle": "Palaikymo informacija iš Legacy Bridge",
     "scan": "Nuskaitykite QR kodą telefonu"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Visada IŠJUNGTA"
   },
   "toast": {
-    "locationTodo": "TODO API: šalies / miesto vedlys",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight bandymas: 5 sekundės",
-    "advancedTodo": "TODO: išplėstiniai nustatymai",
     "reset": "Prototipo nustatymai atkurti",
-    "updateOk": "Patikrinta GitHub Releases — versija 1.0.0 naujausia",
     "openGithub": "Atidaromas GitHub",
     "resetting": "Nustatymai atkuriami…",
     "saving": "Išsaugoma…"
@@ -112,11 +82,9 @@
     "stepCountry": "Šalis",
     "stepCity": "Miestas",
     "detectedLead": "Šalis, aptikta pagal IP:",
-    "isCountryCorrect": "Ar esate šioje šalyje?",
     "chooseRegion": "Pasirinkite regioną",
     "chooseCountry": "Pasirinkite šalį",
     "chooseCity": "Pasirinkite miestą",
-    "noKeyboard": "Be klaviatūros — tik nuotolinio valdymo pultas",
     "apiError": "Nepavyko įkelti duomenų. Patikrinkite ryšį."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Pietų Amerika",
     "oceania": "Okeanija"
   },
-  "firstRun": {
-    "chooseLanguage": "Pasirinkite kalbą",
-    "languageHint": "Kalba gali būti pakeista vėliau Nustatymuose."
-  },
-  "status": {
-    "waiting": "Laukiama..."
-  },
   "error": {
-    "revisionConflict": "Konfigūracijos konfliktas! Atnaujinama...",
     "saveFailed": "Išsaugoti nepavyko: ",
     "connection": "Ryšio klaida",
-    "elevationFailed": "Klaida: Nepavyko gauti teisių",
     "minimizeFailed": "Nepavyko suskleisti programos"
   },
   "elevation": {

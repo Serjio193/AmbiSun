@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Zmeniť",
-    "yes": "Áno",
-    "no": "Nie",
     "back": "Späť",
     "minimize": "Minimalizovať",
     "retry": "Opakovať"
@@ -29,25 +27,16 @@
     "sunrise": "Východ slnka",
     "sunsetOffset": "Zapnutie vzhľadom na západ slnka",
     "sunriseOffset": "Vypnutie vzhľadom na východ slnka",
-    "localSchedule": "Rozvrh sa počíta lokálne a aplikuje denne.",
-    "todaySunset": "Západ slnka dnes",
-    "ambilightOn": "Ambilight ZAPNUTÝ",
-    "tomorrowSunrise": "Východ slnka zajtra"
+    "localSchedule": "Rozvrh sa počíta lokálne a aplikuje denne."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Jazyk",
-    "autostart": "Spustiť s TV",
     "defaultRule": "Predvolené pravidlo pre nové aplikácie",
-    "test": "Otestovať Ambilight na 5 sekúnd",
-    "plasma": "Plazmové pozadie HyperHDR · Plynulé",
-    "advanced": "Rozšírené nastavenia",
     "reset": "Obnoviť nastavenia",
     "saved": "Nastavenia uložené"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Adresa servera:",
     "port": "Port:",
     "test": "Testovať",
@@ -56,18 +45,7 @@
     "testing": "Testovanie pripojenia...",
     "available": "HyperHDR je k dispozícii",
     "unavailable": "Nedostupné",
-    "connected": "Pripojené",
     "invalid": "Neplatná adresa alebo port"
-  },
-  "language": {
-    "system": "Rovnaký ako TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Verzia",
@@ -78,15 +56,12 @@
     "available": "Dostupná aktualizácia",
     "install": "Inštalovať aktualizáciu",
     "preparing": "Príprava aktualizácie…",
-    "downloading": "Sťahovanie a overovanie balíka…",
     "installing": "Inštalácia aktualizácie…",
     "restart": "AmbiSun sa automaticky reštartuje.",
-    "failed": "Aktualizácia zlyhala: ",
-    "upToDate": "Aplikácia je aktuálna"
+    "failed": "Aktualizácia zlyhala: "
   },
   "support": {
     "title": "❤ Podporiť projekt",
-    "subtitle": "Podrobnosti podpory z Legacy Bridge",
     "scan": "Naskenujte QR kód smartfónom"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Vždy VYPNUTÉ"
   },
   "toast": {
-    "locationTodo": "TODO API: sprievodca krajinou / mestom",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Test Ambilight: 5 sekúnd",
-    "advancedTodo": "TODO: rozšírené nastavenia",
     "reset": "Nastavenia prototypu obnovené",
-    "updateOk": "GitHub Releases skontrolované — verzia 1.0.0 je aktuálna",
     "openGithub": "Otvára sa GitHub",
     "resetting": "Obnovovanie nastavení…",
     "saving": "Ukladá sa…"
@@ -112,11 +82,9 @@
     "stepCountry": "Krajina",
     "stepCity": "Mesto",
     "detectedLead": "Krajina zistená podľa IP:",
-    "isCountryCorrect": "Nachádzate sa v tejto krajine?",
     "chooseRegion": "Vyberte región",
     "chooseCountry": "Vyberte krajinu",
     "chooseCity": "Vyberte mesto",
-    "noKeyboard": "Bez klávesnice — iba diaľkový ovládač",
     "apiError": "Nepodarilo sa načítať údaje. Skontrolujte pripojenie."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Južná Amerika",
     "oceania": "Oceánia"
   },
-  "firstRun": {
-    "chooseLanguage": "Vyberte jazyk",
-    "languageHint": "Jazyk môžete neskôr zmeniť v Nastaveniach."
-  },
-  "status": {
-    "waiting": "Čakajte..."
-  },
   "error": {
-    "revisionConflict": "Konflikt konfigurácie! Aktualizuje sa...",
     "saveFailed": "Uloženie zlyhalo: ",
     "connection": "Chyba pripojenia",
-    "elevationFailed": "Chyba: Nepodarilo sa získať oprávnenia",
     "minimizeFailed": "Nepodarilo sa minimalizovať aplikáciu"
   },
   "elevation": {

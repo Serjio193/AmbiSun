@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Modifier",
-    "yes": "Oui",
-    "no": "Non",
     "back": "Retour",
     "minimize": "Réduire",
     "retry": "Réessayer"
@@ -29,25 +27,16 @@
     "sunrise": "Lever du soleil",
     "sunsetOffset": "Allumage par rapport au coucher du soleil",
     "sunriseOffset": "Extinction par rapport au lever du soleil",
-    "localSchedule": "Le calendrier est calculé localement et appliqué chaque jour.",
-    "todaySunset": "Coucher du soleil aujourd'hui",
-    "ambilightOn": "Ambilight ALLUMÉ",
-    "tomorrowSunrise": "Lever du soleil demain"
+    "localSchedule": "Le calendrier est calculé localement et appliqué chaque jour."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Langue",
-    "autostart": "Démarrer avec le téléviseur",
     "defaultRule": "Règle par défaut pour les nouvelles applications",
-    "test": "Tester Ambilight pendant 5 secondes",
-    "plasma": "Arrière-plan Plasma HyperHDR · Fluide",
-    "advanced": "Paramètres avancés",
     "reset": "Réinitialiser les paramètres",
     "saved": "Paramètres enregistrés"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Adresse du serveur :",
     "port": "Port :",
     "test": "Tester",
@@ -56,18 +45,7 @@
     "testing": "Test de connexion en cours...",
     "available": "HyperHDR disponible",
     "unavailable": "Indisponible",
-    "connected": "Connecté",
     "invalid": "Adresse ou port non valide"
-  },
-  "language": {
-    "system": "Identique au téléviseur",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Version",
@@ -78,15 +56,12 @@
     "available": "Mise à jour disponible",
     "install": "Installer la mise à jour",
     "preparing": "Préparation de la mise à jour…",
-    "downloading": "Téléchargement et vérification du paquet…",
     "installing": "Installation de la mise à jour…",
     "restart": "AmbiSun redémarrera automatiquement.",
-    "failed": "Échec de la mise à jour : ",
-    "upToDate": "L'application est à jour"
+    "failed": "Échec de la mise à jour : "
   },
   "support": {
     "title": "❤ Soutenir le projet",
-    "subtitle": "Détails de soutien depuis Legacy Bridge",
     "scan": "Scannez le code QR avec votre smartphone"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Toujours ÉTEINT"
   },
   "toast": {
-    "locationTodo": "TODO API : assistant pays / ville",
-    "hyperhdrTodo": "TODO API : HyperHDR 127.0.0.1:8090",
-    "test": "Test Ambilight : 5 secondes",
-    "advancedTodo": "TODO : paramètres avancés",
     "reset": "Paramètres du prototype réinitialisés",
-    "updateOk": "Vérification GitHub Releases — la version 1.0.0 est actuelle",
     "openGithub": "Ouverture de GitHub",
     "resetting": "Réinitialisation des paramètres…",
     "saving": "Enregistrement…"
@@ -112,11 +82,9 @@
     "stepCountry": "Pays",
     "stepCity": "Ville",
     "detectedLead": "Pays détecté par IP :",
-    "isCountryCorrect": "Êtes-vous dans ce pays ?",
     "chooseRegion": "Choisir une région",
     "chooseCountry": "Choisir un pays",
     "chooseCity": "Choisir une ville",
-    "noKeyboard": "Pas de clavier — télécommande uniquement",
     "apiError": "Échec du chargement des données. Vérifiez votre connexion."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Amérique du Sud",
     "oceania": "Océanie"
   },
-  "firstRun": {
-    "chooseLanguage": "Choisir une langue",
-    "languageHint": "Vous pourrez modifier la langue plus tard dans les Paramètres."
-  },
-  "status": {
-    "waiting": "En attente..."
-  },
   "error": {
-    "revisionConflict": "Conflit de configuration ! Mise à jour...",
     "saveFailed": "Échec de l'enregistrement : ",
     "connection": "Erreur de connexion",
-    "elevationFailed": "Erreur : échec de l'obtention des permissions",
     "minimizeFailed": "Échec de la réduction de l'application"
   },
   "elevation": {

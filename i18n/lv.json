@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Mainīt",
-    "yes": "Jā",
-    "no": "Nē",
     "back": "Atpakaļ",
     "minimize": "Minimizēt",
     "retry": "Mēģināt vēlreiz"
@@ -29,25 +27,16 @@
     "sunrise": "Saullēkts",
     "sunsetOffset": "Ieslēgšana attiecībā pret saulrietu",
     "sunriseOffset": "Izslēgšana attiecībā pret saullēktu",
-    "localSchedule": "Grafiks tiek aprēķināts lokāli un piemērots katru dienu.",
-    "todaySunset": "Saulriets šodien",
-    "ambilightOn": "Ambilight IESLĒGTS",
-    "tomorrowSunrise": "Saullēkts rīt"
+    "localSchedule": "Grafiks tiek aprēķināts lokāli un piemērots katru dienu."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Valoda",
-    "autostart": "Startēt kopā ar TV",
     "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
-    "test": "Testēt Ambilight 5 sekundes",
-    "plasma": "HyperHDR Plasma fons · Plūstošs",
-    "advanced": "Papildu iestatījumi",
     "reset": "Atiestatīt iestatījumus",
     "saved": "Iestatījumi saglabāti"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Servera adrese:",
     "port": "Ports:",
     "test": "Testēt",
@@ -56,18 +45,7 @@
     "testing": "Pārbauda savienojumu...",
     "available": "HyperHDR ir pieejams",
     "unavailable": "Nav pieejams",
-    "connected": "Savienots",
     "invalid": "Nederīga adrese vai ports"
-  },
-  "language": {
-    "system": "Tāda pati kā TV",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Versija",
@@ -78,15 +56,12 @@
     "available": "Pieejams atjauninājums",
     "install": "Instalēt atjauninājumu",
     "preparing": "Sagatavo atjauninājumu…",
-    "downloading": "Lejupielādē un pārbauda pakotni…",
     "installing": "Instalē atjauninājumu…",
     "restart": "AmbiSun automātiski restartēsies.",
-    "failed": "Atjaunināšana neizdevās: ",
-    "upToDate": "Lietotne ir atjaunināta"
+    "failed": "Atjaunināšana neizdevās: "
   },
   "support": {
     "title": "❤ Atbalstīt projektu",
-    "subtitle": "Atbalsta informācija no Legacy Bridge",
     "scan": "Skenējiet QR kodu ar tālruni"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Vienmēr IZSLĒGTS"
   },
   "toast": {
-    "locationTodo": "TODO API: valsts / pilsētas vednis",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight tests: 5 sekundes",
-    "advancedTodo": "TODO: papildu iestatījumi",
     "reset": "Prototipa iestatījumi atiestatīti",
-    "updateOk": "Pārbaudīts GitHub Releases — versija 1.0.0 ir aktuāla",
     "openGithub": "Atver GitHub",
     "resetting": "Atiestata iestatījumus…",
     "saving": "Saglabā…"
@@ -112,11 +82,9 @@
     "stepCountry": "Valsts",
     "stepCity": "Pilsēta",
     "detectedLead": "Pēc IP noteiktā valsts:",
-    "isCountryCorrect": "Vai atrodaties šajā valstī?",
     "chooseRegion": "Izvēlieties reģionu",
     "chooseCountry": "Izvēlieties valsti",
     "chooseCity": "Izvēlieties pilsētu",
-    "noKeyboard": "Bez tastatūras — tikai tālvadības pults",
     "apiError": "Neizdevās ielādēt datus. Pārbaudiet savienojumu."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Dienvidamerika",
     "oceania": "Okeānija"
   },
-  "firstRun": {
-    "chooseLanguage": "Izvēlieties valodu",
-    "languageHint": "Valodu vēlāk var mainīt Iestatījumos."
-  },
-  "status": {
-    "waiting": "Gaida..."
-  },
   "error": {
-    "revisionConflict": "Konfigurācijas konflikts! Atjaunina...",
     "saveFailed": "Saglabāšana neizdevās: ",
     "connection": "Savienojuma kļūda",
-    "elevationFailed": "Kļūda: Neizdevās iegūt atļaujas",
     "minimizeFailed": "Neizdevās minimizēt lietotni"
   },
   "elevation": {

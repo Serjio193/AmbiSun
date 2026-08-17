@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "更改",
-    "yes": "是",
-    "no": "否",
     "back": "返回",
     "minimize": "最小化",
     "retry": "重试"
@@ -29,25 +27,16 @@
     "sunrise": "日出",
     "sunsetOffset": "相对日落开启",
     "sunriseOffset": "相对日出关闭",
-    "localSchedule": "日程在本地计算并每日自动执行。",
-    "todaySunset": "今日日落",
-    "ambilightOn": "Ambilight 开启",
-    "tomorrowSunrise": "明日日出"
+    "localSchedule": "日程在本地计算并每日自动执行。"
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "语言",
-    "autostart": "随电视启动",
     "defaultRule": "新应用的默认规则",
-    "test": "测试 Ambilight 5 秒",
-    "plasma": "HyperHDR 等离子背景 · 平滑",
-    "advanced": "高级设置",
     "reset": "重置设置",
     "saved": "设置已保存"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "服务器地址：",
     "port": "端口：",
     "test": "测试",
@@ -56,18 +45,7 @@
     "testing": "正在测试连接...",
     "available": "HyperHDR 可用",
     "unavailable": "不可用",
-    "connected": "已连接",
     "invalid": "无效的地址或端口"
-  },
-  "language": {
-    "system": "跟随电视系统",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "版本",
@@ -78,15 +56,12 @@
     "available": "有可用更新",
     "install": "安装更新",
     "preparing": "正在准备更新…",
-    "downloading": "正在下载并验证软件包…",
     "installing": "正在安装更新…",
     "restart": "AmbiSun 将自动重启。",
-    "failed": "更新失败：",
-    "upToDate": "应用已是最新版本"
+    "failed": "更新失败："
   },
   "support": {
     "title": "❤ 支持此项目",
-    "subtitle": "来自 Legacy Bridge 的支持信息",
     "scan": "使用手机扫描二维码"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "始终关闭"
   },
   "toast": {
-    "locationTodo": "TODO API：国家 / 城市向导",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight 测试：5 秒",
-    "advancedTodo": "TODO：高级设置",
     "reset": "原型设置已重置",
-    "updateOk": "已检查 GitHub Releases — 版本 1.0.0 为最新",
     "openGithub": "正在打开 GitHub",
     "resetting": "正在重置设置…",
     "saving": "正在保存…"
@@ -112,11 +82,9 @@
     "stepCountry": "国家",
     "stepCity": "城市",
     "detectedLead": "根据 IP 识别的国家：",
-    "isCountryCorrect": "您是否位于该国家？",
     "chooseRegion": "选择地区",
     "chooseCountry": "选择国家",
     "chooseCity": "选择城市",
-    "noKeyboard": "无需键盘 — 仅使用遥控器",
     "apiError": "无法加载数据。请检查网络连接。"
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "南美洲",
     "oceania": "大洋洲"
   },
-  "firstRun": {
-    "chooseLanguage": "选择语言",
-    "languageHint": "您可以稍后在设置中更改语言。"
-  },
-  "status": {
-    "waiting": "请稍候..."
-  },
   "error": {
-    "revisionConflict": "配置冲突！正在更新…",
     "saveFailed": "保存失败：",
     "connection": "连接错误",
-    "elevationFailed": "错误：未能获取权限",
     "minimizeFailed": "无法最小化应用"
   },
   "elevation": {

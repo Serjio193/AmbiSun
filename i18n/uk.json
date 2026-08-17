@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "Змінити",
-    "yes": "Так",
-    "no": "Ні",
     "back": "Назад",
     "minimize": "Згорнути",
     "retry": "Повторити"
@@ -29,25 +27,16 @@
     "sunrise": "Схід сонця",
     "sunsetOffset": "Увімкнення відносно заходу сонця",
     "sunriseOffset": "Вимкнення відносно сходу сонця",
-    "localSchedule": "Розклад розраховується локально та застосовується щодня.",
-    "todaySunset": "Захід сонця сьогодні",
-    "ambilightOn": "Ambilight УВІМК",
-    "tomorrowSunrise": "Схід сонця завтра"
+    "localSchedule": "Розклад розраховується локально та застосовується щодня."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "Мова",
-    "autostart": "Автозапуск із ТВ",
     "defaultRule": "Правило за замовчуванням для нових програм",
-    "test": "Тест Ambilight на 5 секунд",
-    "plasma": "Плазмовий фон HyperHDR · Плавний",
-    "advanced": "Розширені налаштування",
     "reset": "Скинути налаштування",
     "saved": "Налаштування збережено"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "Адреса сервера:",
     "port": "Порт:",
     "test": "Перевірити",
@@ -56,18 +45,7 @@
     "testing": "Перевірка підключення...",
     "available": "HyperHDR доступний",
     "unavailable": "Недоступний",
-    "connected": "Підключено",
     "invalid": "Некоректна адреса або порт"
-  },
-  "language": {
-    "system": "Як на ТВ",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "Версія",
@@ -78,15 +56,12 @@
     "available": "Доступне оновлення",
     "install": "Встановити оновлення",
     "preparing": "Підготовка оновлення…",
-    "downloading": "Завантаження та перевірка пакета…",
     "installing": "Встановлення оновлення…",
     "restart": "AmbiSun перезапуститься автоматично.",
-    "failed": "Помилка оновлення: ",
-    "upToDate": "Встановлено актуальну версію"
+    "failed": "Помилка оновлення: "
   },
   "support": {
     "title": "❤ Підтримати проєкт",
-    "subtitle": "Реквізити підтримки з Legacy Bridge",
     "scan": "Відскануйте QR-код телефоном"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "Завжди ВИМК"
   },
   "toast": {
-    "locationTodo": "TODO API: майстер країни / міста",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Тест підсвічування: 5 секунд",
-    "advancedTodo": "TODO: розширені налаштування",
     "reset": "Налаштування прототипу скинуто",
-    "updateOk": "Перевірка GitHub Releases — версія 1.0.0 актуальна",
     "openGithub": "Перехід на GitHub",
     "resetting": "Скидання налаштувань…",
     "saving": "Збереження…"
@@ -112,11 +82,9 @@
     "stepCountry": "Країна",
     "stepCity": "Місто",
     "detectedLead": "Країна, визначена за IP:",
-    "isCountryCorrect": "Ви перебуваєте в цій країні?",
     "chooseRegion": "Оберіть регіон",
     "chooseCountry": "Оберіть країну",
     "chooseCity": "Оберіть місто",
-    "noKeyboard": "Без клавіатури — тільки пульт",
     "apiError": "Не вдалося завантажити дані. Перевірте підключення."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "Південна Америка",
     "oceania": "Океанія"
   },
-  "firstRun": {
-    "chooseLanguage": "Оберіть мову",
-    "languageHint": "Ви завжди зможете змінити мову в Налаштуваннях."
-  },
-  "status": {
-    "waiting": "Очікування..."
-  },
   "error": {
-    "revisionConflict": "Конфлікт конфігурації! Оновлення...",
     "saveFailed": "Помилка збереження: ",
     "connection": "Помилка підключення",
-    "elevationFailed": "Помилка: не вдалося отримати права доступу",
     "minimizeFailed": "Не вдалося згорнути програму"
   },
   "elevation": {

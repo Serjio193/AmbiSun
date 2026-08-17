@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "變更",
-    "yes": "是",
-    "no": "否",
     "back": "返回",
     "minimize": "最小化",
     "retry": "重試"
@@ -29,25 +27,16 @@
     "sunrise": "日出",
     "sunsetOffset": "相對日落開啟",
     "sunriseOffset": "相對日出關閉",
-    "localSchedule": "排程在本地計算並每日自動執行。",
-    "todaySunset": "今日日落",
-    "ambilightOn": "Ambilight 開啟",
-    "tomorrowSunrise": "明日日出"
+    "localSchedule": "排程在本地計算並每日自動執行。"
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "語言",
-    "autostart": "隨電視啟動",
     "defaultRule": "新應用的預設規則",
-    "test": "測試 Ambilight 5 秒",
-    "plasma": "HyperHDR 等離子背景 · 平滑",
-    "advanced": "進階設定",
     "reset": "重設設定",
     "saved": "設定已儲存"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "伺服器位址：",
     "port": "連接埠：",
     "test": "測試",
@@ -56,18 +45,7 @@
     "testing": "正在測試連線...",
     "available": "HyperHDR 可用",
     "unavailable": "無法使用",
-    "connected": "已連線",
     "invalid": "無效的位址或連接埠"
-  },
-  "language": {
-    "system": "跟隨電視系統",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "版本",
@@ -78,15 +56,12 @@
     "available": "有可用更新",
     "install": "安裝更新",
     "preparing": "正在準備更新…",
-    "downloading": "正在下載並驗證套件…",
     "installing": "正在安裝更新…",
     "restart": "AmbiSun 將自動重新啟動。",
-    "failed": "更新失敗：",
-    "upToDate": "應用程式已是最新版本"
+    "failed": "更新失敗："
   },
   "support": {
     "title": "❤ 支持此專案",
-    "subtitle": "來自 Legacy Bridge 的支持資訊",
     "scan": "使用手機掃描 QR 碼"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "始終關閉"
   },
   "toast": {
-    "locationTodo": "TODO API：國家 / 城市精靈",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight 測試：5 秒",
-    "advancedTodo": "TODO：進階設定",
     "reset": "原型設定已重設",
-    "updateOk": "已檢查 GitHub Releases — 版本 1.0.0 為最新",
     "openGithub": "正在開啟 GitHub",
     "resetting": "正在重設設定…",
     "saving": "正在儲存…"
@@ -112,11 +82,9 @@
     "stepCountry": "國家",
     "stepCity": "城市",
     "detectedLead": "根據 IP 辨識的國家：",
-    "isCountryCorrect": "您是否位於該國家？",
     "chooseRegion": "選擇地區",
     "chooseCountry": "選擇國家",
     "chooseCity": "選擇城市",
-    "noKeyboard": "無需鍵盤 — 僅使用遙控器",
     "apiError": "無法載入資料。請檢查連線。"
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "南美洲",
     "oceania": "大洋洲"
   },
-  "firstRun": {
-    "chooseLanguage": "選擇語言",
-    "languageHint": "您可以稍後在設定中更改語言。"
-  },
-  "status": {
-    "waiting": "請稍候..."
-  },
   "error": {
-    "revisionConflict": "設定衝突！正在更新…",
     "saveFailed": "儲存失敗：",
     "connection": "連線錯誤",
-    "elevationFailed": "錯誤：未能取得權限",
     "minimizeFailed": "無法最小化應用程式"
   },
   "elevation": {

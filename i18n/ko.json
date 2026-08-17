@@ -9,8 +9,6 @@
   },
   "common": {
     "change": "변경",
-    "yes": "예",
-    "no": "아니요",
     "back": "뒤로",
     "minimize": "최소화",
     "retry": "다시 시도"
@@ -29,25 +27,16 @@
     "sunrise": "일출",
     "sunsetOffset": "일몰 기준 켜짐",
     "sunriseOffset": "일출 기준 꺼짐",
-    "localSchedule": "일정은 로컬에서 계산되어 매일 적용됩니다.",
-    "todaySunset": "오늘 일몰",
-    "ambilightOn": "Ambilight 켜짐",
-    "tomorrowSunrise": "내일 일출"
+    "localSchedule": "일정은 로컬에서 계산되어 매일 적용됩니다."
   },
   "settings": {
-    "enabled": "AmbiSun",
     "hyperhdr": "HyperHDR",
     "language": "언어",
-    "autostart": "TV와 함께 시작",
     "defaultRule": "새 앱 기본 규칙",
-    "test": "Ambilight 5초간 테스트",
-    "plasma": "HyperHDR 플라스마 배경 · 부드러움",
-    "advanced": "고급 설정",
     "reset": "설정 초기화",
     "saved": "설정이 저장되었습니다"
   },
   "hyperhdr": {
-    "title": "HyperHDR",
     "host": "서버 주소:",
     "port": "포트:",
     "test": "테스트",
@@ -56,18 +45,7 @@
     "testing": "연결 테스트 중...",
     "available": "HyperHDR 사용 가능",
     "unavailable": "사용 불가",
-    "connected": "연결됨",
     "invalid": "잘못된 주소 또는 포트"
-  },
-  "language": {
-    "system": "TV 설정과 동일",
-    "english": "English",
-    "russian": "Русский",
-    "estonian": "Eesti",
-    "german": "Deutsch",
-    "french": "Français",
-    "spanish": "Español",
-    "italian": "Italiano"
   },
   "about": {
     "version": "버전",
@@ -78,15 +56,12 @@
     "available": "업데이트 가능",
     "install": "업데이트 설치",
     "preparing": "업데이트 준비 중…",
-    "downloading": "패키지 다운로드 및 확인 중…",
     "installing": "업데이트 설치 중…",
     "restart": "AmbiSun이 자동으로 다시 시작됩니다.",
-    "failed": "업데이트 실패: ",
-    "upToDate": "최신 버전을 사용 중입니다"
+    "failed": "업데이트 실패: "
   },
   "support": {
     "title": "❤ 프로젝트 후원",
-    "subtitle": "Legacy Bridge 후원 정보",
     "scan": "스마트폰으로 QR 코드를 스캔하세요"
   },
   "rule": {
@@ -95,12 +70,7 @@
     "off": "항상 꺼짐"
   },
   "toast": {
-    "locationTodo": "TODO API: 국가 / 도시 마법사",
-    "hyperhdrTodo": "TODO API: HyperHDR 127.0.0.1:8090",
-    "test": "Ambilight 테스트: 5초",
-    "advancedTodo": "TODO: 고급 설정",
     "reset": "프로토타입 설정이 초기화되었습니다",
-    "updateOk": "GitHub Releases 확인 완료 — 최신 버전 1.0.0입니다",
     "openGithub": "GitHub 여는 중",
     "resetting": "설정 초기화 중…",
     "saving": "저장 중…"
@@ -112,11 +82,9 @@
     "stepCountry": "국가",
     "stepCity": "도시",
     "detectedLead": "IP로 감지된 국가:",
-    "isCountryCorrect": "이 국가에 계십니까?",
     "chooseRegion": "지역 선택",
     "chooseCountry": "국가 선택",
     "chooseCity": "도시 선택",
-    "noKeyboard": "키보드 없음 — 리모컨 전용",
     "apiError": "데이터를 불러오지 못했습니다. 연결 상태를 확인하세요."
   },
   "region": {
@@ -127,18 +95,9 @@
     "southAmerica": "남아메리카",
     "oceania": "오세아니아"
   },
-  "firstRun": {
-    "chooseLanguage": "언어 선택",
-    "languageHint": "나중에 설정에서 언어를 변경할 수 있습니다."
-  },
-  "status": {
-    "waiting": "대기 중..."
-  },
   "error": {
-    "revisionConflict": "설정 충돌 발생! 업데이트 중...",
     "saveFailed": "저장 실패: ",
     "connection": "연결 오류",
-    "elevationFailed": "오류: 권한 획득 실패",
     "minimizeFailed": "애플리케이션 최소화 실패"
   },
   "elevation": {

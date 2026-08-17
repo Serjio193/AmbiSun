@@ -4,6 +4,18 @@ $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RepoRoot = Split-Path -Parent $ScriptDir
 
+# 1b. Strict Fail-Closed Built-in Locale Validation
+Write-Host "Validating all 39 built-in locales against canonical en.json..."
+$ValidatorScript = Join-Path $RepoRoot "scripts\validate-locales.js"
+if (-not (Test-Path $ValidatorScript)) {
+    throw "Locale validator script not found: $ValidatorScript"
+}
+
+& node $ValidatorScript (Join-Path $RepoRoot "i18n")
+if ($LASTEXITCODE -ne 0) {
+    throw "BUILD ABORTED: One or more locale files failed validation."
+}
+
 # 2. Create staging directory in TEMP
 $StagingDir = Join-Path $env:TEMP "AmbiSun-build"
 
@@ -104,24 +116,11 @@ foreach ($file in $EssentialFiles) {
 }
 
 # 6b. Verify all 39 built-in locale JSON files in staging
-Write-Host "Validating all 39 built-in locale JSON files..."
-$RequiredLocales = @(
-    "en", "de", "fr", "es", "pt-BR", "pt-PT", "it", "nl", "pl", "cs",
-    "sk", "hu", "ro", "bg", "el", "hr", "sl", "sr", "et", "lv",
-    "lt", "fi", "sv", "da", "no", "tr", "ru", "uk", "ar", "he",
-    "hi", "id", "ms", "th", "vi", "ko", "ja", "zh-CN", "zh-TW"
-)
-
-$AppEnJsonPath = Join-Path $AppStaging "i18n\en.json"
-if (-not (Test-Path $AppEnJsonPath)) {
-    throw "Source locale file missing from staging: $AppEnJsonPath"
-}
-
-foreach ($loc in $RequiredLocales) {
-    $locPath = Join-Path $AppStaging "i18n\$loc.json"
-    if (-not (Test-Path $locPath)) {
-        throw "Built-in locale file missing from staging: $locPath"
-    }
+Write-Host "Validating all 39 built-in locale JSON files in staging..."
+$StagingI18n = Join-Path $AppStaging "i18n"
+& node $ValidatorScript $StagingI18n
+if ($LASTEXITCODE -ne 0) {
+    throw "STAGING LOCALE VALIDATION FAILED: Staging locale files do not match contract."
 }
 
 # 7. Check ares-package availability

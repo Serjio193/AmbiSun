@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "其他語言",
-    "otherLanguages": "其他語言…",
-    "loading": "正在載入語言清單…",
-    "downloading": "正在下載翻譯…",
-    "downloadFailed": "載入翻譯失敗",
-    "empty": "找不到語言"
+    "italian": "Italiano"
   },
   "about": {
     "version": "版本",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "選擇語言",
-    "languageHint": "您可以稍後在「設定」中變更語言。",
-    "otherLanguages": "其他語言…",
-    "onlineTranslationTodo": "TODO：線上語言清單 → 翻譯 en.json → 儲存新 JSON"
+    "languageHint": "您可以稍後在「設定」中變更語言。"
   },
   "status": {
     "waiting": "等候中..."

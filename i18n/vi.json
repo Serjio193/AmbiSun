@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Ngôn ngữ khác",
-    "otherLanguages": "Ngôn ngữ khác…",
-    "loading": "Đang tải danh sách ngôn ngữ…",
-    "downloading": "Đang tải bản dịch…",
-    "downloadFailed": "Không thể tải bản dịch",
-    "empty": "Không tìm thấy ngôn ngữ nào"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Phiên bản",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Chọn một ngôn ngữ",
-    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong Cài đặt.",
-    "otherLanguages": "Ngôn ngữ khác…",
-    "onlineTranslationTodo": "TODO: danh sách ngôn ngữ trực tuyến → dịch en.json → lưu JSON mới"
+    "languageHint": "Bạn có thể thay đổi ngôn ngữ sau trong Cài đặt."
   },
   "status": {
     "waiting": "Đang chờ..."

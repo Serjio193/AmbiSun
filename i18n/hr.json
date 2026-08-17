@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Drugi jezici",
-    "otherLanguages": "Drugi jezici…",
-    "loading": "Učitavanje popisa jezika…",
-    "downloading": "Preuzimanje prijevoda…",
-    "downloadFailed": "Učitavanje prijevoda nije uspjelo",
-    "empty": "Jezici nisu pronađeni"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Verzija",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Odaberite jezik",
-    "languageHint": "Jezik možete promijeniti kasnije u Postavkama.",
-    "otherLanguages": "Drugi jezici…",
-    "onlineTranslationTodo": "TODO: mrežni popis jezika → prevedi en.json → spremi novi JSON"
+    "languageHint": "Jezik možete promijeniti kasnije u Postavkama."
   },
   "status": {
     "waiting": "Čekanje..."

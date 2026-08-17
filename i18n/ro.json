@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Alte limbi",
-    "otherLanguages": "Alte limbi…",
-    "loading": "Se încarcă lista de limbi…",
-    "downloading": "Se descarcă traducerea…",
-    "downloadFailed": "Încărcarea traducerii a eșuat",
-    "empty": "Nu s-au găsit limbi"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versiune",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Alegeți o limbă",
-    "languageHint": "Puteți schimba limba mai târziu în Setări.",
-    "otherLanguages": "Alte limbi…",
-    "onlineTranslationTodo": "TODO: listă limbi online → traduce en.json → salvează JSON nou"
+    "languageHint": "Puteți schimba limba mai târziu în Setări."
   },
   "status": {
     "waiting": "Se așteaptă..."

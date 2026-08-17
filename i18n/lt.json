@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Kitos kalbos",
-    "otherLanguages": "Kitos kalbos…",
-    "loading": "Įkeliamas kalbų sąrašas…",
-    "downloading": "Atsiunčiamas vertimas…",
-    "downloadFailed": "Nepavyko įkelti vertimo",
-    "empty": "Kalbų nerasta"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versija",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Pasirinkite kalbą",
-    "languageHint": "Kalba galite pakeisti vėliau Nustatymuose.",
-    "otherLanguages": "Kitos kalbos…",
-    "onlineTranslationTodo": "TODO: internetinis kalbų sąrašas → išversti en.json → išsaugoti naują JSON"
+    "languageHint": "Kalba galite pakeisti vėliau Nustatymuose."
   },
   "status": {
     "waiting": "Laukiama..."

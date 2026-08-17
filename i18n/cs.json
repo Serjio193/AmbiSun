@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Další jazyky",
-    "otherLanguages": "Další jazyky…",
-    "loading": "Načítání seznamu jazyků…",
-    "downloading": "Stahování překladu…",
-    "downloadFailed": "Nepodařilo se načíst překlad",
-    "empty": "Nebyly nalezeny žádné jazyky"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Verze",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Vyberte jazyk",
-    "languageHint": "Jazyk můžete později změnit v Nastavení.",
-    "otherLanguages": "Další jazyky…",
-    "onlineTranslationTodo": "TODO: online seznam jazyků → přeložit en.json → uložit nový JSON"
+    "languageHint": "Jazyk můžete později změnit v Nastavení."
   },
   "status": {
     "waiting": "Čekání..."

@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "अन्य भाषाएँ",
-    "otherLanguages": "अन्य भाषाएँ…",
-    "loading": "भाषा सूची लोड हो रही है…",
-    "downloading": "अनुवाद डाउनलोड हो रहा है…",
-    "downloadFailed": "अनुवाद लोड करने में विफल",
-    "empty": "कोई भाषा नहीं मिली"
+    "italian": "Italiano"
   },
   "about": {
     "version": "संस्करण",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "एक भाषा चुनें",
-    "languageHint": "आप बाद में सेटिंग्स में भाषा बदल सकते हैं।",
-    "otherLanguages": "अन्य भाषाएँ…",
-    "onlineTranslationTodo": "TODO: ऑनलाइन भाषा सूची → en.json अनुवाद करें → नया JSON सहेजें"
+    "languageHint": "आप बाद में सेटिंग्स में भाषा बदल सकते हैं।"
   },
   "status": {
     "waiting": "प्रतीक्षा कर रहा है..."

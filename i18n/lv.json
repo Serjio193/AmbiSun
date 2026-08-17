@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Citas valodas",
-    "otherLanguages": "Citas valodas…",
-    "loading": "Ielādē valodu sarakstu…",
-    "downloading": "Lejupielādē tulkojumu…",
-    "downloadFailed": "Neizdevās ielādēt tulkojumu",
-    "empty": "Valodas nav atrastas"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versija",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Izvēlieties valodu",
-    "languageHint": "Valodu varat mainīt vēlāk Iestatījumos.",
-    "otherLanguages": "Citas valodas…",
-    "onlineTranslationTodo": "TODO: tiešsaistes valodu saraksts → tulkot en.json → saglabāt jaunu JSON"
+    "languageHint": "Valodu varat mainīt vēlāk Iestatījumos."
   },
   "status": {
     "waiting": "Gaida..."

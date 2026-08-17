@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "ภาษาอื่น ๆ",
-    "otherLanguages": "ภาษาอื่น ๆ…",
-    "loading": "กำลังโหลดรายการภาษา…",
-    "downloading": "กำลังดาวน์โหลดคำแปล…",
-    "downloadFailed": "โหลดคำแปลไม่สำเร็จ",
-    "empty": "ไม่พบภาษา"
+    "italian": "Italiano"
   },
   "about": {
     "version": "เวอร์ชัน",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "เลือกภาษา",
-    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังในการตั้งค่า",
-    "otherLanguages": "ภาษาอื่น ๆ…",
-    "onlineTranslationTodo": "TODO: รายการภาษาออนไลน์ → แปล en.json → บันทึก JSON ใหม่"
+    "languageHint": "คุณสามารถเปลี่ยนภาษาได้ในภายหลังในการตั้งค่า"
   },
   "status": {
     "waiting": "กำลังรอ..."

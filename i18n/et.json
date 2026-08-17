@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Teised keeled",
-    "otherLanguages": "Teised keeled…",
-    "loading": "Keeleloendi laadimine…",
-    "downloading": "Tõlke allalaadimine…",
-    "downloadFailed": "Tõlke laadimine ebaõnnestus",
-    "empty": "Keeli ei leitud"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versioon",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Valige keel",
-    "languageHint": "Keelt saab hiljem seadetes muuta.",
-    "otherLanguages": "Muud keeled…",
-    "onlineTranslationTodo": "TODO: veebikeelte loend → en.json tõlge → uue JSON-i salvestamine"
+    "languageHint": "Keelt saab hiljem seadetes muuta."
   },
   "status": {
     "waiting": "Ootab..."

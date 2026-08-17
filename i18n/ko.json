@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "기타 언어",
-    "otherLanguages": "기타 언어…",
-    "loading": "언어 목록 불러오는 중…",
-    "downloading": "번역 다운로드 중…",
-    "downloadFailed": "번역 불러오기 실패",
-    "empty": "언어를 찾을 수 없습니다"
+    "italian": "Italiano"
   },
   "about": {
     "version": "버전",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "언어를 선택하세요",
-    "languageHint": "나중에 설정에서 언어를 변경할 수 있습니다.",
-    "otherLanguages": "기타 언어…",
-    "onlineTranslationTodo": "TODO: 온라인 언어 목록 → en.json 번역 → 새 JSON 저장"
+    "languageHint": "나중에 설정에서 언어를 변경할 수 있습니다."
   },
   "status": {
     "waiting": "대기 중..."

@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Andra språk",
-    "otherLanguages": "Andra språk…",
-    "loading": "Laddar språklista…",
-    "downloading": "Laddar ner översättning…",
-    "downloadFailed": "Kunde inte ladda översättning",
-    "empty": "Inga språk hittades"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Version",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Välj ett språk",
-    "languageHint": "Du kan ändra språket senare i Inställningar.",
-    "otherLanguages": "Andra språk…",
-    "onlineTranslationTodo": "TODO: onlinespråklista → översätt en.json → spara ny JSON"
+    "languageHint": "Du kan ändra språket senare i Inställningar."
   },
   "status": {
     "waiting": "Väntar..."

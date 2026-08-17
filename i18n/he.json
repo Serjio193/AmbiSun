@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "שפות נוספות",
-    "otherLanguages": "שפות נוספות…",
-    "loading": "טוען רשימת שפות…",
-    "downloading": "מוריד תרגום…",
-    "downloadFailed": "טעינת התרגום נכשלה",
-    "empty": "לא נמצאו שפות"
+    "italian": "Italiano"
   },
   "about": {
     "version": "גרסה",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "בחר שפה",
-    "languageHint": "תוכל לשנות את השפה מאוחר יותר בהגדרות.",
-    "otherLanguages": "שפות נוספות…",
-    "onlineTranslationTodo": "TODO: רשימת שפות מקוונת → תרגם en.json → שמור JSON חדש"
+    "languageHint": "תוכל לשנות את השפה מאוחר יותר בהגדרות."
   },
   "status": {
     "waiting": "ממתין..."

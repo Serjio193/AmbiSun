@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "その他の言語",
-    "otherLanguages": "その他の言語…",
-    "loading": "言語リストを読み込み中…",
-    "downloading": "翻訳をダウンロード中…",
-    "downloadFailed": "翻訳の読み込みに失敗しました",
-    "empty": "言語が見つかりません"
+    "italian": "Italiano"
   },
   "about": {
     "version": "バージョン",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "言語を選択してください",
-    "languageHint": "後から設定で言語を変更できます。",
-    "otherLanguages": "その他の言語…",
-    "onlineTranslationTodo": "TODO: オンライン言語リスト → en.json 翻訳 → 新しい JSON 保存"
+    "languageHint": "後から設定で言語を変更できます。"
   },
   "status": {
     "waiting": "待機中..."

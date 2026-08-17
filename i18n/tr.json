@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Diğer diller",
-    "otherLanguages": "Diğer diller…",
-    "loading": "Dil listesi yükleniyor…",
-    "downloading": "Çeviri indiriliyor…",
-    "downloadFailed": "Çeviri yüklenemedi",
-    "empty": "Dil bulunamadı"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Sürüm",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Bir dil seçin",
-    "languageHint": "Dili daha sonra Ayarlar'dan değiştirebilirsiniz.",
-    "otherLanguages": "Diğer diller…",
-    "onlineTranslationTodo": "TODO: çevrimiçi dil listesi → en.json çevir → yeni JSON kaydet"
+    "languageHint": "Dili daha sonra Ayarlar'dan değiştirebilirsiniz."
   },
   "status": {
     "waiting": "Bekleniyor..."

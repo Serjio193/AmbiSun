@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "لغات أخرى",
-    "otherLanguages": "لغات أخرى…",
-    "loading": "جارٍ تحميل قائمة اللغات…",
-    "downloading": "جارٍ تنزيل الترجمة…",
-    "downloadFailed": "فشل تحميل الترجمة",
-    "empty": "لم يتم العثور على لغات"
+    "italian": "Italiano"
   },
   "about": {
     "version": "الإصدار",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "اختر لغة",
-    "languageHint": "يمكنك تغيير اللغة لاحقاً من الإعدادات.",
-    "otherLanguages": "لغات أخرى…",
-    "onlineTranslationTodo": "TODO: قائمة اللغات عبر الإنترنت → ترجمة en.json → حفظ JSON جديد"
+    "languageHint": "يمكنك تغيير اللغة لاحقاً من الإعدادات."
   },
   "status": {
     "waiting": "جارٍ الانتظار..."

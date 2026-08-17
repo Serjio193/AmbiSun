@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Other languages",
-    "otherLanguages": "Other languages…",
-    "loading": "Loading language list…",
-    "downloading": "Downloading translation…",
-    "downloadFailed": "Failed to load translation",
-    "empty": "No languages found"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Version",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Choose a language",
-    "languageHint": "You can change the language later in Settings.",
-    "otherLanguages": "Other languages…",
-    "onlineTranslationTodo": "TODO: online language list → translate en.json → save new JSON"
+    "languageHint": "You can change the language later in Settings."
   },
   "status": {
     "waiting": "Waiting..."

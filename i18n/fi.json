@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Muut kielet",
-    "otherLanguages": "Muut kielet…",
-    "loading": "Ladataan kieliluetteloa…",
-    "downloading": "Ladataan käännöstä…",
-    "downloadFailed": "Käännöksen lataus epäonnistui",
-    "empty": "Kieliä ei löytynyt"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versio",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Valitse kieli",
-    "languageHint": "Voit vaihtaa kielen myöhemmin Asetuksissa.",
-    "otherLanguages": "Muut kielet…",
-    "onlineTranslationTodo": "TODO: verkkokieliluettelo → käännä en.json → tallenna uusi JSON"
+    "languageHint": "Voit vaihtaa kielen myöhemmin Asetuksissa."
   },
   "status": {
     "waiting": "Odotetaan..."

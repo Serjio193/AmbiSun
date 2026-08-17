@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Інші мови",
-    "otherLanguages": "Інші мови…",
-    "loading": "Завантаження списку мов…",
-    "downloading": "Завантаження перекладу…",
-    "downloadFailed": "Не вдалося завантажити переклад",
-    "empty": "Мови не знайдено"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Версія",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Оберіть мову",
-    "languageHint": "Мову можна змінити пізніше в налаштуваннях.",
-    "otherLanguages": "Інші мови…",
-    "onlineTranslationTodo": "TODO: онлайн-список мов → переклад en.json → збереження нового JSON"
+    "languageHint": "Мову можна змінити пізніше в налаштуваннях."
   },
   "status": {
     "waiting": "Очікування..."

@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Другие языки",
-    "otherLanguages": "Другие языки…",
-    "loading": "Загрузка списка языков…",
-    "downloading": "Скачивание перевода…",
-    "downloadFailed": "Не удалось загрузить перевод",
-    "empty": "Языки не найдены"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Версия",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Выберите язык",
-    "languageHint": "Язык можно изменить позже в настройках.",
-    "otherLanguages": "Другие языки…",
-    "onlineTranslationTodo": "TODO: список языков онлайн → перевод en.json → сохранение нового JSON"
+    "languageHint": "Язык можно изменить позже в настройках."
   },
   "status": {
     "waiting": "Ожидание..."

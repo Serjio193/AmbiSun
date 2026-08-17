@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Andre språk",
-    "otherLanguages": "Andre språk…",
-    "loading": "Laster inn språkliste…",
-    "downloading": "Laster ned oversettelse…",
-    "downloadFailed": "Kunne ikke laste inn oversettelse",
-    "empty": "Ingen språk funnet"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versjon",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Velg et språk",
-    "languageHint": "Du kan endre språket senere i Innstillinger.",
-    "otherLanguages": "Andre språk…",
-    "onlineTranslationTodo": "TODO: nettspråkliste → oversett en.json → lagre ny JSON"
+    "languageHint": "Du kan endre språket senere i Innstillinger."
   },
   "status": {
     "waiting": "Venter..."

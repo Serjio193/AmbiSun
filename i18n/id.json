@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Bahasa lain",
-    "otherLanguages": "Bahasa lain…",
-    "loading": "Memuat daftar bahasa…",
-    "downloading": "Mengunduh terjemahan…",
-    "downloadFailed": "Gagal memuat terjemahan",
-    "empty": "Tidak ada bahasa ditemukan"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versi",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Pilih bahasa",
-    "languageHint": "Anda dapat mengubah bahasa nanti di Pengaturan.",
-    "otherLanguages": "Bahasa lain…",
-    "onlineTranslationTodo": "TODO: daftar bahasa online → terjemahkan en.json → simpan JSON baru"
+    "languageHint": "Anda dapat mengubah bahasa nanti di Pengaturan."
   },
   "status": {
     "waiting": "Menunggu..."

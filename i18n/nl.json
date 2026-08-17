@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Andere talen",
-    "otherLanguages": "Andere talen…",
-    "loading": "Taallijst laden…",
-    "downloading": "Vertaling downloaden…",
-    "downloadFailed": "Vertaling laden mislukt",
-    "empty": "Geen talen gevonden"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Versie",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Kies een taal",
-    "languageHint": "U kunt de taal later wijzigen in Instellingen.",
-    "otherLanguages": "Andere talen…",
-    "onlineTranslationTodo": "TODO: online taallijst → vertaal en.json → sla nieuwe JSON op"
+    "languageHint": "U kunt de taal later wijzigen in Instellingen."
   },
   "status": {
     "waiting": "Wachten..."

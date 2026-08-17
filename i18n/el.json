@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Άλλες γλώσσες",
-    "otherLanguages": "Άλλες γλώσσες…",
-    "loading": "Φόρτωση λίστας γλωσσών…",
-    "downloading": "Λήψη μετάφρασης…",
-    "downloadFailed": "Αποτυχία φόρτωσης μετάφρασης",
-    "empty": "Δεν βρέθηκαν γλώσσες"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Έκδοση",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Επιλέξτε γλώσσα",
-    "languageHint": "Μπορείτε να αλλάξετε τη γλώσσα αργότερα στις Ρυθμίσεις.",
-    "otherLanguages": "Άλλες γλώσσες…",
-    "onlineTranslationTodo": "TODO: ηλεκτρονική λίστα γλωσσών → μετάφραση en.json → αποθήκευση νέου JSON"
+    "languageHint": "Μπορείτε να αλλάξετε τη γλώσσα αργότερα στις Ρυθμίσεις."
   },
   "status": {
     "waiting": "Αναμονή..."

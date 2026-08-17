@@ -66,13 +66,7 @@
     "german": "Deutsch",
     "french": "Français",
     "spanish": "Español",
-    "italian": "Italiano",
-    "otherTitle": "Egyéb nyelvek",
-    "otherLanguages": "Egyéb nyelvek…",
-    "loading": "Nyelvlista betöltése…",
-    "downloading": "Fordítás letöltése…",
-    "downloadFailed": "Fordítás letöltése sikertelen",
-    "empty": "Nem találhatók nyelvek"
+    "italian": "Italiano"
   },
   "about": {
     "version": "Verzió",
@@ -131,9 +125,7 @@
   },
   "firstRun": {
     "chooseLanguage": "Válasszon nyelvet",
-    "languageHint": "A nyelvet később a Beállításokban módosíthatja.",
-    "otherLanguages": "Egyéb nyelvek…",
-    "onlineTranslationTodo": "TODO: online nyelvlista → en.json fordítása → új JSON mentése"
+    "languageHint": "A nyelvet később a Beállításokban módosíthatja."
   },
   "status": {
     "waiting": "Várakozás..."

@@ -25,6 +25,8 @@ var activePublicKey = PRODUCTION_PUBLIC_KEY;
 var cachedManifest = null;
 var isInstalling = false;
 var installStartedAt = 0;
+var activeFetcher = null;
+var activeDownloader = null;
 
 function getCurrentVersion() {
     try {
@@ -206,45 +208,28 @@ function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
     });
 }
 
-function checkForUpdate(callback) {
-    var currentVer = getCurrentVersion();
-
-    fetchWithRedirects(MANIFEST_URL, MANIFEST_MAX_BYTES, 0, function(err, body) {
+function fetchAndValidateManifest(callback) {
+    var fetchFn = activeFetcher || fetchWithRedirects;
+    fetchFn(MANIFEST_URL, MANIFEST_MAX_BYTES, 0, function(err, body) {
         if (err) {
-            return callback(null, {
-                returnValue: false,
-                currentVersion: currentVer,
-                errorCode: "CHECK_FAILED",
-                errorText: err.message
-            });
+            return callback(new Error("CHECK_FAILED: " + err.message));
         }
 
         var manifest;
         try {
             manifest = JSON.parse(body);
         } catch (e) {
-            return callback(null, {
-                returnValue: false,
-                currentVersion: currentVer,
-                errorCode: "INVALID_JSON",
-                errorText: "Failed to parse update manifest JSON"
-            });
+            return callback(new Error("INVALID_JSON: Failed to parse update manifest JSON"));
         }
 
         var valErr = validateManifest(manifest, activePublicKey);
         if (valErr) {
-            return callback(null, {
-                returnValue: false,
-                currentVersion: currentVer,
-                errorCode: "INVALID_MANIFEST",
-                errorText: valErr
-            });
+            return callback(new Error("INVALID_MANIFEST: " + valErr));
         }
 
         var latestVer = manifest.version.trim();
         var sha256 = manifest.sha256.trim().toLowerCase();
         var size = manifest.size;
-        var updateAvail = isUpdateAvailable(currentVer, latestVer);
         var ipkUrl = getExpectedIpkUrl(latestVer);
 
         cachedManifest = {
@@ -256,6 +241,31 @@ function checkForUpdate(callback) {
             ipkUrl: ipkUrl,
             fetchedAt: Date.now()
         };
+
+        callback(null, cachedManifest);
+    });
+}
+
+function checkForUpdate(callback) {
+    var currentVer = getCurrentVersion();
+
+    fetchAndValidateManifest(function(err, manifest) {
+        if (err) {
+            var msg = err.message || "";
+            var code = "CHECK_FAILED";
+            if (msg.startsWith("INVALID_JSON:")) code = "INVALID_JSON";
+            else if (msg.startsWith("INVALID_MANIFEST:")) code = "INVALID_MANIFEST";
+
+            return callback(null, {
+                returnValue: false,
+                currentVersion: currentVer,
+                errorCode: code,
+                errorText: msg.replace(/^[A-Z_]+:\s*/, "")
+            });
+        }
+
+        var latestVer = manifest.version;
+        var updateAvail = isUpdateAvailable(currentVer, latestVer);
 
         callback(null, {
             returnValue: true,
@@ -457,36 +467,18 @@ function installUpdate(payload, serviceHandle, callback) {
     payload = payload || {};
     var expectedVer = payload.expectedVersion;
 
+    if (!expectedVer || typeof expectedVer !== 'string' || !SEMVER_REGEX.test(expectedVer.trim())) {
+        return callback(new Error("INVALID_EXPECTED_VERSION: expectedVersion is required and must be valid SemVer"));
+    }
+    expectedVer = expectedVer.trim();
+
     // Check lock
     var now = Date.now();
     if (isInstalling && (now - installStartedAt) < INSTALL_LOCK_TIMEOUT_MS) {
         return callback(new Error("UPDATE_ALREADY_IN_PROGRESS: Another update installation is already running"));
     }
 
-    if (!cachedManifest) {
-        return callback(new Error("NO_UPDATE_CHECK: Check for update first"));
-    }
-
-    if (now - cachedManifest.fetchedAt > CACHE_TTL_MS) {
-        return callback(new Error("UPDATE_EXPIRED: Manifest is older than 30 minutes. Check for update again"));
-    }
-
-    if (!expectedVer || expectedVer !== cachedManifest.version) {
-        return callback(new Error("VERSION_MISMATCH: Expected version " + expectedVer + " does not match cached version " + cachedManifest.version));
-    }
-
-    // Require target version to be strictly newer than installed version (prevent downgrade / same-version reinstall)
-    var currentVer = getCurrentVersion();
-    if (compareSemver(cachedManifest.version, currentVer) !== 1) {
-        return callback(new Error("NO_DOWNGRADE_OR_REINSTALL: Target version " + cachedManifest.version + " is not newer than current installed version " + currentVer));
-    }
-
-    // Double check signature of cached manifest
-    if (!verifyManifestSignature(cachedManifest, activePublicKey)) {
-        return callback(new Error("SIGNATURE_INVALID: Cached update manifest signature verification failed"));
-    }
-
-    // Acquire lock
+    // Acquire lock immediately to protect against concurrent/duplicate requests
     isInstalling = true;
     installStartedAt = now;
 
@@ -495,79 +487,118 @@ function installUpdate(payload, serviceHandle, callback) {
         installStartedAt = 0;
     }
 
-    var targetVersion = cachedManifest.version;
-    var targetSha256 = cachedManifest.sha256;
-    var targetSize = cachedManifest.size;
-    var downloadUrl = getExpectedIpkUrl(targetVersion);
-
-    // Ensure temp dir exists
-    try {
-        if (!fs.existsSync(TEMP_DIR)) {
-            fs.mkdirSync(TEMP_DIR, { recursive: true });
+    function getManifest(cb) {
+        if (cachedManifest &&
+            (now - cachedManifest.fetchedAt) <= CACHE_TTL_MS &&
+            verifyManifestSignature(cachedManifest, activePublicKey)) {
+            return cb(null, cachedManifest);
         }
-    } catch (_) {}
 
-    var ipkFileName = "ambisun-update-" + targetVersion + ".ipk";
-    var ipkPath = path.join(TEMP_DIR, ipkFileName);
-    var helperPath = path.join(TEMP_DIR, "ambisun-selfupdate.sh");
-    var resultPath = path.join(TEMP_DIR, "ambisun-install-result.json");
-    var logPath = path.join(TEMP_DIR, "ambisun-update.log");
+        fetchAndValidateManifest(function(err, freshManifest) {
+            if (err) return cb(err);
+            cb(null, freshManifest);
+        });
+    }
 
-    // Clean up any existing temp files before download
-    try { fs.unlinkSync(ipkPath); } catch (_) {}
-    try { fs.unlinkSync(helperPath); } catch (_) {}
-    try { fs.unlinkSync(resultPath); } catch (_) {}
-
-    downloadFileWithHash(downloadUrl, ipkPath, targetSize, IPK_MAX_BYTES, 0, function(err, downloadResult) {
+    getManifest(function(err, manifest) {
         if (err) {
-            try { fs.unlinkSync(ipkPath); } catch (_) {}
             releaseLock();
-            return callback(new Error("DOWNLOAD_FAILED: " + err.message));
+            return callback(new Error("UPDATE_CHECK_FAILED: " + (err.message || "Failed to fetch update manifest")));
         }
 
-        var computedHash = downloadResult && downloadResult.hash;
-        if (computedHash !== targetSha256) {
-            try { fs.unlinkSync(ipkPath); } catch (_) {}
+        if (expectedVer !== manifest.version) {
             releaseLock();
-            return callback(new Error("UPDATE_HASH_MISMATCH: Computed " + computedHash + " expected " + targetSha256));
+            return callback(new Error("VERSION_MISMATCH: Expected version " + expectedVer + " does not match manifest version " + manifest.version));
         }
 
-        // Generate self-update helper script
-        var helperScript = generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, logPath);
+        // Require target version to be strictly newer than installed version (prevent downgrade / same-version reinstall)
+        var currentVer = getCurrentVersion();
+        if (compareSemver(manifest.version, currentVer) !== 1) {
+            releaseLock();
+            return callback(new Error("NO_DOWNGRADE_OR_REINSTALL: Target version " + manifest.version + " is not newer than current installed version " + currentVer));
+        }
 
+        // Double check signature of manifest (fail-closed)
+        if (!verifyManifestSignature(manifest, activePublicKey)) {
+            releaseLock();
+            return callback(new Error("SIGNATURE_INVALID: Update manifest signature verification failed"));
+        }
+
+        var targetVersion = manifest.version;
+        var targetSha256 = manifest.sha256;
+        var targetSize = manifest.size;
+        var downloadUrl = getExpectedIpkUrl(targetVersion);
+
+        // Ensure temp dir exists
         try {
-            fs.writeFileSync(helperPath, helperScript, { mode: 493 }); // 0755
-        } catch (e) {
-            try { fs.unlinkSync(ipkPath); } catch (_) {}
-            releaseLock();
-            return callback(new Error("HELPER_WRITE_FAILED: " + e.message));
-        }
+            if (!fs.existsSync(TEMP_DIR)) {
+                fs.mkdirSync(TEMP_DIR, { recursive: true });
+            }
+        } catch (_) {}
 
-        if (!serviceHandle || typeof serviceHandle.call !== 'function') {
-            try { fs.unlinkSync(ipkPath); } catch (_) {}
-            try { fs.unlinkSync(helperPath); } catch (_) {}
-            releaseLock();
-            return callback(new Error("UPDATE_HANDOFF_UNAVAILABLE: Service bridge is unavailable to trigger background execution"));
-        }
+        var ipkFileName = "ambisun-update-" + targetVersion + ".ipk";
+        var ipkPath = path.join(TEMP_DIR, ipkFileName);
+        var helperPath = path.join(TEMP_DIR, "ambisun-selfupdate.sh");
+        var resultPath = path.join(TEMP_DIR, "ambisun-install-result.json");
+        var logPath = path.join(TEMP_DIR, "ambisun-update.log");
 
-        // Trigger helper script detached in background via hbchannel exec
-        var execCmd = "sh " + helperPath + " >" + logPath + " 2>&1 &";
-        serviceHandle.call("luna://org.webosbrew.hbchannel.service/exec", { command: execCmd }, function(res) {
-            var payload = res && res.payload ? res.payload : res;
-            if (payload && payload.returnValue === true) {
-                callback(null, {
-                    returnValue: true,
-                    stage: "installing",
-                    targetVersion: targetVersion,
-                    message: "Update installation handoff initiated"
-                });
-            } else {
+        // Clean up any existing temp files before download
+        try { fs.unlinkSync(ipkPath); } catch (_) {}
+        try { fs.unlinkSync(helperPath); } catch (_) {}
+        try { fs.unlinkSync(resultPath); } catch (_) {}
+
+        var dlFn = activeDownloader || downloadFileWithHash;
+        dlFn(downloadUrl, ipkPath, targetSize, IPK_MAX_BYTES, 0, function(dlErr, downloadResult) {
+            if (dlErr) {
+                try { fs.unlinkSync(ipkPath); } catch (_) {}
+                releaseLock();
+                return callback(new Error("DOWNLOAD_FAILED: " + dlErr.message));
+            }
+
+            var computedHash = downloadResult && downloadResult.hash;
+            if (computedHash !== targetSha256) {
+                try { fs.unlinkSync(ipkPath); } catch (_) {}
+                releaseLock();
+                return callback(new Error("UPDATE_HASH_MISMATCH: Computed " + computedHash + " expected " + targetSha256));
+            }
+
+            // Generate self-update helper script
+            var helperScript = generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, logPath);
+
+            try {
+                fs.writeFileSync(helperPath, helperScript, { mode: 493 }); // 0755
+            } catch (e) {
+                try { fs.unlinkSync(ipkPath); } catch (_) {}
+                releaseLock();
+                return callback(new Error("HELPER_WRITE_FAILED: " + e.message));
+            }
+
+            if (!serviceHandle || typeof serviceHandle.call !== 'function') {
                 try { fs.unlinkSync(ipkPath); } catch (_) {}
                 try { fs.unlinkSync(helperPath); } catch (_) {}
                 releaseLock();
-                var errMsg = (payload && (payload.errorText || payload.error)) || "Failed to execute update helper via hbchannel";
-                callback(new Error("UPDATE_HANDOFF_FAILED: " + errMsg));
+                return callback(new Error("UPDATE_HANDOFF_UNAVAILABLE: Service bridge is unavailable to trigger background execution"));
             }
+
+            // Trigger helper script detached in background via hbchannel exec
+            var execCmd = "sh " + helperPath + " >" + logPath + " 2>&1 &";
+            serviceHandle.call("luna://org.webosbrew.hbchannel.service/exec", { command: execCmd }, function(res) {
+                var resPayload = res && res.payload ? res.payload : res;
+                if (resPayload && resPayload.returnValue === true) {
+                    callback(null, {
+                        returnValue: true,
+                        stage: "installing",
+                        targetVersion: targetVersion,
+                        message: "Update installation handoff initiated"
+                    });
+                } else {
+                    try { fs.unlinkSync(ipkPath); } catch (_) {}
+                    try { fs.unlinkSync(helperPath); } catch (_) {}
+                    releaseLock();
+                    var errMsg = (resPayload && (resPayload.errorText || resPayload.error)) || "Failed to execute update helper via hbchannel";
+                    callback(new Error("UPDATE_HANDOFF_FAILED: " + errMsg));
+                }
+            });
         });
     });
 }
@@ -576,6 +607,7 @@ module.exports = {
     getCurrentVersion: getCurrentVersion,
     checkForUpdate: checkForUpdate,
     installUpdate: installUpdate,
+    fetchAndValidateManifest: fetchAndValidateManifest,
     PRODUCTION_PUBLIC_KEY: PRODUCTION_PUBLIC_KEY,
     _compareSemver: compareSemver,
     _isUpdateAvailable: isUpdateAvailable,
@@ -592,6 +624,12 @@ module.exports = {
     _acquireLock: function() { isInstalling = true; installStartedAt = Date.now(); },
     _setPublicKey: function(pk) { activePublicKey = pk; },
     _resetPublicKey: function() { activePublicKey = PRODUCTION_PUBLIC_KEY; },
+    _setManifestUrl: function(u) { MANIFEST_URL = u; },
+    _resetManifestUrl: function() { MANIFEST_URL = "https://github.com/Serjio193/AmbiSun/releases/latest/download/update.json"; },
+    _setTempDir: function(d) { TEMP_DIR = d; },
+    _resetTempDir: function() { TEMP_DIR = "/media/developer/temp"; },
+    _setFetcher: function(fn) { activeFetcher = fn; },
+    _setDownloader: function(fn) { activeDownloader = fn; },
     _fetchWithRedirects: fetchWithRedirects,
     _downloadFileWithHash: downloadFileWithHash
 };

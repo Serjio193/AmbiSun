@@ -8,6 +8,7 @@
   AmbiSun.config.serviceUri = AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service";
 
   const LUNA_TIMEOUT_MS = 5000;
+  const LUNA_INSTALL_TIMEOUT_MS = 45000;
 
   function hasWebOS() {
     return !!(
@@ -16,7 +17,8 @@
     );
   }
 
-  function requestService(method, parameters) {
+  function requestService(method, parameters, timeoutMs) {
+    const timeout = typeof timeoutMs === "number" && timeoutMs > 0 ? timeoutMs : LUNA_TIMEOUT_MS;
     return new Promise((resolve, reject) => {
       let settled = false;
       const timer = setTimeout(() => {
@@ -24,7 +26,7 @@
           settled = true;
           reject(new Error("LUNA_TIMEOUT:" + method));
         }
-      }, LUNA_TIMEOUT_MS);
+      }, timeout);
 
       if (window.webOS && window.webOS.service && window.webOS.service.request) {
         try {
@@ -105,7 +107,7 @@
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
   function checkForUpdate() { return requestService("checkForUpdate", {}); }
-  function installUpdate(expectedVersion) { return requestService("installUpdate", { expectedVersion: expectedVersion }); }
+  function installUpdate(expectedVersion) { return requestService("installUpdate", { expectedVersion: expectedVersion }, LUNA_INSTALL_TIMEOUT_MS); }
   function minimizeApp() { return requestService("minimizeApp", {}); }
 
   AmbiSun.webos.hasWebOS = hasWebOS;

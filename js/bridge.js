@@ -257,11 +257,6 @@
           AmbiSun.state.sourceCatalog = res.sources;
         }
 
-        // Update home current source label
-        var cs = AmbiSun.state.currentSource;
-        setText('homeCurrentSource',
-          (cs && cs.type !== 'unknown' && cs.name) ? cs.name : '—');
-
         if (AmbiSun.sources && AmbiSun.sources.renderSourceList) {
           AmbiSun.sources.renderSourceList();
         }

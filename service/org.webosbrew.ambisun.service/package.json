@@ -1,7 +1,7 @@
 {
-  "name": "org.webosbrew.ambisun.service",
-  "version": "0.1.0",
-  "description": "AmbiSun background automation service",
-  "main": "service.js",
-  "license": "MIT"
+    "name":  "org.webosbrew.ambisun.service",
+    "version":  "0.1.1",
+    "description":  "AmbiSun background automation service",
+    "main":  "service.js",
+    "license":  "MIT"
 }

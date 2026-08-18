@@ -193,42 +193,51 @@ process.stdout.write(sig.toString('base64'));
     }
     $Signature = $Signature.Trim()
 
-    # 10. Generate dist/update.json (in-app updater manifest)
-    $UpdateManifest = [ordered]@{
-        version = $Version
-        sha256 = $Hash
-        size = $IpkSize
-        signature = $Signature
-        notes = [ordered]@{
-            ru = "Исправления и улучшения"
-            en = "Fixes and improvements"
-            uk = "Виправлення та покращення"
-            et = "Parandused ja täiustused"
-        }
-    }
-    $UpdateJsonPath = Join-Path $DistDir "update.json"
-    $UpdateJsonContent = $UpdateManifest | ConvertTo-Json -Depth 10
-    [System.IO.File]::WriteAllText($UpdateJsonPath, $UpdateJsonContent, $Utf8NoBom)
+    # 10. Generate dist/update.json (in-app updater manifest) and dist/org.webosbrew.ambisun.manifest.json
+    $NodeGenManifestsScript = @"
+const fs = require('fs');
+const path = require('path');
+const [distDir, version, hash, sizeStr, signature] = process.argv.slice(1);
+const size = parseInt(sizeStr, 10);
 
-    # 11. Generate dist/org.webosbrew.ambisun.manifest.json (Homebrew Channel manifest)
-    $HomebrewManifest = [ordered]@{
-        id = "org.webosbrew.ambisun"
-        version = $Version
-        type = "web"
-        title = "AmbiSun"
-        appDescription = "Smart Ambilight for HyperHDR"
-        iconUri = "https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png"
-        sourceUrl = "https://github.com/Serjio193/AmbiSun"
-        rootRequired = $true
-        ipkUrl = "https://github.com/Serjio193/AmbiSun/releases/download/v${Version}/org.webosbrew.ambisun_${Version}_all.ipk"
-        ipkHash = [ordered]@{
-            sha256 = $Hash
-        }
-        ipkSize = $IpkSize
+const updateManifest = {
+    version: version,
+    sha256: hash,
+    size: size,
+    signature: signature,
+    notes: {
+        ru: '\u0418\u0441\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f \u0438 \u0443\u043b\u0443\u0447\u0448\u0435\u043d\u0438\u044f',
+        en: 'Fixes and improvements',
+        uk: '\u0412\u0438\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043d\u044f \u0442\u0430 \u043f\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u043d\u044f',
+        et: 'Parandused ja t\u00e4iustused'
     }
+};
+fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');
+
+const homebrewManifest = {
+    id: 'org.webosbrew.ambisun',
+    version: version,
+    type: 'web',
+    title: 'AmbiSun',
+    appDescription: 'Smart Ambilight for HyperHDR',
+    iconUri: 'https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png',
+    sourceUrl: 'https://github.com/Serjio193/AmbiSun',
+    rootRequired: true,
+    ipkUrl: 'https://github.com/Serjio193/AmbiSun/releases/download/v' + version + '/org.webosbrew.ambisun_' + version + '_all.ipk',
+    ipkHash: {
+        sha256: hash
+    },
+    ipkSize: size
+};
+fs.writeFileSync(path.join(distDir, 'org.webosbrew.ambisun.manifest.json'), JSON.stringify(homebrewManifest, null, 4) + '\n', 'utf8');
+"@
+    & node -e $NodeGenManifestsScript $DistDir $Version $Hash $IpkSize $Signature
+    if ($LASTEXITCODE -ne 0) {
+        throw "Failed to write release manifests"
+    }
+
+    $UpdateJsonPath = Join-Path $DistDir "update.json"
     $HomebrewManifestPath = Join-Path $DistDir "org.webosbrew.ambisun.manifest.json"
-    $HomebrewManifestContent = $HomebrewManifest | ConvertTo-Json -Depth 10
-    [System.IO.File]::WriteAllText($HomebrewManifestPath, $HomebrewManifestContent, $Utf8NoBom)
 
     Write-Host "========================================="
     Write-Host "RELEASE PREPARATION SUCCESSFUL"

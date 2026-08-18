@@ -65,7 +65,7 @@ Later, I expanded the concept to support per-source rules — so lighting can fo
 ### Basic Workflow
 
 1. **Install AmbiSun** on your LG webOS TV.
-2. **Select your language** (English, Eesti, Українська, Русский).
+2. **Select your language** (39 built-in offline languages).
 3. **Select your country and city** from the integrated offline database.
 4. **Configure the HyperHDR address and port** (default `127.0.0.1:8090`).
 5. **Test the connection** to verify communication with HyperHDR.
@@ -187,11 +187,7 @@ AmbiSun/
 │   ├── startup.js                               # First-run wizard
 │   ├── sun.js                                   # Solar schedule UI rendering
 │   └── webos.js                                 # webOS Luna service bindings
-├── i18n/
-│   ├── en.json                                  # English localization
-│   ├── et.json                                  # Estonian localization
-│   ├── uk.json                                  # Ukrainian localization
-│   └── ru.json                                  # Russian localization
+├── i18n/                                         # 39 built-in offline localization files
 ├── service/
 │   └── org.webosbrew.ambisun.service/           # Background Node.js service
 │       ├── package.json                         # Service metadata
@@ -272,7 +268,7 @@ AmbiSun — умный компаньон фоновой подсветки дл
 ### Как пользоваться
 
 1. **Установите AmbiSun** на телевизор LG webOS.
-2. **Выберите язык** (English, Eesti, Українська, Русский).
+2. **Выберите язык** (39 встроенных офлайн-языков).
 3. **Выберите страну и город** из встроенной базы локаций.
 4. **Укажите адрес и порт HyperHDR** (по умолчанию `127.0.0.1:8090`).
 5. **Проверьте соединение**, нажав на строку адреса HyperHDR.
@@ -423,7 +419,7 @@ AmbiSun — розумний компаньйон фонового підсві�
 ### Як користуватися
 
 1. **Встановіть AmbiSun** на телевізор LG webOS.
-2. **Оберіть мову** (English, Eesti, Українська, Русский).
+2. **Оберіть мову** (39 вбудованих офлайн-мов).
 3. **Оберіть країну та місто** з інтегрованої офлайн-бази.
 4. **Вкажіть адресу та порт HyperHDR** (за замовчуванням `127.0.0.1:8090`).
 5. **Перевірте з'єднання**, натиснувши на рядок адреси HyperHDR.

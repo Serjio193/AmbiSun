@@ -9,7 +9,7 @@
 - Activity Manager solar scheduling
 - Activity Manager source wake
 - automatic Homebrew elevation recovery
-- English / Eesti / Українська / Русский
+- 39 built-in offline localizations
 
 ## Requirements
 - rooted LG webOS TV

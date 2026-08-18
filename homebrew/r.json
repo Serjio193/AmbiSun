@@ -10,7 +10,9 @@
       "id": "org.webosbrew.ambisun",
       "title": "AmbiSun",
       "iconUri": "https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png",
-      "manifestUrl": "https://github.com/Serjio193/AmbiSun/releases/latest/download/org.webosbrew.ambisun.manifest.json"
+      "manifestUrl": "https://github.com/Serjio193/AmbiSun/releases/latest/download/org.webosbrew.ambisun.manifest.json",
+      "shortDescription": "Smart Ambilight for HyperHDR on LG webOS.",
+      "fullDescriptionUrl": "https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/store/homebrew-description.html"
     }
   ]
 }

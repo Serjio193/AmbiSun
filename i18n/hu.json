@@ -106,5 +106,9 @@
     "title": "Hozzáférési engedélyek szükségesek",
     "desc": "Az alkalmazás frissítése után a hozzáférési jogosultságokat vissza kell állítani. Válassza az alábbi gombot a Homebrew Channel konfiguráció alkalmazásához.",
     "button": "Hozzáférés visszaállítása"
+  },
+  "time": {
+    "today": "Ma",
+    "tomorrow": "Holnap"
   }
 }

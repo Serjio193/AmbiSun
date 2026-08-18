@@ -106,5 +106,9 @@
     "title": "需要存取權限",
     "desc": "更新應用程式後，必須還原存取權限。請選取下方按鈕以套用 Homebrew Channel 設定。",
     "button": "還原存取權限"
+  },
+  "time": {
+    "today": "今天",
+    "tomorrow": "明天"
   }
 }

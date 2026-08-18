@@ -106,5 +106,9 @@
     "title": "Permisiuni de acces necesare",
     "desc": "După actualizarea aplicației, permisiunile de acces trebuie restaurate. Selectați butonul de mai jos pentru a aplica configurarea Homebrew Channel.",
     "button": "Restaurează accesul"
+  },
+  "time": {
+    "today": "Astăzi",
+    "tomorrow": "Mâine"
   }
 }

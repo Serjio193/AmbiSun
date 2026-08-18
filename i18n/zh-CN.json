@@ -106,5 +106,9 @@
     "title": "需要访问权限",
     "desc": "更新应用后，必须恢复访问权限。请选择下方按钮以应用 Homebrew Channel 配置。",
     "button": "恢复权限"
+  },
+  "time": {
+    "today": "今天",
+    "tomorrow": "明天"
   }
 }

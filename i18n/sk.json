@@ -106,5 +106,9 @@
     "title": "Vyžadujú sa prístupové práva",
     "desc": "Po aktualizácii aplikácie je potrebné obnoviť prístupové práva. Stlačte tlačidlo nižšie pre aplikovanie konfigurácie Homebrew Channel.",
     "button": "Obnoviť prístup"
+  },
+  "time": {
+    "today": "Dnes",
+    "tomorrow": "Zajtra"
   }
 }

@@ -106,5 +106,9 @@
     "title": "Käyttöoikeudet vaaditaan",
     "desc": "Sovelluksen päivittämisen jälkeen käyttöoikeudet on palautettava. Ota Homebrew Channel -määritykset käyttöön valitsemalla alla oleva painike.",
     "button": "Palauta käyttöoikeudet"
+  },
+  "time": {
+    "today": "Tänään",
+    "tomorrow": "Huomenna"
   }
 }

@@ -106,5 +106,9 @@
     "title": "Vajalikud on juurdepääsuõigused",
     "desc": "Pärast rakenduse värskendamist tuleb juurdepääsuõigused taastada. Homebrew Channeli konfiguratsiooni rakendamiseks vajutage allolevat nuppu.",
     "button": "Taasta juurdepääs"
+  },
+  "time": {
+    "today": "Täna",
+    "tomorrow": "Homme"
   }
 }

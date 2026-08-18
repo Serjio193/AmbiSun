@@ -106,5 +106,9 @@
     "title": "Potrebna su dopuštenja za pristup",
     "desc": "Nakon ažuriranja aplikacije potrebno je vratiti dopuštenja za pristup. Odaberite gumb u nastavku za primjenu konfiguracije Homebrew Channela.",
     "button": "Vrati pristup"
+  },
+  "time": {
+    "today": "Danas",
+    "tomorrow": "Sutra"
   }
 }

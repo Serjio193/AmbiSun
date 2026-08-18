@@ -69,7 +69,7 @@
 
   function formatOffset(value){
     const sign = value > 0 ? '+' : '';
-    return `${sign}${value} минут`;
+    return `${sign}${value} min`;
   }
 
   function minutesToTime(total){
@@ -120,15 +120,19 @@
 
         const middleSub = cells[1].querySelector('.s');
         const lastSub = cells[2].querySelector('.s');
-        if (middleSub) middleSub.textContent = `(${formatOffset(state.sunsetOffset).replace(' минут',' мин')})`;
-        if (lastSub) lastSub.textContent = `(${formatOffset(state.sunriseOffset).replace(' минут',' мин')})`;
+        if (middleSub) middleSub.textContent = `(${formatOffset(state.sunsetOffset)})`;
+        if (lastSub) lastSub.textContent = `(${formatOffset(state.sunriseOffset)})`;
       }
     });
 
     const nextRows = document.querySelectorAll('#home .rows .row .value');
     if (nextRows.length >= 3) {
-      nextRows[1].innerHTML = `Сегодня, <span class="yellow">${onTime}</span> <span style="font-size:17px;color:#c6ccd5">(закат ${formatOffset(state.sunsetOffset).replace(' минут',' мин')})</span>`;
-      nextRows[2].innerHTML = `Завтра, <span class="blue">${offTime}</span> <span style="font-size:17px;color:#c6ccd5">(восход ${formatOffset(state.sunriseOffset).replace(' минут',' мин')})</span>`;
+      const todayStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('time.today', 'Today') : 'Today';
+      const tomorrowStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('time.tomorrow', 'Tomorrow') : 'Tomorrow';
+      const sunsetStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sun.sunset', 'Sunset') : 'Sunset';
+      const sunriseStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sun.sunrise', 'Sunrise') : 'Sunrise';
+      nextRows[1].innerHTML = `${todayStr}, <span class="yellow">${onTime}</span> <span style="font-size:17px;color:#c6ccd5">(${sunsetStr} ${formatOffset(state.sunsetOffset)})</span>`;
+      nextRows[2].innerHTML = `${tomorrowStr}, <span class="blue">${offTime}</span> <span style="font-size:17px;color:#c6ccd5">(${sunriseStr} ${formatOffset(state.sunriseOffset)})</span>`;
     }
   }
 

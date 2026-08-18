@@ -106,5 +106,9 @@
     "title": "Access permissions required",
     "desc": "After updating the app, access permissions must be restored. Select the button below to apply the Homebrew Channel configuration.",
     "button": "Restore access"
+  },
+  "time": {
+    "today": "Today",
+    "tomorrow": "Tomorrow"
   }
 }

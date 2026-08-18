@@ -106,5 +106,9 @@
     "title": "Adgangstilladelser påkrævet",
     "desc": "Efter opdatering af appen skal adgangstilladelser genoprettes. Vælg knappen nedenfor for at anvende Homebrew Channel-konfigurationen.",
     "button": "Genopret adgang"
+  },
+  "time": {
+    "today": "I dag",
+    "tomorrow": "I morgen"
   }
 }

@@ -106,5 +106,9 @@
     "title": "Izin akses diperlukan",
     "desc": "Setelah memperbarui aplikasi, izin akses harus dipulihkan. Pilih tombol di bawah untuk menerapkan konfigurasi Homebrew Channel.",
     "button": "Pulihkan akses"
+  },
+  "time": {
+    "today": "Hari ini",
+    "tomorrow": "Besok"
   }
 }

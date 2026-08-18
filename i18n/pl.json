@@ -106,5 +106,9 @@
     "title": "Wymagane uprawnienia dostępu",
     "desc": "Po zaktualizowaniu aplikacji należy przywrócić uprawnienia dostępu. Wybierz przycisk poniżej, aby zastosować konfigurację Homebrew Channel.",
     "button": "Przywróć dostęp"
+  },
+  "time": {
+    "today": "Dzisiaj",
+    "tomorrow": "Jutro"
   }
 }

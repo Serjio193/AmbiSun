@@ -161,6 +161,19 @@
       titleEl.textContent = t(titleKeys[currentScreen], currentScreen);
     }
 
+    if (window.AmbiSun && window.AmbiSun.app && window.AmbiSun.app.updateClock) {
+      window.AmbiSun.app.updateClock();
+    }
+    if (window.AmbiSun && window.AmbiSun.sun && window.AmbiSun.sun.updateUI) {
+      window.AmbiSun.sun.updateUI();
+    }
+    if (window.AmbiSun && window.AmbiSun.bridge && window.AmbiSun.bridge.reRenderSolar) {
+      window.AmbiSun.bridge.reRenderSolar();
+    }
+    if (window.AmbiSun && window.AmbiSun.sources && window.AmbiSun.sources.updateDefaultRule) {
+      window.AmbiSun.sources.updateDefaultRule();
+    }
+
     return true;
   }
 

@@ -106,5 +106,9 @@
     "title": "Autorisations d'accès requises",
     "desc": "Après la mise à jour de l'application, les autorisations d'accès doivent être restaurées. Sélectionnez le bouton ci-dessous pour appliquer la configuration de Homebrew Channel.",
     "button": "Restaurer l'accès"
+  },
+  "time": {
+    "today": "Aujourd'hui",
+    "tomorrow": "Demain"
   }
 }

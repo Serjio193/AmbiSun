@@ -309,6 +309,11 @@ const ACTIONS = {
 
   'open-language': () => {
     AmbiSun.navigation.openScreen('language');
+    const currentLang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
+    const targetItem = document.querySelector(`#language [data-language="${currentLang}"]`) || document.querySelector('#language .list-item.actionable');
+    if (targetItem && AmbiSun.navigation.setFocus) {
+      AmbiSun.navigation.setFocus(targetItem);
+    }
   },
 
   'cycle-default-rule': ({direction = 1}) => {
@@ -327,6 +332,7 @@ const ACTIONS = {
     if (!lang) return;
     await AmbiSun.i18n.setLanguage(lang);
     updateSettingsLanguageBadge();
+    updateClock();
     AmbiSun.navigation.openScreen('settings');
     const langRow = document.querySelector('.list-item[data-action="open-language"]');
     if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
@@ -439,18 +445,32 @@ function dispatchAction(el, direction) {
 function updateSettingsLanguageBadge() {
   const badge = document.getElementById('settingsLanguageBadge');
   if (!badge) return;
-  const lang = AmbiSun.i18n.currentLanguage ? AmbiSun.i18n.currentLanguage() : (state.language || 'ru');
-  const label = AmbiSun.i18n.languageName ? AmbiSun.i18n.languageName(lang) : lang;
+  const lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : (state.language || 'en');
+  const label = (AmbiSun.i18n && AmbiSun.i18n.languageName) ? AmbiSun.i18n.languageName(lang) : lang;
   badge.textContent = label + ' ›';
 }
 
 function updateClock(){
   const d = new Date();
-  document.getElementById('clock').textContent =
-    d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('date').textContent =
-    d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+  const lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
+  try {
+    document.getElementById('clock').textContent =
+      d.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit', hour12: false });
+    document.getElementById('date').textContent =
+      d.toLocaleDateString(lang, { weekday: 'long', day: 'numeric', month: 'long' });
+  } catch(_) {
+    document.getElementById('clock').textContent =
+      d.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false });
+    document.getElementById('date').textContent =
+      d.toLocaleDateString('en', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
 }
+
+window.AmbiSun = window.AmbiSun || {};
+window.AmbiSun.app = {
+  updateClock,
+  updateSettingsLanguageBadge
+};
 
 async function initUI(){
   AmbiSun.navigation.setActionHandler(dispatchAction);

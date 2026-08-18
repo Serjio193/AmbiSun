@@ -106,5 +106,9 @@
     "title": "Yêu cầu quyền truy cập",
     "desc": "Sau khi cập nhật ứng dụng, quyền truy cập phải được khôi phục. Chọn nút bên dưới để áp dụng cấu hình Homebrew Channel.",
     "button": "Khôi phục quyền truy cập"
+  },
+  "time": {
+    "today": "Hôm nay",
+    "tomorrow": "Ngày mai"
   }
 }

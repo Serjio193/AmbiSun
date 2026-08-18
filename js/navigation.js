@@ -130,9 +130,10 @@
       return;
     }
 
-    // Deterministic vertical navigation inside #sourceList
-    if (focusedEl.closest && focusedEl.closest('#sourceList') && (direction === 'up' || direction === 'down')) {
-      const rows = [...document.querySelectorAll('#sourceList .list-item.actionable')];
+    // Deterministic vertical navigation inside scrollable lists (#sourceList, #languageList)
+    const listContainer = focusedEl.closest && (focusedEl.closest('#sourceList') || focusedEl.closest('#languageList') || focusedEl.closest('#language .page-card'));
+    if (listContainer && (direction === 'up' || direction === 'down')) {
+      const rows = [...listContainer.querySelectorAll('.list-item.actionable')];
       const index = rows.indexOf(focusedEl);
       if (index >= 0) {
         if (direction === 'down' && index + 1 < rows.length) {

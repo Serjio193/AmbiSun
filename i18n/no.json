@@ -106,5 +106,9 @@
     "title": "Tilgangstillatelser kreves",
     "desc": "Etter oppdatering av appen må tilgangstillatelser gjenopprettes. Velg knappen nedenfor for å bruke Homebrew Channel-konfigurasjonen.",
     "button": "Gjenopprett tilgang"
+  },
+  "time": {
+    "today": "I dag",
+    "tomorrow": "I morgen"
   }
 }

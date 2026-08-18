@@ -106,5 +106,9 @@
     "title": "Åtkomstbehörigheter krävs",
     "desc": "Efter uppdatering av appen måste åtkomstbehörigheterna återställas. Välj knappen nedan för att tillämpa Homebrew Channel-konfigurationen.",
     "button": "Återställ åtkomst"
+  },
+  "time": {
+    "today": "Idag",
+    "tomorrow": "Imorgon"
   }
 }

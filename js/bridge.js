@@ -13,9 +13,11 @@
   function fmt(isoStr, tz) {
     if (!isoStr) return null;
     try {
-      return new Date(isoStr).toLocaleTimeString('ru-RU', {
+      var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
+      return new Date(isoStr).toLocaleTimeString(lang, {
         hour: '2-digit', minute: '2-digit',
-        timeZone: tz || 'Europe/Tallinn'
+        timeZone: tz || 'Europe/Tallinn',
+        hour12: false
       });
     } catch(e) {
       try { return new Date(isoStr).toUTCString().slice(17,22); } catch(_) { return null; }
@@ -27,21 +29,24 @@
     try {
       var d = new Date(isoStr);
       var now = new Date();
-      var timePart = d.toLocaleTimeString('ru-RU', { hour:'2-digit', minute:'2-digit', timeZone: tz || 'UTC' });
+      var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
+      var timePart = d.toLocaleTimeString(lang, { hour:'2-digit', minute:'2-digit', timeZone: tz || 'UTC', hour12: false });
       var dDay = new Date(d.toLocaleString('en-US', { timeZone: tz || 'UTC' })).toDateString();
       var nowDay = new Date(now.toLocaleString('en-US', { timeZone: tz || 'UTC' })).toDateString();
-      return (dDay === nowDay ? 'Сегодня' : 'Завтра') + ', ' + timePart;
+      var todayStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('time.today', 'Today') : 'Today';
+      var tomorrowStr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('time.tomorrow', 'Tomorrow') : 'Tomorrow';
+      return (dDay === nowDay ? todayStr : tomorrowStr) + ', ' + timePart;
     } catch(e) { return null; }
   }
 
   function fmtOffset(n) {
     if (n == null) return '';
-    return '(' + (n >= 0 ? '+' : '') + n + ' мин)';
+    return '(' + (n >= 0 ? '+' : '') + n + ' min)';
   }
 
   function fmtOffsetStepper(n) {
-    if (n == null) return '0 мин';
-    return (n >= 0 ? '+' : '') + n + ' мин';
+    if (n == null) return '0 min';
+    return (n >= 0 ? '+' : '') + n + ' min';
   }
 
   function setText(id, val) {
@@ -150,6 +155,38 @@
   }
 
   // ---- Solar sync ----
+  var lastSolarData = null;
+  var lastSolarTz = null;
+
+  function renderSolarData(s, tz) {
+    if (!s) return;
+    tz = tz || s.timezone || 'Europe/Tallinn';
+    setText('homeSunset',          fmt(s.todaySunset, tz)        || '—');
+    setText('homeEffSunset',        fmt(s.effectiveSunset, tz)    || '—');
+    setText('homeSunrise',          fmt(s.tomorrowSunrise, tz)    || '—');
+    setText('homeEffSunsetOffset',  fmtOffset(s.sunsetOffset));
+    setText('homeEffSunriseOffset', fmtOffset(s.sunriseOffset));
+
+    var nextOn  = document.getElementById('homeNextOn');
+    var nextOff = document.getElementById('homeNextOff');
+    if (s.nextEventType === 'on') {
+      if (nextOn)  nextOn.textContent  = fmtNext(s.nextEventAt, tz) || '—';
+      if (nextOff) nextOff.textContent = fmtNext(s.effectiveSunrise, tz) || '—';
+    } else if (s.nextEventType === 'off') {
+      if (nextOn)  nextOn.textContent  = '—';
+      if (nextOff) nextOff.textContent = fmtNext(s.nextEventAt, tz) || '—';
+    } else {
+      if (nextOn)  nextOn.textContent  = '—';
+      if (nextOff) nextOff.textContent = '—';
+    }
+  }
+
+  function reRenderSolar() {
+    if (lastSolarData) {
+      renderSolarData(lastSolarData, lastSolarTz);
+    }
+  }
+
   function syncSolar() {
     // Show loading state first
     renderSolarLoading();
@@ -159,27 +196,9 @@
           renderSolarUnavailable('Нет данных');
           return;
         }
-        var s = res.solar;
-        var tz = s.timezone || 'Europe/Tallinn';
-
-        setText('homeSunset',          fmt(s.todaySunset, tz)        || '—');
-        setText('homeEffSunset',        fmt(s.effectiveSunset, tz)    || '—');
-        setText('homeSunrise',          fmt(s.tomorrowSunrise, tz)    || '—');
-        setText('homeEffSunsetOffset',  fmtOffset(s.sunsetOffset));
-        setText('homeEffSunriseOffset', fmtOffset(s.sunriseOffset));
-
-        var nextOn  = document.getElementById('homeNextOn');
-        var nextOff = document.getElementById('homeNextOff');
-        if (s.nextEventType === 'on') {
-          if (nextOn)  nextOn.textContent  = fmtNext(s.nextEventAt, tz) || '—';
-          if (nextOff) nextOff.textContent = fmtNext(s.effectiveSunrise, tz) || '—';
-        } else if (s.nextEventType === 'off') {
-          if (nextOn)  nextOn.textContent  = '—';
-          if (nextOff) nextOff.textContent = fmtNext(s.nextEventAt, tz) || '—';
-        } else {
-          if (nextOn)  nextOn.textContent  = '—';
-          if (nextOff) nextOff.textContent = '—';
-        }
+        lastSolarData = res.solar;
+        lastSolarTz = res.solar.timezone || 'Europe/Tallinn';
+        renderSolarData(lastSolarData, lastSolarTz);
       })
       .catch(function(e) {
         var msg = (e && e.message && e.message.indexOf('TIMEOUT') >= 0)
@@ -415,6 +434,7 @@
   AmbiSun.bridge.mutateConfig = mutateConfig;
   AmbiSun.bridge.syncConfig = syncConfig;
   AmbiSun.bridge.syncSolar = syncSolar;
+  AmbiSun.bridge.reRenderSolar = reRenderSolar;
   AmbiSun.bridge.syncSources = syncSources;
   AmbiSun.bridge.checkForUpdate = checkForUpdate;
   AmbiSun.bridge.onScreenOpen = onScreenOpen;

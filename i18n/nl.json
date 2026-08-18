@@ -106,5 +106,9 @@
     "title": "Toegangsrechten vereist",
     "desc": "Na het bijwerken van de app moeten de toegangsrechten worden hersteld. Selecteer de knop hieronder om de Homebrew Channel-configuratie toe te passen.",
     "button": "Toegang herstellen"
+  },
+  "time": {
+    "today": "Vandaag",
+    "tomorrow": "Morgen"
   }
 }

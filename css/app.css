@@ -380,14 +380,17 @@
     gap:18px;
     align-content:start;
   }
-  #sources .simple-page{
+  #sources .simple-page,
+  #language .simple-page{
     height:100%;
     min-height:0;
     display:block;
     overflow:hidden;
   }
   #sources #sourceList,
-  #sourceList{
+  #sourceList,
+  #language #languageList,
+  #languageList{
     height:100%;
     min-height:0;
     overflow-y:auto;
@@ -395,18 +398,22 @@
     padding:10px 10px;
     box-sizing:border-box;
   }
-  #sourceList::-webkit-scrollbar{
+  #sourceList::-webkit-scrollbar,
+  #languageList::-webkit-scrollbar{
     width:6px;
   }
-  #sourceList::-webkit-scrollbar-track{
+  #sourceList::-webkit-scrollbar-track,
+  #languageList::-webkit-scrollbar-track{
     background:rgba(255,255,255,.02);
     border-radius:3px;
   }
-  #sourceList::-webkit-scrollbar-thumb{
+  #sourceList::-webkit-scrollbar-thumb,
+  #languageList::-webkit-scrollbar-thumb{
     background:rgba(255,255,255,.18);
     border-radius:3px;
   }
-  #sourceList::-webkit-scrollbar-thumb:hover{
+  #sourceList::-webkit-scrollbar-thumb:hover,
+  #languageList::-webkit-scrollbar-thumb:hover{
     background:rgba(255,255,255,.3);
   }
   .page-card{padding:10px 10px}

@@ -106,5 +106,9 @@
     "title": "Nepieciešamas piekļuves atļaujas",
     "desc": "Pēc lietotnes atjaunināšanas ir jāatjauno piekļuves atļaujas. Atlasiet zemāk esošo pogu, lai lietotu Homebrew Channel konfigurāciju.",
     "button": "Atjaunot piekļuvi"
+  },
+  "time": {
+    "today": "Šodien",
+    "tomorrow": "Rīt"
   }
 }

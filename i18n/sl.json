@@ -106,5 +106,9 @@
     "title": "Zahtevana so dovoljenja za dostop",
     "desc": "Po posodobitvi aplikacije je treba obnoviti dovoljenja za dostop. Izberite spodnji gumb za uveljavitev konfiguracije Homebrew Channel.",
     "button": "Obnovi dostop"
+  },
+  "time": {
+    "today": "Danes",
+    "tomorrow": "Jutri"
   }
 }

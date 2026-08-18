@@ -106,5 +106,9 @@
     "title": "Erişim izinleri gerekiyor",
     "desc": "Uygulama güncellendikten sonra erişim izinlerinin geri yüklenmesi gerekir. Homebrew Channel yapılandırmasını uygulamak için aşağıdaki düğmeyi seçin.",
     "button": "Erişimi geri yükle"
+  },
+  "time": {
+    "today": "Bugün",
+    "tomorrow": "Yarın"
   }
 }

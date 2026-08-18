@@ -106,5 +106,9 @@
     "title": "Permisos de acceso requeridos",
     "desc": "Tras actualizar la aplicación, es necesario restaurar los permisos de acceso. Seleccione el botón siguiente para aplicar la configuración de Homebrew Channel.",
     "button": "Restaurar acceso"
+  },
+  "time": {
+    "today": "Hoy",
+    "tomorrow": "Mañana"
   }
 }

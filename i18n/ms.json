@@ -106,5 +106,9 @@
     "title": "Kebenaran akses diperlukan",
     "desc": "Selepas mengemas kini aplikasi, kebenaran akses mesti dipulihkan. Pilih butang di bawah untuk menggunakan konfigurasi Homebrew Channel.",
     "button": "Pulihkan akses"
+  },
+  "time": {
+    "today": "Hari ini",
+    "tomorrow": "Esok"
   }
 }

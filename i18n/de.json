@@ -106,5 +106,9 @@
     "title": "Zugriffsrechte erforderlich",
     "desc": "Nach der Aktualisierung der App müssen die Zugriffsrechte wiederhergestellt werden. Wählen Sie die Schaltfläche unten, um die Homebrew Channel-Konfiguration anzuwenden.",
     "button": "Zugriff wiederherstellen"
+  },
+  "time": {
+    "today": "Heute",
+    "tomorrow": "Morgen"
   }
 }

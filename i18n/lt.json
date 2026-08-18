@@ -106,5 +106,9 @@
     "title": "Reikalingi prieigos leidimai",
     "desc": "Atnaujinus programą, būtina atkurti prieigos leidimus. Pasirinkite žemiau esantį mygtuką, kad pritaikytumėte Homebrew Channel konfigūraciją.",
     "button": "Atkurti prieigą"
+  },
+  "time": {
+    "today": "Šiandien",
+    "tomorrow": "Rytoj"
   }
 }

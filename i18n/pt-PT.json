@@ -11,7 +11,12 @@
     "change": "Alterar",
     "back": "Voltar",
     "minimize": "Minimizar",
-    "retry": "Tentar novamente"
+    "retry": "Tentar novamente",
+    "on": "LIGADO",
+    "off": "DESLIGADO",
+    "previous": "Anteriores",
+    "next": "Seguintes",
+    "of": "de"
   },
   "home": {
     "currentState": "Estado atual",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Hoje",
     "tomorrow": "Amanhã"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Serviço indisponível",
+    "noData": "Sem dados",
+    "loading": "A carregar...",
+    "timeout": "Tempo limite excedido",
+    "error": "Erro",
+    "noResponse": "Sem resposta do serviço",
+    "conflict": "Conflito — a atualizar..."
+  },
+  "sources": {
+    "pressOkToRetry": "Prima OK para tentar novamente",
+    "pressOkToLoad": "Prima OK para carregar as fontes",
+    "hdmiInputs": "Entradas HDMI",
+    "apps": "Aplicações"
   }
 }

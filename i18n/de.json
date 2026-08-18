@@ -11,7 +11,12 @@
     "change": "Ändern",
     "back": "Zurück",
     "minimize": "Minimieren",
-    "retry": "Wiederholen"
+    "retry": "Wiederholen",
+    "on": "EIN",
+    "off": "AUS",
+    "previous": "Vorherige",
+    "next": "Nächste",
+    "of": "von"
   },
   "home": {
     "currentState": "Aktueller Status",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Heute",
     "tomorrow": "Morgen"
+  },
+  "unit": {
+    "minuteShort": "Min."
+  },
+  "status": {
+    "serviceUnavailable": "Dienst nicht verfügbar",
+    "noData": "Keine Daten",
+    "loading": "Laden...",
+    "timeout": "Zeitüberschreitung",
+    "error": "Fehler",
+    "noResponse": "Keine Antwort vom Dienst",
+    "conflict": "Konflikt — Aktualisierung..."
+  },
+  "sources": {
+    "pressOkToRetry": "OK drücken zum Wiederholen",
+    "pressOkToLoad": "OK drücken zum Laden der Quellen",
+    "hdmiInputs": "HDMI-Eingänge",
+    "apps": "Apps"
   }
 }

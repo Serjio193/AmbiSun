@@ -11,7 +11,12 @@
     "change": "更改",
     "back": "返回",
     "minimize": "最小化",
-    "retry": "重试"
+    "retry": "重试",
+    "on": "开",
+    "off": "关",
+    "previous": "上一页",
+    "next": "下一页",
+    "of": "/"
   },
   "home": {
     "currentState": "当前状态",
@@ -110,5 +115,23 @@
   "time": {
     "today": "今天",
     "tomorrow": "明天"
+  },
+  "unit": {
+    "minuteShort": "分钟"
+  },
+  "status": {
+    "serviceUnavailable": "服务不可用",
+    "noData": "无数据",
+    "loading": "加载中...",
+    "timeout": "超时",
+    "error": "错误",
+    "noResponse": "服务无响应",
+    "conflict": "冲突 — 正在更新..."
+  },
+  "sources": {
+    "pressOkToRetry": "按 OK 重试",
+    "pressOkToLoad": "按 OK 加载输入源",
+    "hdmiInputs": "HDMI 输入",
+    "apps": "应用程序"
   }
 }

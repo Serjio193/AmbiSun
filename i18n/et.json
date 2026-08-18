@@ -11,7 +11,12 @@
     "change": "Muuda",
     "back": "Tagasi",
     "minimize": "Minimeeri",
-    "retry": "Proovi uuesti"
+    "retry": "Proovi uuesti",
+    "on": "SEES",
+    "off": "VÄLJAS",
+    "previous": "Eelmised",
+    "next": "Järgmised",
+    "of": "/"
   },
   "home": {
     "currentState": "Hetkeseis",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Täna",
     "tomorrow": "Homme"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Teenus pole saadaval",
+    "noData": "Andmed puuduvad",
+    "loading": "Laadimine...",
+    "timeout": "Ajalõpp",
+    "error": "Viga",
+    "noResponse": "Teenus ei vasta",
+    "conflict": "Konflikt — värskendamine..."
+  },
+  "sources": {
+    "pressOkToRetry": "Vajutage uuesti proovimiseks OK",
+    "pressOkToLoad": "Allikate laadimiseks vajutage OK",
+    "hdmiInputs": "HDMI-sisendid",
+    "apps": "Rakendused"
   }
 }

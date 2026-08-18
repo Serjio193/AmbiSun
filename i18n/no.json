@@ -11,7 +11,12 @@
     "change": "Endre",
     "back": "Tilbake",
     "minimize": "Minimer",
-    "retry": "Prøv igjen"
+    "retry": "Prøv igjen",
+    "on": "PÅ",
+    "off": "AV",
+    "previous": "Forrige",
+    "next": "Neste",
+    "of": "av"
   },
   "home": {
     "currentState": "Nåværende status",
@@ -110,5 +115,23 @@
   "time": {
     "today": "I dag",
     "tomorrow": "I morgen"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Tjenesten er utilgjengelig",
+    "noData": "Ingen data",
+    "loading": "Laster inn...",
+    "timeout": "Tidsavbrudd",
+    "error": "Feil",
+    "noResponse": "Ingen svar fra tjenesten",
+    "conflict": "Konflikt — oppdaterer..."
+  },
+  "sources": {
+    "pressOkToRetry": "Trykk OK for å prøve igjen",
+    "pressOkToLoad": "Trykk OK for å laste inn kilder",
+    "hdmiInputs": "HDMI-innganger",
+    "apps": "Apper"
   }
 }

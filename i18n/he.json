@@ -11,7 +11,12 @@
     "change": "שינוי",
     "back": "חזרה",
     "minimize": "מזער",
-    "retry": "נסה שוב"
+    "retry": "נסה שוב",
+    "on": "פעיל",
+    "off": "כבוי",
+    "previous": "הקודם",
+    "next": "הבא",
+    "of": "מתוך"
   },
   "home": {
     "currentState": "מצב נוכחי",
@@ -110,5 +115,23 @@
   "time": {
     "today": "היום",
     "tomorrow": "מחר"
+  },
+  "unit": {
+    "minuteShort": "דק׳"
+  },
+  "status": {
+    "serviceUnavailable": "השירות אינו זמין",
+    "noData": "אין נתונים",
+    "loading": "טוען...",
+    "timeout": "זמן ההמתנה פג",
+    "error": "שגיאה",
+    "noResponse": "אין מענה מהשירות",
+    "conflict": "התנגשות — מעדכן..."
+  },
+  "sources": {
+    "pressOkToRetry": "לחץ על OK כדי לנסות שוב",
+    "pressOkToLoad": "לחץ על OK כדי לטעון מקורות",
+    "hdmiInputs": "כניסות HDMI",
+    "apps": "יישומים"
   }
 }

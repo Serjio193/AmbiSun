@@ -11,7 +11,12 @@
     "change": "Schimbă",
     "back": "Înapoi",
     "minimize": "Minimizare",
-    "retry": "Reîncearcă"
+    "retry": "Reîncearcă",
+    "on": "PORNIT",
+    "off": "OPRIT",
+    "previous": "Anterioare",
+    "next": "Următoare",
+    "of": "din"
   },
   "home": {
     "currentState": "Stare actuală",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Astăzi",
     "tomorrow": "Mâine"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Serviciu indisponibil",
+    "noData": "Fără date",
+    "loading": "Se încarcă...",
+    "timeout": "Timp expirat",
+    "error": "Eroare",
+    "noResponse": "Niciun răspuns de la serviciu",
+    "conflict": "Conflict — actualizare..."
+  },
+  "sources": {
+    "pressOkToRetry": "Apăsați OK pentru a reîncerca",
+    "pressOkToLoad": "Apăsați OK pentru a încărca sursele",
+    "hdmiInputs": "Intrări HDMI",
+    "apps": "Aplicații"
   }
 }

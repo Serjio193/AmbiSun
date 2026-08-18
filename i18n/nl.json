@@ -11,7 +11,12 @@
     "change": "Wijzigen",
     "back": "Terug",
     "minimize": "Minimaliseren",
-    "retry": "Opnieuw proberen"
+    "retry": "Opnieuw proberen",
+    "on": "AAN",
+    "off": "UIT",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "of": "van"
   },
   "home": {
     "currentState": "Huidige status",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Vandaag",
     "tomorrow": "Morgen"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Dienst niet beschikbaar",
+    "noData": "Geen gegevens",
+    "loading": "Laden...",
+    "timeout": "Time-out",
+    "error": "Fout",
+    "noResponse": "Geen reactie van de dienst",
+    "conflict": "Conflict — bijwerken..."
+  },
+  "sources": {
+    "pressOkToRetry": "Druk op OK om opnieuw te proberen",
+    "pressOkToLoad": "Druk op OK om bronnen te laden",
+    "hdmiInputs": "HDMI-ingangen",
+    "apps": "Apps"
   }
 }

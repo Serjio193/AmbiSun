@@ -11,7 +11,12 @@
     "change": "Ändra",
     "back": "Tillbaka",
     "minimize": "Minimera",
-    "retry": "Försök igen"
+    "retry": "Försök igen",
+    "on": "PÅ",
+    "off": "AV",
+    "previous": "Föregående",
+    "next": "Nästa",
+    "of": "av"
   },
   "home": {
     "currentState": "Aktuell status",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Idag",
     "tomorrow": "Imorgon"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Tjänsten är inte tillgänglig",
+    "noData": "Inga data",
+    "loading": "Läser in...",
+    "timeout": "Tidsgräns överskreds",
+    "error": "Fel",
+    "noResponse": "Inget svar från tjänsten",
+    "conflict": "Konflikt — uppdaterar..."
+  },
+  "sources": {
+    "pressOkToRetry": "Tryck på OK för att försöka igen",
+    "pressOkToLoad": "Tryck på OK för att läsa in källor",
+    "hdmiInputs": "HDMI-ingångar",
+    "apps": "Appar"
   }
 }

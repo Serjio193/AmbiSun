@@ -5,9 +5,9 @@
   AmbiSun.sources = AmbiSun.sources || {};
 
   function ruleLabel(rule) {
-    if (rule === 'on')  return AmbiSun.i18n.t('rule.on',  'Всегда ВКЛ');
-    if (rule === 'off') return AmbiSun.i18n.t('rule.off', 'Всегда ВЫКЛ');
-    return AmbiSun.i18n.t('rule.sun', 'По солнцу');
+    if (rule === 'on')  return AmbiSun.i18n.t('rule.on',  'Always ON');
+    if (rule === 'off') return AmbiSun.i18n.t('rule.off', 'Always OFF');
+    return AmbiSun.i18n.t('rule.sun', 'By sun');
   }
 
   function cycleRule(current, direction) {
@@ -92,7 +92,7 @@
     // Mark current source
     if (currentSource && currentSource.id && currentSource.type !== 'unknown') {
       var cid = currentSource.id;
-      if (cid.startsWith('com.webos.app.hdmi')) cid = 'HDMI_' + cid.replace('com.webos.app.hdmi','');
+      if (cid.startsWith('com.webos.app.hdmi')) cid = 'HDMI_' + cid.replace('com.webos.app.hdmi', '');
       entries.forEach(function(e) { e.current = (e.id === cid); });
     }
 
@@ -103,8 +103,9 @@
     list.innerHTML = '';
 
     if (entries.length === 0) {
+      var loadSourcesText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sources.pressOkToLoad', 'Press OK to load sources') : 'Press OK to load sources';
       list.innerHTML = '<div style="padding:32px;color:var(--muted);font-size:18px;text-align:center">' +
-        'Нажмите OK для загрузки источников</div>';
+        loadSourcesText + '</div>';
       return;
     }
 
@@ -154,8 +155,10 @@
       });
     }
 
-    makeSection('HDMI-входы', hdmi);
-    makeSection('Приложения', apps);
+    var hdmiTitle = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sources.hdmiInputs', 'HDMI inputs') : 'HDMI inputs';
+    var appsTitle = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sources.apps', 'Applications') : 'Applications';
+    makeSection(hdmiTitle, hdmi);
+    makeSection(appsTitle, apps);
 
     list.scrollTop = oldScrollTop;
 

@@ -11,7 +11,12 @@
     "change": "Промяна",
     "back": "Назад",
     "minimize": "Минимизиране",
-    "retry": "Повторен опит"
+    "retry": "Повторен опит",
+    "on": "ВКЛ",
+    "off": "ИЗКЛ",
+    "previous": "Предишни",
+    "next": "Следващи",
+    "of": "от"
   },
   "home": {
     "currentState": "Текущо състояние",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Днес",
     "tomorrow": "Утре"
+  },
+  "unit": {
+    "minuteShort": "мин"
+  },
+  "status": {
+    "serviceUnavailable": "Услугата не е налична",
+    "noData": "Няма данни",
+    "loading": "Зареждане...",
+    "timeout": "Изтекло време",
+    "error": "Грешка",
+    "noResponse": "Няма отговор от услугата",
+    "conflict": "Конфликт — обновяване..."
+  },
+  "sources": {
+    "pressOkToRetry": "Натиснете OK за повторен опит",
+    "pressOkToLoad": "Натиснете OK за зареждане на източниците",
+    "hdmiInputs": "HDMI входове",
+    "apps": "Приложения"
   }
 }

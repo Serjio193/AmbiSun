@@ -254,12 +254,12 @@
     let html = '';
 
     if (wizardState.step === 'confirm-country') {
-      stepLabel.textContent = AmbiSun.i18n.t('location.stepDetected', 'Определено по IP');
+      stepLabel.textContent = AmbiSun.i18n.t('location.stepDetected', 'Detected by IP');
       const detected = await detectCountry();
 
       html = `
         <div class="location-lead">
-          ${AmbiSun.i18n.t('location.detectedLead', 'По IP определена страна:')}
+          ${AmbiSun.i18n.t('location.detectedLead', 'Country detected by IP:')}
         </div>
         <div class="location-choice-list">
           <div
@@ -275,31 +275,31 @@
             data-action="location-country-no"
             role="button"
             tabindex="-1">
-            <span>${AmbiSun.i18n.t('location.chooseCountry', 'Выбрать другую страну')}</span>
+            <span>${AmbiSun.i18n.t('location.chooseCountry', 'Choose another country')}</span>
             <span>›</span>
           </div>
         </div>`;
 
     } else if (wizardState.step === 'regions') {
-      stepLabel.textContent = AmbiSun.i18n.t('location.stepRegion', 'Регион');
+      stepLabel.textContent = AmbiSun.i18n.t('location.stepRegion', 'Region');
       const regions = await getRegions();
 
       if (!regions || regions.length === 0) {
         html = `
-          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Не удалось загрузить регионы. Проверьте подключение.')}</div>
+          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Failed to load data. Check your connection.')}</div>
           <div class="location-choice-list">
             <div class="location-big-button actionable" data-action="location-region-retry" role="button" tabindex="-1">
-              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Повторить')}</span>
+              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Retry')}</span>
             </div>
           </div>
           <div class="location-footer">
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       } else {
         html = `
-          <div class="location-lead">${AmbiSun.i18n.t('location.chooseRegion', 'Выберите регион')}</div>
+          <div class="location-lead">${AmbiSun.i18n.t('location.chooseRegion', 'Choose region')}</div>
           <div class="location-choice-list">
             ${regions.map(region =>
               wizardChoice(
@@ -311,31 +311,31 @@
           </div>
           <div class="location-footer">
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       }
 
     } else if (wizardState.step === 'countries') {
-      stepLabel.textContent = AmbiSun.i18n.t('location.stepCountry', 'Страна');
+      stepLabel.textContent = AmbiSun.i18n.t('location.stepCountry', 'Country');
       const countries = await getCountries(wizardState.region);
 
       if (!countries || countries.length === 0) {
         html = `
-          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Не удалось загрузить страны. Проверьте подключение.')}</div>
+          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Failed to load data. Check your connection.')}</div>
           <div class="location-choice-list">
             <div class="location-big-button actionable" data-action="location-region-retry" role="button" tabindex="-1">
-              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Повторить')}</span>
+              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Retry')}</span>
             </div>
           </div>
           <div class="location-footer">
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       } else {
         html = `
-          <div class="location-lead">${AmbiSun.i18n.t('location.chooseCountry', 'Выберите страну')}</div>
+          <div class="location-lead">${AmbiSun.i18n.t('location.chooseCountry', 'Choose country')}</div>
           <div class="location-choice-list">
             ${countries.map(country =>
               wizardChoice(
@@ -347,26 +347,26 @@
           </div>
           <div class="location-footer">
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       }
 
     } else if (wizardState.step === 'cities') {
-      stepLabel.textContent = AmbiSun.i18n.t('location.stepCity', 'Город');
+      stepLabel.textContent = AmbiSun.i18n.t('location.stepCity', 'City');
       const pageData = await fetchCityPage(wizardState.countryCode, wizardState.cityOffset, wizardState.cityLimit);
 
       if (!pageData || !Array.isArray(pageData.cities) || pageData.cities.length === 0) {
         html = `
-          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Не удалось загрузить города. Проверьте подключение.')}</div>
+          <div class="location-lead" style="color:var(--danger)">${AmbiSun.i18n.t('location.apiError', 'Failed to load data. Check your connection.')}</div>
           <div class="location-choice-list">
             <div class="location-big-button actionable" data-action="location-city-retry" role="button" tabindex="-1">
-              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Повторить')}</span>
+              <span>↻ ${AmbiSun.i18n.t('common.retry', 'Retry')}</span>
             </div>
           </div>
           <div class="location-footer">
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       } else {
@@ -379,8 +379,8 @@
         const hasNext = (wizardState.cityOffset + pageData.cities.length) < pageData.total;
 
         const leadTitle = pageData.total > pageData.cities.length
-          ? `${AmbiSun.i18n.t('location.chooseCity', 'Выберите город')} (${from}–${to} из ${pageData.total})`
-          : AmbiSun.i18n.t('location.chooseCity', 'Выберите город');
+          ? `${AmbiSun.i18n.t('location.chooseCity', 'Choose city')} (${from}–${to} / ${pageData.total})`
+          : AmbiSun.i18n.t('location.chooseCity', 'Choose city');
 
         let prevBtn = '';
         if (hasPrev) {
@@ -388,7 +388,7 @@
           const prevEnd = wizardState.cityOffset;
           prevBtn = `
             <div class="location-big-button actionable" data-action="location-city-prev" role="button" tabindex="-1">
-              <span>↑ Предыдущие (${prevStart}–${prevEnd})</span>
+              <span>↑ ${AmbiSun.i18n.t('common.previous', 'Previous')} (${prevStart}–${prevEnd})</span>
             </div>`;
         }
 
@@ -398,7 +398,7 @@
           const nextEnd = Math.min(wizardState.cityOffset + pageData.cities.length + wizardState.cityLimit, pageData.total);
           nextBtn = `
             <div class="location-big-button actionable" data-action="location-city-next" role="button" tabindex="-1">
-              <span>↓ Следующие (${nextStart}–${nextEnd})</span>
+              <span>↓ ${AmbiSun.i18n.t('common.next', 'Next')} (${nextStart}–${nextEnd})</span>
             </div>`;
         }
 
@@ -413,17 +413,17 @@
                 `data-city="${city.name}" data-lat="${city.lat}" data-lon="${city.lon}" data-tz="${city.tz}"`,
                 city.population > 0
                   ? (city.population >= 1000000
-                      ? Math.round(city.population / 1000000 * 10) / 10 + 'M жит.'
-                      : Math.round(city.population / 1000) + 'K жит.')
+                      ? Math.round(city.population / 1000000 * 10) / 10 + 'M'
+                      : Math.round(city.population / 1000) + 'K')
                   : ''
               )
             ).join('')}
             ${nextBtn}
           </div>
           <div class="location-footer">
-            <span style="font-size:14px">Данные: GeoNames · локальная база</span>
+            <span style="font-size:14px">GeoNames · offline database</span>
             <div class="location-big-button actionable" data-action="location-back" role="button" tabindex="-1">
-              <span>← ${AmbiSun.i18n.t('common.back', 'Назад')}</span>
+              <span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span>
             </div>
           </div>`;
       }

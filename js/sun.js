@@ -67,9 +67,12 @@
     };
   }
 
-  function formatOffset(value){
+  function formatOffset(value, withParens){
+    if (value == null) return withParens ? '' : '0 ' + ((AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('unit.minuteShort', 'min') : 'min');
     const sign = value > 0 ? '+' : '';
-    return `${sign}${value} min`;
+    const unit = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('unit.minuteShort', 'min') : 'min';
+    const text = `${sign}${value} ${unit}`;
+    return withParens ? `(${text})` : text;
   }
 
   function minutesToTime(total){
@@ -120,8 +123,8 @@
 
         const middleSub = cells[1].querySelector('.s');
         const lastSub = cells[2].querySelector('.s');
-        if (middleSub) middleSub.textContent = `(${formatOffset(state.sunsetOffset)})`;
-        if (lastSub) lastSub.textContent = `(${formatOffset(state.sunriseOffset)})`;
+        if (middleSub) middleSub.textContent = formatOffset(state.sunsetOffset, true);
+        if (lastSub) lastSub.textContent = formatOffset(state.sunriseOffset, true);
       }
     });
 

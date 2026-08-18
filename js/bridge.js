@@ -41,12 +41,16 @@
 
   function fmtOffset(n) {
     if (n == null) return '';
-    return '(' + (n >= 0 ? '+' : '') + n + ' min)';
+    return (AmbiSun.sun && AmbiSun.sun.formatOffset)
+      ? AmbiSun.sun.formatOffset(n, true)
+      : ('(' + (n >= 0 ? '+' : '') + n + ' min)');
   }
 
   function fmtOffsetStepper(n) {
-    if (n == null) return '0 min';
-    return (n >= 0 ? '+' : '') + n + ' min';
+    if (n == null) n = 0;
+    return (AmbiSun.sun && AmbiSun.sun.formatOffset)
+      ? AmbiSun.sun.formatOffset(n, false)
+      : ((n >= 0 ? '+' : '') + n + ' min');
   }
 
   function setText(id, val) {
@@ -66,9 +70,9 @@
       .catch(function(e) {
         isChecking = false;
         console.warn('[bridge] getSystemStatus failed:', e && e.message);
-        // Show solar/sources as unavailable since service unreachable
-        renderSolarUnavailable('Сервис недоступен');
-        renderSourcesError('Сервис недоступен');
+        var unavailMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.serviceUnavailable', 'Service unavailable') : 'Service unavailable';
+        renderSolarUnavailable(unavailMsg);
+        renderSourcesError(unavailMsg);
       });
   }
 
@@ -104,7 +108,7 @@
       badge.textContent = ep + ' OK ›';
       badge.className = 'mode on';
     } else if (status === false || status === 'error') {
-      var unavail = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен') : 'Недоступен';
+      var unavail = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable') : 'Unavailable';
       badge.textContent = ep + ' ' + unavail + ' ›';
       badge.className = 'mode off';
     } else {
@@ -193,7 +197,8 @@
     return AmbiSun.webos.getSolarStatus()
       .then(function(res) {
         if (!res || !res.returnValue || !res.solar) {
-          renderSolarUnavailable('Нет данных');
+          var noDataMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.noData', 'No data') : 'No data';
+          renderSolarUnavailable(noDataMsg);
           return;
         }
         lastSolarData = res.solar;
@@ -201,8 +206,9 @@
         renderSolarData(lastSolarData, lastSolarTz);
       })
       .catch(function(e) {
-        var msg = (e && e.message && e.message.indexOf('TIMEOUT') >= 0)
-          ? 'Таймаут' : 'Ошибка';
+        var timeoutMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.timeout', 'Timeout') : 'Timeout';
+        var errorMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.error', 'Error') : 'Error';
+        var msg = (e && e.message && e.message.indexOf('TIMEOUT') >= 0) ? timeoutMsg : errorMsg;
         renderSolarUnavailable(msg);
       });
   }
@@ -238,7 +244,8 @@
     return AmbiSun.webos.getAvailableSources()
       .then(function(res) {
         if (!res || !res.returnValue) {
-          renderSourcesError('Нет ответа от сервиса');
+          var noRespMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.noResponse', 'No response from service') : 'No response from service';
+          renderSourcesError(noRespMsg);
           return;
         }
         if (res.currentSource) {
@@ -260,8 +267,10 @@
         }
       })
       .catch(function(e) {
+        var timeoutMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.timeout', 'Timeout') : 'Timeout';
+        var errorMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.error', 'Error') : 'Error';
         var msg = (e && e.message && e.message.indexOf('TIMEOUT') >= 0)
-          ? 'Таймаут (5с)' : (e && e.message) || 'Ошибка';
+          ? timeoutMsg : ((e && e.message) || errorMsg);
         renderSourcesError(msg);
       });
   }
@@ -271,7 +280,8 @@
     if (!list) return;
     // Only show spinner if list is currently empty
     if (list.children.length === 0) {
-      list.innerHTML = '<div style="padding:32px;color:var(--muted);font-size:18px;text-align:center">⏳ Загрузка...</div>';
+      var loadingText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.loading', 'Loading...') : 'Loading...';
+      list.innerHTML = '<div style="padding:32px;color:var(--muted);font-size:18px;text-align:center">⏳ ' + loadingText + '</div>';
     }
   }
 
@@ -285,11 +295,13 @@
     }
     var list = document.getElementById('sourceList');
     if (!list) return;
+    var errorText = msg || ((AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.error', 'Error') : 'Error');
+    var retryText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sources.pressOkToRetry', 'Press OK to retry') : 'Press OK to retry';
     list.innerHTML =
       '<div style="padding:32px;color:var(--danger);font-size:18px;text-align:center">' +
-      '⚠ ' + (msg || 'Ошибка') + '</div>' +
+      '⚠ ' + errorText + '</div>' +
       '<div style="padding:8px 32px;color:var(--muted);font-size:15px;text-align:center">' +
-      'Нажмите OK для повтора</div>';
+      retryText + '</div>';
     // Allow retry via OK on this element
     var retryEl = list.firstChild;
     if (retryEl) {
@@ -314,20 +326,23 @@
           return true;
         } else if (res && res.errorCode === 'REVISION_CONFLICT') {
           syncConfig();
-          if (typeof window.showToast === 'function')
-            window.showToast('Конфликт — обновление...');
+          if (typeof window.showToast === 'function') {
+            var conflictText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.conflict', 'Conflict — updating...') : 'Conflict — updating...';
+            window.showToast(conflictText);
+          }
           return false;
         } else {
-          if (typeof window.showToast === 'function')
-            window.showToast('Ошибка: ' + ((res && res.errorText) || 'неизвестно'));
+          if (typeof window.showToast === 'function') {
+            var saveFailedText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') : 'Save failed: ';
+            window.showToast(saveFailedText + ((res && res.errorText) || ''));
+          }
           return false;
         }
       })
       .catch(function(e) {
         if (typeof window.showToast === 'function') {
-          var msg = (e && e.message && e.message.indexOf('TIMEOUT') >= 0)
-            ? 'Таймаут соединения' : 'Ошибка соединения';
-          window.showToast(msg);
+          var connErr = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('error.connection', 'Connection error') : 'Connection error';
+          window.showToast(connErr);
         }
         return false;
       });
@@ -366,12 +381,12 @@
             panel.style.display = 'block';
             var titleEl = document.getElementById('updateTitle');
             if (titleEl) {
-              var availText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('update.available', 'Доступно обновление') : 'Доступно обновление';
+              var availText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('update.available', 'Update available') : 'Update available';
               titleEl.textContent = availText + ' ' + (res.latestVersion || '');
             }
             var notesEl = document.getElementById('updateNotes');
             if (notesEl) {
-              var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'ru';
+              var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
               var notesText = (res.notes && (res.notes[lang] || res.notes.en || res.notes.ru)) || '';
               notesEl.textContent = typeof notesText === 'string' ? notesText : '';
             }

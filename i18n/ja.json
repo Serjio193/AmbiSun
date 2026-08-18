@@ -11,7 +11,12 @@
     "change": "変更",
     "back": "戻る",
     "minimize": "最小化",
-    "retry": "再試行"
+    "retry": "再試行",
+    "on": "オン",
+    "off": "オフ",
+    "previous": "前へ",
+    "next": "次へ",
+    "of": "/"
   },
   "home": {
     "currentState": "現在の状態",
@@ -110,5 +115,23 @@
   "time": {
     "today": "今日",
     "tomorrow": "明日"
+  },
+  "unit": {
+    "minuteShort": "分"
+  },
+  "status": {
+    "serviceUnavailable": "サービスを利用できません",
+    "noData": "データなし",
+    "loading": "読み込み中...",
+    "timeout": "タイムアウト",
+    "error": "エラー",
+    "noResponse": "サービスからの応答がありません",
+    "conflict": "競合 — 更新中..."
+  },
+  "sources": {
+    "pressOkToRetry": "再試行するには OK を押してください",
+    "pressOkToLoad": "ソースを読み込むには OK を押してください",
+    "hdmiInputs": "HDMI入力",
+    "apps": "アプリ"
   }
 }

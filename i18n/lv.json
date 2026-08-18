@@ -11,7 +11,12 @@
     "change": "Mainīt",
     "back": "Atpakaļ",
     "minimize": "Minimizēt",
-    "retry": "Mēģināt vēlreiz"
+    "retry": "Mēģināt vēlreiz",
+    "on": "IESL",
+    "off": "IZSL",
+    "previous": "Iepriekšējie",
+    "next": "Nākamie",
+    "of": "no"
   },
   "home": {
     "currentState": "Pašreizējais statuss",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Šodien",
     "tomorrow": "Rīt"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Pakalpojums nav pieejams",
+    "noData": "Nav datu",
+    "loading": "Ielāde...",
+    "timeout": "Noildze",
+    "error": "Kļūda",
+    "noResponse": "Nav atbildes no pakalpojuma",
+    "conflict": "Konflikts — atjaunināšana..."
+  },
+  "sources": {
+    "pressOkToRetry": "Nospiediet OK, lai mēģinātu vēlreiz",
+    "pressOkToLoad": "Nospiediet OK, lai ielādētu avotus",
+    "hdmiInputs": "HDMI ieejas",
+    "apps": "Lietotnes"
   }
 }

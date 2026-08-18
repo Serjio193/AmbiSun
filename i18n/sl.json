@@ -11,7 +11,12 @@
     "change": "Spremeni",
     "back": "Nazaj",
     "minimize": "Pomanjšaj",
-    "retry": "Poskusi znova"
+    "retry": "Poskusi znova",
+    "on": "VKLOP",
+    "off": "IZKLOP",
+    "previous": "Prejšnje",
+    "next": "Naslednje",
+    "of": "od"
   },
   "home": {
     "currentState": "Trenutno stanje",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Danes",
     "tomorrow": "Jutri"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Storitev ni na voljo",
+    "noData": "Ni podatkov",
+    "loading": "Nalaganje...",
+    "timeout": "Časovna omejitev",
+    "error": "Napaka",
+    "noResponse": "Ni odziva storitve",
+    "conflict": "Spor — posodabljanje..."
+  },
+  "sources": {
+    "pressOkToRetry": "Pritisnite OK za ponovni poskus",
+    "pressOkToLoad": "Pritisnite OK za nalaganje virov",
+    "hdmiInputs": "Vhodi HDMI",
+    "apps": "Aplikacije"
   }
 }

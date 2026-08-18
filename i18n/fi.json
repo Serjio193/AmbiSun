@@ -11,7 +11,12 @@
     "change": "Muuta",
     "back": "Takaisin",
     "minimize": "Pienennä",
-    "retry": "Yritä uudelleen"
+    "retry": "Yritä uudelleen",
+    "on": "PÄÄLLÄ",
+    "off": "POIS",
+    "previous": "Edelliset",
+    "next": "Seuraavat",
+    "of": "/"
   },
   "home": {
     "currentState": "Nykyinen tila",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Tänään",
     "tomorrow": "Huomenna"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Palvelu ei ole käytettävissä",
+    "noData": "Ei tietoja",
+    "loading": "Ladataan...",
+    "timeout": "Aikakatkaisu",
+    "error": "Virhe",
+    "noResponse": "Palvelu ei vastaa",
+    "conflict": "Ristiriita — päivitetään..."
+  },
+  "sources": {
+    "pressOkToRetry": "Paina OK yrittääksesi uudelleen",
+    "pressOkToLoad": "Paina OK ladataksesi lähteet",
+    "hdmiInputs": "HDMI-tulot",
+    "apps": "Sovellukset"
   }
 }

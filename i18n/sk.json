@@ -11,7 +11,12 @@
     "change": "Zmeniť",
     "back": "Späť",
     "minimize": "Minimalizovať",
-    "retry": "Opakovať"
+    "retry": "Opakovať",
+    "on": "ZAP",
+    "off": "VYP",
+    "previous": "Predchádzajúce",
+    "next": "Ďalšie",
+    "of": "z"
   },
   "home": {
     "currentState": "Aktuálny stav",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Dnes",
     "tomorrow": "Zajtra"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Služba nie je dostupná",
+    "noData": "Žiadne údaje",
+    "loading": "Načítava sa...",
+    "timeout": "Časový limit vypršal",
+    "error": "Chyba",
+    "noResponse": "Žiadna odpoveď od služby",
+    "conflict": "Konflikt — aktualizácia..."
+  },
+  "sources": {
+    "pressOkToRetry": "Stlačením OK to skúste znova",
+    "pressOkToLoad": "Stlačením OK načítajte zdroje",
+    "hdmiInputs": "Vstupy HDMI",
+    "apps": "Aplikácie"
   }
 }

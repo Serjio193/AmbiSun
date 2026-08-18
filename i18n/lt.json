@@ -11,7 +11,12 @@
     "change": "Keisti",
     "back": "Atgal",
     "minimize": "Suskleisti",
-    "retry": "Bandyti dar kartą"
+    "retry": "Bandyti dar kartą",
+    "on": "ĮJUNGTA",
+    "off": "IŠJUNGTA",
+    "previous": "Ankstesni",
+    "next": "Kiti",
+    "of": "iš"
   },
   "home": {
     "currentState": "Dabartinė būsena",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Šiandien",
     "tomorrow": "Rytoj"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Paslauga nepasiekiama",
+    "noData": "Nėra duomenų",
+    "loading": "Įkeliama...",
+    "timeout": "Baigėsi laikas",
+    "error": "Klaida",
+    "noResponse": "Nėra atsakymo iš paslaugos",
+    "conflict": "Konfliktas — atnaujinama..."
+  },
+  "sources": {
+    "pressOkToRetry": "Paspauskite OK, kad bandytumėte dar kartą",
+    "pressOkToLoad": "Paspauskite OK, kad įkeltumėte šaltinius",
+    "hdmiInputs": "HDMI įvestys",
+    "apps": "Programėlės"
   }
 }

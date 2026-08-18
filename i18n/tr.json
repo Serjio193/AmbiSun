@@ -11,7 +11,12 @@
     "change": "Değiştir",
     "back": "Geri",
     "minimize": "Simge durumuna küçült",
-    "retry": "Tekrar dene"
+    "retry": "Tekrar dene",
+    "on": "AÇIK",
+    "off": "KAPALI",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "of": "/"
   },
   "home": {
     "currentState": "Mevcut durum",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Bugün",
     "tomorrow": "Yarın"
+  },
+  "unit": {
+    "minuteShort": "dk"
+  },
+  "status": {
+    "serviceUnavailable": "Hizmet kullanılamıyor",
+    "noData": "Veri yok",
+    "loading": "Yükleniyor...",
+    "timeout": "Zaman aşımı",
+    "error": "Hata",
+    "noResponse": "Hizmetten yanıt yok",
+    "conflict": "Çakışma — güncelleniyor..."
+  },
+  "sources": {
+    "pressOkToRetry": "Yeniden denemek için OK tuşuna basın",
+    "pressOkToLoad": "Kaynakları yüklemek için OK tuşuna basın",
+    "hdmiInputs": "HDMI girişleri",
+    "apps": "Uygulamalar"
   }
 }

@@ -11,7 +11,12 @@
     "change": "Módosítás",
     "back": "Vissza",
     "minimize": "Kis méret",
-    "retry": "Újra"
+    "retry": "Újra",
+    "on": "BE",
+    "off": "KI",
+    "previous": "Előző",
+    "next": "Következő",
+    "of": "/"
   },
   "home": {
     "currentState": "Jelenlegi állapot",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Ma",
     "tomorrow": "Holnap"
+  },
+  "unit": {
+    "minuteShort": "perc"
+  },
+  "status": {
+    "serviceUnavailable": "A szolgáltatás nem érhető el",
+    "noData": "Nincs adat",
+    "loading": "Betöltés...",
+    "timeout": "Időtúllépés",
+    "error": "Hiba",
+    "noResponse": "Nincs válasz a szolgáltatástól",
+    "conflict": "Ütközés — frissítés..."
+  },
+  "sources": {
+    "pressOkToRetry": "Nyomja meg az OK gombot az újrapróbálkozáshoz",
+    "pressOkToLoad": "Nyomja meg az OK gombot a források betöltéséhez",
+    "hdmiInputs": "HDMI bemenetek",
+    "apps": "Alkalmazások"
   }
 }

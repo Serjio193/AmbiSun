@@ -11,7 +11,12 @@
     "change": "Thay đổi",
     "back": "Quay lại",
     "minimize": "Thu nhỏ",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "on": "BẬT",
+    "off": "TẮT",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "of": "trên"
   },
   "home": {
     "currentState": "Trạng thái hiện tại",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Hôm nay",
     "tomorrow": "Ngày mai"
+  },
+  "unit": {
+    "minuteShort": "phút"
+  },
+  "status": {
+    "serviceUnavailable": "Dịch vụ không khả dụng",
+    "noData": "Không có dữ liệu",
+    "loading": "Đang tải...",
+    "timeout": "Hết thời gian",
+    "error": "Lỗi",
+    "noResponse": "Không có phản hồi từ dịch vụ",
+    "conflict": "Xung đột — đang cập nhật..."
+  },
+  "sources": {
+    "pressOkToRetry": "Nhấn OK để thử lại",
+    "pressOkToLoad": "Nhấn OK để tải nguồn",
+    "hdmiInputs": "Cổng vào HDMI",
+    "apps": "Ứng dụng"
   }
 }

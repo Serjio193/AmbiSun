@@ -31,7 +31,7 @@ function flash(el){
 function updateBoolean(setting){
   const value = !!state[setting];
   document.querySelectorAll(`[data-setting-badge="${setting}"]`).forEach(badge => {
-    badge.textContent = value ? 'ВКЛ' : 'ВЫКЛ';
+    badge.textContent = value ? AmbiSun.i18n.t('common.on', 'ON') : AmbiSun.i18n.t('common.off', 'OFF');
     badge.classList.toggle('on', value);
     badge.classList.toggle('off', !value);
   });
@@ -56,14 +56,14 @@ function selectSupport(key){
 
 
 async function resetDemoState(){
-  showToast(AmbiSun.i18n.t('toast.resetting', 'Сброс настроек...'));
+  showToast(AmbiSun.i18n.t('toast.resetting', 'Resetting settings…'));
   try {
     const res = await AmbiSun.webos.resetConfig();
     if (!res.returnValue) throw new Error(res.errorText || 'reset failed');
     await AmbiSun.bridge.checkSystemStatus();
-    showToast(AmbiSun.i18n.t('toast.reset', 'Настройки сброшены'));
+    showToast(AmbiSun.i18n.t('toast.reset', 'Settings reset'));
   } catch (e) {
-    showToast(AmbiSun.i18n.t('error.saveFailed', 'Ошибка сброса: ') + e.message);
+    showToast(AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + e.message);
   }
 }
 
@@ -94,17 +94,17 @@ const ACTIONS = {
 
   'restore-elevation': async ({el}) => {
     const statusEl = document.getElementById('elevationStatus');
-    if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Восстановление...');
+    if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');
     try {
       const res = await AmbiSun.webos.requestElevation();
       if (res.returnValue) {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Успешно! Перезапуск...');
+        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Success! Restarting...');
         AmbiSun.bridge.startElevationRetry();
       } else {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Ошибка: ') + res.errorText;
+        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + res.errorText;
       }
     } catch (e) {
-      if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Ошибка соединения');
+      if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
     }
   },
 
@@ -178,9 +178,11 @@ const ACTIONS = {
     const newVal = Math.max(-360, Math.min(360, (state[key] || 0) + delta));
     // Optimistic local update so stepper feels responsive
     state[key] = newVal;
+    const formatted = AmbiSun.sun && AmbiSun.sun.formatOffset ? AmbiSun.sun.formatOffset(newVal) : ((newVal >= 0 ? '+' : '') + newVal + ' min');
     document.querySelectorAll(`[data-setting-value="${setting}"]`).forEach(el => {
-      el.textContent = (newVal >= 0 ? '+' : '') + newVal + ' мин';
+      el.textContent = formatted;
     });
+    if (AmbiSun.sun && AmbiSun.sun.updateUI) AmbiSun.sun.updateUI();
     AmbiSun.bridge.mutateConfig({ [key]: newVal });
   },
 
@@ -232,31 +234,31 @@ const ACTIONS = {
     const resEl = document.getElementById('hyperhdrTestResult');
     if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
       if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Неверный адрес или порт');
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Invalid address or port');
         resEl.style.color = 'var(--danger)';
       }
       return;
     }
     if (resEl) {
-      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('hyperhdr.testing', 'Проверка подключения...');
+      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('hyperhdr.testing', 'Testing connection...');
       resEl.style.color = 'var(--muted)';
     }
     try {
       const r = await AmbiSun.webos.getHyperhdrStatus({ host, port });
       if (r && r.returnValue && r.hyperhdr && r.hyperhdr.reachable) {
         if (resEl) {
-          resEl.textContent = '✔ ' + AmbiSun.i18n.t('hyperhdr.available', 'HyperHDR доступен');
+          resEl.textContent = '✔ ' + AmbiSun.i18n.t('hyperhdr.available', 'HyperHDR available');
           resEl.style.color = 'var(--green)';
         }
       } else {
         if (resEl) {
-          resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен');
+          resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable');
           resEl.style.color = 'var(--danger)';
         }
       }
     } catch (_) {
       if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Недоступен');
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable');
         resEl.style.color = 'var(--danger)';
       }
     }
@@ -268,13 +270,13 @@ const ACTIONS = {
     const resEl = document.getElementById('hyperhdrTestResult');
     if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
       if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Неверный адрес или порт');
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Invalid address or port');
         resEl.style.color = 'var(--danger)';
       }
       return;
     }
     if (resEl) {
-      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('toast.saving', 'Сохранение...');
+      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('toast.saving', 'Saving…');
       resEl.style.color = 'var(--muted)';
     }
     const success = await AmbiSun.bridge.mutateConfig({ hyperhdr: { host, port } });
@@ -286,12 +288,12 @@ const ACTIONS = {
         modal.setAttribute('aria-hidden', 'true');
       }
       if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge();
-      showToast(AmbiSun.i18n.t('settings.saved', 'Настройки сохранены'));
+      showToast(AmbiSun.i18n.t('settings.saved', 'Settings saved'));
       const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
       if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
     } else {
       if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('error.saveFailed', 'Ошибка сохранения');
+        resEl.textContent = '✖ ' + AmbiSun.i18n.t('error.saveFailed', 'Save failed');
         resEl.style.color = 'var(--danger)';
       }
     }
@@ -353,31 +355,31 @@ const ACTIONS = {
       progressModal.setAttribute('aria-hidden', 'false');
     }
     if (statusEl) {
-      statusEl.textContent = AmbiSun.i18n.t('update.preparing', 'Подготовка обновления…');
+      statusEl.textContent = AmbiSun.i18n.t('update.preparing', 'Preparing update…');
     }
     if (subtextEl) {
-      subtextEl.textContent = AmbiSun.i18n.t('update.restart', 'AmbiSun будет перезапущен автоматически.');
+      subtextEl.textContent = AmbiSun.i18n.t('update.restart', 'AmbiSun will restart automatically.');
     }
 
     try {
       const res = await AmbiSun.webos.installUpdate(updateInfo.latestVersion);
       if (res && res.returnValue) {
         if (statusEl) {
-          statusEl.textContent = AmbiSun.i18n.t('update.installing', 'Установка обновления…');
+          statusEl.textContent = AmbiSun.i18n.t('update.installing', 'Installing update…');
         }
       } else {
         if (progressModal) {
           progressModal.classList.remove('open');
           progressModal.setAttribute('aria-hidden', 'true');
         }
-        showToast(AmbiSun.i18n.t('update.failed', 'Ошибка обновления: ') + ((res && res.errorText) || ''));
+        showToast(AmbiSun.i18n.t('update.failed', 'Update failed: ') + ((res && res.errorText) || ''));
       }
     } catch (e) {
       if (progressModal) {
         progressModal.classList.remove('open');
         progressModal.setAttribute('aria-hidden', 'true');
       }
-      showToast(AmbiSun.i18n.t('update.failed', 'Ошибка обновления: ') + (e && e.message));
+      showToast(AmbiSun.i18n.t('update.failed', 'Update failed: ') + (e && e.message));
     }
   },
 
@@ -396,10 +398,10 @@ const ACTIONS = {
     try {
       const res = await AmbiSun.webos.minimizeApp();
       if (!res || !res.returnValue) {
-        showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Не удалось свернуть приложение'));
+        showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Failed to minimize application'));
       }
     } catch (e) {
-      showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Не удалось свернуть приложение'));
+      showToast(AmbiSun.i18n.t('error.minimizeFailed', 'Failed to minimize application'));
     }
   }
 };
@@ -414,7 +416,7 @@ function dispatchAction(el, direction) {
   flash(el);
 
   if (!handler) {
-    showToast(`Нет обработчика: ${action || 'unknown'}`);
+    showToast(`No handler: ${action || 'unknown'}`);
     return;
   }
 
@@ -423,12 +425,12 @@ function dispatchAction(el, direction) {
     if (result && typeof result.catch === 'function') {
       result.catch(err => {
         console.error('AmbiSun action failed:', action, err);
-        showToast(`Ошибка действия: ${action}`, 2200);
+        showToast(`Action failed: ${action}`, 2200);
       });
     }
   } catch (err) {
     console.error('AmbiSun action failed:', action, err);
-    showToast(`Ошибка действия: ${action}`, 2200);
+    showToast(`Action failed: ${action}`, 2200);
   }
 }
 

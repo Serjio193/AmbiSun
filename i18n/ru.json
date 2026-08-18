@@ -11,7 +11,12 @@
     "change": "Изменить",
     "back": "Назад",
     "minimize": "Свернуть",
-    "retry": "Повторить"
+    "retry": "Повторить",
+    "on": "ВКЛ",
+    "off": "ВЫКЛ",
+    "previous": "Предыдущие",
+    "next": "Следующие",
+    "of": "из"
   },
   "home": {
     "currentState": "Текущее состояние",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Сегодня",
     "tomorrow": "Завтра"
+  },
+  "unit": {
+    "minuteShort": "мин"
+  },
+  "status": {
+    "serviceUnavailable": "Сервис недоступен",
+    "noData": "Нет данных",
+    "loading": "Загрузка...",
+    "timeout": "Таймаут",
+    "error": "Ошибка",
+    "noResponse": "Нет ответа от сервиса",
+    "conflict": "Конфликт — обновление..."
+  },
+  "sources": {
+    "pressOkToRetry": "Нажмите OK для повтора",
+    "pressOkToLoad": "Нажмите OK для загрузки источников",
+    "hdmiInputs": "HDMI-входы",
+    "apps": "Приложения"
   }
 }

@@ -11,7 +11,12 @@
     "change": "बदलें",
     "back": "पीछे",
     "minimize": "छोटा करें",
-    "retry": "पुनः प्रयास करें"
+    "retry": "पुनः प्रयास करें",
+    "on": "चालू",
+    "off": "बंद",
+    "previous": "पिछला",
+    "next": "अगला",
+    "of": "का"
   },
   "home": {
     "currentState": "वर्तमान स्थिति",
@@ -110,5 +115,23 @@
   "time": {
     "today": "आज",
     "tomorrow": "कल"
+  },
+  "unit": {
+    "minuteShort": "मिनट"
+  },
+  "status": {
+    "serviceUnavailable": "सेवा अनुपलब्ध है",
+    "noData": "कोई डेटा नहीं",
+    "loading": "लोड हो रहा है...",
+    "timeout": "समय समाप्त",
+    "error": "त्रुटि",
+    "noResponse": "सेवा से कोई प्रतिक्रिया नहीं",
+    "conflict": "संघर्ष — अपडेट हो रहा है..."
+  },
+  "sources": {
+    "pressOkToRetry": "पुनः प्रयास करने के लिए OK दबाएं",
+    "pressOkToLoad": "स्रोत लोड करने के लिए OK दबाएं",
+    "hdmiInputs": "HDMI इनपुट",
+    "apps": "ऐप्स"
   }
 }

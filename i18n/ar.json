@@ -11,7 +11,12 @@
     "change": "تغيير",
     "back": "رجوع",
     "minimize": "تصغير",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "on": "تشغيل",
+    "off": "إيقاف",
+    "previous": "السابق",
+    "next": "التالي",
+    "of": "من"
   },
   "home": {
     "currentState": "الحالة الحالية",
@@ -110,5 +115,23 @@
   "time": {
     "today": "اليوم",
     "tomorrow": "غدًا"
+  },
+  "unit": {
+    "minuteShort": "د"
+  },
+  "status": {
+    "serviceUnavailable": "الخدمة غير متوفرة",
+    "noData": "لا توجد بيانات",
+    "loading": "جارٍ التحميل...",
+    "timeout": "انتهت مهلة الانتظار",
+    "error": "خطأ",
+    "noResponse": "لا يوجد رد من الخدمة",
+    "conflict": "تعارض — جارٍ التحديث..."
+  },
+  "sources": {
+    "pressOkToRetry": "اضغط OK لإعادة المحاولة",
+    "pressOkToLoad": "اضغط OK لتحميل المصادر",
+    "hdmiInputs": "مداخل HDMI",
+    "apps": "التطبيقات"
   }
 }

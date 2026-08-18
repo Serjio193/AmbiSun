@@ -11,7 +11,12 @@
     "change": "Промени",
     "back": "Назад",
     "minimize": "Смањи",
-    "retry": "Понови"
+    "retry": "Понови",
+    "on": "УКЉ",
+    "off": "ИСКЉ",
+    "previous": "Претходно",
+    "next": "Следеће",
+    "of": "од"
   },
   "home": {
     "currentState": "Тренутно стање",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Данас",
     "tomorrow": "Сутра"
+  },
+  "unit": {
+    "minuteShort": "мин"
+  },
+  "status": {
+    "serviceUnavailable": "Услуга није доступна",
+    "noData": "Нема података",
+    "loading": "Учитавање...",
+    "timeout": "Истекло време",
+    "error": "Грешка",
+    "noResponse": "Нема одговора од услуге",
+    "conflict": "Конфликт — ажурирање..."
+  },
+  "sources": {
+    "pressOkToRetry": "Притисните OK за поновни покушај",
+    "pressOkToLoad": "Притисните OK за учитавање извора",
+    "hdmiInputs": "HDMI улази",
+    "apps": "Апликације"
   }
 }

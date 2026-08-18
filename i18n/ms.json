@@ -11,7 +11,12 @@
     "change": "Tukar",
     "back": "Kembali",
     "minimize": "Minimumkan",
-    "retry": "Cuba lagi"
+    "retry": "Cuba lagi",
+    "on": "HIDUP",
+    "off": "MATI",
+    "previous": "Sebelumnya",
+    "next": "Seterusnya",
+    "of": "daripada"
   },
   "home": {
     "currentState": "Status semasa",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Hari ini",
     "tomorrow": "Esok"
+  },
+  "unit": {
+    "minuteShort": "min"
+  },
+  "status": {
+    "serviceUnavailable": "Perkhidmatan tidak tersedia",
+    "noData": "Tiada data",
+    "loading": "Memuatkan...",
+    "timeout": "Masa tamat",
+    "error": "Ralat",
+    "noResponse": "Tiada respons daripada perkhidmatan",
+    "conflict": "Konflik — mengemas kini..."
+  },
+  "sources": {
+    "pressOkToRetry": "Tekan OK untuk cuba lagi",
+    "pressOkToLoad": "Tekan OK untuk memuatkan sumber",
+    "hdmiInputs": "Input HDMI",
+    "apps": "Aplikasi"
   }
 }

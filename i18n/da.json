@@ -11,7 +11,12 @@
     "change": "Skift",
     "back": "Tilbage",
     "minimize": "Minimer",
-    "retry": "Prøv igen"
+    "retry": "Prøv igen",
+    "on": "TIL",
+    "off": "FRA",
+    "previous": "Forrige",
+    "next": "Næste",
+    "of": "af"
   },
   "home": {
     "currentState": "Nuværende status",
@@ -110,5 +115,23 @@
   "time": {
     "today": "I dag",
     "tomorrow": "I morgen"
+  },
+  "unit": {
+    "minuteShort": "min."
+  },
+  "status": {
+    "serviceUnavailable": "Tjeneste utilgængelig",
+    "noData": "Ingen data",
+    "loading": "Indlæser...",
+    "timeout": "Timeout",
+    "error": "Fejl",
+    "noResponse": "Intet svar fra tjenesten",
+    "conflict": "Konflikt — opdaterer..."
+  },
+  "sources": {
+    "pressOkToRetry": "Tryk på OK for at prøve igen",
+    "pressOkToLoad": "Tryk på OK for at indlæse kilder",
+    "hdmiInputs": "HDMI-indgange",
+    "apps": "Apps"
   }
 }

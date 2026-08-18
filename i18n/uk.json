@@ -11,7 +11,12 @@
     "change": "Змінити",
     "back": "Назад",
     "minimize": "Згорнути",
-    "retry": "Повторити"
+    "retry": "Повторити",
+    "on": "УВІМК",
+    "off": "ВИМК",
+    "previous": "Попередні",
+    "next": "Наступні",
+    "of": "з"
   },
   "home": {
     "currentState": "Поточний стан",
@@ -110,5 +115,23 @@
   "time": {
     "today": "Сьогодні",
     "tomorrow": "Завтра"
+  },
+  "unit": {
+    "minuteShort": "хв"
+  },
+  "status": {
+    "serviceUnavailable": "Сервіс недоступний",
+    "noData": "Немає даних",
+    "loading": "Завантаження...",
+    "timeout": "Таймаут",
+    "error": "Помилка",
+    "noResponse": "Немає відповіді від сервісу",
+    "conflict": "Конфлікт — оновлення..."
+  },
+  "sources": {
+    "pressOkToRetry": "Натисніть OK для повтору",
+    "pressOkToLoad": "Натисніть OK для завантаження джерел",
+    "hdmiInputs": "HDMI-входи",
+    "apps": "Програми"
   }
 }

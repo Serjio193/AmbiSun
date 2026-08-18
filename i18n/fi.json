@@ -62,7 +62,7 @@
     "install": "Asenna päivitys",
     "preparing": "Valmistellaan päivitystä…",
     "installing": "Asennetaan päivitystä…",
-    "restart": "AmbiSun käynnistyy automaattisesti uudelleen.",
+    "restart": "AmbiSun saattaa sulkeutua päivityksen aikana. Sovellus yrittää avautua automaattisesti uudelleen. Jos se ei avaudu, käynnistä AmbiSun uudelleen.",
     "failed": "Päivitys epäonnistui: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Palautetaan...",
-    "success": "Onnistui! Käynnistetään uudelleen...",
+    "success": "Käyttöoikeus palautettu",
     "title": "Käyttöoikeudet vaaditaan",
     "desc": "Sovelluksen päivittämisen jälkeen käyttöoikeudet on palautettava. Ota Homebrew Channel -määritykset käyttöön valitsemalla alla oleva painike.",
     "button": "Palauta käyttöoikeudet"

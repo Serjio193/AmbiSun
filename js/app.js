@@ -97,11 +97,15 @@ const ACTIONS = {
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');
     try {
       const res = await AmbiSun.webos.requestElevation();
-      if (res.returnValue) {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Success! Restarting...');
-        AmbiSun.bridge.startElevationRetry();
+      if (res && res.returnValue) {
+        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Access restored');
+        AmbiSun.bridge.startElevationRetry(function(confirmed) {
+          if (!confirmed && statusEl) {
+            statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + ((res && res.errorText) || '');
+          }
+        });
       } else {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + res.errorText;
+        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + ((res && res.errorText) || '');
       }
     } catch (e) {
       if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
@@ -358,7 +362,7 @@ const ACTIONS = {
       statusEl.textContent = AmbiSun.i18n.t('update.preparing', 'Preparing update…');
     }
     if (subtextEl) {
-      subtextEl.textContent = AmbiSun.i18n.t('update.restart', 'AmbiSun will restart automatically.');
+      subtextEl.textContent = AmbiSun.i18n.t('update.restart', 'AmbiSun may close during the update. It will try to reopen automatically. If it does not reopen, start AmbiSun again.');
     }
 
     try {

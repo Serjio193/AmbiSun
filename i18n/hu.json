@@ -62,7 +62,7 @@
     "install": "Frissítés telepítése",
     "preparing": "Frissítés előkészítése…",
     "installing": "Frissítés telepítése…",
-    "restart": "Az AmbiSun automatikusan újraindul.",
+    "restart": "Az AmbiSun bezáródhat a frissítés során. Az alkalmazás megpróbál automatikusan újraindulni. Ha nem nyílik meg, indítsa el újra az AmbiSunt.",
     "failed": "A frissítés sikertelen: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Visszaállítás...",
-    "success": "Sikeres! Újraindítás...",
+    "success": "Hozzáférés visszaállítva",
     "title": "Hozzáférési engedélyek szükségesek",
     "desc": "Az alkalmazás frissítése után a hozzáférési jogosultságokat vissza kell állítani. Válassza az alábbi gombot a Homebrew Channel konfiguráció alkalmazásához.",
     "button": "Hozzáférés visszaállítása"

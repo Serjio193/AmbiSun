@@ -62,7 +62,7 @@
     "install": "Paigalda uuendus",
     "preparing": "Uuenduse ettevalmistamine…",
     "installing": "Uuenduse paigaldamine…",
-    "restart": "AmbiSun taaskäivitub automaatselt.",
+    "restart": "AmbiSun võib uuendamise ajal sulguda. Rakendus proovib automaatselt uuesti avaneda. Kui see ei avane, käivitage AmbiSun uuesti.",
     "failed": "Uuendamine ebaõnnestus: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Taastamine...",
-    "success": "Õnnestus! Taaskäivitamine...",
+    "success": "Juurdepääs taastatud",
     "title": "Vajalikud on juurdepääsuõigused",
     "desc": "Pärast rakenduse värskendamist tuleb juurdepääsuõigused taastada. Homebrew Channeli konfiguratsiooni rakendamiseks vajutage allolevat nuppu.",
     "button": "Taasta juurdepääs"

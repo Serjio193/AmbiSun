@@ -62,7 +62,7 @@
     "install": "Update installeren",
     "preparing": "Update voorbereiden…",
     "installing": "Update installeren…",
-    "restart": "AmbiSun wordt automatisch opnieuw gestart.",
+    "restart": "AmbiSun kan sluiten tijdens de update. De app probeert automatisch opnieuw te openen. Als dit niet lukt, open AmbiSun dan opnieuw.",
     "failed": "Update mislukt: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Bezig met herstellen...",
-    "success": "Geslaagd! Bezig met herstarten...",
+    "success": "Toegang hersteld",
     "title": "Toegangsrechten vereist",
     "desc": "Na het bijwerken van de app moeten de toegangsrechten worden hersteld. Selecteer de knop hieronder om de Homebrew Channel-configuratie toe te passen.",
     "button": "Toegang herstellen"

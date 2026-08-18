@@ -62,7 +62,7 @@
     "install": "Instalar atualização",
     "preparing": "A preparar atualização…",
     "installing": "A instalar atualização…",
-    "restart": "O AmbiSun irá reiniciar automaticamente.",
+    "restart": "O AmbiSun pode fechar durante a atualização. A aplicação tentará reabrir automaticamente. Se não reabrir, inicie o AmbiSun novamente.",
     "failed": "Falha na atualização: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "A restaurar...",
-    "success": "Sucesso! A reiniciar...",
+    "success": "Acesso restaurado",
     "title": "Permissões de acesso necessárias",
     "desc": "Após atualizar a aplicação, as permissões de acesso têm de ser restauradas. Selecione o botão abaixo para aplicar a configuração do Homebrew Channel.",
     "button": "Restaurar acesso"

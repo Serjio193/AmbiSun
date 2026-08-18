@@ -62,7 +62,7 @@
     "install": "Instalēt atjauninājumu",
     "preparing": "Sagatavo atjauninājumu…",
     "installing": "Instalē atjauninājumu…",
-    "restart": "AmbiSun automātiski restartēsies.",
+    "restart": "AmbiSun atjaunināšanas laikā var aizvērties. Lietotne mēģinās automātiski atvērties no jauna. Ja tā neatveras, palaidiet AmbiSun vēlreiz.",
     "failed": "Atjaunināšana neizdevās: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Atjauno...",
-    "success": "Veiksmīgi! Restartē...",
+    "success": "Piekļuve atjaunota",
     "title": "Nepieciešamas piekļuves atļaujas",
     "desc": "Pēc lietotnes atjaunināšanas ir jāatjauno piekļuves atļaujas. Atlasiet zemāk esošo pogu, lai lietotu Homebrew Channel konfigurāciju.",
     "button": "Atjaunot piekļuvi"

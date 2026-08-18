@@ -62,7 +62,7 @@
     "install": "Instalovat aktualizaci",
     "preparing": "Příprava aktualizace…",
     "installing": "Instalace aktualizace…",
-    "restart": "AmbiSun se automaticky restartuje.",
+    "restart": "AmbiSun se během aktualizace může zavřít. Aplikace se pokusí automaticky znovu otevřít. Pokud se neotevře, spusťte AmbiSun znovu.",
     "failed": "Aktualizace se nezdařila: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Obnovování...",
-    "success": "Úspěch! Restartování...",
+    "success": "Přístup obnoven",
     "title": "Vyžadována přístupová oprávnění",
     "desc": "Po aktualizaci aplikace je nutné obnovit přístupová oprávnění. Stiskněte tlačítko níže pro použití konfigurace Homebrew Channel.",
     "button": "Obnovit přístup"

@@ -62,7 +62,7 @@
     "install": "Install update",
     "preparing": "Preparing update…",
     "installing": "Installing update…",
-    "restart": "AmbiSun will restart automatically.",
+    "restart": "AmbiSun may close during the update. It will try to reopen automatically. If it does not reopen, start AmbiSun again.",
     "failed": "Update failed: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Restoring...",
-    "success": "Success! Restarting...",
+    "success": "Access restored",
     "title": "Access permissions required",
     "desc": "After updating the app, access permissions must be restored. Select the button below to apply the Homebrew Channel configuration.",
     "button": "Restore access"

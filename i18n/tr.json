@@ -62,7 +62,7 @@
     "install": "Güncellemeyi yükle",
     "preparing": "Güncelleme hazırlanıyor…",
     "installing": "Güncelleme yükleniyor…",
-    "restart": "AmbiSun otomatik olarak yeniden başlatılacak.",
+    "restart": "AmbiSun güncelleme sırasında kapanabilir. Uygulama otomatik olarak yeniden açılmaya çalışacaktır. Açılmazsa AmbiSun'ı tekrar başlatın.",
     "failed": "Güncelleme başarısız: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Geri yükleniyor...",
-    "success": "Başarılı! Yeniden başlatılıyor...",
+    "success": "Erişim geri yüklendi",
     "title": "Erişim izinleri gerekiyor",
     "desc": "Uygulama güncellendikten sonra erişim izinlerinin geri yüklenmesi gerekir. Homebrew Channel yapılandırmasını uygulamak için aşağıdaki düğmeyi seçin.",
     "button": "Erişimi geri yükle"

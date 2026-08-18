@@ -295,6 +295,26 @@ async function runTests() {
         });
     });
 
+    // Scenario J: Helper script has bounded elevation and launch retries with response checks
+    console.log("\n[Test J] Helper script has bounded elevation and launch retries");
+    const script = updater._generateHelperScript("0.2.0", "/tmp/test.ipk", "/tmp/test.sh", "/tmp/res.txt", "/tmp/log.txt");
+    assert(script.includes("for elev_attempt in 1 2 3 4 5; do"), "Helper must have bounded 5-attempt elevation retry");
+    assert(script.includes("for launch_attempt in 1 2 3 4 5; do"), "Helper must have bounded 5-attempt launch retry");
+    assert(script.includes("grep -E -q '\"returnValue\"[[:space:]]*:[[:space:]]*true'"), "Helper must verify returnValue for launch");
+    assert(!script.includes("while true"), "Helper must not have infinite loops");
+    assert(script.includes("rm -f \"$IPK_PATH\""), "Helper must cleanup IPK");
+    assert(script.includes("rm -f \"$RESULT_PATH\""), "Helper must cleanup result file");
+    assert(script.includes("rm -f \"$HELPER_PATH\""), "Helper must cleanup helper script");
+    console.log("  [PASS] Scenario J passed (Helper script structure and bounds verified)");
+
+    // Scenario K: Frontend text contract checks
+    console.log("\n[Test K] Frontend locale and UX contract verification");
+    const enJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../i18n/en.json"), "utf8"));
+    assert.strictEqual(enJson.elevation.success, "Access restored", "elevation.success must be 'Access restored'");
+    assert(!enJson.elevation.success.toLowerCase().includes("restart"), "elevation.success must not promise restart");
+    assert(enJson.update.restart.includes("If it does not reopen"), "update.restart must mention manual reopen fallback");
+    console.log("  [PASS] Scenario K passed (Frontend strings contract verified)");
+
     // Cleanup
     updater._resetPublicKey();
     updater._resetTempDir();
@@ -308,7 +328,7 @@ async function runTests() {
     } catch (_) {}
 
     console.log("\n=========================================");
-    console.log("ALL SCENARIOS A-I PASSED SUCCESSFULLY!");
+    console.log("ALL SCENARIOS A-K PASSED SUCCESSFULLY!");
     console.log("=========================================");
 }
 

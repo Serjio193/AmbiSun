@@ -62,7 +62,7 @@
     "install": "Cài đặt bản cập nhật",
     "preparing": "Đang chuẩn bị cập nhật…",
     "installing": "Đang cài đặt bản cập nhật…",
-    "restart": "AmbiSun sẽ tự động khởi động lại.",
+    "restart": "AmbiSun có thể đóng trong quá trình cập nhật. Ứng dụng sẽ tự động mở lại. Nếu không mở lại, vui lòng khởi động lại AmbiSun.",
     "failed": "Cập nhật thất bại: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Đang khôi phục...",
-    "success": "Thành công! Đang khởi động lại...",
+    "success": "Đã khôi phục quyền truy cập",
     "title": "Yêu cầu quyền truy cập",
     "desc": "Sau khi cập nhật ứng dụng, quyền truy cập phải được khôi phục. Chọn nút bên dưới để áp dụng cấu hình Homebrew Channel.",
     "button": "Khôi phục quyền truy cập"

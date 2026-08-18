@@ -407,7 +407,7 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "if [ \"$INSTALL_SUCCESS\" -ne 1 ]; then\n" +
         "    echo \"[$(date)] INSTALL FAILED: exit code $INSTALL_EXIT, response: $(cat \"$RESULT_PATH\" 2>/dev/null)\" >> \"$LOG_PATH\"\n" +
         "    echo \"[$(date)] Recovery: attempting to launch existing AmbiSun...\" >> \"$LOG_PATH\"\n" +
-        "    luna-send -n 1 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
+        "    luna-send -n 1 -w 5000 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
         "    exit 1\n" +
         "fi\n\n" +
         "echo \"[$(date)] appInstallService returned success, verifying installed files...\" >> \"$LOG_PATH\"\n\n" +
@@ -423,7 +423,7 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "if [ \"$FOUND_APPINFO\" -ne 1 ]; then\n" +
         "    echo \"[$(date)] VERSION VERIFY FAILED: $APPINFO_PATH not found after 30s\" >> \"$LOG_PATH\"\n" +
         "    echo \"[$(date)] Recovery: attempting to launch existing AmbiSun...\" >> \"$LOG_PATH\"\n" +
-        "    luna-send -n 1 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
+        "    luna-send -n 1 -w 5000 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
         "    exit 1\n" +
         "fi\n\n" +
         "VERSION_MATCH=0\n" +
@@ -433,28 +433,57 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "if [ \"$VERSION_MATCH\" -ne 1 ]; then\n" +
         "    echo \"[$(date)] VERSION VERIFY FAILED: Installed version does not match target $TARGET_VERSION\" >> \"$LOG_PATH\"\n" +
         "    echo \"[$(date)] Recovery: attempting to launch AmbiSun...\" >> \"$LOG_PATH\"\n" +
-        "    luna-send -n 1 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
+        "    luna-send -n 1 -w 5000 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n" +
         "    exit 1\n" +
         "fi\n\n" +
         "echo \"[$(date)] Installed version $TARGET_VERSION verified successfully.\" >> \"$LOG_PATH\"\n\n" +
-        "# 4. Restore elevation after verified install\n" +
+        "# 4. Restore elevation after verified install with bounded retries\n" +
         "sleep 2\n" +
+        "ELEV_SUCCESS=0\n" +
         "if [ -x \"$ELEVATE_BIN\" ]; then\n" +
-        "    echo \"[$(date)] Restoring elevation...\" >> \"$LOG_PATH\"\n" +
-        "    \"$ELEVATE_BIN\" \"$SVC_ID\" >> \"$LOG_PATH\" 2>&1\n" +
-        "    ELEV_EXIT=$?\n" +
-        "    if [ \"$ELEV_EXIT\" -ne 0 ]; then\n" +
-        "        echo \"[$(date)] ELEVATION FAILED with code $ELEV_EXIT\" >> \"$LOG_PATH\"\n" +
-        "    else\n" +
-        "        echo \"[$(date)] Elevation restored successfully.\" >> \"$LOG_PATH\"\n" +
+        "    echo \"[$(date)] Restoring service elevation...\" >> \"$LOG_PATH\"\n" +
+        "    for elev_attempt in 1 2 3 4 5; do\n" +
+        "        echo \"[$(date)] Elevation attempt $elev_attempt/5...\" >> \"$LOG_PATH\"\n" +
+        "        \"$ELEVATE_BIN\" \"$SVC_ID\" >> \"$LOG_PATH\" 2>&1\n" +
+        "        ELEV_EXIT=$?\n" +
+        "        if [ \"$ELEV_EXIT\" -eq 0 ]; then\n" +
+        "            ELEV_SUCCESS=1\n" +
+        "            echo \"[$(date)] Service elevation restored successfully on attempt $elev_attempt.\" >> \"$LOG_PATH\"\n" +
+        "            break\n" +
+        "        else\n" +
+        "            echo \"[$(date)] Elevation attempt $elev_attempt failed with exit code $ELEV_EXIT.\" >> \"$LOG_PATH\"\n" +
+        "            sleep 2\n" +
+        "        fi\n" +
+        "    done\n" +
+        "    if [ \"$ELEV_SUCCESS\" -ne 1 ]; then\n" +
+        "        echo \"[$(date)] Warning: Automatic elevation failed after 5 attempts. User can restore access manually in the UI.\" >> \"$LOG_PATH\"\n" +
         "    fi\n" +
         "else\n" +
-        "    echo \"[$(date)] ELEVATION FAILED: Elevate binary not found or not executable: $ELEVATE_BIN\" >> \"$LOG_PATH\"\n" +
+        "    echo \"[$(date)] Warning: Elevate binary not found or not executable: $ELEVATE_BIN\" >> \"$LOG_PATH\"\n" +
         "fi\n\n" +
         "sleep 2\n\n" +
-        "# 5. Launch updated app\n" +
+        "# 5. Launch updated app with bounded retries and response verification\n" +
+        "LAUNCH_SUCCESS=0\n" +
         "echo \"[$(date)] Launching updated AmbiSun...\" >> \"$LOG_PATH\"\n" +
-        "luna-send -n 1 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' >> \"$LOG_PATH\" 2>&1\n\n" +
+        "for launch_attempt in 1 2 3 4 5; do\n" +
+        "    rm -f \"$RESULT_PATH\"\n" +
+        "    echo \"[$(date)] Launch attempt $launch_attempt/5...\" >> \"$LOG_PATH\"\n" +
+        "    luna-send -n 1 -w 5000 luna://com.webos.applicationManager/launch '{\"id\":\"'\"$APP_ID\"'\"}' > \"$RESULT_PATH\" 2>&1\n" +
+        "    LAUNCH_EXIT=$?\n" +
+        "    cat \"$RESULT_PATH\" >> \"$LOG_PATH\"\n" +
+        "    if [ \"$LAUNCH_EXIT\" -eq 0 ] && [ -f \"$RESULT_PATH\" ]; then\n" +
+        "        if grep -E -q '\"returnValue\"[[:space:]]*:[[:space:]]*true' \"$RESULT_PATH\"; then\n" +
+        "            LAUNCH_SUCCESS=1\n" +
+        "            echo \"[$(date)] AmbiSun launched successfully on attempt $launch_attempt.\" >> \"$LOG_PATH\"\n" +
+        "            break\n" +
+        "        fi\n" +
+        "    fi\n" +
+        "    echo \"[$(date)] Launch attempt $launch_attempt failed, retrying in 2s...\" >> \"$LOG_PATH\"\n" +
+        "    sleep 2\n" +
+        "done\n\n" +
+        "if [ \"$LAUNCH_SUCCESS\" -ne 1 ]; then\n" +
+        "    echo \"[$(date)] Warning: Automatic launch did not succeed after 5 attempts. User can open AmbiSun manually.\" >> \"$LOG_PATH\"\n" +
+        "fi\n\n" +
         "# 6. Clean up temporary files on verified success\n" +
         "echo \"[$(date)] Cleaning up temporary installation files...\" >> \"$LOG_PATH\"\n" +
         "rm -f \"$IPK_PATH\"\n" +

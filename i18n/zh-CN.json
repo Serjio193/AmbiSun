@@ -62,7 +62,7 @@
     "install": "安装更新",
     "preparing": "正在准备更新…",
     "installing": "正在安装更新…",
-    "restart": "AmbiSun 将自动重启。",
+    "restart": "更新过程中 AmbiSun 可能会关闭。应用将尝试自动重新打开。如果未打开，请手动再次启动 AmbiSun。",
     "failed": "更新失败："
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "正在恢复…",
-    "success": "成功！正在重启…",
+    "success": "访问权限已恢复",
     "title": "需要访问权限",
     "desc": "更新应用后，必须恢复访问权限。请选择下方按钮以应用 Homebrew Channel 配置。",
     "button": "恢复权限"

@@ -417,21 +417,33 @@
 
   // ---- Elevation retry ----
   var elevRetries = 0;
-  function startElevationRetry() {
+  function startElevationRetry(onComplete) {
     elevRetries = 0;
-    doElevationRetry();
+    doElevationRetry(onComplete);
   }
 
-  function doElevationRetry() {
-    if (elevRetries >= 6) {
+  function doElevationRetry(onComplete) {
+    if (elevRetries >= 8) {
       elevRetries = 0;
+      if (typeof onComplete === 'function') onComplete(false);
       return;
     }
     elevRetries++;
     setTimeout(function() {
       checkSystemStatus().then(function() {
-        if (!isElevated) doElevationRetry();
-        else elevRetries = 0;
+        if (!isElevated) {
+          doElevationRetry(onComplete);
+        } else {
+          elevRetries = 0;
+          if (typeof onComplete === 'function') onComplete(true);
+        }
+      }).catch(function() {
+        if (!isElevated) {
+          doElevationRetry(onComplete);
+        } else {
+          elevRetries = 0;
+          if (typeof onComplete === 'function') onComplete(true);
+        }
       });
     }, 1500);
   }

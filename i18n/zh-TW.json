@@ -62,7 +62,7 @@
     "install": "安裝更新",
     "preparing": "正在準備更新…",
     "installing": "正在安裝更新…",
-    "restart": "AmbiSun 將自動重新啟動。",
+    "restart": "更新過程中 AmbiSun 可能會關閉。應用程式將嘗試自動重新開啟。如果未開啟，請手動再次啟動 AmbiSun。",
     "failed": "更新失敗："
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "正在復原…",
-    "success": "成功！正在重新啟動…",
+    "success": "存取權限已恢復",
     "title": "需要存取權限",
     "desc": "更新應用程式後，必須還原存取權限。請選取下方按鈕以套用 Homebrew Channel 設定。",
     "button": "還原存取權限"

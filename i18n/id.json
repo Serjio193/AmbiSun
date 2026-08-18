@@ -62,7 +62,7 @@
     "install": "Pasang pembaruan",
     "preparing": "Menyiapkan pembaruan…",
     "installing": "Memasang pembaruan…",
-    "restart": "AmbiSun akan dimulai ulang secara otomatis.",
+    "restart": "AmbiSun mungkin menutup saat pembaruan. Aplikasi akan mencoba membuka kembali secara otomatis. Jika tidak terbuka, mulai AmbiSun lagi.",
     "failed": "Pembaruan gagal: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Memulihkan...",
-    "success": "Berhasil! Memulai ulang...",
+    "success": "Akses dipulihkan",
     "title": "Izin akses diperlukan",
     "desc": "Setelah memperbarui aplikasi, izin akses harus dipulihkan. Pilih tombol di bawah untuk menerapkan konfigurasi Homebrew Channel.",
     "button": "Pulihkan akses"

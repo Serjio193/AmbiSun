@@ -62,7 +62,7 @@
     "install": "Zainstaluj aktualizację",
     "preparing": "Przygotowywanie aktualizacji…",
     "installing": "Instalowanie aktualizacji…",
-    "restart": "AmbiSun uruchomi się ponownie automatycznie.",
+    "restart": "AmbiSun może zamknąć się podczas aktualizacji. Aplikacja spróbuje otworzyć się automatycznie. Jeśli się nie otworzy, uruchom AmbiSun ponownie.",
     "failed": "Aktualizacja nie powiodła się: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Przywracanie...",
-    "success": "Sukces! Ponowne uruchamianie...",
+    "success": "Dostęp przywrócony",
     "title": "Wymagane uprawnienia dostępu",
     "desc": "Po zaktualizowaniu aplikacji należy przywrócić uprawnienia dostępu. Wybierz przycisk poniżej, aby zastosować konfigurację Homebrew Channel.",
     "button": "Przywróć dostęp"

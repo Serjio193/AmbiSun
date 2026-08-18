@@ -62,7 +62,7 @@
     "install": "Instalare actualizare",
     "preparing": "Se pregătește actualizarea…",
     "installing": "Se instalează actualizarea…",
-    "restart": "AmbiSun va reporni automat.",
+    "restart": "AmbiSun se poate închide în timpul actualizării. Aplicația va încerca să se redeschidă automat. Dacă nu se deschide, porniți din nou AmbiSun.",
     "failed": "Actualizarea a eșuat: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Se restaurează...",
-    "success": "Succes! Se repornește...",
+    "success": "Acces restabilit",
     "title": "Permisiuni de acces necesare",
     "desc": "După actualizarea aplicației, permisiunile de acces trebuie restaurate. Selectați butonul de mai jos pentru a aplica configurarea Homebrew Channel.",
     "button": "Restaurează accesul"

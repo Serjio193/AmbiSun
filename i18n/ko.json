@@ -62,7 +62,7 @@
     "install": "업데이트 설치",
     "preparing": "업데이트 준비 중…",
     "installing": "업데이트 설치 중…",
-    "restart": "AmbiSun이 자동으로 다시 시작됩니다.",
+    "restart": "업데이트 중 AmbiSun이 종료될 수 있습니다. 앱이 자동으로 다시 열리도록 시도합니다. 열리지 않으면 AmbiSun을 다시 시작하세요.",
     "failed": "업데이트 실패: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "복원 중...",
-    "success": "완료! 다시 시작 중...",
+    "success": "액세스 복원됨",
     "title": "접근 권한 필요",
     "desc": "앱을 업데이트한 후에는 접근 권한을 복원해야 합니다. 아래 버튼을 선택하여 Homebrew Channel 설정을 적용하세요.",
     "button": "접근 권한 복원"

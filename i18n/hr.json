@@ -62,7 +62,7 @@
     "install": "Instaliraj ažuriranje",
     "preparing": "Priprema ažuriranja…",
     "installing": "Instaliranje ažuriranja…",
-    "restart": "AmbiSun će se automatski ponovno pokrenuti.",
+    "restart": "AmbiSun se može zatvoriti tijekom ažuriranja. Aplikacija će se pokušati automatski ponovno otvoriti. Ako se ne otvori, ponovno pokrenite AmbiSun.",
     "failed": "Ažuriranje nije uspjelo: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Vraćanje...",
-    "success": "Uspjeh! Ponovno pokretanje...",
+    "success": "Pristup vraćen",
     "title": "Potrebna su dopuštenja za pristup",
     "desc": "Nakon ažuriranja aplikacije potrebno je vratiti dopuštenja za pristup. Odaberite gumb u nastavku za primjenu konfiguracije Homebrew Channela.",
     "button": "Vrati pristup"

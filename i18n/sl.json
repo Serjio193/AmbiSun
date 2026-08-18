@@ -62,7 +62,7 @@
     "install": "Namesti posodobitev",
     "preparing": "Priprava posodobitve…",
     "installing": "Nameščanje posodobitve…",
-    "restart": "AmbiSun se bo samodejno znova zagnal.",
+    "restart": "AmbiSun se med posodobitvijo lahko zapre. Aplikacija se bo poskusila znova samodejno odpreti. Če se ne odpre, znova zaženite AmbiSun.",
     "failed": "Posodobitev ni uspela: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Obnavljanje...",
-    "success": "Uspešno! Ponovni zagon...",
+    "success": "Dostop obnovljen",
     "title": "Zahtevana so dovoljenja za dostop",
     "desc": "Po posodobitvi aplikacije je treba obnoviti dovoljenja za dostop. Izberite spodnji gumb za uveljavitev konfiguracije Homebrew Channel.",
     "button": "Obnovi dostop"

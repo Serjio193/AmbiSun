@@ -62,7 +62,7 @@
     "install": "Įdiegti atnaujinimą",
     "preparing": "Ruošiamas atnaujinimas…",
     "installing": "Diegiamas atnaujinimas…",
-    "restart": "AmbiSun persikraus automatiškai.",
+    "restart": "Atnaujinimo metu „AmbiSun“ gali užsidaryti. Programėlė bandys automatiškai atsidaryti iš naujo. Jei neatsidaro, paleiskite „AmbiSun“ vėl.",
     "failed": "Atnaujinti nepavyko: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Atkuriama...",
-    "success": "Pavyko! Paleidžiama iš naujo...",
+    "success": "Prieiga atkurta",
     "title": "Reikalingi prieigos leidimai",
     "desc": "Atnaujinus programą, būtina atkurti prieigos leidimus. Pasirinkite žemiau esantį mygtuką, kad pritaikytumėte Homebrew Channel konfigūraciją.",
     "button": "Atkurti prieigą"

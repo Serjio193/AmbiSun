@@ -62,7 +62,7 @@
     "install": "Installer oppdatering",
     "preparing": "Forbereder oppdatering…",
     "installing": "Installerer oppdatering…",
-    "restart": "AmbiSun starter på nytt automatisk.",
+    "restart": "AmbiSun kan lukkes under oppdateringen. Appen vil prøve å åpne automatisk igjen. Hvis den ikke åpner, start AmbiSun på nytt.",
     "failed": "Oppdatering mislyktes: "
   },
   "support": {
@@ -107,7 +107,7 @@
   },
   "elevation": {
     "restoring": "Gjenoppretter...",
-    "success": "Vellykket! Starter på nytt...",
+    "success": "Tilgang gjenopprettet",
     "title": "Tilgangstillatelser kreves",
     "desc": "Etter oppdatering av appen må tilgangstillatelser gjenopprettes. Velg knappen nedenfor for å bruke Homebrew Channel-konfigurasjonen.",
     "button": "Gjenopprett tilgang"

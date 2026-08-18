@@ -5,7 +5,7 @@
     "type":  "web",
     "main":  "index.html",
     "title":  "AmbiSun",
-    "appDescription":  "Smart Ambilight for HyperHDR",
+    "appDescription":  "Smart Ambilight for HyperHDR on LG webOS.",
     "icon":  "assets/icon.png",
     "largeIcon":  "assets/largeicon.png",
     "iconColor":  "#050812",

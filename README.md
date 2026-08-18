@@ -1,6 +1,11 @@
 # AmbiSun
 
-**Smart ambient lighting automation for HyperHDR on LG webOS.**
+**Smart Ambilight for HyperHDR on LG webOS.**
+
+AmbiSun is a smart Ambilight companion for HyperHDR on LG webOS.
+It automatically controls Ambilight using sunrise and sunset times,
+supports individual rules for HDMI inputs and webOS applications,
+includes built-in offline localization, and supports signed in-app updates.
 
 [English](#english) | [Русский](#русский) | [Українська](#українська)
 
@@ -11,7 +16,10 @@
 
 ### What is AmbiSun?
 
-AmbiSun is an ambient lighting automation application and background service for LG webOS TVs running HyperHDR. It automatically switches HyperHDR's LED output based on astronomical sunrise and sunset times, combined with customized rules for each HDMI input and webOS application.
+AmbiSun is a smart Ambilight companion for HyperHDR on LG webOS.
+It automatically controls Ambilight using sunrise and sunset times,
+supports individual rules for HDMI inputs and webOS applications,
+includes built-in offline localization, and supports signed in-app updates.
 
 > [!WARNING]
 > **AmbiSun has been developed and tested on a rooted LG webOS TV.**<br>
@@ -41,21 +49,12 @@ Later, I expanded the concept to support per-source rules — so lighting can fo
 - **TV Remote Navigation**: Intuitive D-pad spatial navigation tailored for the LG Magic Remote.
 - **Clean Minimize**: Quickly return to the webOS Home launcher with the *Minimize* button while background services continue running.
 - **Multilingual UI**: 39 built-in offline languages with RTL support for Arabic and Hebrew.
-- **Update Infrastructure**: Built-in GitHub Releases update checker with badge notifications. *(In-app self-update is implemented and pending final physical release validation).*
+- **Update Infrastructure**: Built-in GitHub Releases update checker with badge notifications and signed in-app self-update.
 - **Homebrew Channel Custom Repository**: Ready for installation via the webOS Homebrew Channel repository ecosystem.
 
 ### Screenshots
 
-> Screenshots from the TV interface will be added here soon.
-
-<!--
-Future screenshots:
-- Main screen / Status & Solar summary
-- Sources and applications list
-- Settings screen
-- HyperHDR configuration dialog
-- About / Update panel
--->
+![AmbiSun Home Screen](assets/store/home-en.png)
 
 ### Requirements
 
@@ -224,7 +223,10 @@ AmbiSun/
 
 ### Что такое AmbiSun?
 
-AmbiSun — приложение и фоновый сервис для телевизоров LG webOS с подсветкой HyperHDR. Оно автоматически управляет выводом подсветки на основе времени восхода и заката солнца, а также активного HDMI-входа или приложения webOS.
+AmbiSun — умный компаньон фоновой подсветки для HyperHDR на LG webOS.
+Приложение автоматически управляет Ambilight по времени восхода и заката солнца,
+поддерживает индивидуальные правила для HDMI-входов и приложений webOS,
+включает встроенную офлайн-локализацию и поддерживает подписанные обновления внутри приложения.
 
 > [!WARNING]
 > **AmbiSun разработан и протестирован на рутированном LG webOS TV.**<br>
@@ -254,12 +256,12 @@ AmbiSun — приложение и фоновый сервис для теле�
 - **Удобное управление с пульта**: полноценная адаптация под стрелки и колесо пульта LG Magic Remote.
 - **Кнопка «Свернуть»**: быстрый переход в системный LG Home без выключения фонового сервиса.
 - **Многоязычный интерфейс**: 39 встроенных офлайн-локалей с поддержкой RTL (арабский, иврит).
-- **Проверка обновлений**: проверка новых релизов на GitHub Releases. *(Встроенный установщик обновлений реализован и готовится к релизному тестированию).*
+- **Проверка обновлений**: проверка новых релизов на GitHub Releases и подписанное обновление внутри приложения.
 - **Поддержка репозитория Homebrew Channel**: готовность к установке через каталог Homebrew.
 
 ### Скриншоты
 
-> Скриншоты интерфейса с телевизора будут добавлены позже.
+![Главный экран AmbiSun](assets/store/home-en.png)
 
 ### Требования
 
@@ -372,7 +374,10 @@ Copyright (c) 2026 Serjio193
 
 ### Що таке AmbiSun?
 
-AmbiSun — застосунок та фоновий сервіс для телевізорів LG webOS із фоновим підсвічуванням HyperHDR. Він автоматично керує увімкненням та вимкненням підсвічування на основі астрономічного розкладу сходу й заходу сонця, а також активного входу HDMI чи застосунку webOS.
+AmbiSun — розумний компаньйон фонового підсвічування для HyperHDR на LG webOS.
+Застосунок автоматично керує Ambilight за часом сходу та заходу сонця,
+підтримує індивідуальні правила для HDMI-входів і застосунків webOS,
+містить вбудовану офлайн-локалізацію та підтримує підписані оновлення всередині застосунку.
 
 > [!WARNING]
 > **AmbiSun розроблено та протестовано на рутованому LG webOS TV.**<br>
@@ -402,12 +407,12 @@ AmbiSun — застосунок та фоновий сервіс для тел�
 - **Зручне керування пультом**: повна оптимізація під навігацію D-pad пульта LG Magic Remote.
 - **Кнопка «Згорнути»**: плавний перехід до домашнього екрана LG Home зі збереженням роботи фонового сервісу.
 - **Багатомовний інтерфейс**: 39 вбудованих офлайн-локалей із підтримкою RTL (арабська, іврит).
-- **Перевірка оновлень**: моніторинг нових релізів на GitHub Releases. *(Вбудоване оновлення реалізовано та готується до релізного тестування).*
+- **Перевірка оновлень**: моніторинг нових релізів на GitHub Releases та підписане оновлення всередині застосунку.
 - **Підтримка репозиторію Homebrew Channel**: сумісність із каталогом Homebrew.
 
 ### Скріншоти
 
-> Скріншоти інтерфейсу з телевізора будуть додані пізніше.
+![Головний екран AmbiSun](assets/store/home-en.png)
 
 ### Вимоги
 

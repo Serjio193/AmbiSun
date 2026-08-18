@@ -219,7 +219,7 @@ const homebrewManifest = {
     version: version,
     type: 'web',
     title: 'AmbiSun',
-    appDescription: 'Smart Ambilight for HyperHDR',
+    appDescription: 'Smart Ambilight for HyperHDR on LG webOS.',
     iconUri: 'https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png',
     sourceUrl: 'https://github.com/Serjio193/AmbiSun',
     rootRequired: true,

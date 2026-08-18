@@ -307,13 +307,28 @@ async function runTests() {
     assert(script.includes("rm -f \"$HELPER_PATH\""), "Helper must cleanup helper script");
     console.log("  [PASS] Scenario J passed (Helper script structure and bounds verified)");
 
-    // Scenario K: Frontend text contract checks
+    // Scenario K: Frontend text and elevation flow contract checks
     console.log("\n[Test K] Frontend locale and UX contract verification");
     const enJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../i18n/en.json"), "utf8"));
     assert.strictEqual(enJson.elevation.success, "Access restored", "elevation.success must be 'Access restored'");
     assert(!enJson.elevation.success.toLowerCase().includes("restart"), "elevation.success must not promise restart");
     assert(enJson.update.restart.includes("If it does not reopen"), "update.restart must mention manual reopen fallback");
-    console.log("  [PASS] Scenario K passed (Frontend strings contract verified)");
+
+    const appJsContent = fs.readFileSync(path.resolve(__dirname, "../../../js/app.js"), "utf8");
+    const restoreElevationMatch = appJsContent.match(/'restore-elevation':\s*async\s*\(\{el\}\)\s*=>\s*\{([\s\S]*?)\n\s*\},/);
+    assert(restoreElevationMatch, "restore-elevation handler must exist in js/app.js");
+    const restoreBody = restoreElevationMatch[1];
+
+    // Verify elevation.success is NOT assigned before startElevationRetry
+    const beforeRetry = restoreBody.split("AmbiSun.bridge.startElevationRetry")[0];
+    assert(!beforeRetry.includes("elevation.success"), "elevation.success MUST NOT be assigned before startElevationRetry");
+
+    // Verify elevation.success is assigned only when confirmed === true
+    assert(restoreBody.includes("if (confirmed)"), "Must check if (confirmed) inside retry callback");
+    const afterConfirmed = restoreBody.split("if (confirmed)")[1];
+    assert(afterConfirmed.includes("elevation.success"), "elevation.success MUST be assigned when confirmed is true");
+
+    console.log("  [PASS] Scenario K passed (Frontend strings & restore-elevation contract verified)");
 
     // Cleanup
     updater._resetPublicKey();

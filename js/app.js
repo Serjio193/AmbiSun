@@ -98,10 +98,11 @@ const ACTIONS = {
     try {
       const res = await AmbiSun.webos.requestElevation();
       if (res && res.returnValue) {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Access restored');
         AmbiSun.bridge.startElevationRetry(function(confirmed) {
-          if (!confirmed && statusEl) {
-            statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + ((res && res.errorText) || '');
+          if (confirmed) {
+            if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Access restored');
+          } else {
+            if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
           }
         });
       } else {

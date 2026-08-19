@@ -206,10 +206,10 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
-        en: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
-        uk: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
-        et: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.'
+        ru: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
+        en: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
+        uk: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
+        et: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

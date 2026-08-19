@@ -10,6 +10,7 @@
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
+  const AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
   const ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
 
   function hasWebOS() {
@@ -106,7 +107,11 @@
   function getSchedulerStatus()  { return requestService("getSchedulerStatus", {}); }
   function requestElevation()    { return requestService("requestElevation", {}); }
   function requestElevationDirect() {
-    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: ELEVATION_CMD });
+    return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_SERVICE_ID })
+      .catch(function() {
+        // Older Homebrew Channel versions may not expose elevateService.
+        return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: ELEVATION_CMD });
+      });
   }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }

@@ -13,6 +13,8 @@ source.init(service);
 var automation = require("./lib/automation");
 
 var ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
+var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
+var AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
 var elevationAttempted = false;
 var elevationInProgress = false;
 var elevationRestartScheduled = false;
@@ -27,14 +29,20 @@ function elevateAndRestart(callback) {
     }
 
     elevationInProgress = true;
-    service.call("luna://org.webosbrew.hbchannel.service/exec", {
-        command: ELEVATION_CMD
-    }, function(msg) {
+    function handleResult(msg, fallback) {
         var payload = msg && msg.payload ? msg.payload : (msg || {});
         elevationInProgress = false;
 
         if (!payload.returnValue) {
-            return callback(new Error(payload.errorText || payload.error || "Exec failed"));
+            if (fallback) {
+                elevationInProgress = true;
+                return service.call(HBCHANNEL_SERVICE_URI + "/exec", {
+                    command: ELEVATION_CMD
+                }, function(execMsg) {
+                    handleResult(execMsg, false);
+                });
+            }
+            return callback(new Error(payload.errorText || payload.error || "Elevation failed"));
         }
 
         elevationRestartScheduled = true;
@@ -45,6 +53,15 @@ function elevateAndRestart(callback) {
         setTimeout(function() {
             process.exit(0);
         }, 250);
+    }
+
+    // Homebrew Channel exposes a purpose-built elevation API. It performs
+    // the operation from its already-root service and is more reliable than
+    // asking an unprivileged app service to execute a shell command.
+    service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
+        id: AMBISUN_SERVICE_ID
+    }, function(msg) {
+        handleResult(msg, true);
     });
 }
 

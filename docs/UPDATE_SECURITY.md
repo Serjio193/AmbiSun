@@ -21,7 +21,7 @@ The AmbiSun in-app updater is designed to protect rooted LG webOS TVs against ma
 ## 2. Cryptographic Algorithm (Ed25519)
 
 AmbiSun uses **Ed25519** (Edwards-curve Digital Signature Algorithm), supported natively by Node.js 12+ / 16+ on webOS:
-- **Public Key**: Bundled into `service/org.webosbrew.ambisun.service/lib/updater.js` in SPKI PEM format.
+- **Public Key**: Bundled into `service/com.github.serjio193.ambisun.service/lib/updater.js` in SPKI PEM format.
 - **Private Key**: Kept strictly offline on the developer machine and **NEVER committed to git**.
 
 ---
@@ -92,7 +92,7 @@ The script:
 2. Builds the IPK package.
 3. Calculates exact file size and SHA-256 hash.
 4. Generates the canonical payload and signs it using the Ed25519 private key.
-5. Writes `dist/update.json` and `dist/org.webosbrew.ambisun.manifest.json`.
+5. Writes `dist/update.json` and `dist/com.github.serjio193.ambisun.manifest.json`.
 
 ---
 

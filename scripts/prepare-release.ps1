@@ -17,7 +17,7 @@ if ($Version -notmatch $SemverRegex) {
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $RepoRoot = Split-Path -Parent $ScriptDir
 $AppInfoPath = Join-Path $RepoRoot "appinfo.json"
-$ServicePackagePath = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service\package.json"
+$ServicePackagePath = Join-Path $RepoRoot "service\com.github.serjio193.ambisun.service\package.json"
 $PublicKeyPath = Join-Path $RepoRoot "release\update-public-key.pem"
 $DistDir = Join-Path $RepoRoot "dist"
 
@@ -113,7 +113,7 @@ $OriginalServicePackageText = [System.Text.Encoding]::UTF8.GetString($OriginalSe
 
 try {
     # 6. Determine expected IPK path and prevent stale IPK usage
-    $ExpectedIpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
+    $ExpectedIpkName = "com.github.serjio193.ambisun_${Version}_all.ipk"
     $ExpectedIpkPath = Join-Path $DistDir $ExpectedIpkName
 
     if (Test-Path $ExpectedIpkPath) {
@@ -193,7 +193,7 @@ process.stdout.write(sig.toString('base64'));
     }
     $Signature = $Signature.Trim()
 
-    # 10. Generate dist/update.json (in-app updater manifest) and dist/org.webosbrew.ambisun.manifest.json
+    # 10. Generate dist/update.json (in-app updater manifest) and dist/com.github.serjio193.ambisun.manifest.json
     $NodeGenManifestsScript = @"
 const fs = require('fs');
 const path = require('path');
@@ -215,7 +215,7 @@ const updateManifest = {
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');
 
 const homebrewManifest = {
-    id: 'org.webosbrew.ambisun',
+    id: 'com.github.serjio193.ambisun',
     version: version,
     type: 'web',
     title: 'AmbiSun',
@@ -223,13 +223,16 @@ const homebrewManifest = {
     iconUri: 'https://raw.githubusercontent.com/Serjio193/AmbiSun/main/assets/icon.png',
     sourceUrl: 'https://github.com/Serjio193/AmbiSun',
     rootRequired: true,
-    ipkUrl: 'https://github.com/Serjio193/AmbiSun/releases/download/v' + version + '/org.webosbrew.ambisun_' + version + '_all.ipk',
+    ipkUrl: 'https://github.com/Serjio193/AmbiSun/releases/download/v' + version + '/com.github.serjio193.ambisun_' + version + '_all.ipk',
+    requirements: {
+        webosRelease: '>=7.4'
+    },
     ipkHash: {
         sha256: hash
     },
     ipkSize: size
 };
-fs.writeFileSync(path.join(distDir, 'org.webosbrew.ambisun.manifest.json'), JSON.stringify(homebrewManifest, null, 4) + '\n', 'utf8');
+fs.writeFileSync(path.join(distDir, 'com.github.serjio193.ambisun.manifest.json'), JSON.stringify(homebrewManifest, null, 4) + '\n', 'utf8');
 "@
     & node -e $NodeGenManifestsScript $DistDir $Version $Hash $IpkSize $Signature
     if ($LASTEXITCODE -ne 0) {
@@ -237,7 +240,7 @@ fs.writeFileSync(path.join(distDir, 'org.webosbrew.ambisun.manifest.json'), JSON
     }
 
     $UpdateJsonPath = Join-Path $DistDir "update.json"
-    $HomebrewManifestPath = Join-Path $DistDir "org.webosbrew.ambisun.manifest.json"
+    $HomebrewManifestPath = Join-Path $DistDir "com.github.serjio193.ambisun.manifest.json"
 
     Write-Host "========================================="
     Write-Host "RELEASE PREPARATION SUCCESSFUL"
@@ -258,7 +261,7 @@ fs.writeFileSync(path.join(distDir, 'org.webosbrew.ambisun.manifest.json'), JSON
     Write-Host "Release files ready:"
     Write-Host "- $ExpectedIpkName"
     Write-Host "- update.json"
-    Write-Host "- org.webosbrew.ambisun.manifest.json"
+    Write-Host "- com.github.serjio193.ambisun.manifest.json"
     Write-Host ""
     Write-Host "Short Homebrew repository source:"
     Write-Host "homebrew/r.json"

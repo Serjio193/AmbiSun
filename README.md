@@ -44,7 +44,7 @@ Later, I expanded the concept to support per-source rules — so lighting can fo
 - **Default Rule for New Apps**: Set a baseline rule for newly launched or unconfigured applications.
 - **HyperHDR `LEDDEVICE` Control**: Toggles the LED output via HyperHDR JSON-RPC without restarting or terminating the HyperHDR process.
 - **Configurable Endpoint**: Connects to local (`127.0.0.1:8090`) or remote HyperHDR network instances with a built-in connection test.
-- **Background webOS Service**: Runs as a lightweight background daemon (`org.webosbrew.ambisun.service`) to ensure automation works even when the UI is closed.
+- **Background webOS Service**: Runs as a lightweight background daemon (`com.github.serjio193.ambisun.service`) to ensure automation works even when the UI is closed.
 - **Offline GeoNames Database**: Select countries and cities from an integrated offline database without requiring third-party location APIs.
 - **TV Remote Navigation**: Intuitive D-pad spatial navigation tailored for the LG Magic Remote.
 - **Clean Minimize**: Quickly return to the webOS Home launcher with the *Minimize* button while background services continue running.
@@ -97,8 +97,8 @@ This architecture ensures HyperHDR stays running smoothly without process interr
 
 ### Installation
 
-- **Package ID**: `org.webosbrew.ambisun`
-- **Service ID**: `org.webosbrew.ambisun.service`
+- **Package ID**: `com.github.serjio193.ambisun`
+- **Service ID**: `com.github.serjio193.ambisun.service`
 
 **Homebrew Channel Custom Repository:**
 AmbiSun is distributed through a dedicated custom Homebrew Channel repository:
@@ -115,7 +115,7 @@ https://serjio193.github.io/r.json
 powershell -ExecutionPolicy Bypass -File .\scripts\package-debug.ps1
 
 # Or package with webOS CLI
-ares-package . ./service/org.webosbrew.ambisun.service -o ./dist
+ares-package . ./service/com.github.serjio193.ambisun.service -o ./dist
 ```
 
 ### Updates
@@ -189,7 +189,7 @@ AmbiSun/
 │   └── webos.js                                 # webOS Luna service bindings
 ├── i18n/                                         # 39 built-in offline localization files
 ├── service/
-│   └── org.webosbrew.ambisun.service/           # Background Node.js service
+│   └── com.github.serjio193.ambisun.service/    # Background Node.js service
 │       ├── package.json                         # Service metadata
 │       ├── services.json                        # Luna service registrations
 │       ├── service.js                           # Main service entry point
@@ -247,7 +247,7 @@ AmbiSun — умный компаньон фоновой подсветки дл
 - **Правило по умолчанию**: автоматическое применение правила для новых и не настроенных приложений.
 - **Управление `LEDDEVICE` HyperHDR**: переключение вывода на светодиоды через JSON-RPC без остановки и перезапуска самого HyperHDR.
 - **Гибкая настройка адреса HyperHDR**: поддержка локального (`127.0.0.1:8090`) и удалённого сервера с мгновенной проверкой связи.
-- **Фоновый сервис webOS**: демон `org.webosbrew.ambisun.service` обеспечивает непрерывную работу автоматики даже при закрытом интерфейсе.
+- **Фоновый сервис webOS**: демон `com.github.serjio193.ambisun.service` обеспечивает непрерывную работу автоматики даже при закрытом интерфейсе.
 - **Встроенная база городов GeoNames**: выбор страны и города офлайн без обращения к сторонним интернет-сервисам.
 - **Удобное управление с пульта**: полноценная адаптация под стрелки и колесо пульта LG Magic Remote.
 - **Кнопка «Свернуть»**: быстрый переход в системный LG Home без выключения фонового сервиса.
@@ -300,8 +300,8 @@ AmbiSun работает с HyperHDR через стандартный прот�
 
 ### Установка
 
-- **ID пакета**: `org.webosbrew.ambisun`
-- **ID сервиса**: `org.webosbrew.ambisun.service`
+- **ID пакета**: `com.github.serjio193.ambisun`
+- **ID сервиса**: `com.github.serjio193.ambisun.service`
 
 **Кастомный репозиторий Homebrew Channel:**
 AmbiSun подготовлен для распространения через официальный механизм репозиториев webOS Homebrew Channel:
@@ -398,7 +398,7 @@ AmbiSun — розумний компаньйон фонового підсві�
 - **Правило за замовчуванням**: автоматичне застосування правила для нових та ненастроєних програм.
 - **Керування `LEDDEVICE` HyperHDR**: перемикання світлодіодного виводу через JSON-RPC без перезапуску чи зупинки HyperHDR.
 - **Гнучке налаштування адреси HyperHDR**: підтримка локального (`127.0.0.1:8090`) та віддаленого сервера зі швидкою перевіркою зв'язку.
-- **Фоновий сервіс webOS**: демон `org.webosbrew.ambisun.service` підтримує автоматизацію навіть за закритого інтерфейсу.
+- **Фоновий сервіс webOS**: демон `com.github.serjio193.ambisun.service` підтримує автоматизацію навіть за закритого інтерфейсу.
 - **Вбудована база міст GeoNames**: вибір країни та міста офлайн без звернення до сторонніх інтернет-сервісів.
 - **Зручне керування пультом**: повна оптимізація під навігацію D-pad пульта LG Magic Remote.
 - **Кнопка «Згорнути»**: плавний перехід до домашнього екрана LG Home зі збереженням роботи фонового сервісу.
@@ -451,8 +451,8 @@ HyperHDR безперервно залишається активним, не п
 
 ### Встановлення
 
-- **ID пакета**: `org.webosbrew.ambisun`
-- **ID сервісу**: `org.webosbrew.ambisun.service`
+- **ID пакета**: `com.github.serjio193.ambisun`
+- **ID сервісу**: `com.github.serjio193.ambisun.service`
 
 **Кастомний репозиторій Homebrew Channel:**
 AmbiSun адаптовано для встановлення через систему репозиторіїв webOS Homebrew Channel:

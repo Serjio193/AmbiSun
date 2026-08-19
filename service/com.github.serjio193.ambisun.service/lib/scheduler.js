@@ -1,6 +1,6 @@
 const sun = require('./sun');
 
-const ACTIVITY_NAME = "org.webosbrew.ambisun.solar";
+const ACTIVITY_NAME = "com.github.serjio193.ambisun.solar";
 
 // State
 let status = {
@@ -157,7 +157,7 @@ function scheduleActivity(event, callback) {
                 start: formatScheduleStart(event.date)
             },
             callback: {
-                method: "luna://org.webosbrew.ambisun.service/solarWake",
+                method: "luna://com.github.serjio193.ambisun.service/solarWake",
                 params: {}
             }
         },

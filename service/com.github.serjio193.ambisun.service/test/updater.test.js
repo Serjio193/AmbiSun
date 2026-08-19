@@ -7,6 +7,7 @@ const fs = require("fs");
 const os = require("os");
 
 const updater = require("../lib/updater.js");
+const TEST_TARGET_VERSION = "0.3.0";
 
 // Setup temporary test directory for updater
 const testTempDir = path.join(os.tmpdir(), "ambisun-updater-test-" + Date.now());
@@ -85,24 +86,24 @@ async function runTests() {
     await new Promise((resolve, reject) => {
         console.log("\n[Test A] cachedManifest exists + fresh -> install proceeds");
         updater._releaseLock();
-        const manifestA = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestA = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         updater._setCachedManifest({
             version: manifestA.version,
             sha256: manifestA.sha256,
             size: manifestA.size,
             signature: manifestA.signature,
             notes: manifestA.notes,
-            ipkUrl: updater._getExpectedIpkUrl("0.2.0"),
+            ipkUrl: updater._getExpectedIpkUrl(TEST_TARGET_VERSION),
             fetchedAt: Date.now()
         });
         mockNetwork(null, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert.ifError(err);
                 assert.strictEqual(res.returnValue, true);
                 assert.strictEqual(res.stage, "installing");
-                assert.strictEqual(res.targetVersion, "0.2.0");
+                assert.strictEqual(res.targetVersion, TEST_TARGET_VERSION);
                 console.log("  [PASS] Scenario A passed");
                 resolve();
             } catch (e) { reject(e); }
@@ -115,15 +116,15 @@ async function runTests() {
         updater._releaseLock();
         updater._setCachedManifest(null);
 
-        const manifestB = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestB = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         mockNetwork({ body: JSON.stringify(manifestB) }, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert.ifError(err);
                 assert.strictEqual(res.returnValue, true);
                 assert.strictEqual(res.stage, "installing");
-                assert.strictEqual(res.targetVersion, "0.2.0");
+                assert.strictEqual(res.targetVersion, TEST_TARGET_VERSION);
                 console.log("  [PASS] Scenario B passed");
                 resolve();
             } catch (e) { reject(e); }
@@ -142,15 +143,15 @@ async function runTests() {
             fetchedAt: Date.now() - 3600000 // 1 hour ago (expired)
         });
 
-        const manifestC = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestC = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         mockNetwork({ body: JSON.stringify(manifestC) }, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert.ifError(err);
                 assert.strictEqual(res.returnValue, true);
                 assert.strictEqual(res.stage, "installing");
-                assert.strictEqual(res.targetVersion, "0.2.0");
+                assert.strictEqual(res.targetVersion, TEST_TARGET_VERSION);
                 console.log("  [PASS] Scenario C passed");
                 resolve();
             } catch (e) { reject(e); }
@@ -163,11 +164,11 @@ async function runTests() {
         updater._releaseLock();
         updater._setCachedManifest(null);
 
-        const manifestD = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestD = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         manifestD.signature = Buffer.from(new Uint8Array(64).fill(1)).toString("base64"); // corrupted signature
         mockNetwork({ body: JSON.stringify(manifestD) }, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert(err !== null, "Should return error for invalid signature");
                 assert.strictEqual(updater._isInstalling(), false, "Lock must be released");
@@ -187,7 +188,7 @@ async function runTests() {
         const manifestE = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
         mockNetwork({ body: JSON.stringify(manifestE) }, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.3.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert(err !== null, "Should return error on version mismatch");
                 assert(err.message.includes("VERSION_MISMATCH"));
@@ -225,21 +226,21 @@ async function runTests() {
         updater._releaseLock();
         updater._setCachedManifest(null);
 
-        const manifestG = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestG = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         mockNetwork({ body: JSON.stringify(manifestG) }, { success: true });
 
         let firstCompleted = false;
         let secondCompleted = false;
         let secondErr = null;
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err1, res1) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err1, res1) => {
             firstCompleted = true;
             assert.ifError(err1);
             assert.strictEqual(res1.returnValue, true);
         });
 
         // Immediately attempt second call while first is in progress
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err2, res2) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err2, res2) => {
             secondCompleted = true;
             secondErr = err2;
         });
@@ -264,7 +265,7 @@ async function runTests() {
 
         mockNetwork({ err: new Error("ENOTFOUND github.com") }, null);
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert(err !== null, "Should return network error");
                 assert(err.message.includes("ENOTFOUND") || err.message.includes("UPDATE_CHECK_FAILED"));
@@ -281,10 +282,10 @@ async function runTests() {
         // State is after failed Scenario H
         assert.strictEqual(updater._isInstalling(), false, "Lock must be free before retry");
 
-        const manifestI = createSignedManifest("0.2.0", validIpkSize, validIpkSha256);
+        const manifestI = createSignedManifest(TEST_TARGET_VERSION, validIpkSize, validIpkSha256);
         mockNetwork({ body: JSON.stringify(manifestI) }, { success: true });
 
-        updater.installUpdate({ expectedVersion: "0.2.0" }, mockServiceHandle, (err, res) => {
+        updater.installUpdate({ expectedVersion: TEST_TARGET_VERSION }, mockServiceHandle, (err, res) => {
             try {
                 assert.ifError(err);
                 assert.strictEqual(res.returnValue, true);
@@ -297,8 +298,11 @@ async function runTests() {
 
     // Scenario J: Helper script has bounded elevation and launch retries with response checks
     console.log("\n[Test J] Helper script has bounded elevation and launch retries");
-    const script = updater._generateHelperScript("0.2.0", "/tmp/test.ipk", "/tmp/test.sh", "/tmp/res.txt", "/tmp/log.txt");
+    const script = updater._generateHelperScript(TEST_TARGET_VERSION, "/tmp/test.ipk", "/tmp/test.sh", "/tmp/res.txt", "/tmp/log.txt");
     assert(script.includes("for elev_attempt in 1 2 3 4 5; do"), "Helper must have bounded 5-attempt elevation retry");
+    assert(script.includes('APP_ID="com.github.serjio193.ambisun"'), "Helper must target the current app ID");
+    assert(script.includes('SVC_ID="com.github.serjio193.ambisun.service"'), "Helper must target the current service ID");
+    assert(script.includes('APPINFO_PATH="/media/developer/apps/usr/palm/applications/com.github.serjio193.ambisun/appinfo.json"'), "Helper must verify the current app path");
     assert(script.includes('"$ELEVATE_BIN" "$APP_ID"'), "Helper must elevate the app launcher");
     assert(script.includes('"$ELEVATE_BIN" "$SVC_ID"'), "Helper must elevate the service launcher");
     assert(script.includes('APP_ELEV_EXIT') && script.includes('SVC_ELEV_EXIT'), "Helper must verify both elevation results");

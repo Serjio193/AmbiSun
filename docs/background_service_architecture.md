@@ -19,7 +19,7 @@ AmbiSun background automation service is designed to be the authoritative engine
 ## 4. Proposed Service Directory Structure
 ```
 service/
-└── org.webosbrew.ambisun.service/
+└── com.github.serjio193.ambisun.service/
     ├── package.json
     ├── services.json
     ├── service.js
@@ -112,7 +112,7 @@ The Background Service is the **authoritative owner** of the configuration.
 
 ## 12. Scheduled Event Lifecycle
 1. Activity fires.
-2. Callback hits `luna://org.webosbrew.ambisun.service/scheduledEvent`.
+2. Callback hits `luna://com.github.serjio193.ambisun.service/scheduledEvent`.
 3. Service loads authoritative config (checking revision).
 4. `evaluateNow()` evaluates source and solar state.
 5. HyperHDR is updated if needed.

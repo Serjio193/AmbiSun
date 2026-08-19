@@ -8,14 +8,14 @@ Ensure you have the webOS CLI tools installed on your PC (`ares-package`, `ares-
 ## 2. Package the Application (If not already packaged)
 From the root directory of the AmbiSun repository on your PC, execute:
 ```bash
-ares-package --no-minify . service/org.webosbrew.ambisun.service -o dist
+ares-package --no-minify . service/com.github.serjio193.ambisun.service -o dist
 ```
-This will generate `org.webosbrew.ambisun_0.1.0_all.ipk` in the `dist/` directory, containing both the UI app and the background service.
+This will generate `com.github.serjio193.ambisun_0.2.0_all.ipk` in the `dist/` directory, containing both the UI app and the background service.
 
 ## 3. Install on TV
 Ensure your target TV is configured via `ares-setup-device` (we will refer to it as `<TV_DEVICE>`).
 ```bash
-ares-install -d <TV_DEVICE> dist/org.webosbrew.ambisun_0.1.0_all.ipk
+ares-install -d <TV_DEVICE> dist/com.github.serjio193.ambisun_0.2.0_all.ipk
 ```
 Verify the output confirms successful installation.
 
@@ -32,23 +32,23 @@ Execute the following read-only commands and record their output:
 
 **A. PING**
 ```bash
-luna-send -n 1 luna://org.webosbrew.ambisun.service/ping '{}'
+luna-send -n 1 luna://com.github.serjio193.ambisun.service/ping '{}'
 ```
 
 **B. GET RUNTIME INFO**
 ```bash
-luna-send -n 1 luna://org.webosbrew.ambisun.service/getRuntimeInfo '{}'
+luna-send -n 1 luna://com.github.serjio193.ambisun.service/getRuntimeInfo '{}'
 ```
 
 **C. GET CAPABILITIES**
 ```bash
-luna-send -n 1 luna://org.webosbrew.ambisun.service/getCapabilities '{}'
+luna-send -n 1 luna://com.github.serjio193.ambisun.service/getCapabilities '{}'
 ```
 
 **D. PING AFTER IDLE (Optional)**
 Wait 10-15 seconds after running the previous commands, then run the ping command again to ensure the service wakes up successfully from an idle state:
 ```bash
-luna-send -n 1 luna://org.webosbrew.ambisun.service/ping '{}'
+luna-send -n 1 luna://com.github.serjio193.ambisun.service/ping '{}'
 ```
 
 ## 5. REAL TV PROBE RESULTS (VERIFIED)
@@ -63,14 +63,14 @@ luna-send -n 1 luna://org.webosbrew.ambisun.service/ping '{}'
 `ares-install.cmd 3.2.5` on rooted TV fails during SSH exec channel open (`Error: Unable to exec /bin/ls...`) after successful SFTP upload. 
 *Workaround Installation Command on TV:*
 ```bash
-luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"com.ares.defaultName","ipkUrl":"/media/developer/temp/org.webosbrew.ambisun_0.1.0_all.ipk","subscribe":true}'
+luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"com.ares.defaultName","ipkUrl":"/media/developer/temp/com.github.serjio193.ambisun_0.2.0_all.ipk","subscribe":true}'
 ```
 
 **PING:**
 ```json
 {
   "returnValue": true,
-  "service": "org.webosbrew.ambisun.service",
+  "service": "com.github.serjio193.ambisun.service",
   "apiVersion": 1,
   "version": "0.1.0"
 }
@@ -80,7 +80,7 @@ luna-send -i -f luna://com.webos.appInstallService/dev/install '{"id":"com.ares.
 ```json
 {
   "returnValue": true,
-  "service": "org.webosbrew.ambisun.service",
+  "service": "com.github.serjio193.ambisun.service",
   "apiVersion": 1,
   "runtime": {
     "node": "v16.20.2",

@@ -224,7 +224,7 @@ scheduler.executeWake(baseConfig, mockDecisionDay, mockHyperhdr, winterDay, (err
 
 // Test getActivityInfo
 forceError = false;
-scheduler.getActivityInfo("org.webosbrew.ambisun.solar", (err, act) => {
+scheduler.getActivityInfo("com.github.serjio193.ambisun.solar", (err, act) => {
     assert.ifError(err);
     assert.strictEqual(act.activityId, 12345);
 });

@@ -63,7 +63,7 @@ function isUpdateAvailable(currentVer, latestVer) {
 }
 
 function getExpectedIpkUrl(version) {
-    return "https://github.com/Serjio193/AmbiSun/releases/download/v" + version + "/org.webosbrew.ambisun_" + version + "_all.ipk";
+    return "https://github.com/Serjio193/AmbiSun/releases/download/v" + version + "/com.github.serjio193.ambisun_" + version + "_all.ipk";
 }
 
 function getCanonicalPayload(version, sha256, size) {
@@ -382,10 +382,10 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "HELPER_PATH=\"" + helperPath + "\"\n" +
         "RESULT_PATH=\"" + resultPath + "\"\n" +
         "LOG_PATH=\"" + logPath + "\"\n" +
-        "APP_ID=\"org.webosbrew.ambisun\"\n" +
-        "SVC_ID=\"org.webosbrew.ambisun.service\"\n" +
+        "APP_ID=\"com.github.serjio193.ambisun\"\n" +
+        "SVC_ID=\"com.github.serjio193.ambisun.service\"\n" +
         "TARGET_VERSION=\"" + targetVersion + "\"\n" +
-        "APPINFO_PATH=\"/media/developer/apps/usr/palm/applications/org.webosbrew.ambisun/appinfo.json\"\n" +
+        "APPINFO_PATH=\"/media/developer/apps/usr/palm/applications/com.github.serjio193.ambisun/appinfo.json\"\n" +
         "ELEVATE_BIN=\"/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service\"\n\n" +
         "echo \"[$(date)] Starting AmbiSun update to $TARGET_VERSION...\" >> \"$LOG_PATH\"\n" +
         "sleep 2\n\n" +

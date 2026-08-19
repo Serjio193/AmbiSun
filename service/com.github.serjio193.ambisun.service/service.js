@@ -2,7 +2,7 @@ var Service = require("webos-service");
 var runtimeInfo = require("./lib/runtime-info");
 var config = require("./lib/config");
 
-var service = new Service("org.webosbrew.ambisun.service");
+var service = new Service("com.github.serjio193.ambisun.service");
 
 var scheduler = require("./lib/scheduler");
 scheduler.init(service);
@@ -13,10 +13,10 @@ source.init(service);
 var automation = require("./lib/automation");
 
 var ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
-var AMBISUN_APP_ID = "org.webosbrew.ambisun";
-var ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " org.webosbrew.ambisun.service";
+var AMBISUN_APP_ID = "com.github.serjio193.ambisun";
 var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
-var AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
+var AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
+var ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " " + AMBISUN_SERVICE_ID;
 var elevationAttempted = false;
 var elevationInProgress = false;
 var elevationRestartScheduled = false;
@@ -529,7 +529,7 @@ service.register("sourceWake", function (message) {
 var EXCLUDED_APP_IDS = [
     'airplay', 'amazon.alexapr', 'com.webos.app.home', 'com.webos.app.inputcommon',
     'com.webos.app.screensaver', 'com.webos.app.tvhotkey', 'com.webos.app.voice',
-    'com.webos.app.welcomewizard', 'com.webos.ott.appcard', 'org.webosbrew.ambisun',
+    'com.webos.app.welcomewizard', 'com.webos.ott.appcard', 'com.github.serjio193.ambisun',
     'com.webos.app.inputcommon', 'com.webos.app.cnbcplus', 'com.webos.channelplus',
     'com.webos.app.photovideo', 'com.webos.app.music'
 ];

@@ -45,10 +45,10 @@ This document outlines the step-by-step phases required to implement the backgro
 Integrates webOS `Activity Manager` via `webos-service` proxy to provide autonomous waking based purely on solar transitions.
 
 **Details:**
-- **Activity Name**: `org.webosbrew.ambisun.solar`
+- **Activity Name**: `com.github.serjio193.ambisun.solar`
 - **Activity Type**: `{ foreground: false, persist: true }`
 - **Schedule Format**: Standard ISO 8601 string (e.g., `2026-08-16T18:40:12.475Z`), which will be verified on Real TV.
-- **Callback**: `luna://org.webosbrew.ambisun.service/solarWake`
+- **Callback**: `luna://com.github.serjio193.ambisun.service/solarWake`
 - **Behavior**:
   - `replace: true` is used to prevent accumulating multiple overlapping activities.
   - Automatically reschedules after successful config updates (except overrides because source detection isn't ready) or upon wake.

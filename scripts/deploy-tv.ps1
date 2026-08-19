@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $Repo = Split-Path -Parent $PSScriptRoot
 $Tv = "root@192.168.1.3"
-$AppId = "org.webosbrew.ambisun"
+$AppId = "com.github.serjio193.ambisun"
 
 Set-Location $Repo
 
@@ -22,7 +22,7 @@ if ($Version -notmatch $SemverRegex) {
 }
 
 # 2. Form IPK name and path dynamically
-$IpkName = "org.webosbrew.ambisun_${Version}_all.ipk"
+$IpkName = "com.github.serjio193.ambisun_${Version}_all.ipk"
 $Ipk = Join-Path $Repo "dist\$IpkName"
 
 Write-Host "Application version: $Version"
@@ -159,7 +159,7 @@ Write-Host "Installed application matches current local source and version."
 
 Write-Host "`n=== 7. RESTORE ELEVATION ==="
 
-$elevate = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service"
+$elevate = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun.service"
 
 & ssh $Tv $elevate
 

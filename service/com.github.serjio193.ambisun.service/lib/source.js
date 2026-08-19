@@ -85,7 +85,7 @@ function commitCandidate(candidate) {
 }
 
 var IGNORED_FOREGROUND_APP_IDS = [
-    "org.webosbrew.ambisun",
+    "com.github.serjio193.ambisun",
     "com.webos.app.home"
 ];
 
@@ -126,7 +126,7 @@ function handleCandidate(appId, rawPayload) {
     }, DEBOUNCE_MS);
 }
 
-var ACTIVITY_NAME = "org.webosbrew.ambisun.source";
+var ACTIVITY_NAME = "com.github.serjio193.ambisun.source";
 
 function setupSourceActivity() {
     if (!activeService) return;
@@ -140,7 +140,7 @@ function setupSourceActivity() {
                 params: { subscribe: true, extraInfo: true }
             },
             callback: {
-                method: "luna://org.webosbrew.ambisun.service/sourceWake",
+                method: "luna://com.github.serjio193.ambisun.service/sourceWake",
                 params: {}
             }
         },

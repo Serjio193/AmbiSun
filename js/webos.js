@@ -5,13 +5,13 @@
   AmbiSun.webos = AmbiSun.webos || {};
   AmbiSun.config = AmbiSun.config || {};
 
-  AmbiSun.config.serviceUri = AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service";
+  AmbiSun.config.serviceUri = AmbiSun.config.serviceUri || "luna://com.github.serjio193.ambisun.service";
 
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
-  const AMBISUN_APP_ID = "org.webosbrew.ambisun";
-  const AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
+  const AMBISUN_APP_ID = "com.github.serjio193.ambisun";
+  const AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
   const ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
   const ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " " + AMBISUN_SERVICE_ID;
 
@@ -97,7 +97,7 @@
   }
 
   function requestService(method, parameters, timeoutMs) {
-    return requestUri(AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service", method, parameters, timeoutMs);
+    return requestUri(AmbiSun.config.serviceUri || "luna://com.github.serjio193.ambisun.service", method, parameters, timeoutMs);
   }
 
   function requireSuccessfulResponse(res, operation) {

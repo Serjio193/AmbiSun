@@ -73,7 +73,7 @@ foreach ($item in $AppAllowlistDirs) {
 
 # 5. Copy service files using explicit allowlist
 Write-Host "Copying service files to staging (allowlist)..."
-$ServiceSource = Join-Path $RepoRoot "service\org.webosbrew.ambisun.service"
+$ServiceSource = Join-Path $RepoRoot "service\com.github.serjio193.ambisun.service"
 $ServiceAllowlistFiles = @("package.json", "services.json", "service.js")
 $ServiceAllowlistDirs = @("lib", "data")
 

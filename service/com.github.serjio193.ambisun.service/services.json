@@ -1,9 +1,9 @@
 {
-  "id": "org.webosbrew.ambisun.service",
+  "id": "com.github.serjio193.ambisun.service",
   "description": "AmbiSun background automation service",
   "services": [
     {
-      "name": "org.webosbrew.ambisun.service",
+      "name": "com.github.serjio193.ambisun.service",
       "description": "AmbiSun service",
       "commands": [
         {

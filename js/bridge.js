@@ -75,6 +75,31 @@
         var unavailMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.serviceUnavailable', 'Service unavailable') : 'Service unavailable';
         renderSolarUnavailable(unavailMsg);
         renderSourcesError(unavailMsg);
+
+        // PicCap can recover even when its background service is not
+        // responding yet. Do the same: call Homebrew directly so the
+        // launcher and permissions are repaired before retrying Luna.
+        if (!directElevationAttempted && AmbiSun.webos.requestElevationDirect) {
+          directElevationAttempted = true;
+          directElevationInProgress = true;
+          var elevWizard = document.getElementById('elevationWizard');
+          if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+          AmbiSun.webos.requestElevationDirect()
+            .then(function() {
+              return AmbiSun.webos.requestService('restartAfterElevation', {}).catch(function() {});
+            })
+            .then(function() {
+              setTimeout(function() {
+                directElevationInProgress = false;
+                checkSystemStatus();
+              }, 1500);
+            })
+            .catch(function(err) {
+              directElevationInProgress = false;
+              console.warn('[bridge] recovery from unavailable service failed:', err && err.message);
+              if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
+            });
+        }
       });
   }
 

@@ -441,17 +441,19 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "sleep 2\n" +
         "ELEV_SUCCESS=0\n" +
         "if [ -x \"$ELEVATE_BIN\" ]; then\n" +
-        "    echo \"[$(date)] Restoring service elevation...\" >> \"$LOG_PATH\"\n" +
+        "    echo \"[$(date)] Restoring app and service elevation...\" >> \"$LOG_PATH\"\n" +
         "    for elev_attempt in 1 2 3 4 5; do\n" +
         "        echo \"[$(date)] Elevation attempt $elev_attempt/5...\" >> \"$LOG_PATH\"\n" +
+        "        \"$ELEVATE_BIN\" \"$APP_ID\" >> \"$LOG_PATH\" 2>&1\n" +
+        "        APP_ELEV_EXIT=$?\n" +
         "        \"$ELEVATE_BIN\" \"$SVC_ID\" >> \"$LOG_PATH\" 2>&1\n" +
-        "        ELEV_EXIT=$?\n" +
-        "        if [ \"$ELEV_EXIT\" -eq 0 ]; then\n" +
+        "        SVC_ELEV_EXIT=$?\n" +
+        "        if [ \"$APP_ELEV_EXIT\" -eq 0 ] && [ \"$SVC_ELEV_EXIT\" -eq 0 ]; then\n" +
         "            ELEV_SUCCESS=1\n" +
-        "            echo \"[$(date)] Service elevation restored successfully on attempt $elev_attempt.\" >> \"$LOG_PATH\"\n" +
+        "            echo \"[$(date)] App and service elevation restored successfully on attempt $elev_attempt.\" >> \"$LOG_PATH\"\n" +
         "            break\n" +
         "        else\n" +
-        "            echo \"[$(date)] Elevation attempt $elev_attempt failed with exit code $ELEV_EXIT.\" >> \"$LOG_PATH\"\n" +
+        "            echo \"[$(date)] Elevation attempt $elev_attempt failed: app=$APP_ELEV_EXIT service=$SVC_ELEV_EXIT.\" >> \"$LOG_PATH\"\n" +
         "            sleep 2\n" +
         "        fi\n" +
         "    done\n" +

@@ -299,6 +299,9 @@ async function runTests() {
     console.log("\n[Test J] Helper script has bounded elevation and launch retries");
     const script = updater._generateHelperScript("0.2.0", "/tmp/test.ipk", "/tmp/test.sh", "/tmp/res.txt", "/tmp/log.txt");
     assert(script.includes("for elev_attempt in 1 2 3 4 5; do"), "Helper must have bounded 5-attempt elevation retry");
+    assert(script.includes('"$ELEVATE_BIN" "$APP_ID"'), "Helper must elevate the app launcher");
+    assert(script.includes('"$ELEVATE_BIN" "$SVC_ID"'), "Helper must elevate the service launcher");
+    assert(script.includes('APP_ELEV_EXIT') && script.includes('SVC_ELEV_EXIT'), "Helper must verify both elevation results");
     assert(script.includes("for launch_attempt in 1 2 3 4 5; do"), "Helper must have bounded 5-attempt launch retry");
     assert(script.includes("grep -E -q '\"returnValue\"[[:space:]]*:[[:space:]]*true'"), "Helper must verify returnValue for launch");
     assert(!script.includes("while true"), "Helper must not have infinite loops");

@@ -159,7 +159,7 @@ Write-Host "Installed application matches current local source and version."
 
 Write-Host "`n=== 7. RESTORE ELEVATION ==="
 
-$elevate = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service"
+$elevate = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service"
 
 & ssh $Tv $elevate
 

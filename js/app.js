@@ -96,7 +96,20 @@ const ACTIONS = {
     const statusEl = document.getElementById('elevationStatus');
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');
     try {
-      const res = await AmbiSun.webos.requestElevation();
+      let res = null;
+      if (AmbiSun.webos.requestElevationDirect) {
+        res = await AmbiSun.webos.requestElevationDirect();
+        if (res && res.returnValue) {
+          try {
+            await AmbiSun.webos.requestService('restartAfterElevation', {});
+          } catch (_) {
+            // The service may exit immediately after the direct elevation.
+          }
+        }
+      }
+      if (!res || !res.returnValue) {
+        res = await AmbiSun.webos.requestElevation();
+      }
       if (res && res.returnValue) {
         AmbiSun.bridge.startElevationRetry(function(confirmed) {
           if (confirmed) {

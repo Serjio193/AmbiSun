@@ -9,6 +9,8 @@
 
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
+  const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
+  const ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
 
   function hasWebOS() {
     return !!(
@@ -17,7 +19,7 @@
     );
   }
 
-  function requestService(method, parameters, timeoutMs) {
+  function requestUri(serviceUri, method, parameters, timeoutMs) {
     const timeout = typeof timeoutMs === "number" && timeoutMs > 0 ? timeoutMs : LUNA_TIMEOUT_MS;
     return new Promise((resolve, reject) => {
       let settled = false;
@@ -30,7 +32,7 @@
 
       if (window.webOS && window.webOS.service && window.webOS.service.request) {
         try {
-          window.webOS.service.request(AmbiSun.config.serviceUri, {
+          window.webOS.service.request(serviceUri, {
             method: method,
             parameters: parameters || {},
             onSuccess: function(res) {
@@ -74,7 +76,7 @@
               }
             }
           };
-          const fullUri = (AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service") + "/" + method;
+          const fullUri = serviceUri + "/" + method;
           bridge.call(fullUri, JSON.stringify(parameters || {}));
         } catch(e) {
           if (!settled) {
@@ -91,6 +93,10 @@
     });
   }
 
+  function requestService(method, parameters, timeoutMs) {
+    return requestUri(AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service", method, parameters, timeoutMs);
+  }
+
   function getSystemStatus()  { return requestService("getSystemStatus", {}); }
   function getConfig()        { return requestService("getConfig", {}); }
   function updateConfig(patch, rev) { return requestService("updateConfig", { patch: patch, expectedRevision: rev }); }
@@ -99,6 +105,9 @@
   function getAutomationStatus() { return requestService("getAutomationStatus", {}); }
   function getSchedulerStatus()  { return requestService("getSchedulerStatus", {}); }
   function requestElevation()    { return requestService("requestElevation", {}); }
+  function requestElevationDirect() {
+    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: ELEVATION_CMD });
+  }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
   function detectCountryByIp() { return requestService("detectCountryByIp", {}); }
@@ -121,6 +130,7 @@
   AmbiSun.webos.getAutomationStatus = getAutomationStatus;
   AmbiSun.webos.getSchedulerStatus = getSchedulerStatus;
   AmbiSun.webos.requestElevation = requestElevation;
+  AmbiSun.webos.requestElevationDirect = requestElevationDirect;
   AmbiSun.webos.getSolarStatus = getSolarStatus;
   AmbiSun.webos.getAvailableSources = getAvailableSources;
   AmbiSun.webos.detectCountryByIp = detectCountryByIp;

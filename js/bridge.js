@@ -8,6 +8,8 @@
   var isElevated = false;
   var isChecking = false;
   var configRevision = null;
+  var directElevationAttempted = false;
+  var directElevationInProgress = false;
 
   // ---- Time formatting ----
   function fmt(isoStr, tz) {
@@ -90,9 +92,41 @@
         }, 1500);
         return;
       }
+
+      if (!directElevationAttempted && AmbiSun.webos.requestElevationDirect) {
+        directElevationAttempted = true;
+        directElevationInProgress = true;
+        if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+        AmbiSun.webos.requestElevationDirect()
+          .then(function(res) {
+            if (!res || !res.returnValue) {
+              throw new Error((res && (res.errorText || res.error)) || 'Direct elevation failed');
+            }
+            return AmbiSun.webos.requestService('restartAfterElevation', {});
+          })
+          .then(function() {
+            setTimeout(function() {
+              directElevationInProgress = false;
+              checkSystemStatus();
+            }, 1500);
+          })
+          .catch(function(err) {
+            directElevationInProgress = false;
+            console.warn('[bridge] direct elevation failed:', err && err.message);
+            if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
+          });
+        return;
+      }
+
+      if (directElevationInProgress) {
+        if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+        return;
+      }
       if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
       return;
     }
+
+    directElevationInProgress = false;
 
     if (!isElevated) {
       isElevated = true;

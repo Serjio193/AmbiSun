@@ -426,6 +426,15 @@ service.register("requestElevation", function(message) {
     });
 });
 
+service.register("restartAfterElevation", function(message) {
+    message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION });
+    // The launcher may have been patched by a direct Homebrew Channel call.
+    // Exit the stale jailed process so the next Luna request starts it again.
+    setTimeout(function() {
+        process.exit(0);
+    }, 250);
+});
+
 service.register("getCurrentSource", function (message) {
     var st = source.getSourceDetectorStatus();
     message.respond({

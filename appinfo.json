@@ -1,6 +1,6 @@
 {
     "id":  "org.webosbrew.ambisun",
-    "version":  "0.1.4",
+    "version":  "0.1.5",
     "vendor":  "Serjio193",
     "type":  "web",
     "main":  "index.html",

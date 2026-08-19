@@ -52,6 +52,9 @@
           "name": "requestElevation"
         },
         {
+          "name": "restartAfterElevation"
+        },
+        {
           "name": "getCurrentSource"
         },
         {

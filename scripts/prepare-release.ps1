@@ -206,10 +206,10 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Migrated AmbiSun to the com.github.serjio193 namespace for official webOS Homebrew repository compatibility. Existing 0.1.8 installations use the old package ID and must install 0.2.0 as a separate app. Existing settings remain in /media/internal/ambisun/config.json.',
-        en: 'Migrated AmbiSun to the com.github.serjio193 namespace for official webOS Homebrew repository compatibility. Existing 0.1.8 installations use the old package ID and must install 0.2.0 as a separate app. Existing settings remain in /media/internal/ambisun/config.json.',
-        uk: 'Migrated AmbiSun to the com.github.serjio193 namespace for official webOS Homebrew repository compatibility. Existing 0.1.8 installations use the old package ID and must install 0.2.0 as a separate app. Existing settings remain in /media/internal/ambisun/config.json.',
-        et: 'Migrated AmbiSun to the com.github.serjio193 namespace for official webOS Homebrew repository compatibility. Existing 0.1.8 installations use the old package ID and must install 0.2.0 as a separate app. Existing settings remain in /media/internal/ambisun/config.json.'
+        ru: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
+        en: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
+        uk: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.',
+        et: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external legacy-bridge dependency. No functional changes.'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

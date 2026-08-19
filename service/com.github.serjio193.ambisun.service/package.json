@@ -1,6 +1,6 @@
 {
     "name":  "com.github.serjio193.ambisun.service",
-    "version":  "0.2.0",
+    "version":  "0.2.1",
     "description":  "AmbiSun background automation service",
     "main":  "service.js",
     "license":  "MIT"

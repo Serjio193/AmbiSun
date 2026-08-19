@@ -81,6 +81,15 @@
 
     if (!sys || !sys.elevated) {
       isElevated = false;
+      if (sys && sys.elevationPending) {
+        // The service is repairing its launcher and will exit so webOS can
+        // start a new elevated instance. Avoid showing a false root prompt.
+        if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+        setTimeout(function() {
+          if (!document.hidden) checkSystemStatus();
+        }, 1500);
+        return;
+      }
       if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
       return;
     }

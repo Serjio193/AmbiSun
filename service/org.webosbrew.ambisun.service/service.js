@@ -12,6 +12,52 @@ source.init(service);
 
 var automation = require("./lib/automation");
 
+var ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
+var elevationAttempted = false;
+var elevationInProgress = false;
+var elevationRestartScheduled = false;
+
+function isServiceElevated() {
+    return typeof process.getuid === "function" && process.getuid() === 0;
+}
+
+function elevateAndRestart(callback) {
+    if (elevationInProgress) {
+        return callback(new Error("Elevation is already in progress"));
+    }
+
+    elevationInProgress = true;
+    service.call("luna://org.webosbrew.hbchannel.service/exec", {
+        command: ELEVATION_CMD
+    }, function(msg) {
+        var payload = msg && msg.payload ? msg.payload : (msg || {});
+        elevationInProgress = false;
+
+        if (!payload.returnValue) {
+            return callback(new Error(payload.errorText || payload.error || "Exec failed"));
+        }
+
+        elevationRestartScheduled = true;
+        callback(null);
+
+        // elevate-service changes the launcher used for future instances. The
+        // current Node process cannot change its UID, so let webOS restart it.
+        setTimeout(function() {
+            process.exit(0);
+        }, 250);
+    });
+}
+
+function tryAutomaticElevation() {
+    if (isServiceElevated() || elevationAttempted || elevationInProgress) return;
+    elevationAttempted = true;
+    elevateAndRestart(function(err) {
+        if (err) {
+            console.warn("[elevation] automatic recovery failed:", err.message || err);
+        }
+    });
+}
+
 function respondSafe(message, fn) {
     try {
         message.respond(fn());
@@ -314,9 +360,11 @@ service.register("reconcileScheduler", function (message) {
 });
 
 service.register("getSystemStatus", function(message) {
+    var serviceElevated = isServiceElevated();
     var sys = {
         healthy: false,
-        elevated: false,
+        elevated: serviceElevated,
+        elevationPending: elevationInProgress || elevationRestartScheduled,
         hyperhdrReachable: false,
         sourceAccessAvailable: false,
         schedulerActive: false,
@@ -346,10 +394,8 @@ service.register("getSystemStatus", function(message) {
     service.call("luna://com.webos.service.applicationmanager/getForegroundAppInfo", {}, function(msg) {
         var payload = msg.payload || {};
         if (payload.returnValue) {
-            sys.elevated = true;
             sys.sourceAccessAvailable = true;
         } else {
-            sys.elevated = false;
             sys.sourceAccessAvailable = false;
         }
         checkDone();
@@ -360,19 +406,22 @@ service.register("getSystemStatus", function(message) {
     
     var auto = automation.getAutomationStatus();
     sys.automationEnabled = auto ? auto.enabled : false;
+
+    // A service can be restarted by webOS after being idle or after an
+    // activity wake. If the launcher was not elevated, repair it once and
+    // restart this instance automatically instead of waiting for the user.
+    if (!serviceElevated) {
+        tryAutomaticElevation();
+        sys.elevationPending = elevationInProgress || elevationRestartScheduled;
+    }
 });
 
-const ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
-
 service.register("requestElevation", function(message) {
-    service.call("luna://org.webosbrew.hbchannel.service/exec", {
-        command: ELEVATION_CMD
-    }, function(msg) {
-        var payload = msg.payload || {};
-        if (payload.returnValue) {
+    elevateAndRestart(function(err) {
+        if (!err) {
             message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION });
         } else {
-            message.respond({ returnValue: false, apiVersion: runtimeInfo.SERVICE_API_VERSION, errorCode: "ELEVATION_FAILED", errorText: payload.errorText || "Exec failed" });
+            message.respond({ returnValue: false, apiVersion: runtimeInfo.SERVICE_API_VERSION, errorCode: "ELEVATION_FAILED", errorText: err.message || "Exec failed" });
         }
     });
 });
@@ -945,4 +994,3 @@ service.register("minimizeApp", function (message) {
         }
     });
 });
-

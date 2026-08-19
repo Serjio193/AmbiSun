@@ -12,7 +12,9 @@ source.init(service);
 
 var automation = require("./lib/automation");
 
-var ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
+var ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
+var AMBISUN_APP_ID = "org.webosbrew.ambisun";
+var ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " org.webosbrew.ambisun.service";
 var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
 var AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
 var elevationAttempted = false;
@@ -35,12 +37,7 @@ function elevateAndRestart(callback) {
 
         if (!payload.returnValue) {
             if (fallback) {
-                elevationInProgress = true;
-                return service.call(HBCHANNEL_SERVICE_URI + "/exec", {
-                    command: ELEVATION_CMD
-                }, function(execMsg) {
-                    handleResult(execMsg, false);
-                });
+                return elevateWithTypedApi();
             }
             return callback(new Error(payload.errorText || payload.error || "Elevation failed"));
         }
@@ -55,11 +52,28 @@ function elevateAndRestart(callback) {
         }, 250);
     }
 
-    // Homebrew Channel exposes a purpose-built elevation API. It performs
-    // the operation from its already-root service and is more reliable than
-    // asking an unprivileged app service to execute a shell command.
-    service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
-        id: AMBISUN_SERVICE_ID
+    function elevateWithTypedApi() {
+        elevationInProgress = true;
+        service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
+            id: AMBISUN_APP_ID
+        }, function(appMsg) {
+            var appPayload = appMsg && appMsg.payload ? appMsg.payload : (appMsg || {});
+            if (!appPayload.returnValue) {
+                return handleResult(appMsg, false);
+            }
+            service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
+                id: AMBISUN_SERVICE_ID
+            }, function(serviceMsg) {
+                handleResult(serviceMsg, false);
+            });
+        });
+    }
+
+    // Match PicCap's working flow: repair both the app and service launcher
+    // permissions through the root Homebrew exec service. The typed API is a
+    // fallback for Homebrew Channel versions where /exec is unavailable.
+    service.call(HBCHANNEL_SERVICE_URI + "/exec", {
+        command: ELEVATION_CMD
     }, function(msg) {
         handleResult(msg, true);
     });

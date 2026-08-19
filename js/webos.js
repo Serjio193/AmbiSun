@@ -10,8 +10,10 @@
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
+  const AMBISUN_APP_ID = "org.webosbrew.ambisun";
   const AMBISUN_SERVICE_ID = "org.webosbrew.ambisun.service";
-  const ELEVATION_CMD = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service org.webosbrew.ambisun.service";
+  const ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
+  const ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " " + AMBISUN_SERVICE_ID;
 
   function hasWebOS() {
     return !!(
@@ -98,6 +100,13 @@
     return requestUri(AmbiSun.config.serviceUri || "luna://org.webosbrew.ambisun.service", method, parameters, timeoutMs);
   }
 
+  function requireSuccessfulResponse(res, operation) {
+    if (!res || res.returnValue === false) {
+      throw new Error((res && (res.errorText || res.error)) || operation + " failed");
+    }
+    return res;
+  }
+
   function getSystemStatus()  { return requestService("getSystemStatus", {}); }
   function getConfig()        { return requestService("getConfig", {}); }
   function updateConfig(patch, rev) { return requestService("updateConfig", { patch: patch, expectedRevision: rev }); }
@@ -107,10 +116,21 @@
   function getSchedulerStatus()  { return requestService("getSchedulerStatus", {}); }
   function requestElevation()    { return requestService("requestElevation", {}); }
   function requestElevationDirect() {
-    return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_SERVICE_ID })
+    // Match PicCap's proven flow: elevate both the app and its service in
+    // one Homebrew Channel exec call. This also repairs permissions after a
+    // reinstall, when only the service launcher may have been patched.
+    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: ELEVATION_CMD })
+      .then(function(res) {
+        return requireSuccessfulResponse(res, "Homebrew elevation");
+      })
       .catch(function() {
-        // Older Homebrew Channel versions may not expose elevateService.
-        return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: ELEVATION_CMD });
+        // Newer Homebrew Channel versions expose the typed API as a fallback.
+        return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_APP_ID })
+          .then(function(res) { return requireSuccessfulResponse(res, "App elevation"); })
+          .then(function() {
+            return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_SERVICE_ID });
+          })
+          .then(function(res) { return requireSuccessfulResponse(res, "Service elevation"); });
       });
   }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }

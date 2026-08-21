@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Ngôn ngữ",
     "defaultRule": "Quy tắc mặc định cho ứng dụng mới",
+    "defaultEffect": "Hiệu ứng yêu thích cho ứng dụng mới",
+    "defaultEffectTitle": "Hiệu ứng yêu thích",
     "reset": "Đặt lại cài đặt",
     "saved": "Đã lưu cài đặt"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Nhấn OK để thử lại",
     "pressOkToLoad": "Nhấn OK để tải nguồn",
     "hdmiInputs": "Cổng vào HDMI",
-    "apps": "Ứng dụng"
+    "apps": "Ứng dụng",
+    "hint": "Chọn quy tắc và hiệu ứng cho từng ứng dụng",
+    "hiddenList": "Ứng dụng bị ẩn",
+    "showHidden": "Hiện ứng dụng ẩn",
+    "showApps": "Hiện ứng dụng",
+    "noHidden": "Không có ứng dụng bị ẩn",
+    "hideApp": "Ẩn ứng dụng",
+    "showApp": "Hiện ứng dụng",
+    "screenCapture": "Chụp màn hình",
+    "ruleFor": "Quy tắc chiếu sáng cho",
+    "effectFor": "Hiệu ứng cho",
+    "musicEffects": "Hiệu ứng âm nhạc",
+    "effectPickerTitle": "Chọn hiệu ứng",
+    "noEffects": "Không có hiệu ứng"
   }
 }

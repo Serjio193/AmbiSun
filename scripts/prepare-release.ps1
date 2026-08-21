@@ -206,10 +206,10 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
-        en: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
-        uk: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.',
-        et: 'Technical patch release: bundled PayPal and USDT TRC20 support images locally in AmbiSun and removed the external support-image dependency. No functional changes.'
+        ru: '\u0418\u0441\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043e \u0432\u043e\u0441\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 root-\u0434\u043e\u0441\u0442\u0443\u043f\u0430 \u0434\u043b\u044f \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u0438 \u0444\u043e\u043d\u043e\u0432\u043e\u0433\u043e \u0441\u0435\u0440\u0432\u0438\u0441\u0430 \u043f\u043e\u0441\u043b\u0435 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f',
+        en: 'Fixed app and background service root recovery after updates',
+        uk: '\u041f\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u043e \u0432\u0456\u0434\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u043f\u0456\u0441\u043b\u044f \u043e\u043d\u043e\u0432\u043b\u0435\u043d\u043d\u044f \u0442\u0430 \u0441\u043f\u0440\u043e\u0449\u0435\u043d\u043e \u0433\u043e\u043b\u043e\u0432\u043d\u0438\u0439 \u0435\u043a\u0440\u0430\u043d',
+        et: 'T\u00e4iustatud uuendusj\u00e4rgset taastamist ja lihtsustatud avalehte'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

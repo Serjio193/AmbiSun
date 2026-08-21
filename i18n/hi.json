@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "भाषा",
     "defaultRule": "नए ऐप्स के लिए डिफ़ॉल्ट नियम",
+    "defaultEffect": "नए ऐप्स के लिए पसंदीदा प्रभाव",
+    "defaultEffectTitle": "पसंदीदा प्रभाव",
     "reset": "सेटिंग्स रीसेट करें",
     "saved": "सेटिंग्स सहेजी गईं"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "पुनः प्रयास करने के लिए OK दबाएं",
     "pressOkToLoad": "स्रोत लोड करने के लिए OK दबाएं",
     "hdmiInputs": "HDMI इनपुट",
-    "apps": "ऐप्स"
+    "apps": "ऐप्स",
+    "hint": "हर ऐप के लिए नियम और प्रभाव चुनें",
+    "hiddenList": "छिपे हुए ऐप्स",
+    "showHidden": "छिपे हुए दिखाएँ",
+    "showApps": "ऐप्स दिखाएँ",
+    "noHidden": "कोई छिपे हुए ऐप्स नहीं हैं",
+    "hideApp": "ऐप छिपाएँ",
+    "showApp": "ऐप दिखाएँ",
+    "screenCapture": "स्क्रीन कैप्चर",
+    "ruleFor": "इसके लिए प्रकाश नियम",
+    "effectFor": "इसके लिए प्रभाव",
+    "musicEffects": "संगीत प्रभाव",
+    "effectPickerTitle": "प्रभाव चुनें",
+    "noEffects": "कोई प्रभाव उपलब्ध नहीं है"
   }
 }

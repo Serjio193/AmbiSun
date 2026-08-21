@@ -206,18 +206,40 @@ const ACTIONS = {
 
   'cycle-source-rule': ({el, direction = 1}) => {
     const src = el.dataset.source;
-    const hasOverride = Object.prototype.hasOwnProperty.call(state.sourceRules, src);
-    const current = hasOverride ? state.sourceRules[src] : state.defaultRule;
-    const newRule = AmbiSun.sources.cycleRule(current, direction);
-    const newOverrides = Object.assign({}, state.sourceRules);
-    newOverrides[src] = newRule;
-    // Optimistic badge update
-    const badge = el.querySelector('.mode');
-    if (badge) {
-      badge.textContent = AmbiSun.sources.ruleLabel(newRule);
-      badge.className = `mode ${newRule === 'sun' ? 'sun' : newRule}`;
-    }
-    AmbiSun.bridge.mutateConfig({ overrides: newOverrides });
+    const current = Object.prototype.hasOwnProperty.call(state.sourceRules, src) ? state.sourceRules[src] : state.defaultRule;
+    setSourceRule(src, AmbiSun.sources.cycleRule(current, direction));
+  },
+
+  'open-source-effect': ({el}) => {
+    if (AmbiSun.effectPicker) AmbiSun.effectPicker.open(el.dataset.source);
+  },
+
+  'open-default-effect': () => {
+    if (AmbiSun.effectPicker) AmbiSun.effectPicker.openDefault();
+  },
+
+  'select-source-effect': ({el}) => {
+    if (AmbiSun.effectPicker) AmbiSun.effectPicker.select(el.dataset.effect);
+  },
+
+  'close-effect-picker': () => {
+    if (AmbiSun.effectPicker) AmbiSun.effectPicker.close();
+  },
+
+  'toggle-hidden-sources': () => {
+    state.showHiddenSources = !state.showHiddenSources;
+    AmbiSun.sources.renderSourceList();
+  },
+
+  'toggle-source-hidden': ({el}) => {
+    const src = el.dataset.source;
+    const hidden = el.dataset.hidden !== 'true';
+    const hiddenSources = Object.assign({}, state.hiddenSources || {});
+    if (hidden) hiddenSources[src] = true;
+    else delete hiddenSources[src];
+    state.hiddenSources = hiddenSources;
+    AmbiSun.sources.renderSourceList();
+    AmbiSun.bridge.mutateConfig({ hiddenSources });
   },
 
   'toggle-setting': ({el}) => {
@@ -426,6 +448,38 @@ const ACTIONS = {
 
 window.AmbiSunActions = ACTIONS;
 
+function setSourceRule(sourceId, newRule) {
+  if (!sourceId || !window.AmbiSun.constants.RULES.includes(newRule)) return;
+  const overrides = Object.assign({}, state.sourceRules || {});
+  overrides[sourceId] = newRule;
+  state.sourceRules = overrides;
+  AmbiSun.sources.renderSourceList();
+  AmbiSun.bridge.mutateConfig({ overrides });
+}
+
+function setSourceEffect(sourceId, value) {
+  if (!sourceId) return;
+  const effectOverrides = Object.assign({}, state.effectOverrides || {});
+  effectOverrides[sourceId] = value === 'capture' ? { mode: 'capture' } : { mode: 'effect', name: value };
+  state.effectOverrides = effectOverrides;
+  if (AmbiSun.sources && AmbiSun.sources.renderSourceList) AmbiSun.sources.renderSourceList();
+  AmbiSun.bridge.mutateConfig({ effectOverrides });
+}
+
+function setDefaultEffect(value) {
+  if (!value) return;
+  const previous = state.defaultEffect || null;
+  const next = value === 'capture' ? null : value;
+  state.defaultEffect = next;
+  if (AmbiSun.sources && AmbiSun.sources.updateDefaultEffect) AmbiSun.sources.updateDefaultEffect();
+  AmbiSun.bridge.mutateConfig({ defaultEffect: next }).then(function (success) {
+    if (!success) {
+      state.defaultEffect = previous;
+      if (AmbiSun.sources && AmbiSun.sources.updateDefaultEffect) AmbiSun.sources.updateDefaultEffect();
+    }
+  });
+}
+
 function dispatchAction(el, direction) {
   const action = el.dataset.action;
   if (!action) return;
@@ -489,7 +543,10 @@ function updateClock(){
 window.AmbiSun = window.AmbiSun || {};
 window.AmbiSun.app = {
   updateClock,
-  updateSettingsLanguageBadge
+  updateSettingsLanguageBadge,
+  setSourceRule,
+  setSourceEffect,
+  setDefaultEffect
 };
 
 async function initUI(){
@@ -516,6 +573,11 @@ async function initUI(){
       if (AmbiSun.location && AmbiSun.location.back) {
         AmbiSun.location.back();
       }
+      return;
+    }
+
+    if (window.AmbiSun.state.screen === 'effectPicker' && AmbiSun.effectPicker) {
+      AmbiSun.effectPicker.close();
       return;
     }
 

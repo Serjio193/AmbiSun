@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Jazyk",
     "defaultRule": "Predvolené pravidlo pre nové aplikácie",
+    "defaultEffect": "Obľúbený efekt pre nové aplikácie",
+    "defaultEffectTitle": "Obľúbený efekt",
     "reset": "Obnoviť nastavenia",
     "saved": "Nastavenia uložené"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Stlačením OK to skúste znova",
     "pressOkToLoad": "Stlačením OK načítajte zdroje",
     "hdmiInputs": "Vstupy HDMI",
-    "apps": "Aplikácie"
+    "apps": "Aplikácie",
+    "hint": "Vyberte pravidlo a efekt pre každú aplikáciu",
+    "hiddenList": "Skryté aplikácie",
+    "showHidden": "Zobraziť skryté",
+    "showApps": "Zobraziť aplikácie",
+    "noHidden": "Žiadne skryté aplikácie",
+    "hideApp": "Skryť aplikáciu",
+    "showApp": "Zobraziť aplikáciu",
+    "screenCapture": "Zachytávanie obrazovky",
+    "ruleFor": "Pravidlo osvetlenia pre",
+    "effectFor": "Efekt pre",
+    "musicEffects": "Hudobné efekty",
+    "effectPickerTitle": "Vybrať efekt",
+    "noEffects": "Nie sú dostupné žiadne efekty"
   }
 }

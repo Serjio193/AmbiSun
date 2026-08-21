@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "语言",
     "defaultRule": "新应用的默认规则",
+    "defaultEffect": "新应用的首选效果",
+    "defaultEffectTitle": "首选效果",
     "reset": "重置设置",
     "saved": "设置已保存"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "按 OK 重试",
     "pressOkToLoad": "按 OK 加载输入源",
     "hdmiInputs": "HDMI 输入",
-    "apps": "应用程序"
+    "apps": "应用程序",
+    "hint": "为每个应用选择规则和效果",
+    "hiddenList": "隐藏的应用",
+    "showHidden": "显示隐藏应用",
+    "showApps": "显示应用",
+    "noHidden": "没有隐藏的应用",
+    "hideApp": "隐藏应用",
+    "showApp": "显示应用",
+    "screenCapture": "屏幕捕获",
+    "ruleFor": "应用照明规则",
+    "effectFor": "应用效果",
+    "musicEffects": "音乐效果",
+    "effectPickerTitle": "选择效果",
+    "noEffects": "没有可用效果"
   }
 }

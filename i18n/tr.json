@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Dil",
     "defaultRule": "Yeni uygulamalar için varsayılan kural",
+    "defaultEffect": "Yeni uygulamalar için favori efekt",
+    "defaultEffectTitle": "Favori efekt",
     "reset": "Ayarları sıfırla",
     "saved": "Ayarlar kaydedildi"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Yeniden denemek için OK tuşuna basın",
     "pressOkToLoad": "Kaynakları yüklemek için OK tuşuna basın",
     "hdmiInputs": "HDMI girişleri",
-    "apps": "Uygulamalar"
+    "apps": "Uygulamalar",
+    "hint": "Her uygulama için bir kural ve efekt seçin",
+    "hiddenList": "Gizli uygulamalar",
+    "showHidden": "Gizlileri göster",
+    "showApps": "Uygulamaları göster",
+    "noHidden": "Gizli uygulama yok",
+    "hideApp": "Uygulamayı gizle",
+    "showApp": "Uygulamayı göster",
+    "screenCapture": "Ekran yakalama",
+    "ruleFor": "Aydınlatma kuralı:",
+    "effectFor": "Efekt:",
+    "musicEffects": "Müzik efektleri",
+    "effectPickerTitle": "Efekt seç",
+    "noEffects": "Kullanılabilir efekt yok"
   }
 }

@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Taal",
     "defaultRule": "Standaardregel voor nieuwe apps",
+    "defaultEffect": "Favoriet effect voor nieuwe apps",
+    "defaultEffectTitle": "Favoriet effect",
     "reset": "Instellingen herstellen",
     "saved": "Instellingen opgeslagen"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Druk op OK om opnieuw te proberen",
     "pressOkToLoad": "Druk op OK om bronnen te laden",
     "hdmiInputs": "HDMI-ingangen",
-    "apps": "Apps"
+    "apps": "Apps",
+    "hint": "Kies een regel en effect voor elke toepassing",
+    "hiddenList": "Verborgen toepassingen",
+    "showHidden": "Verborgen tonen",
+    "showApps": "Toepassingen tonen",
+    "noHidden": "Er zijn geen verborgen toepassingen",
+    "hideApp": "Toepassing verbergen",
+    "showApp": "Toepassing tonen",
+    "screenCapture": "Schermopname",
+    "ruleFor": "Verlichtingsregel voor",
+    "effectFor": "Effect voor",
+    "musicEffects": "Muziekeffecten",
+    "effectPickerTitle": "Effect kiezen",
+    "noEffects": "Geen effecten beschikbaar"
   }
 }

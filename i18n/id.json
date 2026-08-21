@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Bahasa",
     "defaultRule": "Aturan default untuk aplikasi baru",
+    "defaultEffect": "Efek favorit untuk aplikasi baru",
+    "defaultEffectTitle": "Efek favorit",
     "reset": "Atur ulang pengaturan",
     "saved": "Pengaturan disimpan"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Tekan OK untuk mencoba lagi",
     "pressOkToLoad": "Tekan OK untuk memuat sumber",
     "hdmiInputs": "Input HDMI",
-    "apps": "Aplikasi"
+    "apps": "Aplikasi",
+    "hint": "Pilih aturan dan efek untuk setiap aplikasi",
+    "hiddenList": "Aplikasi tersembunyi",
+    "showHidden": "Tampilkan yang tersembunyi",
+    "showApps": "Tampilkan aplikasi",
+    "noHidden": "Tidak ada aplikasi tersembunyi",
+    "hideApp": "Sembunyikan aplikasi",
+    "showApp": "Tampilkan aplikasi",
+    "screenCapture": "Tangkapan layar",
+    "ruleFor": "Aturan pencahayaan untuk",
+    "effectFor": "Efek untuk",
+    "musicEffects": "Efek musik",
+    "effectPickerTitle": "Pilih efek",
+    "noEffects": "Tidak ada efek yang tersedia"
   }
 }

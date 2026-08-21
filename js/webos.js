@@ -135,6 +135,7 @@
   }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
+  function getHyperhdrEffects() { return requestService("getHyperhdrEffects", {}); }
   function detectCountryByIp() { return requestService("detectCountryByIp", {}); }
   function getLocationCountries() { return requestService("getLocationCountries", {}); }
   function getHyperhdrStatus(params) { return requestService("getHyperhdrStatus", params || {}); }
@@ -158,6 +159,7 @@
   AmbiSun.webos.requestElevationDirect = requestElevationDirect;
   AmbiSun.webos.getSolarStatus = getSolarStatus;
   AmbiSun.webos.getAvailableSources = getAvailableSources;
+  AmbiSun.webos.getHyperhdrEffects = getHyperhdrEffects;
   AmbiSun.webos.detectCountryByIp = detectCountryByIp;
   AmbiSun.webos.getLocationCountries = getLocationCountries;
   AmbiSun.webos.searchLocations = searchLocations;

@@ -3,9 +3,12 @@ var storage = require('./storage');
 var DEFAULT_CONFIG = {
     enabled: true,
     defaultRule: "sun",
+    defaultEffect: null,
     sunsetOffset: 30,
     sunriseOffset: 0,
     overrides: {},
+    effectOverrides: {},
+    hiddenSources: {},
     location: null,
     hyperhdr: {
         host: "127.0.0.1",
@@ -93,6 +96,9 @@ function migrateDocument(doc) {
             port: 8090
         };
     }
+    if (!doc.config.effectOverrides) doc.config.effectOverrides = {};
+    if (!doc.config.hiddenSources) doc.config.hiddenSources = {};
+    if (!Object.prototype.hasOwnProperty.call(doc.config, "defaultEffect")) doc.config.defaultEffect = null;
     return doc;
 }
 
@@ -126,7 +132,7 @@ function validateDocument(doc) {
     if (!isPlainObject(doc.config)) return "config is not a plain object";
 
     var cfg = doc.config;
-    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location", "hyperhdr"];
+    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "hiddenSources", "location", "hyperhdr"];
     for (var key in cfg) {
         if (Object.prototype.hasOwnProperty.call(cfg, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown config field: " + key;
@@ -135,6 +141,7 @@ function validateDocument(doc) {
 
     if (typeof cfg.enabled !== "boolean") return "enabled must be a boolean";
     if (!isValidRule(cfg.defaultRule)) return "defaultRule must be 'sun', 'on', or 'off'";
+    if (cfg.defaultEffect !== null && (typeof cfg.defaultEffect !== "string" || cfg.defaultEffect.trim() === "")) return "defaultEffect must be an effect name or null";
     if (!isValidOffset(cfg.sunsetOffset)) return "sunsetOffset must be valid integer multiple of 5 in [-360,360]";
     if (!isValidOffset(cfg.sunriseOffset)) return "sunriseOffset must be valid integer multiple of 5 in [-360,360]";
     
@@ -142,6 +149,24 @@ function validateDocument(doc) {
     for (var k in cfg.overrides) {
         if (Object.prototype.hasOwnProperty.call(cfg.overrides, k)) {
             if (!isValidRule(cfg.overrides[k])) return "override value must be 'sun', 'on', or 'off'";
+        }
+    }
+
+    if (!isPlainObject(cfg.effectOverrides)) return "effectOverrides must be a plain object";
+    for (var effectId in cfg.effectOverrides) {
+        if (!Object.prototype.hasOwnProperty.call(cfg.effectOverrides, effectId)) continue;
+        var effectRule = cfg.effectOverrides[effectId];
+        if (!isPlainObject(effectRule)) return "effect override must be a plain object";
+        if (effectRule.mode !== "capture" && effectRule.mode !== "effect") return "effect override mode must be 'capture' or 'effect'";
+        if (effectRule.mode === "effect" && (typeof effectRule.name !== "string" || effectRule.name.trim() === "")) {
+            return "effect override name is required";
+        }
+    }
+
+    if (!isPlainObject(cfg.hiddenSources)) return "hiddenSources must be a plain object";
+    for (var hiddenId in cfg.hiddenSources) {
+        if (Object.prototype.hasOwnProperty.call(cfg.hiddenSources, hiddenId) && typeof cfg.hiddenSources[hiddenId] !== "boolean") {
+            return "hidden source value must be boolean";
         }
     }
 
@@ -158,7 +183,7 @@ function validatePatch(patch) {
     if (!isPlainObject(patch)) return "Patch must be a plain object";
     if (Object.keys(patch).length === 0) return "Patch is empty";
 
-    var allowedKeys = ["enabled", "defaultRule", "sunsetOffset", "sunriseOffset", "overrides", "location", "hyperhdr"];
+    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "hiddenSources", "location", "hyperhdr"];
     for (var key in patch) {
         if (Object.prototype.hasOwnProperty.call(patch, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown field: " + key;
@@ -167,6 +192,7 @@ function validatePatch(patch) {
     
     if (patch.hasOwnProperty("enabled") && typeof patch.enabled !== "boolean") return "enabled must be a boolean";
     if (patch.hasOwnProperty("defaultRule") && !isValidRule(patch.defaultRule)) return "defaultRule must be 'sun', 'on', or 'off'";
+    if (patch.hasOwnProperty("defaultEffect") && patch.defaultEffect !== null && (typeof patch.defaultEffect !== "string" || patch.defaultEffect.trim() === "")) return "defaultEffect must be an effect name or null";
     if (patch.hasOwnProperty("sunsetOffset") && !isValidOffset(patch.sunsetOffset)) return "sunsetOffset must be an integer between -360 and 360, multiple of 5";
     if (patch.hasOwnProperty("sunriseOffset") && !isValidOffset(patch.sunriseOffset)) return "sunriseOffset must be an integer between -360 and 360, multiple of 5";
     
@@ -176,6 +202,24 @@ function validatePatch(patch) {
             if (Object.prototype.hasOwnProperty.call(patch.overrides, k)) {
                 if (!isValidRule(patch.overrides[k])) return "override value for " + k + " must be 'sun', 'on', or 'off'";
             }
+        }
+    }
+
+    if (patch.hasOwnProperty("effectOverrides")) {
+        if (!isPlainObject(patch.effectOverrides)) return "effectOverrides must be a plain object";
+        for (var effectId in patch.effectOverrides) {
+            if (!Object.prototype.hasOwnProperty.call(patch.effectOverrides, effectId)) continue;
+            var effectRule = patch.effectOverrides[effectId];
+            if (!isPlainObject(effectRule)) return "effect override must be a plain object";
+            if (effectRule.mode !== "capture" && effectRule.mode !== "effect") return "effect override mode must be 'capture' or 'effect'";
+            if (effectRule.mode === "effect" && (typeof effectRule.name !== "string" || effectRule.name.trim() === "")) return "effect override name is required";
+        }
+    }
+
+    if (patch.hasOwnProperty("hiddenSources")) {
+        if (!isPlainObject(patch.hiddenSources)) return "hiddenSources must be a plain object";
+        for (var hiddenId in patch.hiddenSources) {
+            if (Object.prototype.hasOwnProperty.call(patch.hiddenSources, hiddenId) && typeof patch.hiddenSources[hiddenId] !== "boolean") return "hidden source value must be boolean";
         }
     }
 

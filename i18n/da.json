@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Sprog",
     "defaultRule": "Standardregel for nye apps",
+    "defaultEffect": "Favoriteffekt til nye apps",
+    "defaultEffectTitle": "Favoriteffekt",
     "reset": "Nulstil indstillinger",
     "saved": "Indstillinger gemt"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Tryk på OK for at prøve igen",
     "pressOkToLoad": "Tryk på OK for at indlæse kilder",
     "hdmiInputs": "HDMI-indgange",
-    "apps": "Apps"
+    "apps": "Apps",
+    "hint": "Vælg en regel og effekt for hver app",
+    "hiddenList": "Skjulte apps",
+    "showHidden": "Vis skjulte",
+    "showApps": "Vis apps",
+    "noHidden": "Ingen skjulte apps",
+    "hideApp": "Skjul app",
+    "showApp": "Vis app",
+    "screenCapture": "Skærmoptagelse",
+    "ruleFor": "Lysregel for",
+    "effectFor": "Effekt for",
+    "musicEffects": "Musikeffekter",
+    "effectPickerTitle": "Vælg effekt",
+    "noEffects": "Ingen effekter tilgængelige"
   }
 }

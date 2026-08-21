@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Bahasa",
     "defaultRule": "Peraturan lalai untuk aplikasi baharu",
+    "defaultEffect": "Kesan kegemaran untuk aplikasi baharu",
+    "defaultEffectTitle": "Kesan kegemaran",
     "reset": "Tetapkan semula tetapan",
     "saved": "Tetapan disimpan"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Tekan OK untuk cuba lagi",
     "pressOkToLoad": "Tekan OK untuk memuatkan sumber",
     "hdmiInputs": "Input HDMI",
-    "apps": "Aplikasi"
+    "apps": "Aplikasi",
+    "hint": "Pilih peraturan dan kesan untuk setiap aplikasi",
+    "hiddenList": "Aplikasi tersembunyi",
+    "showHidden": "Tunjukkan yang tersembunyi",
+    "showApps": "Tunjukkan aplikasi",
+    "noHidden": "Tiada aplikasi tersembunyi",
+    "hideApp": "Sembunyikan aplikasi",
+    "showApp": "Tunjukkan aplikasi",
+    "screenCapture": "Tangkapan skrin",
+    "ruleFor": "Peraturan pencahayaan untuk",
+    "effectFor": "Kesan untuk",
+    "musicEffects": "Kesan muzik",
+    "effectPickerTitle": "Pilih kesan",
+    "noEffects": "Tiada kesan tersedia"
   }
 }

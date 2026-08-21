@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Lingua",
     "defaultRule": "Regola predefinita per le nuove app",
+    "defaultEffect": "Effetto preferito per le nuove app",
+    "defaultEffectTitle": "Effetto preferito",
     "reset": "Ripristina impostazioni",
     "saved": "Impostazioni salvate"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Premi OK per riprovare",
     "pressOkToLoad": "Premi OK per caricare le sorgenti",
     "hdmiInputs": "Ingressi HDMI",
-    "apps": "Applicazioni"
+    "apps": "Applicazioni",
+    "hint": "Scegli una regola e un effetto per ogni applicazione",
+    "hiddenList": "Applicazioni nascoste",
+    "showHidden": "Mostra nascoste",
+    "showApps": "Mostra applicazioni",
+    "noHidden": "Non ci sono applicazioni nascoste",
+    "hideApp": "Nascondi applicazione",
+    "showApp": "Mostra applicazione",
+    "screenCapture": "Cattura dello schermo",
+    "ruleFor": "Regola di illuminazione per",
+    "effectFor": "Effetto per",
+    "musicEffects": "Effetti musicali",
+    "effectPickerTitle": "Scegli effetto",
+    "noEffects": "Nessun effetto disponibile"
   }
 }

@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Valoda",
     "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
+    "defaultEffect": "Iecienītākais efekts jaunām lietotnēm",
+    "defaultEffectTitle": "Iecienītākais efekts",
     "reset": "Atiestatīt iestatījumus",
     "saved": "Iestatījumi saglabāti"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Nospiediet OK, lai mēģinātu vēlreiz",
     "pressOkToLoad": "Nospiediet OK, lai ielādētu avotus",
     "hdmiInputs": "HDMI ieejas",
-    "apps": "Lietotnes"
+    "apps": "Lietotnes",
+    "hint": "Izvēlieties noteikumu un efektu katrai lietotnei",
+    "hiddenList": "Paslēptās lietotnes",
+    "showHidden": "Rādīt paslēptās",
+    "showApps": "Rādīt lietotnes",
+    "noHidden": "Nav paslēptu lietotņu",
+    "hideApp": "Paslēpt lietotni",
+    "showApp": "Rādīt lietotni",
+    "screenCapture": "Ekrāna tveršana",
+    "ruleFor": "Apgaismojuma noteikums lietotnei",
+    "effectFor": "Efekts lietotnei",
+    "musicEffects": "Mūzikas efekti",
+    "effectPickerTitle": "Izvēlieties efektu",
+    "noEffects": "Efekti nav pieejami"
   }
 }

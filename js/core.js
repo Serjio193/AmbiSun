@@ -11,6 +11,9 @@
     autostart: true,
     plasma: true,
     defaultRule: 'sun',
+    defaultEffect: null,
+    effectOverrides: {},
+    hiddenSources: {},
     language: 'en',
     sourceRules: {},
     location: {

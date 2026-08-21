@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Keel",
     "defaultRule": "Vaikereegel uutele rakendustele",
+    "defaultEffect": "Lemmikefekt uutele rakendustele",
+    "defaultEffectTitle": "Lemmikefekt",
     "reset": "Lähtesta seaded",
     "saved": "Seaded salvestatud"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Vajutage uuesti proovimiseks OK",
     "pressOkToLoad": "Allikate laadimiseks vajutage OK",
     "hdmiInputs": "HDMI-sisendid",
-    "apps": "Rakendused"
+    "apps": "Rakendused",
+    "hint": "Valige igale rakendusele reegel ja efekt",
+    "hiddenList": "Peidetud rakendused",
+    "showHidden": "Näita peidetuid",
+    "showApps": "Näita rakendusi",
+    "noHidden": "Peidetud rakendusi pole",
+    "hideApp": "Peida rakendus",
+    "showApp": "Näita rakendust",
+    "screenCapture": "Ekraani jäädvustamine",
+    "ruleFor": "Valgustusreegel rakendusele",
+    "effectFor": "Efekt rakendusele",
+    "musicEffects": "Muusikaefektid",
+    "effectPickerTitle": "Vali efekt",
+    "noEffects": "Efektid puuduvad"
   }
 }

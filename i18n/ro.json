@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Limbă",
     "defaultRule": "Regulă implicită pentru aplicații noi",
+    "defaultEffect": "Efect preferat pentru aplicații noi",
+    "defaultEffectTitle": "Efect preferat",
     "reset": "Resetare setări",
     "saved": "Setări salvate"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Apăsați OK pentru a reîncerca",
     "pressOkToLoad": "Apăsați OK pentru a încărca sursele",
     "hdmiInputs": "Intrări HDMI",
-    "apps": "Aplicații"
+    "apps": "Aplicații",
+    "hint": "Alegeți o regulă și un efect pentru fiecare aplicație",
+    "hiddenList": "Aplicații ascunse",
+    "showHidden": "Afișează aplicațiile ascunse",
+    "showApps": "Afișează aplicațiile",
+    "noHidden": "Nu există aplicații ascunse",
+    "hideApp": "Ascunde aplicația",
+    "showApp": "Afișează aplicația",
+    "screenCapture": "Captură de ecran",
+    "ruleFor": "Regulă de iluminare pentru",
+    "effectFor": "Efect pentru",
+    "musicEffects": "Efecte muzicale",
+    "effectPickerTitle": "Alege efectul",
+    "noEffects": "Nu există efecte disponibile"
   }
 }

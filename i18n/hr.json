@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Jezik",
     "defaultRule": "Zadano pravilo za nove aplikacije",
+    "defaultEffect": "Omiljeni efekt za nove aplikacije",
+    "defaultEffectTitle": "Omiljeni efekt",
     "reset": "Vrati izvorne postavke",
     "saved": "Postavke spremljene"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Pritisnite OK za ponovni pokušaj",
     "pressOkToLoad": "Pritisnite OK za učitavanje izvora",
     "hdmiInputs": "HDMI ulazi",
-    "apps": "Aplikacije"
+    "apps": "Aplikacije",
+    "hint": "Odaberite pravilo i efekt za svaku aplikaciju",
+    "hiddenList": "Skrivene aplikacije",
+    "showHidden": "Prikaži skrivene",
+    "showApps": "Prikaži aplikacije",
+    "noHidden": "Nema skrivenih aplikacija",
+    "hideApp": "Sakrij aplikaciju",
+    "showApp": "Prikaži aplikaciju",
+    "screenCapture": "Snimanje zaslona",
+    "ruleFor": "Pravilo osvjetljenja za",
+    "effectFor": "Efekt za",
+    "musicEffects": "Glazbeni efekti",
+    "effectPickerTitle": "Odaberite efekt",
+    "noEffects": "Nema dostupnih efekata"
   }
 }

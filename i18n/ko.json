@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "언어",
     "defaultRule": "새 앱 기본 규칙",
+    "defaultEffect": "새 앱의 즐겨찾기 효과",
+    "defaultEffectTitle": "즐겨찾기 효과",
     "reset": "설정 초기화",
     "saved": "설정이 저장되었습니다"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "다시 시도하려면 OK를 누르세요",
     "pressOkToLoad": "소스를 불러오려면 OK를 누르세요",
     "hdmiInputs": "HDMI 입력",
-    "apps": "애플리케이션"
+    "apps": "애플리케이션",
+    "hint": "각 애플리케이션의 규칙과 효과를 선택하세요",
+    "hiddenList": "숨긴 애플리케이션",
+    "showHidden": "숨긴 항목 표시",
+    "showApps": "애플리케이션 표시",
+    "noHidden": "숨긴 애플리케이션이 없습니다",
+    "hideApp": "애플리케이션 숨기기",
+    "showApp": "애플리케이션 표시",
+    "screenCapture": "화면 캡처",
+    "ruleFor": "조명 규칙:",
+    "effectFor": "효과:",
+    "musicEffects": "음악 효과",
+    "effectPickerTitle": "효과 선택",
+    "noEffects": "사용 가능한 효과가 없습니다"
   }
 }

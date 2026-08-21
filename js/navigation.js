@@ -130,8 +130,8 @@
       return;
     }
 
-    // Deterministic vertical navigation inside scrollable lists (#sourceList, #languageList)
-    const listContainer = focusedEl.closest && (focusedEl.closest('#sourceList') || focusedEl.closest('#languageList') || focusedEl.closest('#language .page-card'));
+    // Deterministic vertical navigation inside scrollable lists.
+    const listContainer = focusedEl.closest && (focusedEl.closest('#sourceList') || focusedEl.closest('#languageList') || focusedEl.closest('#effectPickerList') || focusedEl.closest('#language .page-card'));
     if (listContainer && (direction === 'up' || direction === 'down')) {
       const rows = [...listContainer.querySelectorAll('.list-item.actionable')];
       const index = rows.indexOf(focusedEl);

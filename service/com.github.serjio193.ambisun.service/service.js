@@ -1,6 +1,7 @@
 var Service = require("webos-service");
 var runtimeInfo = require("./lib/runtime-info");
 var config = require("./lib/config");
+var appIcon = require("./lib/app-icon");
 
 var service = new Service("com.github.serjio193.ambisun.service");
 
@@ -205,6 +206,27 @@ service.register("getHyperhdrStatus", function (message) {
             }
         });
     }, { host: host, port: port });
+});
+
+service.register("getHyperhdrEffects", function (message) {
+    var currentCfg = config.get().config;
+    var options = (currentCfg.hyperhdr && currentCfg.hyperhdr.host)
+        ? { host: currentCfg.hyperhdr.host, port: currentCfg.hyperhdr.port }
+        : undefined;
+    hyperhdr.getEffects(function(err, effects) {
+        if (err) {
+            return message.respond({
+                returnValue: false,
+                errorCode: err.code || "HYPERHDR_ERROR",
+                errorText: err.message
+            });
+        }
+        message.respond({
+            returnValue: true,
+            apiVersion: runtimeInfo.SERVICE_API_VERSION,
+            effects: effects
+        });
+    }, options);
 });
 
 service.register("setLedDevice", function (message) {
@@ -538,6 +560,8 @@ service.register("getAvailableSources", function (message) {
     var currentSrc = source.getStableSource();
     var cfg = config.get();
     var overrides = (cfg && cfg.config && cfg.config.overrides) ? cfg.config.overrides : {};
+    var effectOverrides = (cfg && cfg.config && cfg.config.effectOverrides) ? cfg.config.effectOverrides : {};
+    var hiddenSources = (cfg && cfg.config && cfg.config.hiddenSources) ? cfg.config.hiddenSources : {};
 
     var hdmiSources = [];
     var appSources  = [];
@@ -558,6 +582,12 @@ service.register("getAvailableSources", function (message) {
             if (!seen[s.id]) { all.push(s); seen[s.id] = true; }
         });
         Object.keys(overrides).forEach(function(id) {
+            if (!seen[id]) { all.push({ id: id, name: id, type: 'app', current: false }); seen[id] = true; }
+        });
+        Object.keys(effectOverrides).forEach(function(id) {
+            if (!seen[id]) { all.push({ id: id, name: id, type: 'app', current: false }); seen[id] = true; }
+        });
+        Object.keys(hiddenSources).forEach(function(id) {
             if (!seen[id]) { all.push({ id: id, name: id, type: 'app', current: false }); seen[id] = true; }
         });
 
@@ -614,7 +644,13 @@ service.register("getAvailableSources", function (message) {
                 if (!app.visible || !app.id || !app.title) return;
                 if ((app.class || {}).hidden) return;
                 if (EXCLUDED_APP_IDS.indexOf(app.id) >= 0) return;
-                appSources.push({ id: app.id, name: app.title, type: 'app', current: false });
+                appSources.push({
+                    id: app.id,
+                    name: app.title,
+                    type: 'app',
+                    icon: appIcon.toDataUri(app),
+                    current: false
+                });
             });
             appSources.sort(function(a, b) { return a.name.localeCompare(b.name); });
         } else {

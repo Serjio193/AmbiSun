@@ -1,3 +1,7 @@
+param(
+    [string]$PackagePath
+)
+
 $ErrorActionPreference = "Stop"
 
 $Repo = Split-Path -Parent $PSScriptRoot
@@ -22,28 +26,43 @@ if ($Version -notmatch $SemverRegex) {
 }
 
 # 2. Form IPK name and path dynamically
-$IpkName = "com.github.serjio193.ambisun_${Version}_all.ipk"
+$ExpectedIpkName = "com.github.serjio193.ambisun_${Version}_all.ipk"
+$IpkName = $ExpectedIpkName
 $Ipk = Join-Path $Repo "dist\$IpkName"
+
+if ($PackagePath) {
+    $ResolvedPackage = Resolve-Path -LiteralPath $PackagePath -ErrorAction Stop
+    $Ipk = $ResolvedPackage.Path
+    $IpkName = Split-Path -Leaf $Ipk
+    if ($IpkName -ne $ExpectedIpkName) {
+        throw "Package version mismatch: expected '$ExpectedIpkName', got '$IpkName'."
+    }
+}
 
 Write-Host "Application version: $Version"
 Write-Host "Expected IPK: $Ipk"
 
-# 3. Build safety and stale IPK prevention
-if (Test-Path $Ipk) {
-    Write-Host "Removing existing artifact to prevent stale IPK: $Ipk"
-    Remove-Item -Path $Ipk -Force
-}
+# 3. Build or use an already signed artifact
+if ($PackagePath) {
+    Write-Host "`n=== 1. USE EXISTING SIGNED IPK ==="
+    Write-Host "Skipping rebuild to preserve the signed artifact byte-for-byte."
+} else {
+    if (Test-Path $Ipk) {
+        Write-Host "Removing existing artifact to prevent stale IPK: $Ipk"
+        Remove-Item -Path $Ipk -Force
+    }
 
-$BuildStarted = Get-Date
+    $BuildStarted = Get-Date
 
-Write-Host "`n=== 1. BUILD ==="
-powershell -ExecutionPolicy Bypass -File "$PSScriptRoot\package-debug.ps1"
-if ($LASTEXITCODE -ne 0) {
-    throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
-}
+    Write-Host "`n=== 1. BUILD ==="
+    powershell -ExecutionPolicy Bypass -File "$PSScriptRoot\package-debug.ps1"
+    if ($LASTEXITCODE -ne 0) {
+        throw "package-debug.ps1 failed with exit code $LASTEXITCODE"
+    }
 
-if (-not (Test-Path $Ipk)) {
-    throw "IPK artifact not found after build: $Ipk"
+    if (-not (Test-Path $Ipk)) {
+        throw "IPK artifact not found after build: $Ipk"
+    }
 }
 
 $IpkItem = Get-Item $Ipk
@@ -51,7 +70,7 @@ if ($IpkItem.Length -le 0) {
     throw "Generated IPK artifact is empty: $Ipk"
 }
 
-if ($IpkItem.LastWriteTime -lt $BuildStarted) {
+if (-not $PackagePath -and $IpkItem.LastWriteTime -lt $BuildStarted) {
     throw "Generated IPK artifact is older than build start time: $Ipk"
 }
 

@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Nyelv",
     "defaultRule": "Alapértelmezett szabály új appokhoz",
+    "defaultEffect": "Kedvenc effektus új alkalmazásokhoz",
+    "defaultEffectTitle": "Kedvenc effektus",
     "reset": "Beállítások visszaállítása",
     "saved": "Beállítások mentve"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Nyomja meg az OK gombot az újrapróbálkozáshoz",
     "pressOkToLoad": "Nyomja meg az OK gombot a források betöltéséhez",
     "hdmiInputs": "HDMI bemenetek",
-    "apps": "Alkalmazások"
+    "apps": "Alkalmazások",
+    "hint": "Válasszon szabályt és effektet minden alkalmazáshoz",
+    "hiddenList": "Rejtett alkalmazások",
+    "showHidden": "Rejtettek megjelenítése",
+    "showApps": "Alkalmazások megjelenítése",
+    "noHidden": "Nincsenek rejtett alkalmazások",
+    "hideApp": "Alkalmazás elrejtése",
+    "showApp": "Alkalmazás megjelenítése",
+    "screenCapture": "Képernyőrögzítés",
+    "ruleFor": "Megvilágítási szabály ehhez:",
+    "effectFor": "Effektus ehhez:",
+    "musicEffects": "Zenei effektek",
+    "effectPickerTitle": "Effektus kiválasztása",
+    "noEffects": "Nincsenek elérhető effektek"
   }
 }

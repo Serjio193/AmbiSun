@@ -139,8 +139,48 @@ function setLedDevice(state, callback, optionsOverride) {
     rpc(payload, callback, optionsOverride);
 }
 
+function getEffects(callback, optionsOverride) {
+    getStatus(function(err, result) {
+        if (err) return callback(err, null);
+        var info = result && (result.info || result);
+        var effects = info && Array.isArray(info.effects) ? info.effects : [];
+        var names = [];
+        var seen = {};
+        effects.forEach(function(effect) {
+            var name = typeof effect === "string" ? effect : (effect && effect.name);
+            if (!name || name === "System Shutdown" || seen[name]) return;
+            seen[name] = true;
+            names.push(name);
+        });
+        names.sort(function(a, b) { return a.localeCompare(b); });
+        callback(null, names);
+    }, optionsOverride);
+}
+
+function setEffect(name, callback, optionsOverride) {
+    if (typeof name !== "string" || name.trim() === "") {
+        var err = new Error("effect name is required");
+        err.code = "INVALID_REQUEST";
+        return process.nextTick(function() { callback(err, null); });
+    }
+    rpc({
+        command: "effect",
+        effect: { name: name, args: {} },
+        priority: 64,
+        duration: -1,
+        origin: "AmbiSun"
+    }, callback, optionsOverride);
+}
+
+function clearEffect(callback, optionsOverride) {
+    rpc({ command: "clear", priority: 64 }, callback, optionsOverride);
+}
+
 module.exports = {
     rpc: rpc,
     getStatus: getStatus,
-    setLedDevice: setLedDevice
+    setLedDevice: setLedDevice,
+    getEffects: getEffects,
+    setEffect: setEffect,
+    clearEffect: clearEffect
 };

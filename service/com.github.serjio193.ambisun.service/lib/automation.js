@@ -73,21 +73,40 @@ function processQueue() {
         return done(null);
     }
     
-    // Apply
+    // Apply. An effect occupies AmbiSun's private HyperHDR priority channel.
     var options = (cfg.hyperhdr && cfg.hyperhdr.host)
         ? { host: cfg.hyperhdr.host, port: cfg.hyperhdr.port }
         : undefined;
 
-    hyperhdr.setLedDevice(result.state, function(err, ok) {
+    var sourceId = job.source && job.source.id;
+    var effectRule = sourceId && cfg.effectOverrides ? cfg.effectOverrides[sourceId] : null;
+    if (!effectRule && cfg.defaultEffect) effectRule = { mode: "effect", name: cfg.defaultEffect };
+    var useEffect = result.state && effectRule && effectRule.mode === "effect" && effectRule.name;
+
+    hyperhdr.clearEffect(function(clearErr) {
+        if (clearErr) return done(clearErr);
+        if (!result.state) {
+            return hyperhdr.setLedDevice(false, finishApply, options);
+        }
+        if (useEffect) {
+            return hyperhdr.setEffect(effectRule.name, function(effectErr) {
+                if (effectErr) return done(effectErr);
+                hyperhdr.setLedDevice(true, finishApply, options);
+            }, options);
+        }
+        hyperhdr.setLedDevice(true, finishApply, options);
+    }, options);
+
+    function finishApply(err) {
         if (!err) {
             state.lastAppliedState = result.state;
             state.lastAppliedAt = new Date().toISOString();
             state.lastApplySkipped = false;
-            state.lastApplyReason = "APPLIED";
+            state.lastApplyReason = useEffect ? "APPLIED_EFFECT" : "APPLIED_CAPTURE";
             state.hasAppliedInitialState = true;
         }
         done(err);
-    }, options);
+    }
 }
 
 function enqueueEvaluate(trigger, forceApply, callback) {

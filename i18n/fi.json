@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Kieli",
     "defaultRule": "Oletussääntö uusille sovelluksille",
+    "defaultEffect": "Suosikkitehoste uusille sovelluksille",
+    "defaultEffectTitle": "Suosikkitehoste",
     "reset": "Palauta asetukset",
     "saved": "Asetukset tallennettu"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Paina OK yrittääksesi uudelleen",
     "pressOkToLoad": "Paina OK ladataksesi lähteet",
     "hdmiInputs": "HDMI-tulot",
-    "apps": "Sovellukset"
+    "apps": "Sovellukset",
+    "hint": "Valitse sääntö ja tehoste jokaiselle sovellukselle",
+    "hiddenList": "Piilotetut sovellukset",
+    "showHidden": "Näytä piilotetut",
+    "showApps": "Näytä sovellukset",
+    "noHidden": "Piilotettuja sovelluksia ei ole",
+    "hideApp": "Piilota sovellus",
+    "showApp": "Näytä sovellus",
+    "screenCapture": "Näytön kaappaus",
+    "ruleFor": "Valaistussääntö sovellukselle",
+    "effectFor": "Tehoste sovellukselle",
+    "musicEffects": "Musiikkitehosteet",
+    "effectPickerTitle": "Valitse tehoste",
+    "noEffects": "Tehosteita ei ole saatavilla"
   }
 }

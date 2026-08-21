@@ -60,7 +60,13 @@
     en: {
       nav: { home: "Home", sources: "Sources & apps", sun: "Sun & schedule", settings: "Settings", language: "Language", about: "About" },
       common: { yes: "Yes", no: "No", back: "Back", change: "Change", minimize: "Minimize" },
-      rule: { sun: "By sun", on: "Always ON", off: "Always OFF" }
+      rule: { sun: "By sun", on: "Always ON", off: "Always OFF" },
+      sources: { hint: "Choose a rule and effect for each application", hiddenList: "Hidden applications", showHidden: "Show hidden", showApps: "Show applications", noHidden: "There are no hidden applications", hideApp: "Hide application", showApp: "Show application", screenCapture: "Screen capture", ruleFor: "Lighting rule for", effectFor: "Effect for", musicEffects: "Music effects", effectPickerTitle: "Select effect", noEffects: "No effects available" },
+      settings: { defaultEffect: "Favorite effect for new apps", defaultEffectTitle: "Favorite effect" }
+    },
+    ru: {
+      sources: { hint: "Выберите правило и эффект для каждого приложения", hiddenList: "Скрытые приложения", showHidden: "Показать скрытые", showApps: "Показать приложения", noHidden: "Скрытых приложений нет", hideApp: "Скрыть приложение", showApp: "Показать приложение", screenCapture: "Захват экрана", ruleFor: "Правило подсветки для", effectFor: "Эффект для", musicEffects: "Музыкальные эффекты", effectPickerTitle: "Выбор эффекта", noEffects: "Нет доступных эффектов" },
+      settings: { defaultEffect: "Любимый эффект для новых приложений", defaultEffectTitle: "Любимый эффект" }
     }
   };
 
@@ -71,7 +77,15 @@
     const parts = key.split('.');
     let cur = I18N;
     for (const p of parts) {
-      if (!cur || typeof cur !== 'object' || !(p in cur)) return fallback;
+      if (!cur || typeof cur !== 'object' || !(p in cur)) {
+        const fallbackTree = I18N_FALLBACK[I18N_LANG] || I18N_FALLBACK.en;
+        let fallbackValue = fallbackTree;
+        for (const fallbackPart of parts) {
+          if (!fallbackValue || typeof fallbackValue !== 'object' || !(fallbackPart in fallbackValue)) return fallback;
+          fallbackValue = fallbackValue[fallbackPart];
+        }
+        return typeof fallbackValue === 'string' ? fallbackValue : fallback;
+      }
       cur = cur[p];
     }
     return typeof cur === 'string' ? cur : fallback;

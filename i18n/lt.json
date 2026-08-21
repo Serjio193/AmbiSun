@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Kalba",
     "defaultRule": "Numatytoji taisyklė naujoms programoms",
+    "defaultEffect": "Mėgstamas efektas naujoms programėlėms",
+    "defaultEffectTitle": "Mėgstamas efektas",
     "reset": "Atkurti nustatymus",
     "saved": "Nustatymai išsaugoti"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "Paspauskite OK, kad bandytumėte dar kartą",
     "pressOkToLoad": "Paspauskite OK, kad įkeltumėte šaltinius",
     "hdmiInputs": "HDMI įvestys",
-    "apps": "Programėlės"
+    "apps": "Programėlės",
+    "hint": "Pasirinkite kiekvienos programėlės taisyklę ir efektą",
+    "hiddenList": "Paslėptos programėlės",
+    "showHidden": "Rodyti paslėptas",
+    "showApps": "Rodyti programėles",
+    "noHidden": "Paslėptų programėlių nėra",
+    "hideApp": "Slėpti programėlę",
+    "showApp": "Rodyti programėlę",
+    "screenCapture": "Ekrano fiksavimas",
+    "ruleFor": "Apšvietimo taisyklė programėlei",
+    "effectFor": "Efektas programėlei",
+    "musicEffects": "Muzikos efektai",
+    "effectPickerTitle": "Pasirinkite efektą",
+    "noEffects": "Efektų nėra"
   }
 }

@@ -10,6 +10,7 @@
 <script defer src="js/hyperhdr.js"></script>
 <script defer src="js/location.js"></script>
 <script defer src="js/sources.js"></script>
+<script defer src="js/effect-picker.js"></script>
 <script defer src="js/navigation.js"></script>
 <script defer src="js/startup.js"></script>
 <script defer src="js/plasma.js"></script>
@@ -135,6 +136,12 @@
   <div class="list-item actionable" data-action="cycle-default-rule" role="button" tabindex="-1">
     <span>☀</span><span data-i18n="settings.defaultRule">Правило для новых приложений</span>
     <span class="mode sun" data-default-rule-badge="true">По солнцу</span>
+  </div>
+
+  <!-- Favorite effect for new apps -->
+  <div class="list-item" id="defaultEffectSetting">
+    <span>✨</span><span data-i18n="settings.defaultEffect">Любимый эффект для новых приложений</span>
+    <button type="button" class="mode default-effect-button actionable" data-action="open-default-effect" aria-haspopup="screen">Захват экрана ›</button>
   </div>
 
   <!-- Language -->

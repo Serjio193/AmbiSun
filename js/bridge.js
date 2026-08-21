@@ -194,10 +194,13 @@
         configRevision = res.revision;
         AmbiSun.state.enabled = !!cfg.enabled;
         AmbiSun.state.defaultRule = cfg.defaultRule || 'sun';
+        AmbiSun.state.defaultEffect = cfg.defaultEffect || null;
         AmbiSun.state.sunsetOffset = typeof cfg.sunsetOffset === 'number' ? cfg.sunsetOffset : 0;
         AmbiSun.state.sunriseOffset = typeof cfg.sunriseOffset === 'number' ? cfg.sunriseOffset : 0;
         if (cfg.location) AmbiSun.state.location = cfg.location;
         if (cfg.overrides) AmbiSun.state.sourceRules = cfg.overrides;
+        AmbiSun.state.effectOverrides = cfg.effectOverrides || {};
+        AmbiSun.state.hiddenSources = cfg.hiddenSources || {};
         if (cfg.hyperhdr) {
           AmbiSun.state.hyperhdr = {
             host: cfg.hyperhdr.host || '127.0.0.1',
@@ -220,6 +223,8 @@
         if (typeof window.updateBoolean === 'function') window.updateBoolean('enabled');
         if (AmbiSun.location && AmbiSun.location.updateUI) AmbiSun.location.updateUI();
         if (AmbiSun.sources && AmbiSun.sources.updateDefaultRule) AmbiSun.sources.updateDefaultRule();
+        if (AmbiSun.sources && AmbiSun.sources.updateDefaultEffect) AmbiSun.sources.updateDefaultEffect();
+        if (AmbiSun.sources && AmbiSun.sources.renderSourceList) AmbiSun.sources.renderSourceList();
       })
       .catch(function(e) {
         console.warn('[bridge] syncConfig failed:', e && e.message);
@@ -323,11 +328,15 @@
         }
         if (res.sources && res.sources.length > 0) {
           AmbiSun.state.sourceCatalog = res.sources;
+          res.sources.forEach(function(source) {
+            if (AmbiSun.sources && AmbiSun.sources.addObservedSource) AmbiSun.sources.addObservedSource(source);
+          });
         }
 
         if (AmbiSun.sources && AmbiSun.sources.renderSourceList) {
           AmbiSun.sources.renderSourceList();
         }
+        if (AmbiSun.sources && AmbiSun.sources.refreshEffects) AmbiSun.sources.refreshEffects(false);
       })
       .catch(function(e) {
         var timeoutMsg = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.timeout', 'Timeout') : 'Timeout';

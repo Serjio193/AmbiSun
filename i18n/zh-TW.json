@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "語言",
     "defaultRule": "新應用的預設規則",
+    "defaultEffect": "新應用程式的最愛效果",
+    "defaultEffectTitle": "最愛效果",
     "reset": "重設設定",
     "saved": "設定已儲存"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "按 OK 重試",
     "pressOkToLoad": "按 OK 載入訊號源",
     "hdmiInputs": "HDMI 輸入",
-    "apps": "應用程式"
+    "apps": "應用程式",
+    "hint": "為每個應用程式選擇規則和效果",
+    "hiddenList": "隱藏的應用程式",
+    "showHidden": "顯示隱藏項目",
+    "showApps": "顯示應用程式",
+    "noHidden": "沒有隱藏的應用程式",
+    "hideApp": "隱藏應用程式",
+    "showApp": "顯示應用程式",
+    "screenCapture": "螢幕擷取",
+    "ruleFor": "應用程式照明規則",
+    "effectFor": "應用程式效果",
+    "musicEffects": "音樂效果",
+    "effectPickerTitle": "選擇效果",
+    "noEffects": "沒有可用效果"
   }
 }

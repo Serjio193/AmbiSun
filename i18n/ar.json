@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "اللغة",
     "defaultRule": "القاعدة الافتراضية للتطبيقات الجديدة",
+    "defaultEffect": "التأثير المفضل للتطبيقات الجديدة",
+    "defaultEffectTitle": "التأثير المفضل",
     "reset": "إعادة ضبط الإعدادات",
     "saved": "تم حفظ الإعدادات"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "اضغط OK لإعادة المحاولة",
     "pressOkToLoad": "اضغط OK لتحميل المصادر",
     "hdmiInputs": "مداخل HDMI",
-    "apps": "التطبيقات"
+    "apps": "التطبيقات",
+    "hint": "اختر قاعدة وتأثيرًا لكل تطبيق",
+    "hiddenList": "التطبيقات المخفية",
+    "showHidden": "إظهار المخفية",
+    "showApps": "إظهار التطبيقات",
+    "noHidden": "لا توجد تطبيقات مخفية",
+    "hideApp": "إخفاء التطبيق",
+    "showApp": "إظهار التطبيق",
+    "screenCapture": "التقاط الشاشة",
+    "ruleFor": "قاعدة الإضاءة لـ",
+    "effectFor": "التأثير لـ",
+    "musicEffects": "التأثيرات الموسيقية",
+    "effectPickerTitle": "اختر التأثير",
+    "noEffects": "لا توجد تأثيرات متاحة"
   }
 }

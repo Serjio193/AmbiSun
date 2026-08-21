@@ -37,6 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "שפה",
     "defaultRule": "כלל ברירת מחדל ליישומים חדשים",
+    "defaultEffect": "אפקט מועדף ליישומים חדשים",
+    "defaultEffectTitle": "אפקט מועדף",
     "reset": "איפוס הגדרות",
     "saved": "ההגדרות נשמרו"
   },
@@ -131,6 +133,19 @@
     "pressOkToRetry": "לחץ על OK כדי לנסות שוב",
     "pressOkToLoad": "לחץ על OK כדי לטעון מקורות",
     "hdmiInputs": "כניסות HDMI",
-    "apps": "יישומים"
+    "apps": "יישומים",
+    "hint": "בחר כלל ואפקט לכל יישום",
+    "hiddenList": "יישומים מוסתרים",
+    "showHidden": "הצג מוסתרים",
+    "showApps": "הצג יישומים",
+    "noHidden": "אין יישומים מוסתרים",
+    "hideApp": "הסתר יישום",
+    "showApp": "הצג יישום",
+    "screenCapture": "לכידת מסך",
+    "ruleFor": "כלל תאורה עבור",
+    "effectFor": "אפקט עבור",
+    "musicEffects": "אפקטים מוזיקליים",
+    "effectPickerTitle": "בחר אפקט",
+    "noEffects": "אין אפקטים זמינים"
   }
 }

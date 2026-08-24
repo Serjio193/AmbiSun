@@ -51,7 +51,13 @@
     "testing": "Bağlantı test ediliyor...",
     "available": "HyperHDR kullanılabilir",
     "unavailable": "Kullanılamıyor",
-    "invalid": "Geçersiz adres veya bağlantı noktası"
+    "invalid": "Geçersiz adres veya bağlantı noktası",
+    "setupHint": "Aydınlatma TV'ye bağlı değilse HyperHDR sunucusunun IP adresini ve bağlantı noktasını girin.",
+    "skip": "Atla",
+    "startupTitle": "Kararlı HyperHDR başlangıcı",
+    "startupDescription": "Kararlı çalışma için HyperHDR'de “Başlangıçta LED'leri kapat” ayarını etkinleştirmenizi öneririz. Bu, TV başlatıldığında veya uyandırıldığında aydınlatmanın kendiliğinden açılmasını önler.",
+    "startupPath": "HyperHDR → Genel ayarlar → Başlangıçta LED'leri kapat",
+    "continue": "Devam et"
   },
   "about": {
     "version": "Sürüm",

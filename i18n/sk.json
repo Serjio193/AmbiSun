@@ -51,7 +51,13 @@
     "testing": "Testovanie pripojenia...",
     "available": "HyperHDR je k dispozícii",
     "unavailable": "Nedostupné",
-    "invalid": "Neplatná adresa alebo port"
+    "invalid": "Neplatná adresa alebo port",
+    "setupHint": "Ak osvetlenie nie je pripojené k televízoru, zadajte IP adresu a port servera HyperHDR.",
+    "skip": "Preskočiť",
+    "startupTitle": "Stabilné spustenie HyperHDR",
+    "startupDescription": "Pre stabilnú prevádzku odporúčame v HyperHDR zapnúť nastavenie „Vypnúť LED pri spustení“. Zabráni sa tým samovoľnému zapnutiu osvetlenia pri spustení alebo prebudení televízora.",
+    "startupPath": "HyperHDR → Všeobecné nastavenia → Vypnúť LED pri spustení",
+    "continue": "Pokračovať"
   },
   "about": {
     "version": "Verzia",

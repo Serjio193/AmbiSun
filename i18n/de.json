@@ -51,7 +51,13 @@
     "testing": "Verbindung wird getestet...",
     "available": "HyperHDR verfügbar",
     "unavailable": "Nicht verfügbar",
-    "invalid": "Ungültige Adresse oder Port"
+    "invalid": "Ungültige Adresse oder Port",
+    "setupHint": "Wenn die Beleuchtung nicht mit dem Fernseher verbunden ist, geben Sie IP-Adresse und Port des HyperHDR-Servers ein.",
+    "skip": "Überspringen",
+    "startupTitle": "Stabiler HyperHDR-Start",
+    "startupDescription": "Für einen stabilen Betrieb empfehlen wir, in HyperHDR die Einstellung „LEDs beim Start ausschalten“ zu aktivieren. Dadurch wird verhindert, dass sich die Beleuchtung beim Start oder Aufwachen des Fernsehers selbst einschaltet.",
+    "startupPath": "HyperHDR → Allgemeine Einstellungen → LEDs beim Start ausschalten",
+    "continue": "Weiter"
   },
   "about": {
     "version": "Version",

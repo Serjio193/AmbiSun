@@ -51,7 +51,13 @@
     "testing": "正在测试连接...",
     "available": "HyperHDR 可用",
     "unavailable": "不可用",
-    "invalid": "无效的地址或端口"
+    "invalid": "无效的地址或端口",
+    "setupHint": "如果灯光未连接到电视，请输入 HyperHDR 服务器的 IP 地址和端口。",
+    "skip": "跳过",
+    "startupTitle": "稳定启动 HyperHDR",
+    "startupDescription": "为确保稳定运行，建议在 HyperHDR 中启用“启动时关闭 LED”设置。这样可防止电视启动或唤醒时灯光自行亮起。",
+    "startupPath": "HyperHDR → 常规设置 → 启动时关闭 LED",
+    "continue": "继续"
   },
   "about": {
     "version": "版本",

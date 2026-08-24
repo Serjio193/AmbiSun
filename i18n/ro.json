@@ -51,7 +51,13 @@
     "testing": "Se testează conexiunea...",
     "available": "HyperHDR disponibil",
     "unavailable": "Indisponibil",
-    "invalid": "Adresă sau port nevalid"
+    "invalid": "Adresă sau port nevalid",
+    "setupHint": "Dacă iluminarea nu este conectată la televizor, introduceți adresa IP și portul serverului HyperHDR.",
+    "skip": "Omite",
+    "startupTitle": "Pornire stabilă HyperHDR",
+    "startupDescription": "Pentru o funcționare stabilă, recomandăm activarea în HyperHDR a opțiunii „Oprește LED-urile la pornire”. Astfel, iluminarea nu se aprinde singură la pornirea sau trezirea televizorului.",
+    "startupPath": "HyperHDR → Setări generale → Oprește LED-urile la pornire",
+    "continue": "Continuă"
   },
   "about": {
     "version": "Versiune",

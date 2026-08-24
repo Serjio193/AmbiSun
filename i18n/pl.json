@@ -51,7 +51,13 @@
     "testing": "Testowanie połączenia...",
     "available": "HyperHDR dostępny",
     "unavailable": "Niedostępny",
-    "invalid": "Nieprawidłowy adres lub port"
+    "invalid": "Nieprawidłowy adres lub port",
+    "setupHint": "Jeśli podświetlenie nie jest podłączone do telewizora, wpisz adres IP i port serwera HyperHDR.",
+    "skip": "Pomiń",
+    "startupTitle": "Stabilny start HyperHDR",
+    "startupDescription": "Aby zapewnić stabilne działanie, zalecamy włączyć w HyperHDR opcję „Wyłącz diody LED przy uruchomieniu”. Zapobiega to samoczynnemu włączeniu podświetlenia podczas uruchamiania lub wybudzania telewizora.",
+    "startupPath": "HyperHDR → Ustawienia ogólne → Wyłącz diody LED przy uruchomieniu",
+    "continue": "Kontynuuj"
   },
   "about": {
     "version": "Wersja",

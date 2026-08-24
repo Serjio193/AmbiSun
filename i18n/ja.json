@@ -51,7 +51,13 @@
     "testing": "接続テスト中...",
     "available": "HyperHDR 利用可能",
     "unavailable": "利用不可",
-    "invalid": "無効なアドレスまたはポートです"
+    "invalid": "無効なアドレスまたはポートです",
+    "setupHint": "照明がテレビに接続されていない場合は、HyperHDR サーバーの IP アドレスとポートを入力してください。",
+    "skip": "スキップ",
+    "startupTitle": "HyperHDR の安定した起動",
+    "startupDescription": "安定して動作させるため、HyperHDR の「起動時に LED を無効化」を有効にすることをおすすめします。テレビの起動時や復帰時に照明が勝手に点灯するのを防げます。",
+    "startupPath": "HyperHDR → 一般設定 → 起動時に LED を無効化",
+    "continue": "続行"
   },
   "about": {
     "version": "バージョン",

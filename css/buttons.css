@@ -193,6 +193,24 @@
   text-align:center;
 }
 
+.onboarding-recommendation-copy{
+  margin-bottom:14px;
+}
+
+.onboarding-setting-path{
+  padding:14px 16px;
+  margin-bottom:20px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  color:#eef2f7;
+  background:rgba(0,0,0,.14);
+  line-height:1.4;
+}
+
+.onboarding-recommendation-actions{
+  grid-template-columns:1fr;
+}
+
 .onboarding-actions{
   grid-template-columns:repeat(3,minmax(0,1fr));
 }

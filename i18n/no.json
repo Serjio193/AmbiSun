@@ -51,7 +51,13 @@
     "testing": "Tester tilkobling...",
     "available": "HyperHDR er tilgjengelig",
     "unavailable": "Utilgjengelig",
-    "invalid": "Ugyldig adresse eller port"
+    "invalid": "Ugyldig adresse eller port",
+    "setupHint": "Hvis belysningen ikke er koblet til TV-en, skriver du inn IP-adressen og porten til HyperHDR-serveren.",
+    "skip": "Hopp over",
+    "startupTitle": "Stabil oppstart av HyperHDR",
+    "startupDescription": "For stabil drift anbefaler vi å aktivere innstillingen «Slå av LED-er ved oppstart» i HyperHDR. Dette hindrer at belysningen slås på av seg selv når TV-en starter eller våkner.",
+    "startupPath": "HyperHDR → Generelle innstillinger → Slå av LED-er ved oppstart",
+    "continue": "Fortsett"
   },
   "about": {
     "version": "Versjon",

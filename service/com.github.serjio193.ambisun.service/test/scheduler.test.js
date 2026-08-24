@@ -71,10 +71,26 @@ assert.strictEqual(scheduler.getNextSolarEvent({ ...baseConfig, defaultRule: "on
 // 10. defaultRule=off -> cancel/no activity
 assert.strictEqual(scheduler.getNextSolarEvent({ ...baseConfig, defaultRule: "off" }, winterMorning), null);
 
-// 11. missing location -> no activity
+// 11. A source-level solar rule still needs wakeups when the global rule is on.
+ev = scheduler.getNextSolarEvent({
+    ...baseConfig,
+    defaultRule: "on",
+    overrides: { "HDMI_1": "sun" }
+}, winterDay);
+assert.strictEqual(ev.type, "sunset");
+
+// 12. A source-level solar rule still needs wakeups when the global rule is off.
+ev = scheduler.getNextSolarEvent({
+    ...baseConfig,
+    defaultRule: "off",
+    overrides: { "HDMI_1": "sun" }
+}, winterMorning);
+assert.strictEqual(ev.type, "sunrise");
+
+// 13. missing location -> no activity
 assert.strictEqual(scheduler.getNextSolarEvent({ ...baseConfig, location: null }, winterMorning), null);
 
-// 12. polar day/night safe behavior
+// 14. polar day/night safe behavior
 const polarConfig = { ...baseConfig, location: { lat: SVALBARD_LAT, lon: SVALBARD_LON, timezone: "Arctic/Longyearbyen" } };
 assert.strictEqual(scheduler.getNextSolarEvent(polarConfig, winterDay), null); // polar night
 const summerDay = new Date(Date.UTC(2026, 5, 21, 12, 0, 0));

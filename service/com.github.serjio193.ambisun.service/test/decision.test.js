@@ -70,6 +70,16 @@ assert.strictEqual(res.action, "set");
 assert.strictEqual(res.state, false);
 assert.strictEqual(res.reason, "RULE_FORCE_OFF");
 
+// 7b. source-level off overrides a global always-on rule, even at night
+res = decision.evaluate({
+    config: { ...baseConfig, defaultRule: "on" },
+    source: { id: "HDMI_2" },
+    now: winterDateNight
+});
+assert.strictEqual(res.action, "set");
+assert.strictEqual(res.state, false);
+assert.strictEqual(res.reason, "RULE_FORCE_OFF");
+
 // 8. matching override sun
 res = decision.evaluate({ config: { ...baseConfig, defaultRule: "on" }, source: { id: "HDMI_3" }, now: winterDateNoon });
 assert.strictEqual(res.action, "set");

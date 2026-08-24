@@ -11,6 +11,9 @@ var state = {
     lastDecisionAt: null,
     lastTrigger: null,
     lastAppliedState: null,
+    lastAppliedProfile: null,
+    lastAppliedBrightness: null,
+    brightnessBaseline: null,
     lastAppliedAt: null,
     lastApplySkipped: false,
     lastApplyReason: null,
@@ -66,13 +69,6 @@ function processQueue() {
         return done(null);
     }
     
-    // Duplicate suppression
-    if (!job.forceApply && state.lastAppliedState === result.state) {
-        state.lastApplySkipped = true;
-        state.lastApplyReason = "DUPLICATE_STATE";
-        return done(null);
-    }
-    
     // Apply. An effect occupies AmbiSun's private HyperHDR priority channel.
     var options = (cfg.hyperhdr && cfg.hyperhdr.host)
         ? { host: cfg.hyperhdr.host, port: cfg.hyperhdr.port }
@@ -82,6 +78,47 @@ function processQueue() {
     var effectRule = sourceId && cfg.effectOverrides ? cfg.effectOverrides[sourceId] : null;
     if (!effectRule && cfg.defaultEffect) effectRule = { mode: "effect", name: cfg.defaultEffect };
     var useEffect = result.state && effectRule && effectRule.mode === "effect" && effectRule.name;
+    var brightness = sourceId && cfg.sourceBrightness && typeof cfg.sourceBrightness[sourceId] === "number"
+        ? cfg.sourceBrightness[sourceId] : (typeof cfg.brightness === "number" ? cfg.brightness : 50);
+    var useBrightness = result.state ? brightness : null;
+    var restoreBrightness = result.state && useBrightness === null && state.lastAppliedBrightness !== null && state.brightnessBaseline !== null
+        ? state.brightnessBaseline : null;
+    var profileKey = JSON.stringify({
+        sourceId: sourceId || null,
+        effect: useEffect ? effectRule.name : null,
+        brightness: useBrightness
+    });
+
+    // Avoid duplicate writes, but re-apply when source-specific settings change.
+    if (!job.forceApply && state.lastAppliedState === result.state && state.lastAppliedProfile === profileKey) {
+        state.lastApplySkipped = true;
+        state.lastApplyReason = "DUPLICATE_STATE";
+        return done(null);
+    }
+
+    function applyBrightness(next) {
+        var target = useBrightness !== null ? useBrightness : restoreBrightness;
+        if (target === null || typeof hyperhdr.setBrightness !== "function") return next();
+
+        function writeBrightness() {
+            hyperhdr.setBrightness(target, function(brightnessErr) {
+                if (brightnessErr) return done(brightnessErr);
+                next();
+            }, options);
+        }
+
+        if (useBrightness !== null && state.brightnessBaseline === null && typeof hyperhdr.getStatus === "function") {
+            return hyperhdr.getStatus(function(statusErr, status) {
+                if (statusErr) return done(statusErr);
+                var info = status && (status.info || status);
+                var adjustment = info && Array.isArray(info.adjustment) ? info.adjustment[0] : null;
+                if (!adjustment || typeof adjustment.brightness !== "number") return done(new Error("HyperHDR brightness is unavailable"));
+                state.brightnessBaseline = adjustment.brightness;
+                writeBrightness();
+            }, options);
+        }
+        writeBrightness();
+    }
 
     hyperhdr.clearEffect(function(clearErr) {
         if (clearErr) return done(clearErr);
@@ -91,15 +128,17 @@ function processQueue() {
         if (useEffect) {
             return hyperhdr.setEffect(effectRule.name, function(effectErr) {
                 if (effectErr) return done(effectErr);
-                hyperhdr.setLedDevice(true, finishApply, options);
+                applyBrightness(function() { hyperhdr.setLedDevice(true, finishApply, options); });
             }, options);
         }
-        hyperhdr.setLedDevice(true, finishApply, options);
+        applyBrightness(function() { hyperhdr.setLedDevice(true, finishApply, options); });
     }, options);
 
     function finishApply(err) {
         if (!err) {
             state.lastAppliedState = result.state;
+            state.lastAppliedProfile = profileKey;
+            state.lastAppliedBrightness = result.state ? useBrightness : null;
             state.lastAppliedAt = new Date().toISOString();
             state.lastApplySkipped = false;
             state.lastApplyReason = useEffect ? "APPLIED_EFFECT" : "APPLIED_CAPTURE";

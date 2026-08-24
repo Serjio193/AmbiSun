@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Kalba",
     "defaultRule": "Numatytoji taisyklė naujoms programoms",
-    "defaultEffect": "Mėgstamas efektas naujoms programėlėms",
-    "defaultEffectTitle": "Mėgstamas efektas",
+    "defaultEffect": "Pagrindinis efektas pagal saulę",
+    "defaultEffectTitle": "Pagrindinis efektas pagal saulę",
     "reset": "Atkurti nustatymus",
     "saved": "Nustatymai išsaugoti"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versija",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licencija: MIT"
+    "license": "Licencija: MIT",
+    "licenseSummary": "MIT yra leidžianti licencija: programinę įrangą galima naudoti, keisti, platinti ir naudoti komerciniais tikslais, jei išsaugomas autorių teisių pranešimas ir licencijos tekstas.",
+    "close": "Uždaryti"
   },
   "update": {
     "available": "Yra atnaujinimas",
@@ -71,6 +73,7 @@
     "scan": "Nuskaitykite QR kodą telefonu"
   },
   "rule": {
+    "default": "Išjungta",
     "sun": "Pagal saulę",
     "on": "Visada ĮJUNGTA",
     "off": "Visada IŠJUNGTA"

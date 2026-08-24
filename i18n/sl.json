@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Jezik",
     "defaultRule": "Privzeto pravilo za nove aplikacije",
-    "defaultEffect": "Priljubljeni učinek za nove aplikacije",
-    "defaultEffectTitle": "Priljubljeni učinek",
+    "defaultEffect": "Glavni učinek glede na sonce",
+    "defaultEffectTitle": "Glavni učinek glede na sonce",
     "reset": "Ponastavi nastavitve",
     "saved": "Nastavitve shranjene"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Različica",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licenca: MIT"
+    "license": "Licenca: MIT",
+    "licenseSummary": "MIT je permisivna licenca: programsko opremo lahko uporabljate, spreminjate, distribuirate in uporabljate v komercialne namene, če ohranite obvestilo o avtorskih pravicah in besedilo licence.",
+    "close": "Zapri"
   },
   "update": {
     "available": "Na voljo je posodobitev",
@@ -71,6 +73,7 @@
     "scan": "S telefonom optično preberite kodo QR"
   },
   "rule": {
+    "default": "Onemogočeno",
     "sun": "Po soncu",
     "on": "Vedno VKLOPLJENO",
     "off": "Vedno IZKLOPLJENO"

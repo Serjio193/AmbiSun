@@ -243,7 +243,12 @@ function continueLegacyTests() {
                                 
                                 var goodDoc = { schemaVersion: 1, revision: 10, config: JSON.parse(JSON.stringify(config.get().config)) };
                                 assert.strictEqual(config._validateDocument(goodDoc), null);
-                                
+
+                                assert.strictEqual(config._validatePatch({ sourceBrightness: { "app.test": 50 } }), null);
+                                assert.ok(config._validatePatch({ sourceBrightness: { "app.test": 101 } }));
+                                assert.strictEqual(config._validatePatch({ brightness: 50 }), null);
+                                assert.ok(config._validatePatch({ brightness: 101 }));
+
                                 goodDoc.config.defaultRule = "banana";
                                 assert.ok(config._validateDocument(goodDoc));
                                 

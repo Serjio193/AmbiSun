@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "語言",
     "defaultRule": "新應用的預設規則",
-    "defaultEffect": "新應用程式的最愛效果",
-    "defaultEffectTitle": "最愛效果",
+    "defaultEffect": "依日照運行的主要效果",
+    "defaultEffectTitle": "依日照運行的主要效果",
     "reset": "重設設定",
     "saved": "設定已儲存"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "版本",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "授權條款: MIT"
+    "license": "授權條款: MIT",
+    "licenseSummary": "MIT 是一種寬鬆的授權條款：只要保留版權聲明和授權條款文字，您就可以使用、修改、散布軟體，並將其用於商業用途。",
+    "close": "關閉"
   },
   "update": {
     "available": "有可用更新",
@@ -71,6 +73,7 @@
     "scan": "使用手機掃描 QR 碼"
   },
   "rule": {
+    "default": "已停用",
     "sun": "按日出日落",
     "on": "始終開啟",
     "off": "始終關閉"

@@ -44,8 +44,8 @@
     
     const titleEl = document.getElementById('screenTitle');
     if (titleEl) {
-      // Use i18n key convention nav.{id}
-      titleEl.textContent = AmbiSun.i18n.t('nav.' + id, id);
+      const titleKey = screenEl.dataset.titleKey || ('nav.' + id);
+      titleEl.textContent = AmbiSun.i18n.t(titleKey, id);
     }
 
     const nav = document.querySelector(`.nav-item[data-screen="${id}"]`);
@@ -58,11 +58,15 @@
   }
 
   function isVisible(el) {
-    return !!(el && el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+    if (!el || !el.getClientRects().length) return false;
+    const style = getComputedStyle(el);
+    return style.visibility !== 'hidden' && style.display !== 'none' &&
+      el.getAttribute('aria-hidden') !== 'true' && !el.disabled;
   }
 
   function visibleActions() {
-    return [...document.querySelectorAll('.actionable')].filter(isVisible);
+    return [...document.querySelectorAll('.actionable, [role="button"], input[type="range"]')]
+      .filter(isVisible);
   }
 
   function getScrollParent(el) {
@@ -104,6 +108,7 @@
     focusedEl = el;
     el.classList.add('ui-focus');
     scrollIntoViewIfNeeded(el);
+    try { el.dispatchEvent(new CustomEvent('ambisun-focus')); } catch (_) {}
   }
 
   function getFocusedElement() {
@@ -122,16 +127,17 @@
       return;
     }
 
-    // Rule rows use LEFT / RIGHT to change their mode immediately.
+    // Source rows use LEFT / RIGHT to adjust their brightness.
     if ((direction === 'left' || direction === 'right') &&
-        (focusedEl.dataset.action === 'cycle-source-rule' ||
-         focusedEl.dataset.action === 'cycle-default-rule')) {
-      activate(focusedEl, direction === 'right' ? 1 : -1);
+        focusedEl.dataset.action === 'cycle-source-rule') {
+      if (AmbiSun.sources && AmbiSun.sources.adjustBrightness) {
+        AmbiSun.sources.adjustBrightness(focusedEl.dataset.source, direction === 'right' ? 1 : -1);
+      }
       return;
     }
 
     // Deterministic vertical navigation inside scrollable lists.
-    const listContainer = focusedEl.closest && (focusedEl.closest('#sourceList') || focusedEl.closest('#languageList') || focusedEl.closest('#effectPickerList') || focusedEl.closest('#language .page-card'));
+    const listContainer = focusedEl.closest && (focusedEl.closest('.source-list') || focusedEl.closest('#languageList') || focusedEl.closest('#effectPickerList') || focusedEl.closest('#language .page-card'));
     if (listContainer && (direction === 'up' || direction === 'down')) {
       const rows = [...listContainer.querySelectorAll('.list-item.actionable')];
       const index = rows.indexOf(focusedEl);
@@ -182,11 +188,6 @@
 
     document.addEventListener('keydown', e => {
       if (e.repeat) return; // Fix double press issue if TV sends repeats
-      // Pause plasma renderer to ensure UI is instantly responsive
-      if (AmbiSun.plasma && AmbiSun.plasma.pauseTemporary) {
-        AmbiSun.plasma.pauseTemporary();
-      }
-
 const key = e.key;
 
       if (key === 'Enter') {

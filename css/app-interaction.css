@@ -1,0 +1,321 @@
+/* --- AmbiSun interaction layer ------------------------------------------ */
+.actionable{
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  outline:none;
+  transition:
+    background .14s ease,
+    border-color .14s ease,
+    box-shadow .14s ease,
+  opacity .14s ease;
+}
+
+/* Every remote-navigable tile receives the same visible focus treatment. */
+.actionable.ui-focus,
+[role="button"].ui-focus,
+input[type="range"].ui-focus {
+  outline: none !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 28px rgba(0, 0, 0, 0.22) !important;
+}
+
+.nav-item.ui-focus,
+.list-item.ui-focus,
+.row.ui-focus,
+.pill.ui-focus,
+.support-method.ui-focus{
+  border-color:rgba(255,255,255,.22) !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.22),
+      rgba(255,255,255,.115) 55%,
+      rgba(255,255,255,.07)
+    ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    0 10px 28px rgba(0,0,0,.22) !important;
+}
+
+.stepper button.actionable{
+  border:1px solid transparent;
+  border-radius:12px;
+}
+
+.stepper button.actionable.ui-focus{
+  background:rgba(255,255,255,.16) !important;
+  border-color:rgba(255,255,255,.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    0 5px 18px rgba(0,0,0,.18);
+}
+
+.actionable[data-action="toggle-setting"] .mode,
+.actionable[data-action="toggle-plasma"] .mode,
+.actionable[data-action="cycle-source-rule"] .mode{
+  min-width:108px;
+  text-align:center;
+}
+
+.language-selected{
+  color:#fff;
+  background:rgba(255,255,255,.10);
+}
+
+/* --- Location wizard --------------------------------------------------- */
+.location-wizard{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:70px;
+  background:rgba(2,5,12,.58);
+}
+.location-wizard.open{display:flex}
+
+.location-dialog{
+  width:min(980px,88vw);
+  max-height:82vh;
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.035)),
+    rgba(6,10,20,.74);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    0 28px 80px rgba(0,0,0,.42);
+}
+
+.location-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:24px 28px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.location-title{font-size:28px;font-weight:700}
+.location-step{font-size:16px;color:var(--muted)}
+
+.location-body{
+  padding:26px 28px 30px;
+  max-height:62vh;
+  overflow:auto;
+}
+.location-lead{
+  font-size:22px;
+  line-height:1.45;
+  margin-bottom:20px;
+}
+.location-detected{
+  font-size:30px;
+  font-weight:700;
+  margin:10px 0 24px;
+}
+
+.location-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.location-choice-list{
+  display:grid;
+  gap:10px;
+}
+.location-choice,
+.location-big-button{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:0 22px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.075);
+  background:rgba(4,8,17,.60);
+  color:#eef2f7;
+  font-size:21px;
+}
+.location-choice small{
+  color:var(--muted);
+  font-size:15px;
+}
+.location-choice.ui-focus,
+.location-big-button.ui-focus{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.10)) !important;
+  border-color:rgba(255,255,255,.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.26),
+    0 10px 28px rgba(0,0,0,.22);
+}
+.location-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:15px;
+}
+.location-current{
+  padding:12px 16px;
+  border-radius:12px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.065);
+}
+
+
+
+
+
+/* --- AmbiSun startup / first launch ----------------------------------- */
+html.ambisun-booting .app,
+html.ambisun-booting #hyperPlasma,
+html.ambisun-booting .plasma-dim {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.startup-screen{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#000;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .48s ease, visibility .48s ease;
+}
+.startup-screen.open{
+  opacity:1;
+  visibility:visible;
+}
+.startup-screen.first-run{
+  background:#000 !important;
+}
+.startup-screen.closing{
+  opacity:0;
+  visibility:hidden;
+}
+
+.startup-brand{
+  position:relative;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  pointer-events:none;
+  transform:translateY(-2vh);
+}
+
+.startup-title{
+  font-size:112px;
+  line-height:.95;
+  font-weight:850;
+  letter-spacing:-4px;
+  color:#fff;
+  text-shadow:
+    0 0 34px rgba(255,255,255,.06),
+    0 12px 42px rgba(0,0,0,.45);
+}
+
+.startup-title .ambi{
+  color:#fff;
+}
+
+.startup-title .sun{
+  background:
+    linear-gradient(
+      90deg,
+      #ff3b30 0%,
+      #ff9500 18%,
+      #ffd60a 34%,
+      #34c759 49%,
+      #00c7be 63%,
+      #0a84ff 76%,
+      #bf5af2 89%,
+      #ff375f 100%
+    );
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.startup-language-panel{
+  position:absolute;
+  left:4.2vw;
+  right:4.2vw;
+  bottom:6.2vh;
+  z-index:3;
+  display:none;
+}
+.startup-screen.first-run .startup-language-panel{
+  display:block;
+}
+
+.startup-language-list{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+}
+
+.startup-language{
+  min-height:76px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  text-align:center;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(20,20,22,.90);
+  color:#f4f5f7;
+  font-size:22px;
+  font-weight:620;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 8px 24px rgba(0,0,0,.30);
+}
+
+.startup-language small{
+  color:rgba(225,230,238,.48);
+  font-size:13px;
+  font-weight:600;
+}
+
+.startup-language.ui-focus{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.20),
+      rgba(255,255,255,.105)
+    ) !important;
+  border-color:rgba(255,255,255,.26) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.26),
+    0 12px 34px rgba(0,0,0,.38) !important;
+}
+
+.startup-language.other{
+  border-style:dashed;
+}
+
+@media (max-width:1200px){
+  .startup-title{font-size:88px}
+  .startup-language-list{grid-template-columns:repeat(3,1fr)}
+}
+

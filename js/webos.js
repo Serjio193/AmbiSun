@@ -139,6 +139,13 @@
   function detectCountryByIp() { return requestService("detectCountryByIp", {}); }
   function getLocationCountries() { return requestService("getLocationCountries", {}); }
   function getHyperhdrStatus(params) { return requestService("getHyperhdrStatus", params || {}); }
+  function previewHyperhdrEffect(name, durationMs, brightness) {
+    const payload = { name: name };
+    if (typeof durationMs === "number") payload.durationMs = durationMs;
+    if (typeof brightness === "number") payload.brightness = brightness;
+    return requestService("previewHyperhdrEffect", payload);
+  }
+  function clearHyperhdrPreview() { return requestService("clearHyperhdrPreview", {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
   function checkForUpdate() { return requestService("checkForUpdate", {}); }
@@ -149,6 +156,8 @@
   AmbiSun.webos.requestService = requestService;
   AmbiSun.webos.getSystemStatus = getSystemStatus;
   AmbiSun.webos.getHyperhdrStatus = getHyperhdrStatus;
+  AmbiSun.webos.previewHyperhdrEffect = previewHyperhdrEffect;
+  AmbiSun.webos.clearHyperhdrPreview = clearHyperhdrPreview;
   AmbiSun.webos.getConfig = getConfig;
   AmbiSun.webos.updateConfig = updateConfig;
   AmbiSun.webos.resetConfig = resetConfig;

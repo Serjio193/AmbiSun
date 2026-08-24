@@ -4,6 +4,8 @@
   window.AmbiSun = window.AmbiSun || {};
   var CAPTURE = "capture";
   var currentSourceId = null;
+  var returnScreenId = "sources";
+  var pendingValue = null;
   var isDefaultMode = false;
 
   function t(key, fallback) {
@@ -34,6 +36,7 @@
   }
 
   function selectedValue() {
+    if (pendingValue !== null) return pendingValue;
     return isDefaultMode ? (AmbiSun.state.defaultEffect || CAPTURE) : currentValue(currentSourceId);
   }
 
@@ -62,7 +65,7 @@
         '<div class="card page-card effect-picker-card">' +
           '<div class="effect-picker-head">' +
             '<div class="effect-picker-title" id="effectPickerTitle"></div>' +
-            '<button type="button" class="effect-picker-back actionable" data-action="close-effect-picker">' +
+            '<button type="button" class="effect-picker-back windows-action-button actionable" data-action="close-effect-picker">' +
               '<span aria-hidden="true">←</span> ' +
               '<span data-i18n="common.back">Back</span>' +
             '</button>' +
@@ -115,12 +118,44 @@
       row.appendChild(radio);
       row.appendChild(label);
       list.appendChild(row);
+      row.addEventListener("ambisun-focus", function () {
+        if (pendingValue !== item.value) preview(item.value);
+      });
     });
   }
 
-  function open(sourceId) {
+  function preview(value) {
+    if (!value || !AmbiSun.webos) return Promise.resolve();
+    pendingValue = value;
+    var request = value === CAPTURE
+      ? (AmbiSun.webos.clearHyperhdrPreview ? AmbiSun.webos.clearHyperhdrPreview() : Promise.resolve())
+      : (AmbiSun.webos.previewHyperhdrEffect ? AmbiSun.webos.previewHyperhdrEffect(value) : Promise.resolve());
+    return Promise.resolve(request).catch(function () {}).then(function () {
+      render();
+      var row = null;
+      Array.prototype.some.call(document.querySelectorAll("#effectPickerList .effect-picker-item"), function (candidate) {
+        if (candidate.dataset.effect === value) {
+          row = candidate;
+          return true;
+        }
+        return false;
+      });
+      if (row && AmbiSun.navigation && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(row);
+    });
+  }
+
+  function clearPreview() {
+    if (pendingValue === null || !AmbiSun.webos || !AmbiSun.webos.clearHyperhdrPreview) return Promise.resolve();
+    return AmbiSun.webos.clearHyperhdrPreview().catch(function () {}).then(function () {
+      pendingValue = null;
+    });
+  }
+
+  function open(sourceId, sourceScreenId) {
     isDefaultMode = false;
     currentSourceId = sourceId;
+    returnScreenId = sourceScreenId || "sources";
+    pendingValue = null;
     ensureScreen();
     AmbiSun.navigation.openScreen("effectPicker");
     render();
@@ -131,6 +166,8 @@
   function openDefault() {
     isDefaultMode = true;
     currentSourceId = null;
+    returnScreenId = "settings";
+    pendingValue = null;
     ensureScreen();
     AmbiSun.navigation.openScreen("effectPicker");
     render();
@@ -140,9 +177,11 @@
 
   function close() {
     var source = currentSourceId;
-    var returnScreen = isDefaultMode ? "settings" : "sources";
+    var returnScreen = isDefaultMode ? "settings" : returnScreenId;
+    clearPreview();
     AmbiSun.navigation.openScreen(returnScreen);
     currentSourceId = null;
+    returnScreenId = "sources";
     if (isDefaultMode) {
       isDefaultMode = false;
       var defaultButton = document.querySelector('[data-action="open-default-effect"]');
@@ -160,15 +199,17 @@
 
   function select(value) {
     if (!value) return;
-    if (isDefaultMode) {
-      if (AmbiSun.app && AmbiSun.app.setDefaultEffect) AmbiSun.app.setDefaultEffect(value);
-    } else if (currentSourceId) {
-      if (AmbiSun.app && AmbiSun.app.setSourceEffect) AmbiSun.app.setSourceEffect(currentSourceId, value);
-    } else {
-      return;
-    }
-    close();
+    clearPreview().then(function () {
+      if (isDefaultMode) {
+        if (AmbiSun.app && AmbiSun.app.setDefaultEffect) AmbiSun.app.setDefaultEffect(value);
+      } else if (currentSourceId) {
+        if (AmbiSun.app && AmbiSun.app.setSourceEffect) AmbiSun.app.setSourceEffect(currentSourceId, value);
+      } else {
+        return;
+      }
+      close();
+    });
   }
 
-  AmbiSun.effectPicker = { open: open, openDefault: openDefault, close: close, select: select, label: valueLabel, render: render };
+  AmbiSun.effectPicker = { open: open, openDefault: openDefault, close: close, preview: preview, select: select, label: valueLabel, render: render };
 })();

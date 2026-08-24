@@ -10,6 +10,8 @@
   var configRevision = null;
   var directElevationAttempted = false;
   var directElevationInProgress = false;
+  var hyperhdrReachable = null;
+  var sourceMonitorTimer = null;
 
   // ---- Time formatting ----
   function fmt(isoStr, tz) {
@@ -43,16 +45,12 @@
 
   function fmtOffset(n) {
     if (n == null) return '';
-    return (AmbiSun.sun && AmbiSun.sun.formatOffset)
-      ? AmbiSun.sun.formatOffset(n, true)
-      : ('(' + (n >= 0 ? '+' : '') + n + ' min)');
+    return AmbiSun.sunFormat.formatOffset(n, true);
   }
 
   function fmtOffsetStepper(n) {
     if (n == null) n = 0;
-    return (AmbiSun.sun && AmbiSun.sun.formatOffset)
-      ? AmbiSun.sun.formatOffset(n, false)
-      : ((n >= 0 ? '+' : '') + n + ' min');
+    return AmbiSun.sunFormat.formatOffset(n, false);
   }
 
   function setText(id, val) {
@@ -63,6 +61,7 @@
   // ---- System Status check (elevation gate) ----
   function checkSystemStatus() {
     if (isChecking) return Promise.resolve();
+    startSourceMonitor();
     isChecking = true;
     return AmbiSun.webos.getSystemStatus()
       .then(function(res) {
@@ -153,6 +152,8 @@
 
     directElevationInProgress = false;
 
+    startSourceMonitor();
+
     if (!isElevated) {
       isElevated = true;
       if (elevWizard && elevWizard.getAttribute('aria-hidden') === 'false') {
@@ -167,22 +168,63 @@
     syncSources();
   }
 
+  // webOS can stop a dynamic service when it has no active Luna request.
+  // Keep our own service warm from the app process so its foreground-source
+  // polling remains available while AmbiSun is minimized behind another app.
+  function pollCurrentSource() {
+    if (!AmbiSun.webos || !AmbiSun.webos.getCurrentSource) return;
+    AmbiSun.webos.getCurrentSource().catch(function (err) {
+      console.warn('[bridge] source monitor failed:', err && err.message);
+    });
+  }
+
+  function startSourceMonitor() {
+    if (sourceMonitorTimer || !AmbiSun.webos || !AmbiSun.webos.getCurrentSource) return;
+    pollCurrentSource();
+    sourceMonitorTimer = setInterval(pollCurrentSource, 1000);
+  }
+
   function updateHyperhdrBadge(status) {
     var badge = document.getElementById('hyperhdrStatusBadge');
-    if (!badge) return;
+    var navBadge = document.getElementById('hyperhdrNavStatusBadge');
+    if (!badge && !navBadge) return;
+    if (status !== undefined) {
+      hyperhdrReachable = status === true || status === 'ok' ? true :
+        (status === false || status === 'error' ? false : null);
+    }
     var hdr = AmbiSun.state.hyperhdr || { host: '127.0.0.1', port: 8090 };
     var ep = hdr.host + ':' + hdr.port;
-    if (status === true || status === 'ok') {
-      badge.textContent = ep + ' OK ›';
-      badge.className = 'mode on';
-    } else if (status === false || status === 'error') {
-      var unavail = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable') : 'Unavailable';
-      badge.textContent = ep + ' ' + unavail + ' ›';
-      badge.className = 'mode off';
-    } else {
-      badge.textContent = ep + ' ›';
-      badge.className = 'mode';
+    var stateClass = hyperhdrReachable === true ? 'on' : (hyperhdrReachable === false ? 'off' : 'unknown');
+    if (badge) {
+      if (hyperhdrReachable === true) {
+        badge.textContent = ep + ' OK ›';
+      } else if (hyperhdrReachable === false) {
+        var unavail = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable') : 'Unavailable';
+        badge.textContent = ep + ' ' + unavail + ' ›';
+      } else {
+        badge.textContent = ep + ' ›';
+      }
+      badge.className = 'mode hyperhdr-status-badge ' + stateClass;
     }
+    if (navBadge) {
+      navBadge.className = 'hyperhdr-status-indicator ' + stateClass;
+      navBadge.setAttribute('title', hyperhdrReachable === false ? 'HyperHDR unavailable' :
+        (hyperhdrReachable === true ? 'HyperHDR available' : 'HyperHDR status unknown'));
+    }
+  }
+
+  function checkHyperhdrReachability(endpoint) {
+    var target = endpoint || AmbiSun.state.hyperhdr || { host: '127.0.0.1', port: 8090 };
+    return AmbiSun.webos.getHyperhdrStatus(target)
+      .then(function(res) {
+        var reachable = !!(res && res.returnValue && res.hyperhdr && res.hyperhdr.reachable);
+        updateHyperhdrBadge(reachable);
+        return reachable;
+      })
+      .catch(function() {
+        updateHyperhdrBadge(false);
+        return false;
+      });
   }
 
   // ---- Config sync ----
@@ -197,10 +239,13 @@
         AmbiSun.state.defaultEffect = cfg.defaultEffect || null;
         AmbiSun.state.sunsetOffset = typeof cfg.sunsetOffset === 'number' ? cfg.sunsetOffset : 0;
         AmbiSun.state.sunriseOffset = typeof cfg.sunriseOffset === 'number' ? cfg.sunriseOffset : 0;
-        if (cfg.location) AmbiSun.state.location = cfg.location;
+        AmbiSun.state.brightness = typeof cfg.brightness === 'number' ? cfg.brightness : 50;
+        if (Object.prototype.hasOwnProperty.call(cfg, 'location')) AmbiSun.state.location = cfg.location;
         if (cfg.overrides) AmbiSun.state.sourceRules = cfg.overrides;
         AmbiSun.state.effectOverrides = cfg.effectOverrides || {};
+        AmbiSun.state.sourceBrightness = cfg.sourceBrightness || {};
         AmbiSun.state.hiddenSources = cfg.hiddenSources || {};
+        if (typeof window.updateBrightnessUi === 'function') window.updateBrightnessUi();
         if (cfg.hyperhdr) {
           AmbiSun.state.hyperhdr = {
             host: cfg.hyperhdr.host || '127.0.0.1',
@@ -222,7 +267,6 @@
 
         if (typeof window.updateBoolean === 'function') window.updateBoolean('enabled');
         if (AmbiSun.location && AmbiSun.location.updateUI) AmbiSun.location.updateUI();
-        if (AmbiSun.sources && AmbiSun.sources.updateDefaultRule) AmbiSun.sources.updateDefaultRule();
         if (AmbiSun.sources && AmbiSun.sources.updateDefaultEffect) AmbiSun.sources.updateDefaultEffect();
         if (AmbiSun.sources && AmbiSun.sources.renderSourceList) AmbiSun.sources.renderSourceList();
       })
@@ -348,13 +392,15 @@
   }
 
   function renderSourcesLoading() {
-    var list = document.getElementById('sourceList');
-    if (!list) return;
-    // Only show spinner if list is currently empty
-    if (list.children.length === 0) {
+    var lists = Array.prototype.slice.call(document.querySelectorAll('.source-list'));
+    if (!lists.length) return;
+    lists.forEach(function(list) {
+      // Only show spinner if the page list is currently empty
+      if (list.children.length === 0) {
       var loadingText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.loading', 'Loading...') : 'Loading...';
-      list.innerHTML = '<div style="padding:32px;color:var(--muted);font-size:18px;text-align:center">⏳ ' + loadingText + '</div>';
-    }
+        list.innerHTML = '<div style="padding:32px;color:var(--muted);font-size:18px;text-align:center">⏳ ' + loadingText + '</div>';
+      }
+    });
   }
 
   function renderSourcesError(msg) {
@@ -365,27 +411,30 @@
       }
       return;
     }
-    var list = document.getElementById('sourceList');
-    if (!list) return;
+    var lists = Array.prototype.slice.call(document.querySelectorAll('.source-list'));
+    if (!lists.length) return;
     var errorText = msg || ((AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('status.error', 'Error') : 'Error');
     var retryText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('sources.pressOkToRetry', 'Press OK to retry') : 'Press OK to retry';
-    list.innerHTML =
-      '<div style="padding:32px;color:var(--danger);font-size:18px;text-align:center">' +
-      '⚠ ' + errorText + '</div>' +
-      '<div style="padding:8px 32px;color:var(--muted);font-size:15px;text-align:center">' +
-      retryText + '</div>';
-    // Allow retry via OK on this element
-    var retryEl = list.firstChild;
-    if (retryEl) {
-      retryEl.className = 'actionable';
-      retryEl.dataset.action = 'sources-retry';
-      retryEl.setAttribute('tabindex', '-1');
-      retryEl.setAttribute('role', 'button');
-    }
+    lists.forEach(function(list) {
+      list.innerHTML =
+        '<div style="padding:32px;color:var(--danger);font-size:18px;text-align:center">' +
+        '⚠ ' + errorText + '</div>' +
+        '<div style="padding:8px 32px;color:var(--muted);font-size:15px;text-align:center">' +
+        retryText + '</div>';
+      // Allow retry via OK on this element
+      var retryEl = list.firstChild;
+      if (retryEl) {
+        retryEl.className = 'actionable';
+        retryEl.dataset.action = 'sources-retry';
+        retryEl.setAttribute('tabindex', '-1');
+        retryEl.setAttribute('role', 'button');
+      }
+    });
   }
 
   // ---- Config mutation ----
-  function mutateConfig(patch) {
+  function mutateConfig(patch, options) {
+    options = options || {};
     var rev = configRevision != null ? configRevision : (AmbiSun.state.configRevision || 1);
     return AmbiSun.webos.updateConfig(patch, rev)
       .then(function(res) {
@@ -393,8 +442,8 @@
           configRevision = res.revision;
           AmbiSun.state.configRevision = res.revision;
           // Re-sync authoritative values quietly
-          syncConfig();
-          syncSolar();
+          if (!options.skipSync) syncConfig();
+          if (!options.skipSolarSync) syncSolar();
           return true;
         } else if (res && res.errorCode === 'REVISION_CONFLICT') {
           syncConfig();
@@ -420,114 +469,6 @@
       });
   }
 
-  // ---- Screen-aware refresh ----
-  var lastUpdateCheck = 0;
-  var UPDATE_CHECK_TTL = 900000; // 15 minutes
-
-  function checkForUpdate(force) {
-    var now = Date.now();
-    if (!force && (now - lastUpdateCheck) < UPDATE_CHECK_TTL) {
-      return Promise.resolve();
-    }
-    lastUpdateCheck = now;
-
-    return AmbiSun.webos.checkForUpdate()
-      .then(function(res) {
-        if (!res || !res.returnValue) return;
-
-        if (res.currentVersion) {
-          var verEl = document.getElementById('aboutVersionNumber');
-          if (verEl) verEl.textContent = res.currentVersion;
-        }
-
-        AmbiSun.state.update = res;
-
-        var badge = document.getElementById('aboutUpdateBadge');
-        if (badge) {
-          badge.classList.toggle('visible', !!res.updateAvailable);
-        }
-
-        var panel = document.getElementById('updateAvailablePanel');
-        if (panel) {
-          if (res.updateAvailable) {
-            panel.style.display = 'block';
-            var titleEl = document.getElementById('updateTitle');
-            if (titleEl) {
-              var availText = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('update.available', 'Update available') : 'Update available';
-              titleEl.textContent = availText + ' ' + (res.latestVersion || '');
-            }
-            var notesEl = document.getElementById('updateNotes');
-            if (notesEl) {
-              var lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
-              var notesText = (res.notes && (res.notes[lang] || res.notes.en || res.notes.ru)) || '';
-              notesEl.textContent = typeof notesText === 'string' ? notesText : '';
-            }
-          } else {
-            panel.style.display = 'none';
-          }
-        }
-      })
-      .catch(function(e) {
-        console.warn('[bridge] checkForUpdate error:', e && e.message);
-      });
-  }
-
-  function onScreenOpen(screenId) {
-    if (!isElevated) return;
-    if (screenId === 'home') {
-      syncSolar();
-      syncSources();
-    } else if (screenId === 'sources') {
-      syncSources(true);
-    } else if (screenId === 'settings') {
-      syncConfig();
-      syncSolar();
-    } else if (screenId === 'about') {
-      checkForUpdate();
-    }
-  }
-
-  // ---- Elevation retry ----
-  var elevRetries = 0;
-  function startElevationRetry(onComplete) {
-    elevRetries = 0;
-    doElevationRetry(onComplete);
-  }
-
-  function doElevationRetry(onComplete) {
-    if (elevRetries >= 8) {
-      elevRetries = 0;
-      if (typeof onComplete === 'function') onComplete(false);
-      return;
-    }
-    elevRetries++;
-    setTimeout(function() {
-      checkSystemStatus().then(function() {
-        if (!isElevated) {
-          doElevationRetry(onComplete);
-        } else {
-          elevRetries = 0;
-          if (typeof onComplete === 'function') onComplete(true);
-        }
-      }).catch(function() {
-        if (!isElevated) {
-          doElevationRetry(onComplete);
-        } else {
-          elevRetries = 0;
-          if (typeof onComplete === 'function') onComplete(true);
-        }
-      });
-    }, 1500);
-  }
-
-  // ---- Visibility change ----
-  document.addEventListener('visibilitychange', function() {
-    if (!document.hidden && isElevated) {
-      // Full sync on return from background
-      checkSystemStatus();
-    }
-  });
-
   // ---- Public API ----
   AmbiSun.bridge.checkSystemStatus = checkSystemStatus;
   AmbiSun.bridge.mutateConfig = mutateConfig;
@@ -535,9 +476,8 @@
   AmbiSun.bridge.syncSolar = syncSolar;
   AmbiSun.bridge.reRenderSolar = reRenderSolar;
   AmbiSun.bridge.syncSources = syncSources;
-  AmbiSun.bridge.checkForUpdate = checkForUpdate;
-  AmbiSun.bridge.onScreenOpen = onScreenOpen;
-  AmbiSun.bridge.startElevationRetry = startElevationRetry;
   AmbiSun.bridge.updateHyperhdrBadge = updateHyperhdrBadge;
+  AmbiSun.bridge.checkHyperhdrReachability = checkHyperhdrReachability;
+  AmbiSun.bridge.pollCurrentSource = pollCurrentSource;
   AmbiSun.bridge.isElevated = function() { return isElevated; };
 })();

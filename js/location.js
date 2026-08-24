@@ -4,15 +4,6 @@
   window.AmbiSun = window.AmbiSun || {};
   AmbiSun.location = AmbiSun.location || {};
 
-  const CONTINENT_ORDER = [
-    'Europe',
-    'Asia',
-    'Africa',
-    'North America',
-    'South America',
-    'Oceania'
-  ];
-
   const CONTINENT_I18N = {
     'Europe': 'region.europe',
     'Asia': 'region.asia',
@@ -24,6 +15,7 @@
 
   const wizardState = {
     step: 'confirm-country', // 'confirm-country' | 'regions' | 'countries' | 'cities'
+    onboarding: false,
     region: null,
     countryCode: 'EE',
     countryName: null,
@@ -33,167 +25,32 @@
     cities: []
   };
 
-  let countryCatalogCache = null;
-  const cityCache = {};
-  const CITY_CACHE_TTL = 3600 * 1000;
+  const locationData = window.AmbiSun.locationData;
 
-  async function getCountryCatalog() {
-    if (countryCatalogCache) {
-      return countryCatalogCache;
-    }
-
-    try {
-      const res = await AmbiSun.webos.getLocationCountries();
-      if (res && res.returnValue && res.catalog) {
-        countryCatalogCache = res.catalog;
-        return countryCatalogCache;
-      }
-    } catch (e) {}
-
-    return null;
-  }
-
-  function getCountryName(countryCode) {
-    if (wizardState.countryCode === countryCode && wizardState.countryName) {
-      return wizardState.countryName;
-    }
-
-    if (countryCatalogCache) {
-      for (const countries of Object.values(countryCatalogCache)) {
-        if (Array.isArray(countries)) {
-          const found = countries.find(c => c.code === countryCode);
-          if (found) {
-            return found.name;
-          }
-        }
-      }
-    }
-
-    return countryCode;
-  }
-
-  async function getRegions() {
-    const catalog = await getCountryCatalog();
-    if (!catalog) return null;
-
-    const available = Object.keys(catalog).filter(r => Array.isArray(catalog[r]) && catalog[r].length > 0);
-    const sorted = [];
-
-    for (const cont of CONTINENT_ORDER) {
-      if (available.includes(cont)) {
-        sorted.push(cont);
-      }
-    }
-
-    for (const cont of available) {
-      if (!sorted.includes(cont)) {
-        sorted.push(cont);
-      }
-    }
-
-    return sorted;
-  }
-
-  async function getCountries(region) {
-    const catalog = await getCountryCatalog();
-    if (!catalog || !Array.isArray(catalog[region])) {
-      return null;
-    }
-
-    return catalog[region];
-  }
-
-  async function fetchCityPage(countryCode, offset, limit) {
-    offset = typeof offset === 'number' && offset >= 0 ? offset : 0;
-    limit = typeof limit === 'number' && limit > 0 ? limit : 60;
-
-    const cacheKey = countryCode + '_' + offset + '_' + limit;
-    const cached = cityCache[cacheKey];
-    const now = Date.now();
-
-    if (cached && (now - cached.ts) < CITY_CACHE_TTL && Array.isArray(cached.cities)) {
-      return cached;
-    }
-
-    try {
-      const res = await AmbiSun.webos.searchLocations({
-        countryCode: countryCode,
-        offset: offset,
-        limit: limit
-      });
-
-      if (res && res.returnValue && Array.isArray(res.cities)) {
-        const data = {
-          ts: now,
-          total: typeof res.total === 'number' ? res.total : res.cities.length,
-          offset: typeof res.offset === 'number' ? res.offset : offset,
-          limit: typeof res.limit === 'number' ? res.limit : limit,
-          cities: res.cities
-        };
-        cityCache[cacheKey] = data;
-        return data;
-      }
-    } catch (e) {}
-
-    return null;
+  function getCountryCatalog() { return locationData.getCountryCatalog(); }
+  function getCountryName(countryCode) { return locationData.getCountryName(countryCode, wizardState); }
+  function getRegions() { return locationData.getRegions(); }
+  function getCountries(region) { return locationData.getCountries(region); }
+  function fetchCityPage(countryCode, offset, limit) {
+    return locationData.fetchCityPage(countryCode, offset, limit);
   }
 
   async function detectCountry() {
-    try {
-      const res = await AmbiSun.webos.detectCountryByIp();
-
-      if (res && res.returnValue && res.country && res.country.countryCode) {
-        wizardState.countryCode = res.country.countryCode;
-        wizardState.countryName = res.country.name || res.country.countryCode;
-
-        return {
-          country: wizardState.countryName,
-          countryCode: wizardState.countryCode,
-          provider: 'countries.dev'
-        };
-      }
-    } catch (e) {}
-
-    const fallback = window.AmbiSun.state.location || {
-      country: 'Estonia',
-      countryCode: 'EE'
-    };
-
-    wizardState.countryCode = fallback.countryCode || 'EE';
-    wizardState.countryName = fallback.country || fallback.countryCode || 'Estonia';
-
-    return {
-      country: wizardState.countryName,
-      countryCode: wizardState.countryCode,
-      provider: 'fallback'
-    };
+    const detected = await locationData.detectCountry();
+    wizardState.countryCode = detected.countryCode;
+    wizardState.countryName = detected.country;
+    return detected;
   }
 
   // -------------------------------------------------
   // Location wizard UI
   // -------------------------------------------------
 
-  function updateUI() {
-    const state = window.AmbiSun.state;
-    if (!state.location || !state.location.city) return;
-    const text = state.location.city + ', ' + state.location.country;
-    const fullText = '📍 ' + text;
-    // Home card location display
-    const display = document.getElementById('locationDisplay');
-    if (display) display.textContent = fullText;
-    // Settings badge
-    const badge = document.getElementById('settingsLocationBadge');
-    if (badge) badge.textContent = text;
-    // Also update any .location .left elements
-    document.querySelectorAll('.location .left').forEach(el => {
-      el.textContent = fullText;
-    });
-  }
-
-  function openWizard() {
+  function openWizard(options) {
     const w = document.getElementById('locationWizard');
     if (!w) return;
 
+    wizardState.onboarding = !!(options && options.onboarding);
     wizardState.step = 'confirm-country';
     wizardState.region = null;
     wizardState.countryName = null;
@@ -212,6 +69,7 @@
     if (!w) return;
     w.classList.remove('open');
     w.setAttribute('aria-hidden', 'true');
+    wizardState.onboarding = false;
 
     const locationButton = document.querySelector('.location .pill');
     if (locationButton && AmbiSun.navigation && AmbiSun.navigation.setFocus) {
@@ -220,6 +78,11 @@
   }
 
   function back() {
+    if (wizardState.step === 'hyperhdr') {
+      wizardState.step = 'cities';
+      renderWizard();
+      return;
+    }
     if (wizardState.step === 'confirm-country') {
       closeWizard();
       return;
@@ -244,6 +107,11 @@
         <span>${label}${detail ? `<small>${detail}</small>` : ''}</span>
         <span>›</span>
       </div>`;
+  }
+
+  function locationBackButton() {
+    return `<div class="windows-location-backbar"><div class="windows-action-button actionable" data-action="location-back" role="button" tabindex="-1" aria-label="${AmbiSun.i18n.t('common.back', 'Back')}">` +
+      `<span>← ${AmbiSun.i18n.t('common.back', 'Back')}</span></div></div>`;
   }
 
   async function renderWizard() {
@@ -427,15 +295,58 @@
             </div>
           </div>`;
       }
+    } else if (wizardState.step === 'hyperhdr') {
+      stepLabel.textContent = 'HyperHDR';
+      const hdr = window.AmbiSun.state.hyperhdr || { host: '127.0.0.1', port: 8090 };
+      const isRussian = AmbiSun.i18n.currentLanguage && AmbiSun.i18n.currentLanguage() === 'ru';
+      const setupHint = isRussian
+        ? 'Если подсветка находится не на телевизоре, укажите IP-адрес и порт сервера HyperHDR.'
+        : 'If the lighting is not connected to the TV, enter the HyperHDR server IP address and port.';
+      const skipLabel = isRussian ? 'Пропустить' : 'Skip';
+      html = `
+        <div class="location-lead">HyperHDR</div>
+        <div class="onboarding-copy">${setupHint}</div>
+        <div class="onboarding-inputs">
+          <div class="setting-field">
+            <label class="setting-input-label" for="onboardingHyperhdrHost">${AmbiSun.i18n.t('hyperhdr.host', 'Server address:')}</label>
+            <input class="actionable text-input" id="onboardingHyperhdrHost" type="text" value="${hdr.host || '127.0.0.1'}" spellcheck="false" autocomplete="off" />
+          </div>
+          <div class="setting-field">
+            <label class="setting-input-label" for="onboardingHyperhdrPort">${AmbiSun.i18n.t('hyperhdr.port', 'Port:')}</label>
+            <input class="actionable text-input" id="onboardingHyperhdrPort" type="number" min="1" max="65535" value="${hdr.port || 8090}" />
+          </div>
+        </div>
+        <div id="onboardingHyperhdrResult" class="onboarding-status"></div>
+        <div class="location-actions onboarding-actions">
+          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-test" role="button" tabindex="-1">
+            <span>${AmbiSun.i18n.t('hyperhdr.test', 'Test')}</span><span>›</span>
+          </div>
+          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-save" role="button" tabindex="-1">
+            <span>${AmbiSun.i18n.t('hyperhdr.save', 'Save')}</span><span>✓</span>
+          </div>
+          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-skip" role="button" tabindex="-1">
+            <span>${skipLabel}</span><span>›</span>
+          </div>
+        </div>`;
+    }
+
+    if (html) {
+      html = locationBackButton() + html;
     }
 
     if (content.innerHTML !== html) {
       content.innerHTML = html;
+      content.querySelectorAll('.location-footer [data-action="location-back"]')
+        .forEach(button => button.remove());
+    }
 
-      const first = content.querySelector('.actionable');
-      if (first && AmbiSun.navigation && AmbiSun.navigation.setFocus) {
-        AmbiSun.navigation.setFocus(first);
-      }
+    if (AmbiSun.buttons && AmbiSun.buttons.apply) {
+      AmbiSun.buttons.apply(content);
+    }
+
+    const first = content.querySelector('.actionable');
+    if (first && AmbiSun.navigation && AmbiSun.navigation.setFocus) {
+      AmbiSun.navigation.setFocus(first);
     }
   }
 
@@ -492,6 +403,13 @@
     );
 
     updateUI();
+
+    if (wizardState.onboarding) {
+      wizardState.step = 'hyperhdr';
+      renderWizard();
+      return null;
+    }
+
     closeWizard();
 
     return cityName + ", " + countryName;
@@ -551,7 +469,7 @@
   AmbiSun.location.closeWizard = closeWizard;
   AmbiSun.location.back = back;
   AmbiSun.location.renderWizard = renderWizard;
-  AmbiSun.location.updateUI = updateUI;
+  AmbiSun.location.updateUI = AmbiSun.locationDisplay.updateUI;
   AmbiSun.location.selectCity = selectCity;
 
   AmbiSun.location.wizardActionYes = actionCountryYes;
@@ -562,12 +480,6 @@
   AmbiSun.location.wizardActionCityNext = actionCityNext;
   AmbiSun.location.wizardActionCityPrev = actionCityPrev;
   AmbiSun.location.wizardCountryCode = function() { return wizardState.countryCode; };
-  AmbiSun.location.clearCityCache = function(code) {
-    if (code) {
-      for (const k of Object.keys(cityCache)) {
-        if (k.startsWith(code + '_')) delete cityCache[k];
-      }
-    }
-  };
-  AmbiSun.location.clearCatalogCache = function() { countryCatalogCache = null; };
+  AmbiSun.location.clearCityCache = locationData.clearCityCache;
+  AmbiSun.location.clearCatalogCache = locationData.clearCatalogCache;
 })();

@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Kieli",
     "defaultRule": "Oletussääntö uusille sovelluksille",
-    "defaultEffect": "Suosikkitehoste uusille sovelluksille",
-    "defaultEffectTitle": "Suosikkitehoste",
+    "defaultEffect": "Päätehoste auringon mukaan",
+    "defaultEffectTitle": "Päätehoste auringon mukaan",
     "reset": "Palauta asetukset",
     "saved": "Asetukset tallennettu"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versio",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Lisenssi: MIT"
+    "license": "Lisenssi: MIT",
+    "licenseSummary": "MIT on salliva lisenssi: ohjelmistoa saa käyttää, muokata, levittää ja hyödyntää kaupallisesti, kunhan tekijänoikeusilmoitus ja lisenssiteksti säilytetään.",
+    "close": "Sulje"
   },
   "update": {
     "available": "Päivitys saatavilla",
@@ -71,6 +73,7 @@
     "scan": "Skannaa QR-koodi puhelimellasi"
   },
   "rule": {
+    "default": "Pois käytöstä",
     "sun": "Auringon mukaan",
     "on": "Aina PÄÄLLÄ",
     "off": "Aina POIS"

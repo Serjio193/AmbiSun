@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Taal",
     "defaultRule": "Standaardregel voor nieuwe apps",
-    "defaultEffect": "Favoriet effect voor nieuwe apps",
-    "defaultEffectTitle": "Favoriet effect",
+    "defaultEffect": "Hoofdeffect op basis van de zon",
+    "defaultEffectTitle": "Hoofdeffect op basis van de zon",
     "reset": "Instellingen herstellen",
     "saved": "Instellingen opgeslagen"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versie",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licentie: MIT"
+    "license": "Licentie: MIT",
+    "licenseSummary": "MIT is een ruime licentie: je mag de software gebruiken, aanpassen, verspreiden en commercieel inzetten, zolang de copyrightvermelding en de licentietekst behouden blijven.",
+    "close": "Sluiten"
   },
   "update": {
     "available": "Update beschikbaar",
@@ -71,6 +73,7 @@
     "scan": "Scan de QR-code met uw telefoon"
   },
   "rule": {
+    "default": "Uitgeschakeld",
     "sun": "Op zonsopgang/-ondergang",
     "on": "Altijd AAN",
     "off": "Altijd UIT"

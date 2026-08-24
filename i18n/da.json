@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Sprog",
     "defaultRule": "Standardregel for nye apps",
-    "defaultEffect": "Favoriteffekt til nye apps",
-    "defaultEffectTitle": "Favoriteffekt",
+    "defaultEffect": "Hovedeffekt efter solen",
+    "defaultEffectTitle": "Hovedeffekt efter solen",
     "reset": "Nulstil indstillinger",
     "saved": "Indstillinger gemt"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Version",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licens: MIT"
+    "license": "Licens: MIT",
+    "licenseSummary": "MIT er en tilladende licens: Du må bruge, ændre, distribuere og anvende softwaren kommercielt, hvis meddelelsen om ophavsret og licensteksten bevares.",
+    "close": "Luk"
   },
   "update": {
     "available": "Opdatering tilgængelig",
@@ -71,6 +73,7 @@
     "scan": "Scan QR-koden med din telefon"
   },
   "rule": {
+    "default": "Deaktiveret",
     "sun": "Efter solen",
     "on": "Altid TÆNDT",
     "off": "Altid SLUKKET"

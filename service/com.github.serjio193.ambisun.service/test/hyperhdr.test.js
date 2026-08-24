@@ -64,7 +64,7 @@ function runTests() {
         var opts = { host: '127.0.0.1', port: port };
 
         var testsFinished = 0;
-        var totalTests = 11;
+        var totalTests = 13;
 
         function checkDone() {
             testsFinished++;
@@ -101,13 +101,31 @@ function runTests() {
             checkDone();
         }, opts);
 
-        // 6. Invalid boolean rejected
+        // 6. Brightness adjustment payload
+        hyperhdr.setBrightness(50, function(err, result) {
+            assert.ifError(err);
+            assert.strictEqual(result.echoBody.command, "adjustment");
+            assert.strictEqual(result.echoBody.adjustment.brightness, 50);
+            checkDone();
+        }, opts);
+
+        // 7. Effect preview payload includes HyperHDR's native duration
+        hyperhdr.setEffectWithPriorityDuration("Plasma", 128, 6000, function(err, result) {
+            assert.ifError(err);
+            assert.strictEqual(result.echoBody.command, "effect");
+            assert.strictEqual(result.echoBody.effect.name, "Plasma");
+            assert.strictEqual(result.echoBody.priority, 128);
+            assert.strictEqual(result.echoBody.duration, 6000);
+            checkDone();
+        }, opts);
+
+        // 8. Invalid boolean rejected
         hyperhdr.setLedDevice("true", function(err) {
             assert.strictEqual(err.code, "INVALID_REQUEST");
             checkDone();
         }, opts);
 
-        // 7. HTTP 500
+        // 8. HTTP 500
         var opts500 = Object.assign({}, opts, { path: '/error500' });
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "HYPERHDR_HTTP_ERROR");
@@ -115,28 +133,28 @@ function runTests() {
             checkDone();
         }, opts500);
 
-        // 8. Connection refused
+        // 9. Connection refused
         var optsRefused = { host: '127.0.0.1', port: port + 1 }; // Wrong port
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "HYPERHDR_UNREACHABLE");
             checkDone();
         }, optsRefused);
 
-        // 9. Timeout
+        // 10. Timeout
         var optsTimeout = Object.assign({}, opts, { path: '/timeout', timeout: 50 });
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "HYPERHDR_TIMEOUT");
             checkDone();
         }, optsTimeout);
 
-        // 10. Malformed JSON
+        // 11. Malformed JSON
         var optsBadJson = Object.assign({}, opts, { path: '/badjson' });
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "HYPERHDR_INVALID_JSON");
             checkDone();
         }, optsBadJson);
 
-        // 11. Application error
+        // 12. Application error
         var optsAppError = Object.assign({}, opts, { path: '/apperror' });
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "HYPERHDR_ERROR");
@@ -144,7 +162,7 @@ function runTests() {
             checkDone();
         }, optsAppError);
         
-        // 12. Response body limit
+        // 13. Response body limit
         var optsHuge = Object.assign({}, opts, { path: '/huge' });
         hyperhdr.rpc({}, function(err) {
             assert.strictEqual(err.code, "INTERNAL_ERROR");
@@ -152,7 +170,7 @@ function runTests() {
             checkDone();
         }, optsHuge);
 
-        // 14. Successful status request
+        // 15. Successful status request
         hyperhdr.getStatus(function(err, result) {
             assert.ifError(err);
             assert.strictEqual(result.echoBody.command, "serverinfo");

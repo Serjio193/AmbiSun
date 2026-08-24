@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Ngôn ngữ",
     "defaultRule": "Quy tắc mặc định cho ứng dụng mới",
-    "defaultEffect": "Hiệu ứng yêu thích cho ứng dụng mới",
-    "defaultEffectTitle": "Hiệu ứng yêu thích",
+    "defaultEffect": "Hiệu ứng chính theo mặt trời",
+    "defaultEffectTitle": "Hiệu ứng chính theo mặt trời",
     "reset": "Đặt lại cài đặt",
     "saved": "Đã lưu cài đặt"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Phiên bản",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Giấy phép: MIT"
+    "license": "Giấy phép: MIT",
+    "licenseSummary": "MIT là giấy phép cho phép sử dụng rộng rãi: bạn có thể sử dụng, sửa đổi, phân phối và sử dụng phần mềm cho mục đích thương mại, miễn là giữ lại thông báo bản quyền và nội dung giấy phép.",
+    "close": "Đóng"
   },
   "update": {
     "available": "Có bản cập nhật mới",
@@ -71,6 +73,7 @@
     "scan": "Quét mã QR bằng điện thoại của bạn"
   },
   "rule": {
+    "default": "Đã tắt",
     "sun": "Theo mặt trời",
     "on": "Luôn BẬT",
     "off": "Luôn TẮT"

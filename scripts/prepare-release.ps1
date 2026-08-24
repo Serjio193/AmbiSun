@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Добавлен предпросмотр эффектов HyperHDR, четыре режима для приложений и источников, основной эффект по солнцу, значки и скрытие приложений; улучшены навигация с пульта, настройка HyperHDR, первоначальная настройка после сброса и переводы',
-        en: 'Added HyperHDR effect previews, four app/source modes, a main solar effect, application icons, app hiding, improved remote navigation, HyperHDR setup, reset onboarding, and translations',
-        uk: 'Додано перегляд ефектів HyperHDR, чотири режими для програм і джерел, основний ефект за сонцем, піктограми та приховування програм; покращено навігацію пультом, налаштування HyperHDR, повторне початкове налаштування після скидання та переклади'
+        ru: 'Исправлено определение страны по IP и загрузка offline-базы стран и городов при первоначальной настройке',
+        en: 'Fixed IP-based country detection and loading of the offline country and city database during initial setup',
+        uk: 'Виправлено визначення країни за IP та завантаження офлайн-бази країн і міст під час початкового налаштування'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

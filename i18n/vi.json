@@ -51,7 +51,13 @@
     "testing": "Đang kiểm tra kết nối...",
     "available": "HyperHDR khả dụng",
     "unavailable": "Không khả dụng",
-    "invalid": "Địa chỉ hoặc cổng không hợp lệ"
+    "invalid": "Địa chỉ hoặc cổng không hợp lệ",
+    "setupHint": "Nếu đèn không kết nối với TV, hãy nhập địa chỉ IP và cổng của máy chủ HyperHDR.",
+    "skip": "Bỏ qua",
+    "startupTitle": "Khởi động HyperHDR ổn định",
+    "startupDescription": "Để hoạt động ổn định, chúng tôi khuyên bạn bật tùy chọn “Tắt LED khi khởi động” trong HyperHDR. Tùy chọn này ngăn đèn tự bật khi TV khởi động hoặc thức dậy.",
+    "startupPath": "HyperHDR → Cài đặt chung → Tắt LED khi khởi động",
+    "continue": "Tiếp tục"
   },
   "about": {
     "version": "Phiên bản",

@@ -18,6 +18,7 @@ var state = {
     lastApplySkipped: false,
     lastApplyReason: null,
     lastObservedLedState: null,
+    lastObservedEffect: null,
     hasAppliedInitialState: false,
     lastError: null,
     queueDepth: 0
@@ -87,7 +88,19 @@ function readLedDeviceState(options, callback) {
         if (!ledDevice || typeof ledDevice.enabled !== "boolean") {
             return callback(new Error("HyperHDR LEDDEVICE state is unavailable"));
         }
-        callback(null, ledDevice.enabled);
+        var activeEffects = info && Array.isArray(info.activeEffects) ? info.activeEffects : [];
+        var activeEffect = null;
+        for (var j = 0; j < activeEffects.length; j++) {
+            var effect = activeEffects[j];
+            var effectName = typeof effect === "string" ? effect : effect && effect.name;
+            if (!effectName) continue;
+            if (effect && effect.priority === 64) {
+                activeEffect = effectName;
+                break;
+            }
+            if (!activeEffect) activeEffect = effectName;
+        }
+        callback(null, { enabled: ledDevice.enabled, effect: activeEffect });
     }, options);
 }
 
@@ -182,10 +195,16 @@ function processQueue() {
         writeBrightness();
     }
 
-    function applyToHyperhdr(observedLedState) {
+    function applyToHyperhdr(observedState) {
+        var observedLedState = observedState && typeof observedState === "object"
+            ? observedState.enabled : observedState;
+        var observedEffect = observedState && typeof observedState === "object"
+            ? observedState.effect : null;
         state.lastObservedLedState = observedLedState;
+        state.lastObservedEffect = observedEffect;
+        var effectMatches = !useEffect || observedEffect === effectRule.name;
         if ((job.trigger === "startup-recheck" || job.trigger === "state-reconcile") &&
-            observedLedState === result.state) {
+            observedLedState === result.state && effectMatches) {
             state.lastApplySkipped = true;
             state.lastApplyReason = "STATE_ALREADY_MATCHED";
             return done(null);

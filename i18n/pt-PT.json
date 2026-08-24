@@ -51,7 +51,13 @@
     "testing": "A testar ligação...",
     "available": "HyperHDR disponível",
     "unavailable": "Indisponível",
-    "invalid": "Endereço ou porta inválida"
+    "invalid": "Endereço ou porta inválida",
+    "setupHint": "Se a iluminação não estiver ligada à televisão, introduza o endereço IP e a porta do servidor HyperHDR.",
+    "skip": "Ignorar",
+    "startupTitle": "Arranque estável do HyperHDR",
+    "startupDescription": "Para um funcionamento estável, recomendamos ativar no HyperHDR a opção “Desligar LEDs ao arrancar”. Isto evita que a iluminação se ligue sozinha quando a televisão arranca ou sai do modo de suspensão.",
+    "startupPath": "HyperHDR → Definições gerais → Desligar LEDs ao arrancar",
+    "continue": "Continuar"
   },
   "about": {
     "version": "Versão",

@@ -51,7 +51,13 @@
     "testing": "Kapcsolat tesztelése...",
     "available": "HyperHDR elérhető",
     "unavailable": "Nem érhető el",
-    "invalid": "Érvénytelen cím vagy port"
+    "invalid": "Érvénytelen cím vagy port",
+    "setupHint": "Ha a világítás nincs a tévéhez csatlakoztatva, adja meg a HyperHDR-szerver IP-címét és portját.",
+    "skip": "Kihagyás",
+    "startupTitle": "A HyperHDR stabil indítása",
+    "startupDescription": "A stabil működéshez javasoljuk a HyperHDR „LED-ek kikapcsolása indításkor” beállításának engedélyezését. Ez megakadályozza, hogy a világítás magától bekapcsoljon a tévé indításakor vagy felébredésekor.",
+    "startupPath": "HyperHDR → Általános beállítások → LED-ek kikapcsolása indításkor",
+    "continue": "Folytatás"
   },
   "about": {
     "version": "Verzió",

@@ -51,7 +51,13 @@
     "testing": "Preverjanje povezave...",
     "available": "HyperHDR je na voljo",
     "unavailable": "Ni na voljo",
-    "invalid": "Neveljaven naslov ali vrata"
+    "invalid": "Neveljaven naslov ali vrata",
+    "setupHint": "Če osvetlitev ni povezana s televizorjem, vnesite IP-naslov in vrata strežnika HyperHDR.",
+    "skip": "Preskoči",
+    "startupTitle": "Stabilen zagon HyperHDR",
+    "startupDescription": "Za stabilno delovanje priporočamo, da v HyperHDR vklopite nastavitev »Izklopi LED ob zagonu«. To prepreči, da bi se osvetlitev sama vklopila ob zagonu ali prebujanju televizorja.",
+    "startupPath": "HyperHDR → Splošne nastavitve → Izklopi LED ob zagonu",
+    "continue": "Nadaljuj"
   },
   "about": {
     "version": "Različica",

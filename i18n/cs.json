@@ -51,7 +51,13 @@
     "testing": "Testování připojení...",
     "available": "HyperHDR je k dispozici",
     "unavailable": "Nedostupné",
-    "invalid": "Neplatná adresa nebo port"
+    "invalid": "Neplatná adresa nebo port",
+    "setupHint": "Pokud osvětlení není připojeno k televizoru, zadejte IP adresu a port serveru HyperHDR.",
+    "skip": "Přeskočit",
+    "startupTitle": "Stabilní spuštění HyperHDR",
+    "startupDescription": "Pro stabilní provoz doporučujeme v HyperHDR zapnout nastavení „Vypnout LED při spuštění“. Zabrání to samovolnému rozsvícení osvětlení při spuštění nebo probuzení televizoru.",
+    "startupPath": "HyperHDR → Obecné nastavení → Vypnout LED při spuštění",
+    "continue": "Pokračovat"
   },
   "about": {
     "version": "Verze",

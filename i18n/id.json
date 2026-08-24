@@ -51,7 +51,13 @@
     "testing": "Menguji koneksi...",
     "available": "HyperHDR tersedia",
     "unavailable": "Tidak tersedia",
-    "invalid": "Alamat atau port tidak valid"
+    "invalid": "Alamat atau port tidak valid",
+    "setupHint": "Jika pencahayaan tidak terhubung ke TV, masukkan alamat IP dan port server HyperHDR.",
+    "skip": "Lewati",
+    "startupTitle": "Memulai HyperHDR secara stabil",
+    "startupDescription": "Untuk pengoperasian yang stabil, kami menyarankan mengaktifkan pengaturan “Matikan LED saat mulai” di HyperHDR. Ini mencegah pencahayaan menyala sendiri saat TV dinyalakan atau dibangunkan.",
+    "startupPath": "HyperHDR → Pengaturan umum → Matikan LED saat mulai",
+    "continue": "Lanjutkan"
   },
   "about": {
     "version": "Versi",

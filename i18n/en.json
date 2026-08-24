@@ -51,7 +51,13 @@
     "testing": "Testing connection...",
     "available": "HyperHDR available",
     "unavailable": "Unavailable",
-    "invalid": "Invalid address or port"
+    "invalid": "Invalid address or port",
+    "setupHint": "If the lighting is not connected to the TV, enter the HyperHDR server IP address and port.",
+    "skip": "Skip",
+    "startupTitle": "Stable HyperHDR startup",
+    "startupDescription": "For stable operation, we recommend enabling “Disable LEDs at startup” in HyperHDR. This prevents the lighting from turning on by itself when the TV starts or wakes up.",
+    "startupPath": "HyperHDR → General settings → Disable LEDs at startup",
+    "continue": "Continue"
   },
   "about": {
     "version": "Version",

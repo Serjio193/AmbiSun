@@ -51,7 +51,13 @@
     "testing": "Verbinding testen...",
     "available": "HyperHDR beschikbaar",
     "unavailable": "Niet beschikbaar",
-    "invalid": "Ongeldig adres of poort"
+    "invalid": "Ongeldig adres of poort",
+    "setupHint": "Als de verlichting niet met de tv is verbonden, voert u het IP-adres en de poort van de HyperHDR-server in.",
+    "skip": "Overslaan",
+    "startupTitle": "Stabiele start van HyperHDR",
+    "startupDescription": "Voor een stabiele werking raden we aan in HyperHDR de instelling ‘LED's uitschakelen bij opstarten’ in te schakelen. Zo gaat de verlichting niet vanzelf aan wanneer de tv start of ontwaakt.",
+    "startupPath": "HyperHDR → Algemene instellingen → LED's uitschakelen bij opstarten",
+    "continue": "Doorgaan"
   },
   "about": {
     "version": "Versie",

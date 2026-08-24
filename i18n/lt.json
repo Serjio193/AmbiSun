@@ -51,7 +51,13 @@
     "testing": "Tikrinamas ryšys...",
     "available": "HyperHDR pasiekiamas",
     "unavailable": "Nepasiekiamas",
-    "invalid": "Neteisingas adresas arba prievadas"
+    "invalid": "Neteisingas adresas arba prievadas",
+    "setupHint": "Jei apšvietimas neprijungtas prie televizoriaus, įveskite HyperHDR serverio IP adresą ir prievadą.",
+    "skip": "Praleisti",
+    "startupTitle": "Stabilus HyperHDR paleidimas",
+    "startupDescription": "Kad veiktų stabiliai, rekomenduojame HyperHDR įjungti nustatymą „Išjungti LED paleidžiant“. Tai neleidžia apšvietimui savaime įsijungti paleidžiant ar pažadinant televizorių.",
+    "startupPath": "HyperHDR → Bendrieji nustatymai → Išjungti LED paleidžiant",
+    "continue": "Tęsti"
   },
   "about": {
     "version": "Versija",

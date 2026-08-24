@@ -51,7 +51,13 @@
     "testing": "Provjera veze...",
     "available": "HyperHDR je dostupan",
     "unavailable": "Nedostupno",
-    "invalid": "Nevažeća adresa ili priključak"
+    "invalid": "Nevažeća adresa ili priključak",
+    "setupHint": "Ako rasvjeta nije povezana s televizorom, unesite IP adresu i priključak HyperHDR poslužitelja.",
+    "skip": "Preskoči",
+    "startupTitle": "Stabilno pokretanje HyperHDR-a",
+    "startupDescription": "Za stabilan rad preporučujemo uključiti postavku „Isključi LED-ice pri pokretanju“ u HyperHDR-u. To sprječava samostalno uključivanje rasvjete pri pokretanju ili buđenju televizora.",
+    "startupPath": "HyperHDR → Opće postavke → Isključi LED-ice pri pokretanju",
+    "continue": "Nastavi"
   },
   "about": {
     "version": "Verzija",

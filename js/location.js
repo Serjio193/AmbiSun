@@ -14,7 +14,7 @@
   };
 
   const wizardState = {
-    step: 'confirm-country', // 'confirm-country' | 'regions' | 'countries' | 'cities'
+    step: 'confirm-country', // 'confirm-country' | 'regions' | 'countries' | 'cities' | 'hyperhdr' | 'hyperhdr-recommendation'
     onboarding: false,
     region: null,
     countryCode: 'EE',
@@ -78,6 +78,11 @@
   }
 
   function back() {
+    if (wizardState.step === 'hyperhdr-recommendation') {
+      wizardState.step = 'hyperhdr';
+      renderWizard();
+      return;
+    }
     if (wizardState.step === 'hyperhdr') {
       wizardState.step = 'cities';
       renderWizard();
@@ -298,36 +303,10 @@
     } else if (wizardState.step === 'hyperhdr') {
       stepLabel.textContent = 'HyperHDR';
       const hdr = window.AmbiSun.state.hyperhdr || { host: '127.0.0.1', port: 8090 };
-      const isRussian = AmbiSun.i18n.currentLanguage && AmbiSun.i18n.currentLanguage() === 'ru';
-      const setupHint = isRussian
-        ? 'Если подсветка находится не на телевизоре, укажите IP-адрес и порт сервера HyperHDR.'
-        : 'If the lighting is not connected to the TV, enter the HyperHDR server IP address and port.';
-      const skipLabel = isRussian ? 'Пропустить' : 'Skip';
-      html = `
-        <div class="location-lead">HyperHDR</div>
-        <div class="onboarding-copy">${setupHint}</div>
-        <div class="onboarding-inputs">
-          <div class="setting-field">
-            <label class="setting-input-label" for="onboardingHyperhdrHost">${AmbiSun.i18n.t('hyperhdr.host', 'Server address:')}</label>
-            <input class="actionable text-input" id="onboardingHyperhdrHost" type="text" value="${hdr.host || '127.0.0.1'}" spellcheck="false" autocomplete="off" />
-          </div>
-          <div class="setting-field">
-            <label class="setting-input-label" for="onboardingHyperhdrPort">${AmbiSun.i18n.t('hyperhdr.port', 'Port:')}</label>
-            <input class="actionable text-input" id="onboardingHyperhdrPort" type="number" min="1" max="65535" value="${hdr.port || 8090}" />
-          </div>
-        </div>
-        <div id="onboardingHyperhdrResult" class="onboarding-status"></div>
-        <div class="location-actions onboarding-actions">
-          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-test" role="button" tabindex="-1">
-            <span>${AmbiSun.i18n.t('hyperhdr.test', 'Test')}</span><span>›</span>
-          </div>
-          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-save" role="button" tabindex="-1">
-            <span>${AmbiSun.i18n.t('hyperhdr.save', 'Save')}</span><span>✓</span>
-          </div>
-          <div class="windows-action-button actionable" data-action="onboarding-hyperhdr-skip" role="button" tabindex="-1">
-            <span>${skipLabel}</span><span>›</span>
-          </div>
-        </div>`;
+      html = AmbiSun.onboarding.renderHyperhdrSetup(hdr);
+    } else if (wizardState.step === 'hyperhdr-recommendation') {
+      stepLabel.textContent = 'HyperHDR';
+      html = AmbiSun.onboarding.renderHyperhdrStartupRecommendation();
     }
 
     if (html) {
@@ -402,7 +381,7 @@
       })
     );
 
-    updateUI();
+    AmbiSun.locationDisplay.updateUI();
 
     if (wizardState.onboarding) {
       wizardState.step = 'hyperhdr';
@@ -459,6 +438,11 @@
     renderWizard();
   }
 
+  function showHyperhdrRecommendation() {
+    wizardState.step = 'hyperhdr-recommendation';
+    renderWizard();
+  }
+
   AmbiSun.location.detectCountry = detectCountry;
   AmbiSun.location.getRegions = getRegions;
   AmbiSun.location.getCountries = getCountries;
@@ -479,6 +463,7 @@
   AmbiSun.location.wizardActionCity = actionCity;
   AmbiSun.location.wizardActionCityNext = actionCityNext;
   AmbiSun.location.wizardActionCityPrev = actionCityPrev;
+  AmbiSun.location.showHyperhdrRecommendation = showHyperhdrRecommendation;
   AmbiSun.location.wizardCountryCode = function() { return wizardState.countryCode; };
   AmbiSun.location.clearCityCache = locationData.clearCityCache;
   AmbiSun.location.clearCatalogCache = locationData.clearCatalogCache;

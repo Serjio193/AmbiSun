@@ -51,7 +51,13 @@
     "testing": "연결 테스트 중...",
     "available": "HyperHDR 사용 가능",
     "unavailable": "사용 불가",
-    "invalid": "잘못된 주소 또는 포트"
+    "invalid": "잘못된 주소 또는 포트",
+    "setupHint": "조명이 TV에 연결되어 있지 않다면 HyperHDR 서버의 IP 주소와 포트를 입력하세요.",
+    "skip": "건너뛰기",
+    "startupTitle": "안정적인 HyperHDR 시작",
+    "startupDescription": "안정적인 작동을 위해 HyperHDR에서 ‘시작 시 LED 끄기’ 설정을 켜는 것을 권장합니다. TV가 시작되거나 절전 모드에서 깨어날 때 조명이 저절로 켜지는 것을 방지합니다.",
+    "startupPath": "HyperHDR → 일반 설정 → 시작 시 LED 끄기",
+    "continue": "계속"
   },
   "about": {
     "version": "버전",

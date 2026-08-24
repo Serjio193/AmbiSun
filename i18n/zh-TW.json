@@ -51,7 +51,13 @@
     "testing": "正在測試連線...",
     "available": "HyperHDR 可用",
     "unavailable": "無法使用",
-    "invalid": "無效的位址或連接埠"
+    "invalid": "無效的位址或連接埠",
+    "setupHint": "如果燈光未連接到電視，請輸入 HyperHDR 伺服器的 IP 位址和連接埠。",
+    "skip": "略過",
+    "startupTitle": "穩定啟動 HyperHDR",
+    "startupDescription": "為確保穩定運作，建議在 HyperHDR 中啟用「啟動時關閉 LED」設定。這可防止電視啟動或喚醒時燈光自行亮起。",
+    "startupPath": "HyperHDR → 一般設定 → 啟動時關閉 LED",
+    "continue": "繼續"
   },
   "about": {
     "version": "版本",

@@ -51,7 +51,13 @@
     "testing": "Pārbauda savienojumu...",
     "available": "HyperHDR ir pieejams",
     "unavailable": "Nav pieejams",
-    "invalid": "Nederīga adrese vai ports"
+    "invalid": "Nederīga adrese vai ports",
+    "setupHint": "Ja apgaismojums nav pievienots televizoram, ievadiet HyperHDR servera IP adresi un portu.",
+    "skip": "Izlaist",
+    "startupTitle": "Stabila HyperHDR palaišana",
+    "startupDescription": "Lai darbība būtu stabila, HyperHDR ieteicams ieslēgt iestatījumu „Izslēgt LED palaišanas laikā“. Tas neļauj apgaismojumam pašam ieslēgties, palaižot vai pamodinot televizoru.",
+    "startupPath": "HyperHDR → Vispārīgie iestatījumi → Izslēgt LED palaišanas laikā",
+    "continue": "Turpināt"
   },
   "about": {
     "version": "Versija",

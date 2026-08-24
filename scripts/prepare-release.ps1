@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Исправлено восстановление состояния подсветки после перезагрузки, когда правило требует выключить подсветку',
-        en: 'Fixed lighting state recovery after reboot when the configured rule requires the lighting to be off',
-        uk: 'Виправлено відновлення стану підсвічування після перезавантаження, коли правило вимагає вимкнути підсвічування'
+        ru: 'Добавлена рекомендация стабильного запуска HyperHDR; улучшено восстановление подсветки и применение выбранного эффекта после перезагрузки',
+        en: 'Added a stable HyperHDR startup recommendation; improved lighting recovery and selected effect application after reboot',
+        uk: 'Додано рекомендацію стабільного запуску HyperHDR; покращено відновлення підсвічування та застосування вибраного ефекту після перезавантаження'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

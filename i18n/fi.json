@@ -51,7 +51,13 @@
     "testing": "Testataan yhteyttä...",
     "available": "HyperHDR on käytettävissä",
     "unavailable": "Ei käytettävissä",
-    "invalid": "Virheellinen osoite tai portti"
+    "invalid": "Virheellinen osoite tai portti",
+    "setupHint": "Jos valaistus ei ole yhdistetty televisioon, syötä HyperHDR-palvelimen IP-osoite ja portti.",
+    "skip": "Ohita",
+    "startupTitle": "HyperHDR:n vakaa käynnistys",
+    "startupDescription": "Vakaan toiminnan varmistamiseksi suosittelemme ottamaan HyperHDR:ssä käyttöön asetuksen ”Sammuta LEDit käynnistyksen yhteydessä”. Se estää valaistuksen syttymisen itsestään television käynnistyessä tai herätessä.",
+    "startupPath": "HyperHDR → Yleiset asetukset → Sammuta LEDit käynnistyksen yhteydessä",
+    "continue": "Jatka"
   },
   "about": {
     "version": "Versio",

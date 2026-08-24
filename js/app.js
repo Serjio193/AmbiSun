@@ -68,17 +68,22 @@ const ACTIONS = {
     if (AmbiSun.bridge.checkHyperhdrReachability) {
       AmbiSun.bridge.checkHyperhdrReachability(endpoint);
     }
-    if (AmbiSun.startup && AmbiSun.startup.finishFirstRun) {
-      AmbiSun.startup.finishFirstRun();
+    if (AmbiSun.location && AmbiSun.location.showHyperhdrRecommendation) {
+      AmbiSun.location.showHyperhdrRecommendation();
     }
   },
 
   'onboarding-hyperhdr-skip': () => {
+    if (AmbiSun.location && AmbiSun.location.showHyperhdrRecommendation) {
+      AmbiSun.location.showHyperhdrRecommendation();
+      return;
+    }
     if (AmbiSun.startup && AmbiSun.startup.finishFirstRun) {
       AmbiSun.startup.finishFirstRun();
     }
   },
 
+  'onboarding-hyperhdr-continue': () => AmbiSun.startup?.finishFirstRun?.(),
   'restore-elevation': async ({el}) => {
     const statusEl = document.getElementById('elevationStatus');
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');

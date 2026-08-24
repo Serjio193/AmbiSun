@@ -51,7 +51,13 @@
     "testing": "Ühenduse kontrollimine...",
     "available": "HyperHDR on saadaval",
     "unavailable": "Pole saadaval",
-    "invalid": "Vigane aadress või port"
+    "invalid": "Vigane aadress või port",
+    "setupHint": "Kui valgustus ei ole teleriga ühendatud, sisesta HyperHDR-i serveri IP-aadress ja port.",
+    "skip": "Jäta vahele",
+    "startupTitle": "HyperHDR-i stabiilne käivitamine",
+    "startupDescription": "Stabiilseks tööks soovitame HyperHDR-is sisse lülitada seade „Lülita LED-id käivitamisel välja“. See takistab valgustuse iseeneslikku süttimist teleri käivitamisel või ärkamisel.",
+    "startupPath": "HyperHDR → Üldised seaded → Lülita LED-id käivitamisel välja",
+    "continue": "Jätka"
   },
   "about": {
     "version": "Versioon",

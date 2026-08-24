@@ -51,7 +51,13 @@
     "testing": "Testar anslutning...",
     "available": "HyperHDR är tillgänglig",
     "unavailable": "Inte tillgänglig",
-    "invalid": "Ogiltig adress eller port"
+    "invalid": "Ogiltig adress eller port",
+    "setupHint": "Om belysningen inte är ansluten till TV:n anger du HyperHDR-serverns IP-adress och port.",
+    "skip": "Hoppa över",
+    "startupTitle": "Stabil start av HyperHDR",
+    "startupDescription": "För stabil drift rekommenderar vi att du aktiverar inställningen ”Stäng av lysdioder vid start” i HyperHDR. Det hindrar belysningen från att tändas av sig själv när TV:n startar eller vaknar.",
+    "startupPath": "HyperHDR → Allmänna inställningar → Stäng av lysdioder vid start",
+    "continue": "Fortsätt"
   },
   "about": {
     "version": "Version",

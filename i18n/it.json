@@ -51,7 +51,13 @@
     "testing": "Test di connessione...",
     "available": "HyperHDR disponibile",
     "unavailable": "Non disponibile",
-    "invalid": "Indirizzo o porta non validi"
+    "invalid": "Indirizzo o porta non validi",
+    "setupHint": "Se l’illuminazione non è collegata al televisore, inserisci l’indirizzo IP e la porta del server HyperHDR.",
+    "skip": "Salta",
+    "startupTitle": "Avvio stabile di HyperHDR",
+    "startupDescription": "Per un funzionamento stabile, consigliamo di attivare in HyperHDR l’impostazione «Spegni i LED all’avvio». In questo modo l’illuminazione non si accende da sola all’avvio o al risveglio del televisore.",
+    "startupPath": "HyperHDR → Impostazioni generali → Spegni i LED all’avvio",
+    "continue": "Continua"
   },
   "about": {
     "version": "Versione",

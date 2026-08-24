@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Dil",
     "defaultRule": "Yeni uygulamalar için varsayılan kural",
-    "defaultEffect": "Yeni uygulamalar için favori efekt",
-    "defaultEffectTitle": "Favori efekt",
+    "defaultEffect": "Güneşe göre ana efekt",
+    "defaultEffectTitle": "Güneşe göre ana efekt",
     "reset": "Ayarları sıfırla",
     "saved": "Ayarlar kaydedildi"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Sürüm",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Lisans: MIT"
+    "license": "Lisans: MIT",
+    "licenseSummary": "MIT, izinleri geniş bir lisanstır: telif hakkı bildirimini ve lisans metnini koruduğunuz sürece yazılımı kullanabilir, değiştirebilir, dağıtabilir ve ticari olarak kullanabilirsiniz.",
+    "close": "Kapat"
   },
   "update": {
     "available": "Güncelleme mevcut",
@@ -71,6 +73,7 @@
     "scan": "QR kodunu telefonunuzla tarayın"
   },
   "rule": {
+    "default": "Devre dışı",
     "sun": "Güneşe göre",
     "on": "Her zaman AÇIK",
     "off": "Her zaman KAPALI"

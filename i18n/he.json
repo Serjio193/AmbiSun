@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "שפה",
     "defaultRule": "כלל ברירת מחדל ליישומים חדשים",
-    "defaultEffect": "אפקט מועדף ליישומים חדשים",
-    "defaultEffectTitle": "אפקט מועדף",
+    "defaultEffect": "אפקט ראשי לפי השמש",
+    "defaultEffectTitle": "אפקט ראשי לפי השמש",
     "reset": "איפוס הגדרות",
     "saved": "ההגדרות נשמרו"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "גרסה",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "רישיון: MIT"
+    "license": "רישיון: MIT",
+    "licenseSummary": "MIT הוא רישיון מתירני: ניתן להשתמש בתוכנה, לשנות אותה, להפיץ אותה ולהשתמש בה באופן מסחרי, בתנאי ששומרים על הודעת זכויות היוצרים ועל טקסט הרישיון.",
+    "close": "סגירה"
   },
   "update": {
     "available": "עדכון זמין",
@@ -71,6 +73,7 @@
     "scan": "סרוק את קוד ה-QR באמצעות הטלפון"
   },
   "rule": {
+    "default": "מושבת",
     "sun": "לפי השמש",
     "on": "פועל תמיד",
     "off": "כבוי תמיד"

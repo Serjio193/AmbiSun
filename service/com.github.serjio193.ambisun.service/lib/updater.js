@@ -1,27 +1,20 @@
-var https = require('https');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
-var crypto = require('crypto');
+var validation = require('./updater-validation');
+var createTransfer = require('./updater-transfer');
 
 var MANIFEST_URL = "https://github.com/Serjio193/AmbiSun/releases/latest/download/update.json";
 var MANIFEST_MAX_BYTES = 131072; // 128 KB
-var IPK_MAX_BYTES = 52428800;    // 50 MB
+var IPK_MAX_BYTES = validation.IPK_MAX_BYTES;
 var HTTP_TIMEOUT_MS = 8000;
 var CACHE_TTL_MS = 1800000;       // 30 minutes
 var INSTALL_LOCK_TIMEOUT_MS = 300000; // 5 minutes failsafe lock timeout
 
 var TEMP_DIR = "/media/developer/temp";
-var SEMVER_REGEX = /^(\d+)\.(\d+)\.(\d+)$/;
-var SHA256_REGEX = /^[a-f0-9]{64}$/i;
+var SEMVER_REGEX = validation.SEMVER_REGEX;
+var PRODUCTION_PUBLIC_KEY = validation.PRODUCTION_PUBLIC_KEY;
 
-// Public verification key only.
-// Private signing key must never be committed to the repository or bundled into the application.
-var PRODUCTION_PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n" +
-    "MCowBQYDK2VwAyEA+RfgUWfN5e9kI520tAU8ibgzHX0avakHFI23enIhQ7M=\n" +
-    "-----END PUBLIC KEY-----\n";
-
-var activePublicKey = PRODUCTION_PUBLIC_KEY;
 var cachedManifest = null;
 var isInstalling = false;
 var installStartedAt = 0;
@@ -38,175 +31,19 @@ function getCurrentVersion() {
     return "0.1.0";
 }
 
-function parseSemver(v) {
-    if (typeof v !== 'string') return null;
-    var m = v.trim().match(SEMVER_REGEX);
-    if (!m) return null;
-    return [parseInt(m[1], 10), parseInt(m[2], 10), parseInt(m[3], 10)];
-}
-
-function compareSemver(v1, v2) {
-    var p1 = parseSemver(v1);
-    var p2 = parseSemver(v2);
-    if (!p1 || !p2) return null;
-
-    for (var i = 0; i < 3; i++) {
-        if (p1[i] > p2[i]) return 1;
-        if (p1[i] < p2[i]) return -1;
-    }
-    return 0;
-}
-
-function isUpdateAvailable(currentVer, latestVer) {
-    var cmp = compareSemver(latestVer, currentVer);
-    return cmp === 1;
-}
-
+var compareSemver = validation.compareSemver;
+var isUpdateAvailable = validation.isUpdateAvailable;
 function getExpectedIpkUrl(version) {
     return "https://github.com/Serjio193/AmbiSun/releases/download/v" + version + "/com.github.serjio193.ambisun_" + version + "_all.ipk";
 }
+var getCanonicalPayload = validation.getCanonicalPayload;
+var verifyManifestSignature = validation.verifyManifestSignature;
+var isAllowedHost = validation.isAllowedHost;
+var validateManifest = validation.validateManifest;
 
-function getCanonicalPayload(version, sha256, size) {
-    return "ambisun-update-v1\nversion=" + version + "\nsha256=" + sha256 + "\nsize=" + size + "\n";
-}
-
-function verifyManifestSignature(manifest, publicKeyPem) {
-    if (!manifest || typeof manifest !== 'object') return false;
-    if (typeof manifest.signature !== 'string' || !manifest.signature.trim()) return false;
-    if (typeof manifest.version !== 'string' || typeof manifest.sha256 !== 'string' || typeof manifest.size !== 'number') return false;
-
-    var canonical = getCanonicalPayload(
-        manifest.version.trim(),
-        manifest.sha256.trim().toLowerCase(),
-        manifest.size
-    );
-    var data = Buffer.from(canonical, 'utf8');
-    var sigBuf;
-    try {
-        sigBuf = Buffer.from(manifest.signature.trim(), 'base64');
-        if (sigBuf.length !== 64) return false;
-    } catch (_) {
-        return false;
-    }
-
-    try {
-        var keyObj = crypto.createPublicKey(publicKeyPem || activePublicKey);
-        return crypto.verify(null, data, keyObj, sigBuf);
-    } catch (_) {
-        return false;
-    }
-}
-
-function isAllowedHost(hostname) {
-    if (!hostname || typeof hostname !== 'string') return false;
-    var h = hostname.toLowerCase();
-    return h === 'github.com' ||
-           h === 'raw.githubusercontent.com' ||
-           h === 'objects.githubusercontent.com' ||
-           h === 'github-releases.githubusercontent.com' ||
-           h.endsWith('.githubusercontent.com') ||
-           h.endsWith('.github.com');
-}
-
-function validateManifest(manifest, publicKeyPem) {
-    if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
-        return "Manifest is not a valid JSON object";
-    }
-    if (typeof manifest.version !== 'string' || !SEMVER_REGEX.test(manifest.version.trim())) {
-        return "Manifest missing or invalid version (must be MAJOR.MINOR.PATCH)";
-    }
-    if (typeof manifest.sha256 !== 'string' || !SHA256_REGEX.test(manifest.sha256.trim())) {
-        return "Manifest missing or invalid sha256 (must be 64 hex chars)";
-    }
-    if (typeof manifest.size !== 'number' || !Number.isInteger(manifest.size) || manifest.size <= 0 || manifest.size > IPK_MAX_BYTES) {
-        return "Manifest missing or invalid size (must be positive integer <= " + IPK_MAX_BYTES + " bytes)";
-    }
-    if (typeof manifest.signature !== 'string' || !manifest.signature.trim()) {
-        return "Manifest missing signature";
-    }
-    if (!verifyManifestSignature(manifest, publicKeyPem)) {
-        return "Signature verification failed";
-    }
-    return null;
-}
-
-function fetchWithRedirects(targetUrl, maxBytes, redirectCount, callback) {
-    var settled = false;
-    function finish(err, result) {
-        if (settled) return;
-        settled = true;
-        callback(err, result);
-    }
-
-    if (redirectCount > 5) {
-        return finish(new Error("Too many redirects"));
-    }
-
-    var parsedUrl;
-    try {
-        parsedUrl = url.parse(targetUrl);
-    } catch (e) {
-        return finish(new Error("Invalid URL: " + targetUrl));
-    }
-
-    if (parsedUrl.protocol !== 'https:') {
-        return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
-    }
-
-    if (!isAllowedHost(parsedUrl.hostname)) {
-        return finish(new Error("UNTRUSTED_REDIRECT_HOST: Target or redirect host '" + parsedUrl.hostname + "' is not in allowed GitHub domains"));
-    }
-
-    var options = {
-        protocol: parsedUrl.protocol,
-        hostname: parsedUrl.hostname,
-        port: parsedUrl.port || 443,
-        path: parsedUrl.path,
-        headers: {
-            'User-Agent': 'AmbiSun-Updater/1.0'
-        },
-        timeout: HTTP_TIMEOUT_MS
-    };
-
-    var req = https.get(options, function(res) {
-        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-            var nextUrl = url.resolve(targetUrl, res.headers.location);
-            res.resume();
-            return fetchWithRedirects(nextUrl, maxBytes, redirectCount + 1, finish);
-        }
-
-        if (res.statusCode !== 200) {
-            res.resume();
-            return finish(new Error("HTTP error " + res.statusCode));
-        }
-
-        var chunks = [];
-        var totalBytes = 0;
-
-        res.on('data', function(chunk) {
-            totalBytes += chunk.length;
-            if (totalBytes > maxBytes) {
-                req.destroy();
-                return finish(new Error("Response exceeds size limit of " + maxBytes + " bytes"));
-            }
-            chunks.push(chunk);
-        });
-
-        res.on('end', function() {
-            var body = Buffer.concat(chunks).toString('utf8');
-            finish(null, body);
-        });
-    });
-
-    req.on('timeout', function() {
-        req.destroy();
-        finish(new Error("Request timeout"));
-    });
-
-    req.on('error', function(err) {
-        finish(err);
-    });
-}
+var transfer = createTransfer({ isAllowedHost: isAllowedHost, httpTimeoutMs: HTTP_TIMEOUT_MS });
+var fetchWithRedirects = transfer.fetchWithRedirects;
+var downloadFileWithHash = transfer.downloadFileWithHash;
 
 function fetchAndValidateManifest(callback) {
     var fetchFn = activeFetcher || fetchWithRedirects;
@@ -222,7 +59,7 @@ function fetchAndValidateManifest(callback) {
             return callback(new Error("INVALID_JSON: Failed to parse update manifest JSON"));
         }
 
-        var valErr = validateManifest(manifest, activePublicKey);
+        var valErr = validateManifest(manifest);
         if (valErr) {
             return callback(new Error("INVALID_MANIFEST: " + valErr));
         }
@@ -274,105 +111,6 @@ function checkForUpdate(callback) {
             latestVersion: latestVer,
             notes: manifest.notes || {}
         });
-    });
-}
-
-function downloadFileWithHash(targetUrl, destPath, expectedSize, maxBytes, redirectCount, callback) {
-    var settled = false;
-    function finish(err, result) {
-        if (settled) return;
-        settled = true;
-        callback(err, result);
-    }
-
-    if (redirectCount > 5) {
-        return finish(new Error("Too many redirects"));
-    }
-
-    var parsedUrl;
-    try {
-        parsedUrl = url.parse(targetUrl);
-    } catch (e) {
-        return finish(new Error("Invalid URL: " + targetUrl));
-    }
-
-    if (parsedUrl.protocol !== 'https:') {
-        return finish(new Error(redirectCount > 0 ? "INSECURE_REDIRECT: Downgrade to http is not allowed" : "HTTPS_REQUIRED: Protocol must be https:"));
-    }
-
-    if (!isAllowedHost(parsedUrl.hostname)) {
-        return finish(new Error("UNTRUSTED_REDIRECT_HOST: Target or redirect host '" + parsedUrl.hostname + "' is not in allowed GitHub domains"));
-    }
-
-    var options = {
-        protocol: parsedUrl.protocol,
-        hostname: parsedUrl.hostname,
-        port: parsedUrl.port || 443,
-        path: parsedUrl.path,
-        headers: {
-            'User-Agent': 'AmbiSun-Updater/1.0'
-        },
-        timeout: HTTP_TIMEOUT_MS * 2
-    };
-
-    var req = https.get(options, function(res) {
-        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-            var nextUrl = url.resolve(targetUrl, res.headers.location);
-            res.resume();
-            return downloadFileWithHash(nextUrl, destPath, expectedSize, maxBytes, redirectCount + 1, finish);
-        }
-
-        if (res.statusCode !== 200) {
-            res.resume();
-            return finish(new Error("HTTP error " + res.statusCode));
-        }
-
-        var hash = crypto.createHash('sha256');
-        var outStream = fs.createWriteStream(destPath);
-        var totalBytes = 0;
-
-        function cleanup(err, computedResult) {
-            if (err) {
-                try { fs.unlinkSync(destPath); } catch (_) {}
-                return finish(err);
-            }
-            finish(null, computedResult);
-        }
-
-        res.on('data', function(chunk) {
-            totalBytes += chunk.length;
-            if (totalBytes > maxBytes) {
-                req.destroy();
-                outStream.destroy();
-                return cleanup(new Error("Download exceeds maximum allowed size of " + maxBytes + " bytes"));
-            }
-            hash.update(chunk);
-            outStream.write(chunk);
-        });
-
-        res.on('end', function() {
-            outStream.end(function() {
-                if (typeof expectedSize === 'number' && expectedSize > 0 && totalBytes !== expectedSize) {
-                    return cleanup(new Error("UPDATE_SIZE_MISMATCH: Downloaded " + totalBytes + " bytes, expected " + expectedSize));
-                }
-                var computedHash = hash.digest('hex').toLowerCase();
-                cleanup(null, { hash: computedHash, size: totalBytes });
-            });
-        });
-
-        outStream.on('error', function(err) {
-            req.destroy();
-            cleanup(err);
-        });
-    });
-
-    req.on('timeout', function() {
-        req.destroy();
-        finish(new Error("Download timeout"));
-    });
-
-    req.on('error', function(err) {
-        finish(err);
     });
 }
 
@@ -521,7 +259,7 @@ function installUpdate(payload, serviceHandle, callback) {
     function getManifest(cb) {
         if (cachedManifest &&
             (now - cachedManifest.fetchedAt) <= CACHE_TTL_MS &&
-            verifyManifestSignature(cachedManifest, activePublicKey)) {
+            verifyManifestSignature(cachedManifest)) {
             return cb(null, cachedManifest);
         }
 
@@ -550,7 +288,7 @@ function installUpdate(payload, serviceHandle, callback) {
         }
 
         // Double check signature of manifest (fail-closed)
-        if (!verifyManifestSignature(manifest, activePublicKey)) {
+        if (!verifyManifestSignature(manifest)) {
             releaseLock();
             return callback(new Error("SIGNATURE_INVALID: Update manifest signature verification failed"));
         }
@@ -653,8 +391,8 @@ module.exports = {
     _isInstalling: function() { return isInstalling; },
     _releaseLock: function() { isInstalling = false; installStartedAt = 0; },
     _acquireLock: function() { isInstalling = true; installStartedAt = Date.now(); },
-    _setPublicKey: function(pk) { activePublicKey = pk; },
-    _resetPublicKey: function() { activePublicKey = PRODUCTION_PUBLIC_KEY; },
+    _setPublicKey: function(pk) { validation.setPublicKey(pk); },
+    _resetPublicKey: function() { validation.resetPublicKey(); },
     _setManifestUrl: function(u) { MANIFEST_URL = u; },
     _resetManifestUrl: function() { MANIFEST_URL = "https://github.com/Serjio193/AmbiSun/releases/latest/download/update.json"; },
     _setTempDir: function(d) { TEMP_DIR = d; },

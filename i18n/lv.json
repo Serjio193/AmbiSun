@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Valoda",
     "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
-    "defaultEffect": "Iecienītākais efekts jaunām lietotnēm",
-    "defaultEffectTitle": "Iecienītākais efekts",
+    "defaultEffect": "Galvenais efekts pēc saules",
+    "defaultEffectTitle": "Galvenais efekts pēc saules",
     "reset": "Atiestatīt iestatījumus",
     "saved": "Iestatījumi saglabāti"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versija",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licence: MIT"
+    "license": "Licence: MIT",
+    "licenseSummary": "MIT ir atļaujoša licence: programmatūru drīkst izmantot, mainīt, izplatīt un izmantot komerciāli, ja tiek saglabāts autortiesību paziņojums un licences teksts.",
+    "close": "Aizvērt"
   },
   "update": {
     "available": "Pieejams atjauninājums",
@@ -71,6 +73,7 @@
     "scan": "Skenējiet QR kodu ar tālruni"
   },
   "rule": {
+    "default": "Atspējots",
     "sun": "Pēc saules",
     "on": "Vienmēr IESLĒGTS",
     "off": "Vienmēr IZSLĒGTS"

@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Jazyk",
     "defaultRule": "Výchozí pravidlo pro nové aplikace",
-    "defaultEffect": "Oblíbený efekt pro nové aplikace",
-    "defaultEffectTitle": "Oblíbený efekt",
+    "defaultEffect": "Hlavní efekt podle slunce",
+    "defaultEffectTitle": "Hlavní efekt podle slunce",
     "reset": "Obnovit nastavení",
     "saved": "Nastavení uloženo"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Verze",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licence: MIT"
+    "license": "Licence: MIT",
+    "licenseSummary": "MIT je permisivní licence: software můžete používat, upravovat, šířit i komerčně využívat, pokud zachováte oznámení o autorských právech a text licence.",
+    "close": "Zavřít"
   },
   "update": {
     "available": "Dostupná aktualizace",
@@ -71,6 +73,7 @@
     "scan": "Naskenujte QR kód telefonem"
   },
   "rule": {
+    "default": "Vypnuto",
     "sun": "Podle slunce",
     "on": "Vždy ZAPNUTO",
     "off": "Vždy VYPNUTO"

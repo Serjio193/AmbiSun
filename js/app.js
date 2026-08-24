@@ -1,71 +1,22 @@
 
 const state = window.AmbiSun.state;
 
-const RULES = window.AmbiSun.constants.RULES;
+const showToast = window.showToast;
+const updateBoolean = window.updateBoolean;
 
 
 
 
-const SUPPORT = window.AmbiSun.constants.SUPPORT;
+/* Shared UI helpers live in app-ui.js. */
 
-function showToast(text, timeout = 1400){
-  const t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = text;
-  t.classList.add('show');
-  clearTimeout(showToast.timer);
-  showToast.timer = setTimeout(() => t.classList.remove('show'), timeout);
-}
-
-function flash(el){
-  if (!el) return;
-  el.classList.remove('flash');
-  void el.offsetWidth;
-  el.classList.add('flash');
-}
+// Shared button feedback is handled by buttons.js.
 
 
 
+// Support selector lives in app-ui.js.
 
 
-function updateBoolean(setting){
-  const value = !!state[setting];
-  document.querySelectorAll(`[data-setting-badge="${setting}"]`).forEach(badge => {
-    badge.textContent = value ? AmbiSun.i18n.t('common.on', 'ON') : AmbiSun.i18n.t('common.off', 'OFF');
-    badge.classList.toggle('on', value);
-    badge.classList.toggle('off', !value);
-  });
-}
-window.updateBoolean = updateBoolean;
-window.showToast = showToast;
-
-
-
-
-
-function selectSupport(key){
-  const data = SUPPORT[key];
-  if (!data) return;
-  document.querySelectorAll('.support-method').forEach(x => {
-    x.classList.toggle('active', x.dataset.support === key);
-  });
-  document.getElementById('supportQr').src = data.qr;
-  document.getElementById('supportTitle').textContent = data.title;
-  document.getElementById('supportAddress').textContent = data.value;
-}
-
-
-async function resetDemoState(){
-  showToast(AmbiSun.i18n.t('toast.resetting', 'Resetting settings…'));
-  try {
-    const res = await AmbiSun.webos.resetConfig();
-    if (!res.returnValue) throw new Error(res.errorText || 'reset failed');
-    await AmbiSun.bridge.checkSystemStatus();
-    showToast(AmbiSun.i18n.t('toast.reset', 'Settings reset'));
-  } catch (e) {
-    showToast(AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + e.message);
-  }
-}
+// Reset behavior lives in app-ui.js.
 
 
 /*
@@ -81,7 +32,7 @@ async function resetDemoState(){
 
 
 
-const STORAGE_KEYS = window.AmbiSun.constants.STORAGE_KEYS;
+// Persistent storage keys are owned by app-ui.js.
 
 
 
@@ -91,6 +42,42 @@ const STORAGE_KEYS = window.AmbiSun.constants.STORAGE_KEYS;
 
 const ACTIONS = {
   'first-run-language': async ({el}) => { await AmbiSun.startup.completeLanguage(el.dataset.language || 'en'); },
+
+  'onboarding-hyperhdr-test': async () => {
+    const endpoint = AmbiSun.hyperhdrSettings.endpointFromInputs('onboardingHyperhdrHost', 'onboardingHyperhdrPort');
+    if (!endpoint) {
+      AmbiSun.hyperhdrSettings.showInvalid('onboardingHyperhdrResult');
+      return;
+    }
+    await AmbiSun.hyperhdrSettings.testEndpoint(endpoint, 'onboardingHyperhdrResult');
+  },
+
+  'onboarding-hyperhdr-save': async () => {
+    const endpoint = AmbiSun.hyperhdrSettings.endpointFromInputs('onboardingHyperhdrHost', 'onboardingHyperhdrPort');
+    if (!endpoint) {
+      AmbiSun.hyperhdrSettings.showInvalid('onboardingHyperhdrResult');
+      return;
+    }
+    const success = await AmbiSun.bridge.mutateConfig({ hyperhdr: endpoint });
+    if (!success) {
+      AmbiSun.hyperhdrSettings.showResult?.('onboardingHyperhdrResult', '✖', 'error.saveFailed', 'Save failed', 'var(--danger)');
+      return;
+    }
+    state.hyperhdr = endpoint;
+    if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge(null);
+    if (AmbiSun.bridge.checkHyperhdrReachability) {
+      AmbiSun.bridge.checkHyperhdrReachability(endpoint);
+    }
+    if (AmbiSun.startup && AmbiSun.startup.finishFirstRun) {
+      AmbiSun.startup.finishFirstRun();
+    }
+  },
+
+  'onboarding-hyperhdr-skip': () => {
+    if (AmbiSun.startup && AmbiSun.startup.finishFirstRun) {
+      AmbiSun.startup.finishFirstRun();
+    }
+  },
 
   'restore-elevation': async ({el}) => {
     const statusEl = document.getElementById('elevationStatus');
@@ -128,6 +115,24 @@ const ACTIONS = {
 
   'open-screen': ({el}) => {
     AmbiSun.navigation.openScreen(el.dataset.screen);
+  },
+
+  'open-source-page': ({el}) => {
+    const screenId = el.dataset.screen;
+    AmbiSun.navigation.openScreen(screenId);
+    if (AmbiSun.sources && AmbiSun.sources.renderSourceList) {
+      requestAnimationFrame(() => AmbiSun.sources.renderSourceList());
+    }
+    const back = document.querySelector('#' + screenId + ' .source-page-backbar .actionable');
+    if (back && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(back);
+  },
+
+  'source-page-next': () => {
+    if (AmbiSun.sources && AmbiSun.sources.changeApplicationPage) AmbiSun.sources.changeApplicationPage(1);
+  },
+
+  'source-page-prev': () => {
+    if (AmbiSun.sources && AmbiSun.sources.changeApplicationPage) AmbiSun.sources.changeApplicationPage(-1);
   },
 
   'edit-location': () => {
@@ -196,7 +201,7 @@ const ACTIONS = {
     const newVal = Math.max(-360, Math.min(360, (state[key] || 0) + delta));
     // Optimistic local update so stepper feels responsive
     state[key] = newVal;
-    const formatted = AmbiSun.sun && AmbiSun.sun.formatOffset ? AmbiSun.sun.formatOffset(newVal) : ((newVal >= 0 ? '+' : '') + newVal + ' min');
+    const formatted = AmbiSun.sunFormat.formatOffset(newVal);
     document.querySelectorAll(`[data-setting-value="${setting}"]`).forEach(el => {
       el.textContent = formatted;
     });
@@ -205,13 +210,19 @@ const ACTIONS = {
   },
 
   'cycle-source-rule': ({el, direction = 1}) => {
+    // The source row is focusable for remote navigation and brightness control,
+    // but only its dedicated rule control may change the lighting mode.
+    if (el && el.classList && el.classList.contains('source-row')) return;
     const src = el.dataset.source;
     const current = Object.prototype.hasOwnProperty.call(state.sourceRules, src) ? state.sourceRules[src] : state.defaultRule;
     setSourceRule(src, AmbiSun.sources.cycleRule(current, direction));
   },
 
   'open-source-effect': ({el}) => {
-    if (AmbiSun.effectPicker) AmbiSun.effectPicker.open(el.dataset.source);
+    if (AmbiSun.effectPicker) {
+      const ownerScreen = el.closest && el.closest('.screen');
+      AmbiSun.effectPicker.open(el.dataset.source, ownerScreen ? ownerScreen.id : 'sources');
+    }
   },
 
   'open-default-effect': () => {
@@ -265,77 +276,43 @@ const ACTIONS = {
       if (hostInput && AmbiSun.navigation.setFocus) {
         AmbiSun.navigation.setFocus(hostInput);
       }
+      AmbiSun.hyperhdrSettings.testEndpoint(cur, 'hyperhdrTestResult');
     }
   },
 
   'hyperhdr-test': async () => {
-    const host = (document.getElementById('hyperhdrHostInput')?.value || '').trim();
-    const port = parseInt(document.getElementById('hyperhdrPortInput')?.value, 10);
-    const resEl = document.getElementById('hyperhdrTestResult');
-    if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
-      if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Invalid address or port');
-        resEl.style.color = 'var(--danger)';
-      }
+    const endpoint = AmbiSun.hyperhdrSettings.endpointFromInputs('hyperhdrHostInput', 'hyperhdrPortInput');
+    if (!endpoint) {
+      AmbiSun.hyperhdrSettings.showInvalid('hyperhdrTestResult');
       return;
     }
-    if (resEl) {
-      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('hyperhdr.testing', 'Testing connection...');
-      resEl.style.color = 'var(--muted)';
-    }
-    try {
-      const r = await AmbiSun.webos.getHyperhdrStatus({ host, port });
-      if (r && r.returnValue && r.hyperhdr && r.hyperhdr.reachable) {
-        if (resEl) {
-          resEl.textContent = '✔ ' + AmbiSun.i18n.t('hyperhdr.available', 'HyperHDR available');
-          resEl.style.color = 'var(--green)';
-        }
-      } else {
-        if (resEl) {
-          resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable');
-          resEl.style.color = 'var(--danger)';
-        }
-      }
-    } catch (_) {
-      if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.unavailable', 'Unavailable');
-        resEl.style.color = 'var(--danger)';
-      }
-    }
+    await AmbiSun.hyperhdrSettings.testEndpoint(endpoint, 'hyperhdrTestResult');
   },
 
   'hyperhdr-save': async () => {
-    const host = (document.getElementById('hyperhdrHostInput')?.value || '').trim();
-    const port = parseInt(document.getElementById('hyperhdrPortInput')?.value, 10);
-    const resEl = document.getElementById('hyperhdrTestResult');
-    if (!host || /^https?:\/\//i.test(host) || host.indexOf('/') !== -1 || isNaN(port) || port < 1 || port > 65535) {
-      if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('hyperhdr.invalid', 'Invalid address or port');
-        resEl.style.color = 'var(--danger)';
-      }
+    const endpoint = AmbiSun.hyperhdrSettings.endpointFromInputs('hyperhdrHostInput', 'hyperhdrPortInput');
+    if (!endpoint) {
+      AmbiSun.hyperhdrSettings.showInvalid('hyperhdrTestResult');
       return;
     }
-    if (resEl) {
-      resEl.textContent = '⏳ ' + AmbiSun.i18n.t('toast.saving', 'Saving…');
-      resEl.style.color = 'var(--muted)';
-    }
-    const success = await AmbiSun.bridge.mutateConfig({ hyperhdr: { host, port } });
+    AmbiSun.hyperhdrSettings.showPending('hyperhdrTestResult', 'toast.saving', 'Saving…');
+    const success = await AmbiSun.bridge.mutateConfig({ hyperhdr: endpoint });
     if (success) {
-      state.hyperhdr = { host, port };
+      state.hyperhdr = endpoint;
       const modal = document.getElementById('hyperhdrModal');
       if (modal) {
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
       }
-      if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge();
+      if (AmbiSun.bridge.updateHyperhdrBadge) AmbiSun.bridge.updateHyperhdrBadge(null);
+      if (AmbiSun.bridge.checkHyperhdrReachability) {
+        AmbiSun.bridge.checkHyperhdrReachability(endpoint);
+      }
       showToast(AmbiSun.i18n.t('settings.saved', 'Settings saved'));
       const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
       if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
     } else {
-      if (resEl) {
-        resEl.textContent = '✖ ' + AmbiSun.i18n.t('error.saveFailed', 'Save failed');
-        resEl.style.color = 'var(--danger)';
-      }
+      AmbiSun.hyperhdrSettings.showResult?.('hyperhdrTestResult', '✖', 'error.saveFailed', 'Save failed', 'var(--danger)');
     }
   },
 
@@ -358,23 +335,16 @@ const ACTIONS = {
     }
   },
 
-  'cycle-default-rule': ({direction = 1}) => {
-    const newRule = AmbiSun.sources.cycleRule(state.defaultRule, direction);
-    state.defaultRule = newRule;
-    AmbiSun.sources.updateDefaultRule();
-    AmbiSun.bridge.mutateConfig({ defaultRule: newRule });
-  },
-
   'reset-settings': async () => {
-    await resetDemoState();
+    await AmbiSunUi.resetDemoState();
   },
 
   'set-language': async ({el}) => {
     const lang = el.dataset.language;
     if (!lang) return;
     await AmbiSun.i18n.setLanguage(lang);
-    updateSettingsLanguageBadge();
-    updateClock();
+    AmbiSun.app.updateSettingsLanguageBadge();
+    AmbiSun.app.updateClock();
     AmbiSun.navigation.openScreen('settings');
     const langRow = document.querySelector('.list-item[data-action="open-language"]');
     if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
@@ -429,8 +399,12 @@ const ACTIONS = {
     if (url) window.open(url, '_blank');
   },
 
+  'open-license': () => {
+    if (AmbiSun.license) AmbiSun.license.open();
+  },
+
   'select-support': ({el}) => {
-    selectSupport(el.dataset.support);
+    AmbiSunUi.selectSupport(el.dataset.support);
     showToast(el.dataset.support === 'paypal' ? 'PayPal' : 'USDT TRC20');
   },
 
@@ -449,9 +423,10 @@ const ACTIONS = {
 window.AmbiSunActions = ACTIONS;
 
 function setSourceRule(sourceId, newRule) {
-  if (!sourceId || !window.AmbiSun.constants.RULES.includes(newRule)) return;
+  if (!sourceId || (newRule !== 'default' && !window.AmbiSun.constants.RULES.includes(newRule))) return;
   const overrides = Object.assign({}, state.sourceRules || {});
-  overrides[sourceId] = newRule;
+  if (newRule === 'default') delete overrides[sourceId];
+  else overrides[sourceId] = newRule;
   state.sourceRules = overrides;
   AmbiSun.sources.renderSourceList();
   AmbiSun.bridge.mutateConfig({ overrides });
@@ -485,8 +460,6 @@ function dispatchAction(el, direction) {
   if (!action) return;
   const handler = ACTIONS[action];
 
-  flash(el);
-
   if (!handler) {
     showToast(`No handler: ${action || 'unknown'}`);
     return;
@@ -516,119 +489,7 @@ function dispatchAction(el, direction) {
 
 
 
-function updateSettingsLanguageBadge() {
-  const badge = document.getElementById('settingsLanguageBadge');
-  if (!badge) return;
-  const lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : (state.language || 'en');
-  const label = (AmbiSun.i18n && AmbiSun.i18n.languageName) ? AmbiSun.i18n.languageName(lang) : lang;
-  badge.textContent = label + ' ›';
-}
-
-function updateClock(){
-  const d = new Date();
-  const lang = (AmbiSun.i18n && AmbiSun.i18n.currentLanguage) ? AmbiSun.i18n.currentLanguage() : 'en';
-  try {
-    document.getElementById('clock').textContent =
-      d.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit', hour12: false });
-    document.getElementById('date').textContent =
-      d.toLocaleDateString(lang, { weekday: 'long', day: 'numeric', month: 'long' });
-  } catch(_) {
-    document.getElementById('clock').textContent =
-      d.toLocaleTimeString('en', { hour: '2-digit', minute: '2-digit', hour12: false });
-    document.getElementById('date').textContent =
-      d.toLocaleDateString('en', { weekday: 'long', day: 'numeric', month: 'long' });
-  }
-}
-
-window.AmbiSun = window.AmbiSun || {};
-window.AmbiSun.app = {
-  updateClock,
-  updateSettingsLanguageBadge,
-  setSourceRule,
-  setSourceEffect,
-  setDefaultEffect
-};
-
-async function initUI(){
-  AmbiSun.navigation.setActionHandler(dispatchAction);
-  AmbiSun.navigation.setBackHandler(() => {
-    const startup = document.getElementById('startupScreen');
-    const wizard = document.getElementById('locationWizard');
-    const hyperhdrModal = document.getElementById('hyperhdrModal');
-
-    if (startup && startup.classList.contains('open') &&
-        startup.classList.contains('first-run')) {
-      return;
-    }
-
-    if (hyperhdrModal && hyperhdrModal.classList.contains('open')) {
-      hyperhdrModal.classList.remove('open');
-      hyperhdrModal.setAttribute('aria-hidden', 'true');
-      const openRow = document.querySelector('.list-item[data-action="open-hyperhdr"]');
-      if (openRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(openRow);
-      return;
-    }
-
-    if (wizard && wizard.classList.contains('open')) {
-      if (AmbiSun.location && AmbiSun.location.back) {
-        AmbiSun.location.back();
-      }
-      return;
-    }
-
-    if (window.AmbiSun.state.screen === 'effectPicker' && AmbiSun.effectPicker) {
-      AmbiSun.effectPicker.close();
-      return;
-    }
-
-    if (window.AmbiSun.state.screen === 'language') {
-      AmbiSun.navigation.openScreen('settings');
-      const langRow = document.querySelector('.list-item[data-action="open-language"]');
-      if (langRow && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(langRow);
-      return;
-    }
-
-    const nav = document.querySelector(`.nav-item[data-screen="${window.AmbiSun.state.screen}"]`);
-    if (nav) AmbiSun.navigation.setFocus(nav);
-  });
-  AmbiSun.navigation.bind();
-  AmbiSun.plasma.init();
-  if (AmbiSun.sources.renderSourceList) {
-    AmbiSun.sources.renderSourceList();
-  }
-
-  AmbiSun.location.updateUI();
-  updateBoolean('enabled');
-  AmbiSun.sources.updateDefaultRule();
-
-  const lang = AmbiSun.i18n.savedLanguage();
-  await AmbiSun.i18n.setLanguage(lang);
-  updateSettingsLanguageBadge();
-  if (AmbiSun.bridge && AmbiSun.bridge.updateHyperhdrBadge) {
-    AmbiSun.bridge.updateHyperhdrBadge();
-  }
-
-  selectSupport('paypal');
-  AmbiSun.navigation.openScreen('home');
-  updateClock();
-  setInterval(updateClock, 30000);
-
-  AmbiSun.startup.start();
-
-  // Backend sync fires after splash hides so user sees live data immediately
-  const splashMs = (AmbiSun.config.startupSplashMs || 2500) + 300;
-  setTimeout(() => {
-    if (AmbiSun.bridge && AmbiSun.bridge.checkSystemStatus) {
-      AmbiSun.bridge.checkSystemStatus();
-    }
-  }, splashMs);
-
-  // Background update check after app is ready
-  setTimeout(() => {
-    if (AmbiSun.bridge && AmbiSun.bridge.checkForUpdate) {
-      AmbiSun.bridge.checkForUpdate();
-    }
-  }, splashMs + 4000);
-}
-
-initUI();
+window.setSourceRule = setSourceRule;
+window.setSourceEffect = setSourceEffect;
+window.setDefaultEffect = setDefaultEffect;
+window.dispatchAmbiSunAction = dispatchAction;

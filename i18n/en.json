@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Language",
     "defaultRule": "Default rule for new apps",
-    "defaultEffect": "Favorite effect for new apps",
-    "defaultEffectTitle": "Favorite effect",
+    "defaultEffect": "Main effect by sun",
+    "defaultEffectTitle": "Main effect by sun",
     "reset": "Reset settings",
     "saved": "Settings saved"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Version",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "License: MIT"
+    "license": "License: MIT",
+    "licenseSummary": "MIT is a permissive license: you may use, modify, distribute, and use the software commercially, provided the copyright notice and license text are preserved.",
+    "close": "Close"
   },
   "update": {
     "available": "Update available",
@@ -71,6 +73,7 @@
     "scan": "Scan the QR code with your phone"
   },
   "rule": {
+    "default": "Disabled",
     "sun": "By sun",
     "on": "Always ON",
     "off": "Always OFF"

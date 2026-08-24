@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Bahasa",
     "defaultRule": "Peraturan lalai untuk aplikasi baharu",
-    "defaultEffect": "Kesan kegemaran untuk aplikasi baharu",
-    "defaultEffectTitle": "Kesan kegemaran",
+    "defaultEffect": "Kesan utama mengikut matahari",
+    "defaultEffectTitle": "Kesan utama mengikut matahari",
     "reset": "Tetapkan semula tetapan",
     "saved": "Tetapan disimpan"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versi",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Lesen: MIT"
+    "license": "Lesen: MIT",
+    "licenseSummary": "MIT ialah lesen permisif: anda boleh menggunakan, mengubah suai, mengedar dan menggunakan perisian ini secara komersial, dengan syarat notis hak cipta dan teks lesen dikekalkan.",
+    "close": "Tutup"
   },
   "update": {
     "available": "Kemas kini tersedia",
@@ -71,6 +73,7 @@
     "scan": "Imbas kod QR dengan telefon anda"
   },
   "rule": {
+    "default": "Dilumpuhkan",
     "sun": "Mengikut matahari",
     "on": "Sentiasa HIDUP",
     "off": "Sentiasa MATI"

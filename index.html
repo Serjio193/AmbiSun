@@ -4,19 +4,31 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AmbiSun — Smart Ambilight for HyperHDR</title>
-<link href="css/app.css" rel="stylesheet"/>
-<script defer src="js/core.js"></script>
-<script defer src="js/i18n.js"></script>
-<script defer src="js/hyperhdr.js"></script>
-<script defer src="js/location.js"></script>
-<script defer src="js/sources.js"></script>
-<script defer src="js/effect-picker.js"></script>
-<script defer src="js/navigation.js"></script>
-<script defer src="js/startup.js"></script>
-<script defer src="js/plasma.js"></script>
-<script defer src="js/webos.js"></script>
-<script defer src="js/bridge.js"></script>
-<script defer src="js/app.js"></script>
+<link href="css/app-layout.css?v=0.2.3.20260824al" rel="stylesheet"/>
+<link href="css/app-pages.css?v=0.2.3.20260824al" rel="stylesheet"/>
+<link href="css/app-interaction.css?v=0.2.3.20260824al" rel="stylesheet"/>
+<link href="css/app-sources.css?v=0.2.3.20260824al" rel="stylesheet"/>
+<link href="css/buttons.css?v=0.2.3.20260824aj" rel="stylesheet"/>
+<script defer src="js/core.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/sun-format.js?v=0.2.3.20260824am"></script>
+<script defer src="js/i18n.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/hyperhdr-settings.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/location-data.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/location-display.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/location.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/sources.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/effect-picker.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/navigation.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/buttons.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/startup.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/plasma.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/webos.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/bridge.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/bridge-lifecycle.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/license.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/app-ui.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/app.js?v=0.2.3.20260824aj"></script>
+<script defer src="js/app-runtime.js?v=0.2.3.20260824ak"></script>
 </head>
 <body>
 <canvas height="27" id="hyperPlasma" width="48"></canvas>
@@ -30,7 +42,7 @@
 <nav id="mainNav">
 <div class="nav-item actionable" data-action="open-screen" data-screen="home" role="button" tabindex="-1"><span class="icon">⌂</span><span data-i18n="nav.home">Главная</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="sources" role="button" tabindex="-1"><span class="icon">▣</span><span data-i18n="nav.sources">Источники и приложения</span></div>
-<div class="nav-item actionable" data-action="open-screen" data-screen="settings" role="button" tabindex="-1"><span class="icon">⚙</span><span data-i18n="nav.settings">Настройки</span></div>
+<div class="nav-item actionable" data-action="open-screen" data-screen="settings" role="button" tabindex="-1"><span class="icon">⚙</span><span data-i18n="nav.settings">Настройки</span><span aria-label="HyperHDR status" class="hyperhdr-status-indicator" id="hyperhdrNavStatusBadge">●</span></div>
 <div class="nav-item actionable" data-action="open-screen" data-screen="about" role="button" tabindex="-1"><span class="icon">ⓘ</span><span data-i18n="nav.about">О приложении</span><span class="update-nav-badge" id="aboutUpdateBadge" aria-hidden="true">!</span></div>
 <div class="nav-divider"></div>
 <div class="nav-item nav-action actionable" data-action="minimize-app" role="button" tabindex="-1"><span class="icon"><span class="minimize-line"></span></span><span data-i18n="common.minimize">Свернуть</span></div>
@@ -91,20 +103,28 @@
 </div>
 <div class="card">
 <div class="card-title" style="font-size:24px;color:white" data-i18n="nav.settings">Настройки</div>
+<div class="setting-block quick-mode-block">
+<div class="setting-label" data-i18n="settings.defaultEffect" title="Включается после заката и работает до рассвета">Основной эффект по солнцу</div>
+<button type="button" class="mode actionable quick-mode-button windows-action-button" data-action="open-default-effect">Захват экрана ›</button>
+</div>
+<div class="setting-block brightness-row">
+<div class="setting-label" data-i18n="settings.brightness">Яркость общего режима</div>
+<div class="brightness-control"><input aria-label="Яркость общего режима" class="brightness-slider" data-brightness-scope="default" max="100" min="0" step="1" type="range" value="50"><span class="brightness-value" data-default-brightness-badge="true">50%</span></div>
+</div>
 <div class="location">
 <div class="left" id="locationDisplay">📍 —</div>
-<div class="pill actionable" data-action="edit-location" data-i18n="common.change" role="button" tabindex="-1">Изменить</div>
+  <div class="pill actionable" data-action="edit-location" data-i18n="common.change" role="button" tabindex="-1">Изменить</div>
 </div>
 <div class="setting-block">
 <div class="setting-label" data-i18n="sun.sunsetOffset">Включение относительно заката</div>
 <div class="stepper">
-<button aria-label="−" class="actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunset" tabindex="-1" type="button">−</button><div class="num" data-setting-value="sunset">+30 мин</div><button aria-label="+" class="actionable" data-action="adjust-offset" data-delta="5" data-setting="sunset" tabindex="-1" type="button">+</button>
+<button aria-label="−" class="windows-action-button actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunset" tabindex="-1" type="button">−</button><div class="num" data-setting-value="sunset">+30 мин</div><button aria-label="+" class="windows-action-button actionable" data-action="adjust-offset" data-delta="5" data-setting="sunset" tabindex="-1" type="button">+</button>
 </div>
 </div>
 <div class="setting-block">
 <div class="setting-label" data-i18n="sun.sunriseOffset">Выключение относительно восхода</div>
 <div class="stepper">
-<button aria-label="−" class="actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunrise" tabindex="-1" type="button">−</button><div class="num blue" data-setting-value="sunrise">+0 мин</div><button aria-label="+" class="actionable" data-action="adjust-offset" data-delta="5" data-setting="sunrise" tabindex="-1" type="button">+</button>
+<button aria-label="−" class="windows-action-button actionable" data-action="adjust-offset" data-delta="-5" data-setting="sunrise" tabindex="-1" type="button">−</button><div class="num blue" data-setting-value="sunrise">+0 мин</div><button aria-label="+" class="windows-action-button actionable" data-action="adjust-offset" data-delta="5" data-setting="sunrise" tabindex="-1" type="button">+</button>
 </div>
 </div>
 <div class="info"><div class="i">🗓</div><div data-i18n="sun.localSchedule">Расписание применяется ежедневно и рассчитывается локально.</div></div>
@@ -115,8 +135,37 @@
 <!-- SOURCES & APPS SCREEN -->
 <section class="screen" id="sources">
 <div class="simple-page">
-<div class="card page-card" id="sourceList">
-<!-- Populated dynamically by sources.js -->
+<div class="card page-card source-page-menu">
+<button class="source-page-choice windows-action-button actionable" data-action="open-source-page" data-screen="sourcesHdmi" type="button">
+<span class="source-page-choice-icon" aria-hidden="true">🎮</span><span data-i18n="sources.hdmiInputs">HDMI inputs</span><span class="source-page-choice-arrow" aria-hidden="true">›</span>
+</button>
+<button class="source-page-choice windows-action-button actionable" data-action="open-source-page" data-screen="sourcesApps" type="button">
+<span class="source-page-choice-icon" aria-hidden="true">▣</span><span data-i18n="sources.apps">Applications</span><span class="source-page-choice-arrow" aria-hidden="true">›</span>
+</button>
+</div>
+</div>
+</section>
+
+<!-- HDMI SOURCES SCREEN -->
+<section class="screen" id="sourcesHdmi" data-title-key="sources.hdmiInputs">
+<div class="simple-page">
+<div class="card page-card source-page-card">
+<div class="source-page-backbar">
+<button class="windows-action-button actionable" data-action="open-screen" data-screen="sources" type="button"><span aria-hidden="true">←</span><span data-i18n="common.back">Назад</span></button>
+</div>
+<div class="source-list" id="sourceListHdmi"></div>
+</div>
+</div>
+</section>
+
+<!-- APPLICATION SOURCES SCREEN -->
+<section class="screen" id="sourcesApps" data-title-key="sources.apps">
+<div class="simple-page">
+<div class="card page-card source-page-card">
+<div class="source-page-backbar">
+<button class="windows-action-button actionable" data-action="open-screen" data-screen="sources" type="button"><span aria-hidden="true">←</span><span data-i18n="common.back">Назад</span></button>
+</div>
+<div class="source-list" id="sourceListApps"></div>
 </div>
 </div>
 </section>
@@ -129,19 +178,7 @@
   <!-- HyperHDR endpoint & status -->
   <div class="list-item actionable" data-action="open-hyperhdr" role="button" tabindex="-1">
     <span>🔗</span><span data-i18n="settings.hyperhdr">HyperHDR</span>
-    <span class="mode" id="hyperhdrStatusBadge">127.0.0.1:8090 ›</span>
-  </div>
-
-  <!-- Default rule for new apps -->
-  <div class="list-item actionable" data-action="cycle-default-rule" role="button" tabindex="-1">
-    <span>☀</span><span data-i18n="settings.defaultRule">Правило для новых приложений</span>
-    <span class="mode sun" data-default-rule-badge="true">По солнцу</span>
-  </div>
-
-  <!-- Favorite effect for new apps -->
-  <div class="list-item" id="defaultEffectSetting">
-    <span>✨</span><span data-i18n="settings.defaultEffect">Любимый эффект для новых приложений</span>
-    <button type="button" class="mode default-effect-button actionable" data-action="open-default-effect" aria-haspopup="screen">Захват экрана ›</button>
+    <span class="mode hyperhdr-status-badge" id="hyperhdrStatusBadge">127.0.0.1:8090 ›</span>
   </div>
 
   <!-- Language -->
@@ -182,16 +219,17 @@
   <span data-i18n="about.github">GitHub: Serjio193 / AmbiSun</span>
   <span>›</span>
 </div>
-<div class="about-info-row">
+<div class="about-info-row actionable" data-action="open-license" role="button" tabindex="-1">
   <span class="glyph-badge">i</span>
   <span data-i18n="about.license">Лицензия: MIT</span>
+  <span class="about-row-arrow" aria-hidden="true">›</span>
 </div>
 
 <!-- UPDATE AVAILABLE CONTAINER -->
 <div id="updateAvailablePanel" class="update-panel" style="display:none;margin-top:16px;padding:18px;background:rgba(65,166,255,0.08);border:1px solid rgba(65,166,255,0.25);border-radius:14px">
   <div style="font-size:20px;font-weight:700;color:var(--blue);margin-bottom:6px" id="updateTitle">Доступно обновление 0.1.1</div>
   <div style="font-size:16px;color:var(--muted);margin-bottom:14px" id="updateNotes"></div>
-  <div class="pill actionable" data-action="install-update" role="button" tabindex="-1" style="background:var(--blue);color:#fff;border-color:transparent;font-size:18px;text-align:center;padding:12px 20px" data-i18n="update.install">
+  <div class="pill windows-action-button actionable" data-action="install-update" role="button" tabindex="-1" data-i18n="update.install">
     Установить обновление ПО
   </div>
 </div>
@@ -252,9 +290,9 @@
       </div>
       <div id="hyperhdrTestResult" style="min-height:28px; margin-bottom:18px; font-size:16px; text-align:center; color:var(--muted)"></div>
       <div style="display:flex; gap:12px; justify-content:center">
-        <button class="pill actionable" data-action="hyperhdr-test" type="button" tabindex="-1" data-i18n="hyperhdr.test">Проверить</button>
-        <button class="pill actionable" data-action="hyperhdr-save" type="button" tabindex="-1" style="background:var(--blue);color:#fff;border-color:transparent" data-i18n="hyperhdr.save">Сохранить</button>
-        <button class="pill actionable" data-action="hyperhdr-cancel" type="button" tabindex="-1" data-i18n="hyperhdr.cancel">Отмена</button>
+        <button class="pill windows-action-button actionable" data-action="hyperhdr-test" type="button" tabindex="-1" data-i18n="hyperhdr.test">Проверить</button>
+        <button class="pill windows-action-button actionable" data-action="hyperhdr-save" type="button" tabindex="-1" data-i18n="hyperhdr.save">Сохранить</button>
+        <button class="pill windows-action-button actionable" data-action="hyperhdr-cancel" type="button" tabindex="-1" data-i18n="hyperhdr.cancel">Отмена</button>
       </div>
     </div>
   </div>
@@ -282,7 +320,7 @@
     </div>
     <div class="location-body" style="padding: 32px">
       <div style="font-size:18px; margin-bottom: 24px" data-i18n="elevation.desc">После обновления приложения необходимо восстановить права доступа. Нажмите кнопку ниже, чтобы применить конфигурацию Homebrew Channel.</div>
-      <div class="pill actionable" data-action="restore-elevation" role="button" tabindex="-1" style="font-size:20px; text-align:center" data-i18n="elevation.button">Восстановить доступ</div>
+      <div class="pill windows-action-button actionable" data-action="restore-elevation" role="button" tabindex="-1" style="font-size:20px; text-align:center" data-i18n="elevation.button">Восстановить доступ</div>
       <div id="elevationStatus" style="margin-top:20px; font-size:16px; color:#c6ccd5; text-align:center; min-height:24px"></div>
     </div>
   </div>

@@ -169,21 +169,6 @@
     }
   }
 
-  let pauseTimer = 0;
-  function pauseTemporary() {
-    if (!running) return;
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = 0;
-    clearTimeout(pauseTimer);
-    pauseTimer = setTimeout(function() {
-      if (running && !document.hidden && !rafId) {
-        lastTime = performance.now();
-        lastRenderTime = lastTime;
-        rafId = requestAnimationFrame(render);
-      }
-    }, 400); // pause for 400ms after last navigation key
-  }
-
   function isRunning() {
     return running;
   }
@@ -194,5 +179,4 @@
   AmbiSun.plasma.toggle = toggle;
   AmbiSun.plasma.dispose = dispose;
   AmbiSun.plasma.isRunning = isRunning;
-  AmbiSun.plasma.pauseTemporary = pauseTemporary;
 })();

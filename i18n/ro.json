@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Limbă",
     "defaultRule": "Regulă implicită pentru aplicații noi",
-    "defaultEffect": "Efect preferat pentru aplicații noi",
-    "defaultEffectTitle": "Efect preferat",
+    "defaultEffect": "Efectul principal în funcție de soare",
+    "defaultEffectTitle": "Efectul principal în funcție de soare",
     "reset": "Resetare setări",
     "saved": "Setări salvate"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Versiune",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licență: MIT"
+    "license": "Licență: MIT",
+    "licenseSummary": "MIT este o licență permisivă: puteți folosi, modifica, distribui și utiliza comercial software-ul, cu condiția să păstrați mențiunea privind drepturile de autor și textul licenței.",
+    "close": "Închide"
   },
   "update": {
     "available": "Actualizare disponibilă",
@@ -71,6 +73,7 @@
     "scan": "Scanați codul QR cu telefonul"
   },
   "rule": {
+    "default": "Dezactivat",
     "sun": "După soare",
     "on": "Întotdeauna PORNIT",
     "off": "Întotdeauna OPRIT"

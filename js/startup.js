@@ -73,7 +73,7 @@
     hide(() => {
       setTimeout(() => {
         if (AmbiSun.location && AmbiSun.location.openWizard) {
-          AmbiSun.location.openWizard();
+          AmbiSun.location.openWizard({ onboarding: true });
         }
       }, 100);
     });
@@ -89,9 +89,24 @@
     }
   }
 
+  function restartFirstRun() {
+    show(true);
+  }
+
+  function finishFirstRun() {
+    if (AmbiSun.location && AmbiSun.location.closeWizard) {
+      AmbiSun.location.closeWizard();
+    }
+    if (AmbiSun.navigation && AmbiSun.navigation.openScreen) {
+      AmbiSun.navigation.openScreen('home');
+    }
+  }
+
   AmbiSun.startup.isFirstRun = isFirstRun;
   AmbiSun.startup.show = show;
   AmbiSun.startup.hide = hide;
   AmbiSun.startup.completeLanguage = completeLanguage;
+  AmbiSun.startup.restartFirstRun = restartFirstRun;
+  AmbiSun.startup.finishFirstRun = finishFirstRun;
   AmbiSun.startup.start = start;
 })();

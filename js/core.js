@@ -12,6 +12,8 @@
     plasma: true,
     defaultRule: 'sun',
     defaultEffect: null,
+    brightness: 50,
+    sourceBrightness: {},
     effectOverrides: {},
     hiddenSources: {},
     language: 'en',

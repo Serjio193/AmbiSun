@@ -76,6 +76,12 @@
           "name": "getHyperhdrEffects"
         },
         {
+          "name": "previewHyperhdrEffect"
+        },
+        {
+          "name": "clearHyperhdrPreview"
+        },
+        {
           "name": "detectCountryByIp"
         },
         {

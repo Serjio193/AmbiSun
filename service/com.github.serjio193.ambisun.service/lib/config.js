@@ -4,10 +4,12 @@ var DEFAULT_CONFIG = {
     enabled: true,
     defaultRule: "sun",
     defaultEffect: null,
+    brightness: 50,
     sunsetOffset: 30,
     sunriseOffset: 0,
     overrides: {},
     effectOverrides: {},
+    sourceBrightness: {},
     hiddenSources: {},
     location: null,
     hyperhdr: {
@@ -97,6 +99,8 @@ function migrateDocument(doc) {
         };
     }
     if (!doc.config.effectOverrides) doc.config.effectOverrides = {};
+    if (typeof doc.config.brightness !== "number") doc.config.brightness = 50;
+    if (!doc.config.sourceBrightness) doc.config.sourceBrightness = {};
     if (!doc.config.hiddenSources) doc.config.hiddenSources = {};
     if (!Object.prototype.hasOwnProperty.call(doc.config, "defaultEffect")) doc.config.defaultEffect = null;
     return doc;
@@ -132,7 +136,7 @@ function validateDocument(doc) {
     if (!isPlainObject(doc.config)) return "config is not a plain object";
 
     var cfg = doc.config;
-    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "hiddenSources", "location", "hyperhdr"];
+    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "brightness", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "sourceBrightness", "hiddenSources", "location", "hyperhdr"];
     for (var key in cfg) {
         if (Object.prototype.hasOwnProperty.call(cfg, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown config field: " + key;
@@ -142,6 +146,7 @@ function validateDocument(doc) {
     if (typeof cfg.enabled !== "boolean") return "enabled must be a boolean";
     if (!isValidRule(cfg.defaultRule)) return "defaultRule must be 'sun', 'on', or 'off'";
     if (cfg.defaultEffect !== null && (typeof cfg.defaultEffect !== "string" || cfg.defaultEffect.trim() === "")) return "defaultEffect must be an effect name or null";
+    if (typeof cfg.brightness !== "number" || !isFinite(cfg.brightness) || Math.floor(cfg.brightness) !== cfg.brightness || cfg.brightness < 0 || cfg.brightness > 100) return "brightness must be an integer between 0 and 100";
     if (!isValidOffset(cfg.sunsetOffset)) return "sunsetOffset must be valid integer multiple of 5 in [-360,360]";
     if (!isValidOffset(cfg.sunriseOffset)) return "sunriseOffset must be valid integer multiple of 5 in [-360,360]";
     
@@ -160,6 +165,14 @@ function validateDocument(doc) {
         if (effectRule.mode !== "capture" && effectRule.mode !== "effect") return "effect override mode must be 'capture' or 'effect'";
         if (effectRule.mode === "effect" && (typeof effectRule.name !== "string" || effectRule.name.trim() === "")) {
             return "effect override name is required";
+        }
+    }
+
+    if (!isPlainObject(cfg.sourceBrightness)) return "sourceBrightness must be a plain object";
+    for (var brightnessId in cfg.sourceBrightness) {
+        if (Object.prototype.hasOwnProperty.call(cfg.sourceBrightness, brightnessId)) {
+            var brightness = cfg.sourceBrightness[brightnessId];
+            if (typeof brightness !== "number" || !isFinite(brightness) || Math.floor(brightness) !== brightness || brightness < 0 || brightness > 100) return "source brightness must be an integer between 0 and 100";
         }
     }
 
@@ -183,7 +196,7 @@ function validatePatch(patch) {
     if (!isPlainObject(patch)) return "Patch must be a plain object";
     if (Object.keys(patch).length === 0) return "Patch is empty";
 
-    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "hiddenSources", "location", "hyperhdr"];
+    var allowedKeys = ["enabled", "defaultRule", "defaultEffect", "brightness", "sunsetOffset", "sunriseOffset", "overrides", "effectOverrides", "sourceBrightness", "hiddenSources", "location", "hyperhdr"];
     for (var key in patch) {
         if (Object.prototype.hasOwnProperty.call(patch, key)) {
             if (allowedKeys.indexOf(key) === -1) return "Unknown field: " + key;
@@ -193,6 +206,7 @@ function validatePatch(patch) {
     if (patch.hasOwnProperty("enabled") && typeof patch.enabled !== "boolean") return "enabled must be a boolean";
     if (patch.hasOwnProperty("defaultRule") && !isValidRule(patch.defaultRule)) return "defaultRule must be 'sun', 'on', or 'off'";
     if (patch.hasOwnProperty("defaultEffect") && patch.defaultEffect !== null && (typeof patch.defaultEffect !== "string" || patch.defaultEffect.trim() === "")) return "defaultEffect must be an effect name or null";
+    if (patch.hasOwnProperty("brightness") && (typeof patch.brightness !== "number" || !isFinite(patch.brightness) || Math.floor(patch.brightness) !== patch.brightness || patch.brightness < 0 || patch.brightness > 100)) return "brightness must be an integer between 0 and 100";
     if (patch.hasOwnProperty("sunsetOffset") && !isValidOffset(patch.sunsetOffset)) return "sunsetOffset must be an integer between -360 and 360, multiple of 5";
     if (patch.hasOwnProperty("sunriseOffset") && !isValidOffset(patch.sunriseOffset)) return "sunriseOffset must be an integer between -360 and 360, multiple of 5";
     
@@ -213,6 +227,16 @@ function validatePatch(patch) {
             if (!isPlainObject(effectRule)) return "effect override must be a plain object";
             if (effectRule.mode !== "capture" && effectRule.mode !== "effect") return "effect override mode must be 'capture' or 'effect'";
             if (effectRule.mode === "effect" && (typeof effectRule.name !== "string" || effectRule.name.trim() === "")) return "effect override name is required";
+        }
+    }
+
+    if (patch.hasOwnProperty("sourceBrightness")) {
+        if (!isPlainObject(patch.sourceBrightness)) return "sourceBrightness must be a plain object";
+        for (var brightnessId in patch.sourceBrightness) {
+            if (Object.prototype.hasOwnProperty.call(patch.sourceBrightness, brightnessId)) {
+                var brightness = patch.sourceBrightness[brightnessId];
+                if (typeof brightness !== "number" || !isFinite(brightness) || Math.floor(brightness) !== brightness || brightness < 0 || brightness > 100) return "source brightness must be an integer between 0 and 100";
+            }
         }
     }
 

@@ -158,6 +158,14 @@ function getEffects(callback, optionsOverride) {
 }
 
 function setEffect(name, callback, optionsOverride) {
+    setEffectWithPriority(name, 64, callback, optionsOverride);
+}
+
+function setEffectWithPriority(name, priority, callback, optionsOverride) {
+    setEffectWithPriorityDuration(name, priority, -1, callback, optionsOverride);
+}
+
+function setEffectWithPriorityDuration(name, priority, duration, callback, optionsOverride) {
     if (typeof name !== "string" || name.trim() === "") {
         var err = new Error("effect name is required");
         err.code = "INVALID_REQUEST";
@@ -166,14 +174,27 @@ function setEffect(name, callback, optionsOverride) {
     rpc({
         command: "effect",
         effect: { name: name, args: {} },
-        priority: 64,
-        duration: -1,
+        priority: priority,
+        duration: duration,
         origin: "AmbiSun"
     }, callback, optionsOverride);
 }
 
 function clearEffect(callback, optionsOverride) {
-    rpc({ command: "clear", priority: 64 }, callback, optionsOverride);
+    clearEffectWithPriority(64, callback, optionsOverride);
+}
+
+function clearEffectWithPriority(priority, callback, optionsOverride) {
+    rpc({ command: "clear", priority: priority }, callback, optionsOverride);
+}
+
+function setBrightness(brightness, callback, optionsOverride) {
+    if (typeof brightness !== "number" || !isFinite(brightness) || Math.floor(brightness) !== brightness || brightness < 0 || brightness > 100) {
+        var err = new Error("brightness must be an integer between 0 and 100");
+        err.code = "INVALID_REQUEST";
+        return process.nextTick(function() { callback(err, null); });
+    }
+    rpc({ command: "adjustment", adjustment: { classic_config: false, brightness: brightness } }, callback, optionsOverride);
 }
 
 module.exports = {
@@ -182,5 +203,9 @@ module.exports = {
     setLedDevice: setLedDevice,
     getEffects: getEffects,
     setEffect: setEffect,
-    clearEffect: clearEffect
+    setEffectWithPriority: setEffectWithPriority,
+    setEffectWithPriorityDuration: setEffectWithPriorityDuration,
+    clearEffect: clearEffect,
+    clearEffectWithPriority: clearEffectWithPriority,
+    setBrightness: setBrightness
 };

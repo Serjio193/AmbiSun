@@ -25,8 +25,15 @@ function formatScheduleStart(date) {
            `${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}:${pad(date.getUTCSeconds())}Z`;
 }
 
+function hasSolarRule(config) {
+    if (config.defaultRule === "sun") return true;
+    return !!(config.overrides && Object.keys(config.overrides).some(function(id) {
+        return config.overrides[id] === "sun";
+    }));
+}
+
 function getNextSolarEvent(config, nowStrOrDate) {
-    if (!config.enabled || config.defaultRule !== "sun" || !config.location) {
+    if (!config.enabled || !hasSolarRule(config) || !config.location) {
         return null;
     }
     

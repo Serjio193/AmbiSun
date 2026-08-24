@@ -67,13 +67,7 @@
     };
   }
 
-  function formatOffset(value, withParens){
-    if (value == null) return withParens ? '' : '+0 ' + ((AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('unit.minuteShort', 'min') : 'min');
-    const sign = value >= 0 ? '+' : '';
-    const unit = (AmbiSun.i18n && AmbiSun.i18n.t) ? AmbiSun.i18n.t('unit.minuteShort', 'min') : 'min';
-    const text = `${sign}${value} ${unit}`;
-    return withParens ? `(${text})` : text;
-  }
+  const formatOffset = AmbiSun.sunFormat.formatOffset;
 
   function minutesToTime(total){
     total = ((total % 1440) + 1440) % 1440;

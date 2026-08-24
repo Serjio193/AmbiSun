@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "언어",
     "defaultRule": "새 앱 기본 규칙",
-    "defaultEffect": "새 앱의 즐겨찾기 효과",
-    "defaultEffectTitle": "즐겨찾기 효과",
+    "defaultEffect": "태양 연동 기본 효과",
+    "defaultEffectTitle": "태양 연동 기본 효과",
     "reset": "설정 초기화",
     "saved": "설정이 저장되었습니다"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "버전",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "라이선스: MIT"
+    "license": "라이선스: MIT",
+    "licenseSummary": "MIT는 허용적인 라이선스입니다. 저작권 표시와 라이선스 전문을 유지하면 소프트웨어를 사용, 수정, 배포하고 상업적으로 이용할 수 있습니다.",
+    "close": "닫기"
   },
   "update": {
     "available": "업데이트 가능",
@@ -71,6 +73,7 @@
     "scan": "스마트폰으로 QR 코드를 스캔하세요"
   },
   "rule": {
+    "default": "비활성화됨",
     "sun": "태양 기준",
     "on": "항상 켜짐",
     "off": "항상 꺼짐"

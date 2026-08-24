@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "Nyelv",
     "defaultRule": "Alapértelmezett szabály új appokhoz",
-    "defaultEffect": "Kedvenc effektus új alkalmazásokhoz",
-    "defaultEffectTitle": "Kedvenc effektus",
+    "defaultEffect": "Fő effektus nap szerint",
+    "defaultEffectTitle": "Fő effektus nap szerint",
     "reset": "Beállítások visszaállítása",
     "saved": "Beállítások mentve"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "Verzió",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "Licenc: MIT"
+    "license": "Licenc: MIT",
+    "licenseSummary": "Az MIT megengedő licenc: a szoftver használható, módosítható, terjeszthető és kereskedelmi célra is alkalmazható, ha a szerzői jogi tájékoztatás és a licenc szövege megmarad.",
+    "close": "Bezárás"
   },
   "update": {
     "available": "Frissítés érhető el",
@@ -71,6 +73,7 @@
     "scan": "Olvassa be a QR-kódot a telefonjával"
   },
   "rule": {
+    "default": "Kikapcsolva",
     "sun": "Nap szerint",
     "on": "Mindig BE",
     "off": "Mindig KI"

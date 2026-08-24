@@ -37,8 +37,8 @@
     "hyperhdr": "HyperHDR",
     "language": "言語",
     "defaultRule": "新規アプリのデフォルト規則",
-    "defaultEffect": "新しいアプリのお気に入りエフェクト",
-    "defaultEffectTitle": "お気に入りエフェクト",
+    "defaultEffect": "太陽に連動するメインエフェクト",
+    "defaultEffectTitle": "太陽に連動するメインエフェクト",
     "reset": "設定を初期化",
     "saved": "設定を保存しました"
   },
@@ -56,7 +56,9 @@
   "about": {
     "version": "バージョン",
     "github": "GitHub: Serjio193 / AmbiSun",
-    "license": "ライセンス: MIT"
+    "license": "ライセンス: MIT",
+    "licenseSummary": "MITは寛容なライセンスです。著作権表示とライセンス本文を保持すれば、ソフトウェアの使用、改変、配布、商用利用ができます。",
+    "close": "閉じる"
   },
   "update": {
     "available": "アップデートがあります",
@@ -71,6 +73,7 @@
     "scan": "スマートフォンで QR コードをスキャン"
   },
   "rule": {
+    "default": "無効",
     "sun": "太陽連動",
     "on": "常に点灯",
     "off": "常に消灯"

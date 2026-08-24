@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Исправлено определение страны по IP и загрузка offline-базы стран и городов при первоначальной настройке',
-        en: 'Fixed IP-based country detection and loading of the offline country and city database during initial setup',
-        uk: 'Виправлено визначення країни за IP та завантаження офлайн-бази країн і міст під час початкового налаштування'
+        ru: 'Исправлено восстановление состояния подсветки после перезагрузки, когда правило требует выключить подсветку',
+        en: 'Fixed lighting state recovery after reboot when the configured rule requires the lighting to be off',
+        uk: 'Виправлено відновлення стану підсвічування після перезавантаження, коли правило вимагає вимкнути підсвічування'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

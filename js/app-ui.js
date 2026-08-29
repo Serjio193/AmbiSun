@@ -26,6 +26,17 @@
   window.updateBoolean = updateBoolean;
   window.showToast = showToast;
 
+  function clearAmbiSunStorage() {
+    try {
+      var keys = [];
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        if (key && key.indexOf('ambisun.') === 0) keys.push(key);
+      }
+      keys.forEach(function (key) { localStorage.removeItem(key); });
+    } catch (_) {}
+  }
+
   function selectSupport(key) {
     const data = SUPPORT[key];
     if (!data) return;
@@ -42,11 +53,7 @@
     try {
       const res = await AmbiSun.webos.resetConfig();
       if (!res.returnValue) throw new Error(res.errorText || 'reset failed');
-      try {
-        localStorage.removeItem(STORAGE_KEYS.language);
-        localStorage.removeItem(STORAGE_KEYS.firstRunLanguageDone);
-        localStorage.removeItem('ambisun.observedSources');
-      } catch (_) {}
+      clearAmbiSunStorage();
       state.showHiddenSources = false;
       await AmbiSun.bridge.syncConfig();
       try {

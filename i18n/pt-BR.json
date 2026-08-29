@@ -38,7 +38,10 @@
     "language": "Idioma",
     "defaultRule": "Regra padrão para novos aplicativos",
     "defaultEffect": "Efeito principal conforme o sol",
-    "defaultEffectTitle": "Efeito principal conforme o sol",
+   "defaultEffectTitle": "Efeito principal conforme o sol",
+    "brightnessTest": "Testar brilho da captura",
+    "brightnessTestTitle": "Teste de brilho da captura",
+    "brightnessTestDescription": "Brilho máximo durante a captura com uma imagem totalmente branca",
     "reset": "Redefinir configurações",
     "saved": "Configurações salvas"
   },

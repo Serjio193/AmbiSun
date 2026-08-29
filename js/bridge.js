@@ -11,7 +11,6 @@
   var directElevationAttempted = false;
   var directElevationInProgress = false;
   var hyperhdrReachable = null;
-  var sourceMonitorTimer = null;
 
   // ---- Time formatting ----
   function fmt(isoStr, tz) {
@@ -61,7 +60,6 @@
   // ---- System Status check (elevation gate) ----
   function checkSystemStatus() {
     if (isChecking) return Promise.resolve();
-    startSourceMonitor();
     isChecking = true;
     return AmbiSun.webos.getSystemStatus()
       .then(function(res) {
@@ -152,8 +150,6 @@
 
     directElevationInProgress = false;
 
-    startSourceMonitor();
-
     if (!isElevated) {
       isElevated = true;
       if (elevWizard && elevWizard.getAttribute('aria-hidden') === 'false') {
@@ -166,22 +162,6 @@
     syncConfig();
     syncSolar();
     syncSources();
-  }
-
-  // webOS can stop a dynamic service when it has no active Luna request.
-  // Keep our own service warm from the app process so its foreground-source
-  // polling remains available while AmbiSun is minimized behind another app.
-  function pollCurrentSource() {
-    if (!AmbiSun.webos || !AmbiSun.webos.getCurrentSource) return;
-    AmbiSun.webos.getCurrentSource().catch(function (err) {
-      console.warn('[bridge] source monitor failed:', err && err.message);
-    });
-  }
-
-  function startSourceMonitor() {
-    if (sourceMonitorTimer || !AmbiSun.webos || !AmbiSun.webos.getCurrentSource) return;
-    pollCurrentSource();
-    sourceMonitorTimer = setInterval(pollCurrentSource, 1000);
   }
 
   function updateHyperhdrBadge(status) {
@@ -228,52 +208,13 @@
   }
 
   // ---- Config sync ----
-  function syncConfig() {
-    return AmbiSun.webos.getConfig()
-      .then(function(res) {
-        var cfg = res && res.config;
-        if (!cfg) return;
-        configRevision = res.revision;
-        AmbiSun.state.enabled = !!cfg.enabled;
-        AmbiSun.state.defaultRule = cfg.defaultRule || 'sun';
-        AmbiSun.state.defaultEffect = cfg.defaultEffect || null;
-        AmbiSun.state.sunsetOffset = typeof cfg.sunsetOffset === 'number' ? cfg.sunsetOffset : 0;
-        AmbiSun.state.sunriseOffset = typeof cfg.sunriseOffset === 'number' ? cfg.sunriseOffset : 0;
-        AmbiSun.state.brightness = typeof cfg.brightness === 'number' ? cfg.brightness : 50;
-        if (Object.prototype.hasOwnProperty.call(cfg, 'location')) AmbiSun.state.location = cfg.location;
-        if (cfg.overrides) AmbiSun.state.sourceRules = cfg.overrides;
-        AmbiSun.state.effectOverrides = cfg.effectOverrides || {};
-        AmbiSun.state.sourceBrightness = cfg.sourceBrightness || {};
-        AmbiSun.state.hiddenSources = cfg.hiddenSources || {};
-        if (typeof window.updateBrightnessUi === 'function') window.updateBrightnessUi();
-        if (cfg.hyperhdr) {
-          AmbiSun.state.hyperhdr = {
-            host: cfg.hyperhdr.host || '127.0.0.1',
-            port: cfg.hyperhdr.port || 8090
-          };
-          if (AmbiSun.config) {
-            AmbiSun.config.hyperhdrEndpoint = "http://" + AmbiSun.state.hyperhdr.host + ":" + AmbiSun.state.hyperhdr.port + "/json-rpc?request";
-          }
-        }
-        updateHyperhdrBadge();
-
-        // Update steppers immediately
-        document.querySelectorAll('[data-setting-value="sunset"]').forEach(function(el) {
-          el.textContent = fmtOffsetStepper(cfg.sunsetOffset);
-        });
-        document.querySelectorAll('[data-setting-value="sunrise"]').forEach(function(el) {
-          el.textContent = fmtOffsetStepper(cfg.sunriseOffset);
-        });
-
-        if (typeof window.updateBoolean === 'function') window.updateBoolean('enabled');
-        if (AmbiSun.location && AmbiSun.location.updateUI) AmbiSun.location.updateUI();
-        if (AmbiSun.sources && AmbiSun.sources.updateDefaultEffect) AmbiSun.sources.updateDefaultEffect();
-        if (AmbiSun.sources && AmbiSun.sources.renderSourceList) AmbiSun.sources.renderSourceList();
-      })
-      .catch(function(e) {
-        console.warn('[bridge] syncConfig failed:', e && e.message);
-      });
-  }
+  var syncConfig = AmbiSun.configSync.create({
+    getConfig: AmbiSun.webos.getConfig,
+    state: AmbiSun.state,
+    setRevision: function (revision) { configRevision = revision; },
+    formatOffset: fmtOffsetStepper,
+    updateHyperhdrBadge: updateHyperhdrBadge
+  });
 
   // ---- Solar sync ----
   var lastSolarData = null;
@@ -290,16 +231,14 @@
 
     var nextOn  = document.getElementById('homeNextOn');
     var nextOff = document.getElementById('homeNextOff');
-    if (s.nextEventType === 'on') {
-      if (nextOn)  nextOn.textContent  = fmtNext(s.nextEventAt, tz) || '—';
-      if (nextOff) nextOff.textContent = fmtNext(s.effectiveSunrise, tz) || '—';
-    } else if (s.nextEventType === 'off') {
-      if (nextOn)  nextOn.textContent  = '—';
-      if (nextOff) nextOff.textContent = fmtNext(s.nextEventAt, tz) || '—';
-    } else {
-      if (nextOn)  nextOn.textContent  = '—';
-      if (nextOff) nextOff.textContent = '—';
-    }
+    var nextOnAt = s.nextEventType === 'on'
+      ? s.nextEventAt
+      : (s.nextOnAt || s.effectiveTomorrowSunset);
+    var nextOffAt = s.nextEventType === 'off'
+      ? s.nextEventAt
+      : s.effectiveSunrise;
+    if (nextOn) nextOn.textContent = fmtNext(nextOnAt, tz) || '—';
+    if (nextOff) nextOff.textContent = fmtNext(nextOffAt, tz) || '—';
   }
 
   function reRenderSolar() {
@@ -478,6 +417,5 @@
   AmbiSun.bridge.syncSources = syncSources;
   AmbiSun.bridge.updateHyperhdrBadge = updateHyperhdrBadge;
   AmbiSun.bridge.checkHyperhdrReachability = checkHyperhdrReachability;
-  AmbiSun.bridge.pollCurrentSource = pollCurrentSource;
   AmbiSun.bridge.isElevated = function() { return isElevated; };
 })();

@@ -38,7 +38,10 @@
     "language": "Bahasa",
     "defaultRule": "Peraturan lalai untuk aplikasi baharu",
     "defaultEffect": "Kesan utama mengikut matahari",
-    "defaultEffectTitle": "Kesan utama mengikut matahari",
+   "defaultEffectTitle": "Kesan utama mengikut matahari",
+    "brightnessTest": "Uji kecerahan tangkapan",
+    "brightnessTestTitle": "Ujian kecerahan tangkapan",
+    "brightnessTestDescription": "Imej putih sepenuhnya memberikan kecerahan maksimum semasa tangkapan",
     "reset": "Tetapkan semula tetapan",
     "saved": "Tetapan disimpan"
   },

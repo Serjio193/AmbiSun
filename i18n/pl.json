@@ -38,7 +38,10 @@
     "language": "Język",
     "defaultRule": "Domyślna reguła dla nowych aplikacji",
     "defaultEffect": "Główny efekt według słońca",
-    "defaultEffectTitle": "Główny efekt według słońca",
+   "defaultEffectTitle": "Główny efekt według słońca",
+    "brightnessTest": "Testuj jasność przechwytywania",
+    "brightnessTestTitle": "Test jasności przechwytywania",
+    "brightnessTestDescription": "Maksymalna jasność podczas przechwytywania przy całkowicie białym obrazie",
     "reset": "Resetuj ustawienia",
     "saved": "Ustawienia zapisane"
   },

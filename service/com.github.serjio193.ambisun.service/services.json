@@ -61,6 +61,12 @@
           "name": "getAutomationStatus"
         },
         {
+          "name": "getDiagnostics"
+        },
+        {
+          "name": "resetDiagnostics"
+        },
+        {
           "name": "evaluateAndApplyNow"
         },
         {
@@ -80,6 +86,9 @@
         },
         {
           "name": "clearHyperhdrPreview"
+        },
+        {
+          "name": "previewHyperhdrBrightness"
         },
         {
           "name": "detectCountryByIp"

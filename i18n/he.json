@@ -38,7 +38,10 @@
     "language": "שפה",
     "defaultRule": "כלל ברירת מחדל ליישומים חדשים",
     "defaultEffect": "אפקט ראשי לפי השמש",
-    "defaultEffectTitle": "אפקט ראשי לפי השמש",
+   "defaultEffectTitle": "אפקט ראשי לפי השמש",
+    "brightnessTest": "בדיקת בהירות הלכידה",
+    "brightnessTestTitle": "בדיקת בהירות הלכידה",
+    "brightnessTestDescription": "בהירות מרבית בזמן לכידה עם תמונה לבנה לחלוטין",
     "reset": "איפוס הגדרות",
     "saved": "ההגדרות נשמרו"
   },

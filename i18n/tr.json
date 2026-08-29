@@ -38,7 +38,10 @@
     "language": "Dil",
     "defaultRule": "Yeni uygulamalar için varsayılan kural",
     "defaultEffect": "Güneşe göre ana efekt",
-    "defaultEffectTitle": "Güneşe göre ana efekt",
+   "defaultEffectTitle": "Güneşe göre ana efekt",
+    "brightnessTest": "Yakalama parlaklığını test et",
+    "brightnessTestTitle": "Yakalama parlaklığı testi",
+    "brightnessTestDescription": "Tamamen beyaz bir görüntü yakalanırken maksimum parlaklık",
     "reset": "Ayarları sıfırla",
     "saved": "Ayarlar kaydedildi"
   },

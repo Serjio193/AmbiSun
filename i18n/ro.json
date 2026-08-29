@@ -38,7 +38,10 @@
     "language": "Limbă",
     "defaultRule": "Regulă implicită pentru aplicații noi",
     "defaultEffect": "Efectul principal în funcție de soare",
-    "defaultEffectTitle": "Efectul principal în funcție de soare",
+   "defaultEffectTitle": "Efectul principal în funcție de soare",
+    "brightnessTest": "Testează luminozitatea capturii",
+    "brightnessTestTitle": "Testul luminozității capturii",
+    "brightnessTestDescription": "Luminozitate maximă în timpul capturii cu o imagine complet albă",
     "reset": "Resetare setări",
     "saved": "Setări salvate"
   },

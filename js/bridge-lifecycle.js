@@ -43,9 +43,9 @@
     if (!bridge.isElevated()) return;
     if (screenId === 'home') {
       bridge.syncSolar();
-      bridge.syncSources();
     } else if (screenId === 'sources' || screenId === 'sourcesHdmi' || screenId === 'sourcesApps') {
-      bridge.syncSources();
+      bridge.syncConfig();
+      bridge.syncSources(false);
     } else if (screenId === 'settings') {
       bridge.syncConfig();
       bridge.syncSolar();
@@ -83,7 +83,6 @@
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden && bridge.isElevated()) {
       bridge.checkSystemStatus();
-      bridge.pollCurrentSource();
     }
   });
 

@@ -192,7 +192,7 @@ function scheduleActivity(event, callback) {
 function reconcile(config, nowStrOrDate, callback) {
     const nextEvent = getNextSolarEvent(config, nowStrOrDate);
     status.configured = !!nextEvent;
-    
+
     if (!nextEvent) {
         cancelActivity(ACTIVITY_NAME, function(err) {
             status.active = false;
@@ -274,7 +274,7 @@ function executeWake(currentConfig, decisionModule, hyperhdrModule, nowStrOrDate
         var options = (currentConfig && currentConfig.hyperhdr && currentConfig.hyperhdr.host)
             ? { host: currentConfig.hyperhdr.host, port: currentConfig.hyperhdr.port }
             : undefined;
-        hyperhdrModule.setLedDevice(result.state, function(err) {
+        hyperhdrModule.applyLedState(result.state, function(err) {
             performReconcile(err, null);
         }, options);
     } else {

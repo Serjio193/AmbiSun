@@ -38,7 +38,10 @@
     "language": "Språk",
     "defaultRule": "Standardregel för nya appar",
     "defaultEffect": "Huvudeffekt efter solen",
-    "defaultEffectTitle": "Huvudeffekt efter solen",
+   "defaultEffectTitle": "Huvudeffekt efter solen",
+    "brightnessTest": "Testa inspelningens ljusstyrka",
+    "brightnessTestTitle": "Test av inspelningens ljusstyrka",
+    "brightnessTestDescription": "Maximal ljusstyrka vid inspelning med en helt vit bild",
     "reset": "Återställ inställningar",
     "saved": "Inställningarna sparades"
   },

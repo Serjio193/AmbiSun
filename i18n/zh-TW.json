@@ -38,7 +38,10 @@
     "language": "語言",
     "defaultRule": "新應用的預設規則",
     "defaultEffect": "依日照運行的主要效果",
-    "defaultEffectTitle": "依日照運行的主要效果",
+   "defaultEffectTitle": "依日照運行的主要效果",
+    "brightnessTest": "測試擷取亮度",
+    "brightnessTestTitle": "擷取亮度測試",
+    "brightnessTestDescription": "擷取全白畫面時的最大亮度",
     "reset": "重設設定",
     "saved": "設定已儲存"
   },

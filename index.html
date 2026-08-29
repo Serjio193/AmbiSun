@@ -9,27 +9,30 @@
 <link href="css/app-interaction.css?v=0.2.3.20260824al" rel="stylesheet"/>
 <link href="css/app-sources.css?v=0.2.3.20260824al" rel="stylesheet"/>
 <link href="css/buttons.css?v=0.2.3.20260824aj" rel="stylesheet"/>
-<script defer src="js/core.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/core.js?v=0.2.8.20260830a"></script>
 <script defer src="js/sun-format.js?v=0.2.3.20260824am"></script>
 <script defer src="js/i18n.js?v=0.2.3.20260824aj"></script>
 <script defer src="js/hyperhdr-settings.js?v=0.2.3.20260824aj"></script>
-<script defer src="js/onboarding.js?v=0.2.7.20260824an"></script>
+<script defer src="js/onboarding.js?v=0.2.8.20260824an"></script>
 <script defer src="js/location-data.js?v=0.2.3.20260824ak"></script>
 <script defer src="js/location-display.js?v=0.2.3.20260824ak"></script>
 <script defer src="js/location.js?v=0.2.3.20260824aj"></script>
 <script defer src="js/sources.js?v=0.2.3.20260824aj"></script>
 <script defer src="js/effect-picker.js?v=0.2.3.20260824ai"></script>
+<script defer src="js/brightness-test.js?v=0.2.8.20260829a"></script>
 <script defer src="js/navigation.js?v=0.2.3.20260824aj"></script>
 <script defer src="js/buttons.js?v=0.2.3.20260824ai"></script>
 <script defer src="js/startup.js?v=0.2.3.20260824ai"></script>
 <script defer src="js/plasma.js?v=0.2.3.20260824ai"></script>
 <script defer src="js/webos.js?v=0.2.3.20260824ai"></script>
-<script defer src="js/bridge.js?v=0.2.3.20260824aj"></script>
-<script defer src="js/bridge-lifecycle.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/config-sync.js?v=0.2.8.20260827a"></script>
+<script defer src="js/bridge.js?v=0.2.8.20260830d"></script>
+<script defer src="js/bridge-lifecycle.js?v=0.2.3.20260828al"></script>
 <script defer src="js/license.js?v=0.2.3.20260824ai"></script>
 <script defer src="js/app-ui.js?v=0.2.3.20260824ak"></script>
 <script defer src="js/app.js?v=0.2.3.20260824aj"></script>
-<script defer src="js/app-runtime.js?v=0.2.3.20260824ak"></script>
+<script defer src="js/action-dispatch.js?v=0.2.8.20260830e"></script>
+<script defer src="js/app-runtime.js?v=0.2.8.20260830c"></script>
 </head>
 <body>
 <canvas height="27" id="hyperPlasma" width="48"></canvas>
@@ -111,6 +114,7 @@
 <div class="setting-block brightness-row">
 <div class="setting-label" data-i18n="settings.brightness">Яркость общего режима</div>
 <div class="brightness-control"><input aria-label="Яркость общего режима" class="brightness-slider" data-brightness-scope="default" max="100" min="0" step="1" type="range" value="50"><span class="brightness-value" data-default-brightness-badge="true">50%</span></div>
+<button type="button" class="windows-action-button actionable brightness-test-launch" data-action="open-brightness-test" data-brightness-scope="default" data-i18n="settings.brightnessTest">Тест яркости захвата</button>
 </div>
 <div class="location">
 <div class="left" id="locationDisplay">📍 —</div>
@@ -132,6 +136,20 @@
 </div>
 </div>
 </section>
+
+<div aria-hidden="true" class="brightness-test-overlay" id="brightnessTestOverlay">
+<div class="brightness-test-panel">
+<div class="brightness-test-title" data-i18n="settings.brightnessTestTitle">Тест яркости захвата</div>
+<div class="brightness-test-description" data-i18n="settings.brightnessTestDescription">Максимальная яркость во время захвата при полном белом свете</div>
+<div class="brightness-test-value" id="brightnessTestValue">50%</div>
+<div class="brightness-test-meter" aria-hidden="true"><div class="brightness-test-meter-fill" id="brightnessTestMeterFill"></div></div>
+<div class="brightness-test-status" id="brightnessTestStatus"></div>
+<div class="brightness-test-actions">
+<button type="button" class="windows-action-button actionable" data-action="brightness-test-cancel"><span aria-hidden="true">←</span> <span data-i18n="common.back">Назад</span></button>
+<button type="button" class="windows-action-button actionable" data-action="brightness-test-save" data-i18n="hyperhdr.save">Сохранить</button>
+</div>
+</div>
+</div>
 
 <!-- SOURCES & APPS SCREEN -->
 <section class="screen" id="sources">

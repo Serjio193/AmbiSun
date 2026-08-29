@@ -38,7 +38,10 @@
     "language": "언어",
     "defaultRule": "새 앱 기본 규칙",
     "defaultEffect": "태양 연동 기본 효과",
-    "defaultEffectTitle": "태양 연동 기본 효과",
+   "defaultEffectTitle": "태양 연동 기본 효과",
+    "brightnessTest": "캡처 밝기 테스트",
+    "brightnessTestTitle": "캡처 밝기 테스트",
+    "brightnessTestDescription": "완전히 흰색인 화면을 캡처할 때의 최대 밝기",
     "reset": "설정 초기화",
     "saved": "설정이 저장되었습니다"
   },

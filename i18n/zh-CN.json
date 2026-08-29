@@ -38,7 +38,10 @@
     "language": "语言",
     "defaultRule": "新应用的默认规则",
     "defaultEffect": "按日照运行的主要效果",
-    "defaultEffectTitle": "按日照运行的主要效果",
+   "defaultEffectTitle": "按日照运行的主要效果",
+    "brightnessTest": "测试捕获亮度",
+    "brightnessTestTitle": "捕获亮度测试",
+    "brightnessTestDescription": "捕获全白画面时的最大亮度",
     "reset": "重置设置",
     "saved": "设置已保存"
   },

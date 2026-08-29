@@ -38,7 +38,10 @@
     "language": "Språk",
     "defaultRule": "Standardregel for nye apper",
     "defaultEffect": "Hovedeffekt etter solen",
-    "defaultEffectTitle": "Hovedeffekt etter solen",
+   "defaultEffectTitle": "Hovedeffekt etter solen",
+    "brightnessTest": "Test lysstyrken for opptak",
+    "brightnessTestTitle": "Test av opptakets lysstyrke",
+    "brightnessTestDescription": "Maksimal lysstyrke under opptak med et helt hvitt bilde",
     "reset": "Tilbakestill innstillinger",
     "saved": "Innstillinger lagret"
   },

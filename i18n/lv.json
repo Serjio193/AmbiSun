@@ -38,7 +38,10 @@
     "language": "Valoda",
     "defaultRule": "Noklusējuma kārtula jaunām lietotnēm",
     "defaultEffect": "Galvenais efekts pēc saules",
-    "defaultEffectTitle": "Galvenais efekts pēc saules",
+   "defaultEffectTitle": "Galvenais efekts pēc saules",
+    "brightnessTest": "Pārbaudīt tveršanas spilgtumu",
+    "brightnessTestTitle": "Tveršanas spilgtuma pārbaude",
+    "brightnessTestDescription": "Maksimālais spilgtums tveršanas laikā ar pilnīgi baltu attēlu",
     "reset": "Atiestatīt iestatījumus",
     "saved": "Iestatījumi saglabāti"
   },

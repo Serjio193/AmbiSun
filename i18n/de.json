@@ -38,7 +38,10 @@
     "language": "Sprache",
     "defaultRule": "Standardregel für neue Apps",
     "defaultEffect": "Haupteffekt nach Sonnenstand",
-    "defaultEffectTitle": "Haupteffekt nach Sonnenstand",
+   "defaultEffectTitle": "Haupteffekt nach Sonnenstand",
+    "brightnessTest": "Helligkeit der Aufnahme testen",
+    "brightnessTestTitle": "Test der Aufnahmehelligkeit",
+    "brightnessTestDescription": "Maximale Helligkeit während der Aufnahme bei einem vollständig weißen Bild",
     "reset": "Einstellungen zurücksetzen",
     "saved": "Einstellungen gespeichert"
   },

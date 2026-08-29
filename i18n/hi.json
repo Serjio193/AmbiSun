@@ -38,7 +38,10 @@
     "language": "भाषा",
     "defaultRule": "नए ऐप्स के लिए डिफ़ॉल्ट नियम",
     "defaultEffect": "सूर्य के अनुसार मुख्य प्रभाव",
-    "defaultEffectTitle": "सूर्य के अनुसार मुख्य प्रभाव",
+   "defaultEffectTitle": "सूर्य के अनुसार मुख्य प्रभाव",
+    "brightnessTest": "कैप्चर चमक का परीक्षण करें",
+    "brightnessTestTitle": "कैप्चर चमक परीक्षण",
+    "brightnessTestDescription": "पूरी तरह सफेद चित्र कैप्चर करते समय अधिकतम चमक",
     "reset": "सेटिंग्स रीसेट करें",
     "saved": "सेटिंग्स सहेजी गईं"
   },

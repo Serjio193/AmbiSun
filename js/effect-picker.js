@@ -51,6 +51,10 @@
       result.push({ group: true, label: t("sources.musicEffects", "Music effects") });
       music.forEach(function (name) { result.push({ value: name, label: effectLabel(name) }); });
     }
+    var selected = selectedValue();
+    if (selected !== CAPTURE && !result.some(function (item) { return item.value === selected; })) {
+      result.push({ value: selected, label: effectLabel(selected) });
+    }
     return result;
   }
 
@@ -163,10 +167,10 @@
     if (first && AmbiSun.navigation.setFocus) AmbiSun.navigation.setFocus(first);
   }
 
-  function openDefault() {
+  function openDefault(sourceScreenId) {
     isDefaultMode = true;
     currentSourceId = null;
-    returnScreenId = "settings";
+    returnScreenId = sourceScreenId || "home";
     pendingValue = null;
     ensureScreen();
     AmbiSun.navigation.openScreen("effectPicker");

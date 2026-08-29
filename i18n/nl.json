@@ -38,7 +38,10 @@
     "language": "Taal",
     "defaultRule": "Standaardregel voor nieuwe apps",
     "defaultEffect": "Hoofdeffect op basis van de zon",
-    "defaultEffectTitle": "Hoofdeffect op basis van de zon",
+   "defaultEffectTitle": "Hoofdeffect op basis van de zon",
+    "brightnessTest": "Helderheid van opname testen",
+    "brightnessTestTitle": "Test voor opnamehelderheid",
+    "brightnessTestDescription": "Maximale helderheid tijdens opname met een volledig wit beeld",
     "reset": "Instellingen herstellen",
     "saved": "Instellingen opgeslagen"
   },

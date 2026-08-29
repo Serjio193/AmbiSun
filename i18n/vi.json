@@ -38,7 +38,10 @@
     "language": "Ngôn ngữ",
     "defaultRule": "Quy tắc mặc định cho ứng dụng mới",
     "defaultEffect": "Hiệu ứng chính theo mặt trời",
-    "defaultEffectTitle": "Hiệu ứng chính theo mặt trời",
+   "defaultEffectTitle": "Hiệu ứng chính theo mặt trời",
+    "brightnessTest": "Kiểm tra độ sáng khi bắt hình",
+    "brightnessTestTitle": "Kiểm tra độ sáng khi bắt hình",
+    "brightnessTestDescription": "Độ sáng tối đa khi bắt hình ảnh hoàn toàn màu trắng",
     "reset": "Đặt lại cài đặt",
     "saved": "Đã lưu cài đặt"
   },

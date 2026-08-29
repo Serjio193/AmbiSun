@@ -1,8 +1,9 @@
 var config = require("./config.js");
 var source = require("./source.js");
 var decision = require("./decision.js");
-var hyperhdr = require("./hyperhdr.js");
+var hyperhdrController = require("./hyperhdr-controller.js");
 var scheduler = require("./scheduler.js");
+var diagnostics = require("./diagnostics.js");
 
 var state = {
     enabled: false,
@@ -19,97 +20,59 @@ var state = {
     lastApplyReason: null,
     lastObservedLedState: null,
     lastObservedEffect: null,
+    lastAppliedEffect: null,
+    physicalStateValid: false,
     hasAppliedInitialState: false,
     lastError: null,
     queueDepth: 0
 };
 
-var isColdStart = true;
 var queue = [];
 var isProcessing = false;
 var recoveryRetryTimer = null;
 var recoveryRetryAttempt = 0;
+var startupEvaluationTimer = null;
+var wakeRecoveryTimer = null;
+var startupEvaluationPending = false;
+var wakeRecoveryPending = false;
+var previewPaused = false;
+var previewResumePending = false;
+var STABILITY_DELAY_MS = 5000;
+var WAKE_START_DELAY_MS = 10000;
 var RECOVERY_RETRY_DELAYS = [1000, 2000, 4000, 8000, 16000];
-var startupRecheckTimer = null;
-var startupRecheckAttempt = 0;
-var STARTUP_RECHECK_DELAYS = [5000, 15000, 30000, 60000];
-var stateReconcileTimer = null;
-var STATE_RECONCILE_INTERVAL_MS = 10000;
-
+// Recovery retries apply only after a failed HyperHDR write. Startup and a
+// real TV wake each keep their own single delayed evaluation.
+var PERFORMANCE_TEST_DISABLE_RECOVERY = false;
 function getAutomationStatus() {
-    return JSON.parse(JSON.stringify(state));
+    var result = JSON.parse(JSON.stringify(state));
+    result.previewPaused = previewPaused;
+    return result;
 }
 
 function scheduleRecoveryRetry() {
-    if (state.hasAppliedInitialState || recoveryRetryTimer ||
+    if (PERFORMANCE_TEST_DISABLE_RECOVERY) return;
+    if (state.physicalStateValid || recoveryRetryTimer ||
         recoveryRetryAttempt >= RECOVERY_RETRY_DELAYS.length) return;
 
     var delay = RECOVERY_RETRY_DELAYS[recoveryRetryAttempt++];
     recoveryRetryTimer = setTimeout(function () {
         recoveryRetryTimer = null;
-        enqueueEvaluate("recovery-retry", true);
+        enqueueEvaluate("recovery-retry", false);
     }, delay);
-}
-
-function scheduleStartupRecheck() {
-    if (startupRecheckTimer || startupRecheckAttempt >= STARTUP_RECHECK_DELAYS.length) return;
-
-    var delay = STARTUP_RECHECK_DELAYS[startupRecheckAttempt++];
-    startupRecheckTimer = setTimeout(function () {
-        startupRecheckTimer = null;
-        enqueueEvaluate("startup-recheck", true);
-        scheduleStartupRecheck();
-    }, delay);
-}
-
-function scheduleStateReconcile() {
-    if (stateReconcileTimer) return;
-
-    stateReconcileTimer = setTimeout(function () {
-        stateReconcileTimer = null;
-        enqueueEvaluate("state-reconcile", true);
-        scheduleStateReconcile();
-    }, STATE_RECONCILE_INTERVAL_MS);
-    if (typeof stateReconcileTimer.unref === "function") stateReconcileTimer.unref();
-}
-
-function readLedDeviceState(options, callback) {
-    hyperhdr.getStatus(function (err, status) {
-        if (err) return callback(err);
-        var info = status && (status.info || status);
-        var components = info && Array.isArray(info.components) ? info.components : [];
-        var ledDevice = null;
-        for (var i = 0; i < components.length; i++) {
-            if (components[i] && components[i].name === "LEDDEVICE") {
-                ledDevice = components[i];
-                break;
-            }
-        }
-        if (!ledDevice || typeof ledDevice.enabled !== "boolean") {
-            return callback(new Error("HyperHDR LEDDEVICE state is unavailable"));
-        }
-        var activeEffects = info && Array.isArray(info.activeEffects) ? info.activeEffects : [];
-        var activeEffect = null;
-        for (var j = 0; j < activeEffects.length; j++) {
-            var effect = activeEffects[j];
-            var effectName = typeof effect === "string" ? effect : effect && effect.name;
-            if (!effectName) continue;
-            if (effect && effect.priority === 64) {
-                activeEffect = effectName;
-                break;
-            }
-            if (!activeEffect) activeEffect = effectName;
-        }
-        callback(null, { enabled: ledDevice.enabled, effect: activeEffect });
-    }, options);
 }
 
 function processQueue() {
-    if (isProcessing || queue.length === 0) return;
+    if (previewPaused || isProcessing || queue.length === 0) return;
     isProcessing = true;
     
     var job = queue.shift();
     state.queueDepth = queue.length;
+    diagnostics.record("automation.process", {
+        trigger: job.trigger,
+        forceApply: !!job.forceApply,
+        queueDepth: state.queueDepth,
+        source: job.source
+    });
     
     var cfg = config.get().config;
     state.enabled = cfg.enabled;
@@ -124,11 +87,19 @@ function processQueue() {
     state.lastDecision = result;
     state.lastDecisionAt = new Date().toISOString();
     state.lastTrigger = job.trigger;
+    diagnostics.automationEvaluated({
+        trigger: job.trigger,
+        forceApply: !!job.forceApply,
+        action: result.action,
+        state: result.state,
+        source: job.source
+    });
     
     function done(err) {
         if (err) {
             state.lastError = err.toString();
-            if (!state.hasAppliedInitialState) scheduleRecoveryRetry();
+            diagnostics.automationError({ trigger: job.trigger, error: err.toString() });
+            if (!state.physicalStateValid) scheduleRecoveryRetry();
         } else {
             state.lastError = null;
         }
@@ -141,13 +112,18 @@ function processQueue() {
     }
     
     if (!state.enabled || result.action !== "set") {
+        diagnostics.automationSkipped({
+            trigger: job.trigger,
+            reason: !state.enabled ? "DISABLED" : "NO_ACTION",
+            action: result.action
+        });
         return done(null);
     }
     
     // Apply. An effect occupies AmbiSun's private HyperHDR priority channel.
     var options = (cfg.hyperhdr && cfg.hyperhdr.host)
-        ? { host: cfg.hyperhdr.host, port: cfg.hyperhdr.port }
-        : undefined;
+        ? { host: cfg.hyperhdr.host, port: cfg.hyperhdr.port, diagnosticSource: "automation" }
+        : { diagnosticSource: "automation" };
 
     var sourceId = job.source && job.source.id;
     var effectRule = sourceId && cfg.effectOverrides ? cfg.effectOverrides[sourceId] : null;
@@ -156,85 +132,93 @@ function processQueue() {
     var brightness = sourceId && cfg.sourceBrightness && typeof cfg.sourceBrightness[sourceId] === "number"
         ? cfg.sourceBrightness[sourceId] : (typeof cfg.brightness === "number" ? cfg.brightness : 50);
     var useBrightness = result.state ? brightness : null;
-    var restoreBrightness = result.state && useBrightness === null && state.lastAppliedBrightness !== null && state.brightnessBaseline !== null
-        ? state.brightnessBaseline : null;
+    var targetEffect = useEffect ? effectRule.name : null;
     var profileKey = JSON.stringify({
-        sourceId: sourceId || null,
-        effect: useEffect ? effectRule.name : null,
+        state: !!result.state,
+        effect: targetEffect,
         brightness: useBrightness
     });
 
-    // Avoid duplicate writes, but re-apply when source-specific settings change.
-    if (!job.forceApply && state.lastAppliedState === result.state && state.lastAppliedProfile === profileKey) {
+    // The profile describes HyperHDR control, not the source identity. Two
+    // sources using the same effect must not cause another HyperHDR write.
+    if (!job.forceApply && state.physicalStateValid &&
+        state.lastAppliedState === result.state && state.lastAppliedProfile === profileKey) {
         state.lastApplySkipped = true;
         state.lastApplyReason = "DUPLICATE_STATE";
+        diagnostics.automationSkipped({ trigger: job.trigger, reason: "DUPLICATE_STATE", profile: profileKey });
         return done(null);
     }
 
     function applyBrightness(next) {
-        var target = useBrightness !== null ? useBrightness : restoreBrightness;
-        if (target === null || typeof hyperhdr.setBrightness !== "function") return next();
-
-        function writeBrightness() {
-            hyperhdr.setBrightness(target, function(brightnessErr) {
-                if (brightnessErr) return done(brightnessErr);
-                next();
-            }, options);
-        }
-
-        if (useBrightness !== null && state.brightnessBaseline === null && typeof hyperhdr.getStatus === "function") {
-            return hyperhdr.getStatus(function(statusErr, status) {
-                if (statusErr) return done(statusErr);
-                var info = status && (status.info || status);
-                var adjustment = info && Array.isArray(info.adjustment) ? info.adjustment[0] : null;
-                if (!adjustment || typeof adjustment.brightness !== "number") return done(new Error("HyperHDR brightness is unavailable"));
-                state.brightnessBaseline = adjustment.brightness;
-                writeBrightness();
-            }, options);
-        }
-        writeBrightness();
-    }
-
-    function applyToHyperhdr(observedState) {
-        var observedLedState = observedState && typeof observedState === "object"
-            ? observedState.enabled : observedState;
-        var observedEffect = observedState && typeof observedState === "object"
-            ? observedState.effect : null;
-        state.lastObservedLedState = observedLedState;
-        state.lastObservedEffect = observedEffect;
-        var effectMatches = !useEffect || observedEffect === effectRule.name;
-        if ((job.trigger === "startup-recheck" || job.trigger === "state-reconcile") &&
-            observedLedState === result.state && effectMatches) {
-            state.lastApplySkipped = true;
-            state.lastApplyReason = "STATE_ALREADY_MATCHED";
-            return done(null);
-        }
-        hyperhdr.clearEffect(function(clearErr) {
-            if (clearErr) return done(clearErr);
-            if (!result.state) {
-                return hyperhdr.setLedDevice(false, finishApply, options);
-            }
-            if (useEffect) {
-                return hyperhdr.setEffect(effectRule.name, function(effectErr) {
-                    if (effectErr) return done(effectErr);
-                    applyBrightness(function() { hyperhdr.setLedDevice(true, finishApply, options); });
-                }, options);
-            }
-            applyBrightness(function() { hyperhdr.setLedDevice(true, finishApply, options); });
+        if (useBrightness === null || typeof hyperhdrController.setBrightness !== "function") return next();
+        // HyperHDR keeps the adjustment while its LED component is disabled.
+        // A wake must restore the HyperHDR instance, but repeating the same adjustment
+        // creates unnecessary work in HyperHDR's component pipeline.
+        if (job.trigger === "power-wake" && state.lastAppliedBrightness === useBrightness) return next();
+        if (state.physicalStateValid && state.lastAppliedBrightness === useBrightness) return next();
+        hyperhdrController.setBrightness(useBrightness, { reason: job.trigger, caller: "automation" }, options, function(brightnessErr) {
+            if (brightnessErr) return done(brightnessErr);
+            next();
         }, options);
     }
 
-    var shouldReadLedState = job.trigger === "recovery" ||
-        job.trigger === "recovery-retry" || job.trigger === "startup-recheck" ||
-        job.trigger === "state-reconcile";
-    if (shouldReadLedState) {
-        readLedDeviceState(options, function (statusErr, observedLedState) {
-            if (statusErr) return done(statusErr);
-            applyToHyperhdr(observedLedState);
-        });
-    } else {
-        applyToHyperhdr(null);
+    var previousEffect = state.lastAppliedEffect;
+    var needsLedOn = !state.physicalStateValid || state.lastAppliedState !== true;
+    var needsEffect = !!targetEffect && (!state.physicalStateValid || state.lastAppliedEffect !== targetEffect || state.lastAppliedState !== true);
+    var needsClear = !targetEffect && previousEffect !== null;
+
+    function applyOff() {
+        if (!state.physicalStateValid && !job.forceApply) {
+            return finishExpectedOff();
+        }
+        if (state.lastAppliedState === false && !job.forceApply) return finishExpectedOff();
+        if (previousEffect !== null) {
+            return hyperhdrController.clearEffect({ reason: job.trigger, caller: "automation" }, options, function(clearErr) {
+                if (clearErr) return done(clearErr);
+                hyperhdrController.setLedDevice(false, { reason: job.trigger, caller: "automation" }, options, finishApply);
+            });
+        }
+        hyperhdrController.setLedDevice(false, { reason: job.trigger, caller: "automation" }, options, finishApply);
     }
+
+    function applyOn() {
+        function afterEffect() {
+            applyBrightness(function() {
+                if (!needsLedOn) return finishApply(null);
+                hyperhdrController.setLedDevice(true, { reason: job.trigger, caller: "automation" }, options, finishApply);
+            });
+        }
+
+        if (needsClear) {
+            return hyperhdrController.clearEffect({ reason: job.trigger, caller: "automation" }, options, function(clearErr) {
+                if (clearErr) return done(clearErr);
+                afterEffect();
+            });
+        }
+        if (needsEffect) {
+            return hyperhdrController.setEffect(targetEffect, { reason: job.trigger, caller: "automation" }, options, function(effectErr) {
+                if (effectErr) return done(effectErr);
+                afterEffect();
+            });
+        }
+        afterEffect();
+    }
+
+    function finishExpectedOff() {
+        state.lastAppliedState = false;
+        state.lastAppliedProfile = profileKey;
+        state.lastAppliedBrightness = null;
+        state.lastAppliedEffect = null;
+        state.physicalStateValid = true;
+        state.hasAppliedInitialState = true;
+        state.lastApplySkipped = true;
+        state.lastApplyReason = "OFF_EXPECTED";
+        diagnostics.automationSkipped({ trigger: job.trigger, reason: "OFF_EXPECTED", profile: profileKey });
+        done(null);
+    }
+
+    if (result.state) applyOn();
+    else applyOff();
 
     function finishApply(err) {
         if (!err) {
@@ -246,19 +230,54 @@ function processQueue() {
             state.lastAppliedState = result.state;
             state.lastAppliedProfile = profileKey;
             state.lastAppliedBrightness = result.state ? useBrightness : null;
+            state.lastAppliedEffect = result.state ? targetEffect : null;
+            state.physicalStateValid = true;
             state.lastAppliedAt = new Date().toISOString();
             state.lastApplySkipped = false;
-            state.lastApplyReason = useEffect ? "APPLIED_EFFECT" : "APPLIED_CAPTURE";
+            state.lastApplyReason = targetEffect ? "APPLIED_EFFECT" : (result.state ? "APPLIED_CAPTURE" : "APPLIED_OFF");
             state.hasAppliedInitialState = true;
-            if (job.trigger === "recovery" || job.trigger === "recovery-retry") {
-                scheduleStartupRecheck();
-            }
+            diagnostics.automationApplied({
+                trigger: job.trigger,
+                state: result.state,
+                effect: targetEffect,
+                brightness: useBrightness,
+                reason: state.lastApplyReason
+            });
         }
         done(err);
     }
 }
 
+function scheduleStartupEvaluation() {
+    if (startupEvaluationPending || startupEvaluationTimer || state.hasAppliedInitialState) return;
+    startupEvaluationPending = true;
+    diagnostics.record("startup.wait", { delayMs: STABILITY_DELAY_MS, oneShot: true });
+    startupEvaluationTimer = setTimeout(function () {
+        startupEvaluationTimer = null;
+        startupEvaluationPending = false;
+        if (!state.hasAppliedInitialState) enqueueEvaluate("startup", false);
+    }, STABILITY_DELAY_MS);
+}
+
+function scheduleWakeRecovery() {
+    if (wakeRecoveryPending || wakeRecoveryTimer) return;
+    wakeRecoveryPending = true;
+    diagnostics.record("power.wake.wait", { delayMs: WAKE_START_DELAY_MS, oneShot: true });
+    wakeRecoveryTimer = setTimeout(function () {
+        wakeRecoveryTimer = null;
+        wakeRecoveryPending = false;
+        diagnostics.record("power.wake.apply", { source: source.getStableSource() });
+        enqueueEvaluate("power-wake", false);
+    }, WAKE_START_DELAY_MS);
+}
+
 function enqueueEvaluate(trigger, forceApply, callback) {
+    if (previewPaused) {
+        previewResumePending = true;
+        diagnostics.automationSkipped({ trigger: trigger, reason: "PREVIEW_PAUSED" });
+        if (callback) callback(null, null);
+        return;
+    }
     queue.push({
         trigger: trigger,
         source: source.getStableSource(),
@@ -267,11 +286,66 @@ function enqueueEvaluate(trigger, forceApply, callback) {
         callback: callback
     });
     state.queueDepth = queue.length;
+    diagnostics.automationEnqueued({
+        trigger: trigger,
+        forceApply: !!forceApply,
+        queueDepth: state.queueDepth,
+        source: source.getStableSource()
+    });
     processQueue();
 }
 
-function evaluateAndApplyNow(callback) {
-    enqueueEvaluate("diagnostic", true, callback);
+function evaluateAndApplyNow(callback, forceApply) {
+    enqueueEvaluate("diagnostic", !!forceApply, callback);
+}
+
+function pauseForPreview() {
+    previewPaused = true;
+    previewResumePending = false;
+    queue = [];
+    state.queueDepth = 0;
+    diagnostics.record("automation.preview.pause", {});
+}
+
+function resumeAfterPreview(callback, forceApply) {
+    var wasPaused = previewPaused;
+    previewPaused = false;
+    if (!wasPaused) {
+        if (callback) callback(null);
+        return;
+    }
+    var shouldEvaluate = previewResumePending || !!forceApply;
+    diagnostics.record("automation.preview.resume", { pending: previewResumePending, forceApply: !!forceApply });
+    previewResumePending = false;
+    if (shouldEvaluate) enqueueEvaluate("preview-resume", !!forceApply, callback);
+    else if (callback) callback(null);
+}
+
+function handlePowerSleep() {
+    if (startupEvaluationTimer) {
+        clearTimeout(startupEvaluationTimer);
+        startupEvaluationTimer = null;
+    }
+    startupEvaluationPending = false;
+    if (wakeRecoveryTimer) {
+        clearTimeout(wakeRecoveryTimer);
+        wakeRecoveryTimer = null;
+    }
+    wakeRecoveryPending = false;
+    hyperhdrController.invalidateState();
+    state.physicalStateValid = false;
+    state.lastApplySkipped = true;
+    state.lastApplyReason = "PHYSICAL_STATE_INVALIDATED";
+}
+
+function handlePowerWake() {
+    if (startupEvaluationTimer) {
+        clearTimeout(startupEvaluationTimer);
+        startupEvaluationTimer = null;
+    }
+    startupEvaluationPending = false;
+    state.physicalStateValid = false;
+    scheduleWakeRecovery();
 }
 
 function init() {
@@ -287,32 +361,24 @@ function init() {
     
     source.onStableSource(function(src) {
         state.currentSource = src;
-        if (!state.hasAppliedInitialState) {
-            enqueueEvaluate("recovery", true);
+        if (wakeRecoveryPending) {
+            // Keep the original ten-second wake deadline. The evaluation uses
+            // the latest stable source when the one-shot timer fires.
+            return;
+        } else if (!state.hasAppliedInitialState) {
+            scheduleStartupEvaluation();
         } else {
             enqueueEvaluate("source-change", false);
         }
     });
     
-    // Cold start recovery
-    if (isColdStart) {
-        isColdStart = false;
-        setTimeout(function() {
-            var cfg = config.get().config;
-            state.enabled = cfg.enabled;
-            if (!state.hasAppliedInitialState) {
-                enqueueEvaluate("recovery", true);
-            }
-        }, source.DEBOUNCE_MS + 500);
-    }
-    scheduleStateReconcile();
 }
 
 function executeSolarWake(callback) {
     // Schedule next
     var cfg = config.get().config;
     scheduler.reconcile(cfg, new Date(), function() {
-        enqueueEvaluate("solar-wake", true, callback);
+        enqueueEvaluate("solar-wake", false, callback);
     });
 }
 
@@ -320,5 +386,9 @@ module.exports = {
     init: init,
     getAutomationStatus: getAutomationStatus,
     evaluateAndApplyNow: evaluateAndApplyNow,
-    executeSolarWake: executeSolarWake
+    handlePowerSleep: handlePowerSleep,
+    handlePowerWake: handlePowerWake,
+    executeSolarWake: executeSolarWake,
+    pauseForPreview: pauseForPreview,
+    resumeAfterPreview: resumeAfterPreview
 };

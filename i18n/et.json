@@ -38,7 +38,10 @@
     "language": "Keel",
     "defaultRule": "Vaikereegel uutele rakendustele",
     "defaultEffect": "Põhiefekt päikese järgi",
-    "defaultEffectTitle": "Põhiefekt päikese järgi",
+   "defaultEffectTitle": "Põhiefekt päikese järgi",
+    "brightnessTest": "Testi jäädvustuse heledust",
+    "brightnessTestTitle": "Jäädvustuse heleduse test",
+    "brightnessTestDescription": "Maksimaalne heledus jäädvustamisel täiesti valge pildiga",
     "reset": "Lähtesta seaded",
     "saved": "Seaded salvestatud"
   },

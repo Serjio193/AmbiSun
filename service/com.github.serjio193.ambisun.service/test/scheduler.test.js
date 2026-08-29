@@ -187,7 +187,7 @@ const mockDecisionNone = {
     evaluate: () => ({ action: "none", reason: "AUTOMATION_DISABLED" })
 };
 const mockHyperhdr = {
-    setLedDevice: (state, cb) => { 
+    applyLedState: (state, cb) => {
         setLedCalledWith = state; 
         if (setLedError) return cb(setLedError);
         cb(null); 

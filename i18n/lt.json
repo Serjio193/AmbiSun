@@ -38,7 +38,10 @@
     "language": "Kalba",
     "defaultRule": "Numatytoji taisyklė naujoms programoms",
     "defaultEffect": "Pagrindinis efektas pagal saulę",
-    "defaultEffectTitle": "Pagrindinis efektas pagal saulę",
+   "defaultEffectTitle": "Pagrindinis efektas pagal saulę",
+    "brightnessTest": "Tikrinti fiksavimo ryškumą",
+    "brightnessTestTitle": "Fiksavimo ryškumo testas",
+    "brightnessTestDescription": "Didžiausias ryškumas fiksuojant visiškai baltą vaizdą",
     "reset": "Atkurti nustatymus",
     "saved": "Nustatymai išsaugoti"
   },

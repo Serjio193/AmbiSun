@@ -38,7 +38,10 @@
     "language": "Kieli",
     "defaultRule": "Oletussääntö uusille sovelluksille",
     "defaultEffect": "Päätehoste auringon mukaan",
-    "defaultEffectTitle": "Päätehoste auringon mukaan",
+   "defaultEffectTitle": "Päätehoste auringon mukaan",
+    "brightnessTest": "Testaa kaappauksen kirkkautta",
+    "brightnessTestTitle": "Kaappauksen kirkkaustesti",
+    "brightnessTestDescription": "Suurin kirkkaus kaapattaessa täysin valkoista kuvaa",
     "reset": "Palauta asetukset",
     "saved": "Asetukset tallennettu"
   },

@@ -10,6 +10,7 @@
   const HUE_STEPS_PER_SECOND = 8;
   const TARGET_FPS = 15;           // 15fps — imperceptible for abstract BG, saves CPU
   const FRAME_INTERVAL = 1000 / TARGET_FPS;
+  const PERFORMANCE_TEST_DISABLE_PLASMA = false;
 
   let canvas = null;
   let ctx = null;
@@ -73,6 +74,7 @@
   }
 
   function start() {
+    if (PERFORMANCE_TEST_DISABLE_PLASMA) return;
     if (running) return;
     running = true;
     lastTime = performance.now();
@@ -152,6 +154,12 @@
   }
 
   function toggle() {
+    if (PERFORMANCE_TEST_DISABLE_PLASMA) {
+      window.AmbiSun.state.plasma = false;
+      updateDOM();
+      stop();
+      return;
+    }
     window.AmbiSun.state.plasma = !window.AmbiSun.state.plasma;
     updateDOM();
     if (window.AmbiSun.state.plasma && !document.hidden) {

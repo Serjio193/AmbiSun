@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Добавлена рекомендация стабильного запуска HyperHDR; улучшено восстановление подсветки и применение выбранного эффекта после перезагрузки',
-        en: 'Added a stable HyperHDR startup recommendation; improved lighting recovery and selected effect application after reboot',
-        uk: 'Додано рекомендацію стабільного запуску HyperHDR; покращено відновлення підсвічування та застосування вибраного ефекту після перезавантаження'
+        ru: 'Улучшены запуск HyperHDR и восстановление подсветки после сна; уменьшена лишняя фоновая активность и улучшена обработка источников и эффектов',
+        en: 'Improved HyperHDR startup and sleep/wake lighting recovery; reduced unnecessary background activity and improved source and effect handling',
+        uk: 'Покращено запуск HyperHDR і відновлення підсвічування після сну; зменшено зайву фонову активність і покращено обробку джерел та ефектів'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

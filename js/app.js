@@ -4,9 +4,6 @@ const state = window.AmbiSun.state;
 const showToast = window.showToast;
 const updateBoolean = window.updateBoolean;
 
-
-
-
 /* Shared UI helpers live in app-ui.js. */
 
 // Shared button feedback is handled by buttons.js.
@@ -230,12 +227,32 @@ const ACTIONS = {
     }
   },
 
-  'open-default-effect': () => {
-    if (AmbiSun.effectPicker) AmbiSun.effectPicker.openDefault();
+  'open-default-effect': ({el}) => {
+    if (!AmbiSun.effectPicker) return;
+    const ownerScreen = el && el.closest ? el.closest('.screen') : null;
+    AmbiSun.effectPicker.openDefault(ownerScreen ? ownerScreen.id : 'home');
   },
 
   'select-source-effect': ({el}) => {
     if (AmbiSun.effectPicker) AmbiSun.effectPicker.select(el.dataset.effect);
+  },
+
+  'open-brightness-test': ({el}) => {
+    if (!AmbiSun.brightnessTest) return;
+    const ownerScreen = el && el.closest ? el.closest('.screen') : null;
+    AmbiSun.brightnessTest.open(
+      el.dataset.brightnessScope || 'default',
+      el.dataset.source || null,
+      ownerScreen ? ownerScreen.id : 'home'
+    );
+  },
+
+  'brightness-test-save': () => {
+    if (AmbiSun.brightnessTest) AmbiSun.brightnessTest.save();
+  },
+
+  'brightness-test-cancel': () => {
+    if (AmbiSun.brightnessTest) AmbiSun.brightnessTest.cancel();
   },
 
   'close-effect-picker': () => {
@@ -460,29 +477,7 @@ function setDefaultEffect(value) {
   });
 }
 
-function dispatchAction(el, direction) {
-  const action = el.dataset.action;
-  if (!action) return;
-  const handler = ACTIONS[action];
 
-  if (!handler) {
-    showToast(`No handler: ${action || 'unknown'}`);
-    return;
-  }
-
-  try {
-    const result = handler({el, direction});
-    if (result && typeof result.catch === 'function') {
-      result.catch(err => {
-        console.error('AmbiSun action failed:', action, err);
-        showToast(`Action failed: ${action}`, 2200);
-      });
-    }
-  } catch (err) {
-    console.error('AmbiSun action failed:', action, err);
-    showToast(`Action failed: ${action}`, 2200);
-  }
-}
 
 
 
@@ -497,4 +492,3 @@ function dispatchAction(el, direction) {
 window.setSourceRule = setSourceRule;
 window.setSourceEffect = setSourceEffect;
 window.setDefaultEffect = setDefaultEffect;
-window.dispatchAmbiSunAction = dispatchAction;

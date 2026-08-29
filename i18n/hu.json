@@ -38,7 +38,10 @@
     "language": "Nyelv",
     "defaultRule": "Alapértelmezett szabály új appokhoz",
     "defaultEffect": "Fő effektus nap szerint",
-    "defaultEffectTitle": "Fő effektus nap szerint",
+   "defaultEffectTitle": "Fő effektus nap szerint",
+    "brightnessTest": "Rögzítési fényerő tesztelése",
+    "brightnessTestTitle": "Rögzítési fényerő tesztje",
+    "brightnessTestDescription": "Maximális fényerő rögzítés közben teljesen fehér képnél",
     "reset": "Beállítások visszaállítása",
     "saved": "Beállítások mentve"
   },

@@ -38,7 +38,10 @@
     "language": "Lingua",
     "defaultRule": "Regola predefinita per le nuove app",
     "defaultEffect": "Effetto principale secondo il sole",
-    "defaultEffectTitle": "Effetto principale secondo il sole",
+   "defaultEffectTitle": "Effetto principale secondo il sole",
+    "brightnessTest": "Test luminosità acquisizione",
+    "brightnessTestTitle": "Test della luminosità di acquisizione",
+    "brightnessTestDescription": "Luminosità massima durante l'acquisizione con un'immagine completamente bianca",
     "reset": "Ripristina impostazioni",
     "saved": "Impostazioni salvate"
   },

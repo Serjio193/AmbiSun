@@ -1,4 +1,5 @@
 var activeService = null;
+var diagnostics = require("./diagnostics.js");
 
 var currentCandidate = null;
 var candidateSince = 0;
@@ -6,14 +7,21 @@ var stableSource = { type: "unknown", id: null, name: null, raw: null };
 var lastChangeAt = null;
 var lastError = null;
 var debounceTimer = null;
-var sourcePollTimer = null;
+var placeholderRetryTimer = null;
 var sourceActivitySubscription = null;
 var lastInputId = null;
+var sourceTransition = {
+    active: false,
+    reason: null,
+    foregroundAppId: null,
+    since: null
+};
 
 var DEBOUNCE_MS = 2000;
-var SOURCE_POLL_MS = 1000;
+var PLACEHOLDER_RETRY_MS = 5000;
 var FOREGROUND_APP_URI = "luna://com.webos.applicationManager/getForegroundAppInfo";
 var CURRENT_INPUT_URI = "luna://com.webos.service.eim/getCurrentInput";
+var PERFORMANCE_TEST_DISABLE_ACTIVITY = false;
 
 var appsCache = {}; // appId -> title
 var hdmiCache = {}; // appId -> label
@@ -21,13 +29,62 @@ var LIVE_TV_APP_IDS = ["com.webos.app.livetv", "com.webos.app.livetvopapp"];
 
 function getSourceDetectorStatus() {
     return {
-        mode: "activity-trigger",
-        triggerConfigured: true,
+        mode: PERFORMANCE_TEST_DISABLE_ACTIVITY ? "disabled-for-performance-test" : "foreground-subscription",
+        triggerConfigured: !PERFORMANCE_TEST_DISABLE_ACTIVITY,
         stableSource: stableSource,
+        displaySource: getVisibleSource(),
+        transition: sourceTransition,
         candidate: currentCandidate,
+        placeholderRetryPending: !!placeholderRetryTimer,
         lastChangeAt: lastChangeAt ? lastChangeAt.toISOString() : null,
         lastError: lastError
     };
+}
+
+function getVisibleSource() {
+    if (sourceTransition.active) {
+        return { type: "unknown", id: null, name: null, raw: null };
+    }
+    return stableSource;
+}
+
+function enterSourceTransition(appId) {
+    var cancelledCandidate = currentCandidate;
+    if (debounceTimer) {
+        clearTimeout(debounceTimer);
+        debounceTimer = null;
+    }
+    currentCandidate = null;
+    candidateSince = 0;
+    if (!sourceTransition.active) {
+        sourceTransition.since = new Date().toISOString();
+        diagnostics.record("source.transition.start", {
+            reason: "launcher-between-sources",
+            foregroundAppId: appId || null,
+            previousSource: stableSource.id,
+            cancelledCandidate: cancelledCandidate ? cancelledCandidate.id : null
+        });
+    } else if (cancelledCandidate) {
+        diagnostics.record("source.transition.cancel-candidate", {
+            candidate: cancelledCandidate.id,
+            previousSource: stableSource.id
+        });
+    }
+    sourceTransition.active = true;
+    sourceTransition.reason = "launcher-between-sources";
+    sourceTransition.foregroundAppId = appId || null;
+}
+
+function leaveSourceTransition() {
+    if (!sourceTransition.active) return;
+    diagnostics.record("source.transition.end", {
+        foregroundAppId: sourceTransition.foregroundAppId,
+        source: currentCandidate ? currentCandidate.id : stableSource.id
+    });
+    sourceTransition.active = false;
+    sourceTransition.reason = null;
+    sourceTransition.foregroundAppId = null;
+    sourceTransition.since = null;
 }
 
 function updateCaches(callback) {
@@ -109,8 +166,11 @@ function normalizeInputSource(inputId, rawPayload) {
 
 function commitCandidate(candidate) {
     if (stableSource.id !== candidate.id || stableSource.type !== candidate.type) {
+        var previous = stableSource;
         stableSource = candidate;
+        leaveSourceTransition();
         lastChangeAt = new Date();
+        diagnostics.sourceChange({ previous: previous, current: candidate });
         listeners.forEach(function(cb) {
             try { cb(stableSource); } catch (e) { console.error("source listener error", e); }
         });
@@ -123,8 +183,41 @@ var IGNORED_FOREGROUND_APP_IDS = [
     "com.webos.app.home"
 ];
 
+function isPlaceholderTvInput(inputSource, appId) {
+    return !!(inputSource && inputSource.type === "tv" &&
+        (!appId || IGNORED_FOREGROUND_APP_IDS.indexOf(appId) !== -1));
+}
+
+function cancelPlaceholderRetry() {
+    if (!placeholderRetryTimer) return;
+    clearTimeout(placeholderRetryTimer);
+    placeholderRetryTimer = null;
+    diagnostics.record("source.placeholder.retry.cancel", {});
+}
+
+function schedulePlaceholderRetry() {
+    if (placeholderRetryTimer || !activeService) return;
+
+    placeholderRetryTimer = setTimeout(function() {
+        placeholderRetryTimer = null;
+        diagnostics.record("source.placeholder.retry", { delayMs: PLACEHOLDER_RETRY_MS });
+        requestForegroundSource();
+    }, PLACEHOLDER_RETRY_MS);
+    diagnostics.record("source.placeholder.retry.schedule", { delayMs: PLACEHOLDER_RETRY_MS });
+}
+
 function handleSourceCandidate(candidate) {
     if (!candidate) return;
+
+    // A real source notification makes any pending ATV placeholder retry stale.
+    cancelPlaceholderRetry();
+
+    diagnostics.sourceEvent({
+        source: candidate.id,
+        previous: stableSource.id,
+        changed: stableSource.id !== candidate.id || stableSource.type !== candidate.type,
+        type: candidate.type
+    });
 
     if (stableSource.id === candidate.id && stableSource.type === candidate.type) {
         // Already stable, clear any pending debounce
@@ -156,6 +249,10 @@ function handleSourceCandidate(candidate) {
 }
 
 function handleCandidate(appId, rawPayload) {
+    if (appId === "com.webos.app.home") {
+        enterSourceTransition(appId);
+        return;
+    }
     if (appId && IGNORED_FOREGROUND_APP_IDS.indexOf(appId) !== -1) {
         // Ignored foreground apps (AmbiSun UI and LG Home launcher) must not alter stable source, trigger debounce, or invoke automation
         return;
@@ -164,51 +261,33 @@ function handleCandidate(appId, rawPayload) {
     handleSourceCandidate(normalizeSource(appId, rawPayload));
 }
 
-var ACTIVITY_NAME = "com.github.serjio193.ambisun.source";
+function setupForegroundSubscription() {
+    if (PERFORMANCE_TEST_DISABLE_ACTIVITY) return;
+    if (!activeService || typeof activeService.subscribe !== "function") return false;
 
-function setupSourceActivity() {
-    if (!activeService) return;
-    var activitySpec = {
-        activity: {
-            name: ACTIVITY_NAME,
-            description: "AmbiSun source trigger",
-            type: { foreground: true, persist: true },
-            trigger: {
-                method: FOREGROUND_APP_URI,
-                params: { subscribe: true, extraInfo: true },
-                key: "foregroundAppInfo"
-            },
-            callback: {
-                method: "luna://com.github.serjio193.ambisun.service/sourceWake",
-                params: {}
-            }
-        },
-        replace: true,
-        start: true,
-        subscribe: true
-    };
+    sourceActivitySubscription = activeService.subscribe(FOREGROUND_APP_URI, {
+        subscribe: true,
+        extraInfo: true
+    });
 
-    function handleActivityResponse(msg) {
+    sourceActivitySubscription.on("response", function(msg) {
         var resp = msg.payload || {};
+        diagnostics.sourceActivity({
+            phase: "foreground",
+            returnValue: resp.returnValue === true,
+            errorText: resp.errorText || null
+        });
         if (!resp.returnValue) {
-            lastError = "Activity create failed: " + resp.errorText;
+            lastError = "Foreground subscription failed: " + resp.errorText;
         } else {
             lastError = null;
+            requestForegroundSource(resp);
         }
-    }
-
-    if (typeof activeService.subscribe === "function") {
-        sourceActivitySubscription = activeService.subscribe(
-            "luna://com.webos.service.activitymanager/create", activitySpec);
-        sourceActivitySubscription.on("response", handleActivityResponse);
-        sourceActivitySubscription.on("cancel", function(msg) {
-            lastError = "Source activity subscription cancelled";
-        });
-        return;
-    }
-
-    activeService.call("luna://com.webos.service.activitymanager/create", activitySpec,
-        handleActivityResponse);
+    });
+    sourceActivitySubscription.on("cancel", function() {
+        lastError = "Foreground subscription cancelled";
+    });
+    return true;
 }
 
 function extractForegroundAppId(payload) {
@@ -228,7 +307,11 @@ function extractForegroundAppId(payload) {
     return appId;
 }
 
-function requestForegroundSource(callback) {
+function requestForegroundSource(foregroundOverride, callback) {
+    if (typeof foregroundOverride === "function") {
+        callback = foregroundOverride;
+        foregroundOverride = null;
+    }
     if (!activeService) {
         if (callback) callback();
         return;
@@ -241,6 +324,25 @@ function requestForegroundSource(callback) {
     var foregroundPayload = {};
     var pending = 2;
 
+    if (foregroundOverride) {
+        foregroundPayload = foregroundOverride;
+        var foregroundAppId = extractForegroundAppId(foregroundPayload);
+        if (foregroundAppId && IGNORED_FOREGROUND_APP_IDS.indexOf(foregroundAppId) !== -1) {
+            // Home and AmbiSun can emit several foreground notifications while
+            // their cards animate. They are not sources, so do not query EIM
+            // for each duplicate notification or apply the last HDMI rule.
+            if (foregroundAppId === "com.webos.app.home") enterSourceTransition(foregroundAppId);
+            diagnostics.sourceRefresh({
+                ignoredForeground: foregroundAppId,
+                appId: foregroundAppId,
+                candidate: currentCandidate,
+                stableSource: stableSource
+            });
+            if (callback) callback();
+            return;
+        }
+    }
+
     function done() {
         pending--;
         if (pending > 0) return;
@@ -249,18 +351,43 @@ function requestForegroundSource(callback) {
         var inputSource = inputPayload.returnValue ? normalizeInputSource(inputId, inputPayload) : null;
         var appId = extractForegroundAppId(foregroundPayload);
         var inputChanged = inputId && lastInputId && inputId !== lastInputId;
-        var appIsIgnored = !appId || IGNORED_FOREGROUND_APP_IDS.indexOf(appId) !== -1;
+        var appIsIgnored = !!appId && IGNORED_FOREGROUND_APP_IDS.indexOf(appId) !== -1;
+        var appIsMissing = !appId;
         var appIsHdmi = /^com\.webos\.app\.hdmi\d+$/i.test(appId || "");
+        var isTvPreview = isPlaceholderTvInput(inputSource, appId);
 
         if (inputId) lastInputId = inputId;
 
-        if (inputSource && (inputChanged || appIsIgnored || appIsHdmi)) {
+        var refreshDetails = {
+            inputId: inputId,
+            appId: appId,
+            inputChanged: !!inputChanged,
+            stableSource: stableSource,
+            candidate: currentCandidate
+        };
+        if (isTvPreview) {
+            // ATV/DTV returned by Home is only the last-input placeholder.
+            // Wait for the real Live TV foreground application instead.
+            refreshDetails.ignoredPreview = inputSource.id;
+            schedulePlaceholderRetry();
+        } else if (appIsIgnored) {
+            // Home and AmbiSun are containers, not lighting sources. Do not
+            // substitute the last HDMI input while leaving an app or the
+            // launcher; that would unexpectedly apply the HDMI rule.
+            refreshDetails.ignoredForeground = appId;
+            if (appId === "com.webos.app.home") enterSourceTransition(appId);
+            cancelPlaceholderRetry();
+        } else if (inputSource && (inputChanged || appIsMissing || appIsHdmi)) {
+            cancelPlaceholderRetry();
             handleSourceCandidate(inputSource);
         } else if (appId) {
+            cancelPlaceholderRetry();
             handleCandidate(appId, foregroundPayload);
         } else if (inputSource) {
+            cancelPlaceholderRetry();
             handleSourceCandidate(inputSource);
         }
+        diagnostics.sourceRefresh(refreshDetails);
         if (callback) callback();
     }
 
@@ -268,28 +395,44 @@ function requestForegroundSource(callback) {
         inputPayload = inputMsg.payload || {};
         done();
     });
-    activeService.call(FOREGROUND_APP_URI, {}, function(msg) {
-        foregroundPayload = msg.payload || {};
+    if (foregroundOverride) {
         done();
-    });
+    } else {
+        activeService.call(FOREGROUND_APP_URI, {}, function(msg) {
+            foregroundPayload = msg.payload || {};
+            done();
+        });
+    }
 }
 
 function startSourcePolling() {
-    if (sourcePollTimer) return;
+    // Activity Manager subscription is the live source signal. Keep one
+    // initial snapshot for startup, but do not poll webOS every second.
     requestForegroundSource();
-    sourcePollTimer = setInterval(requestForegroundSource, SOURCE_POLL_MS);
 }
 
 function init(service) {
+    cancelPlaceholderRetry();
     activeService = service;
-    updateCaches(); // Run in background, do not block subscription
-    setupSourceActivity();
-    startSourcePolling();
+    // Normal source activity, cache loading, and the initial source request
+    // are enabled. Only the old unconditional polling loop remains removed.
+    if (!PERFORMANCE_TEST_DISABLE_ACTIVITY) {
+        updateCaches();
+        var hasForegroundSubscription = setupForegroundSubscription();
+        if (!hasForegroundSubscription) startSourcePolling();
+    }
 }
 
 function injectMocks(serviceMock, cachesMock) {
+    cancelPlaceholderRetry();
     activeService = serviceMock;
     lastInputId = null;
+    sourceTransition = {
+        active: false,
+        reason: null,
+        foregroundAppId: null,
+        since: null
+    };
     if (cachesMock) {
         appsCache = cachesMock.apps || {};
         hdmiCache = cachesMock.hdmi || {};
@@ -315,6 +458,7 @@ module.exports = {
     getSourceDetectorStatus: getSourceDetectorStatus,
     refreshForegroundSource: requestForegroundSource,
     getStableSource: getStableSource,
+    getVisibleSource: getVisibleSource,
     _setStableSource: function(s) { stableSource = s; },
     onStableSource: onStableSource,
     normalizeSource: normalizeSource,
@@ -323,8 +467,11 @@ module.exports = {
     FOREGROUND_APP_URI: FOREGROUND_APP_URI,
     CURRENT_INPUT_URI: CURRENT_INPUT_URI,
     IGNORED_FOREGROUND_APP_IDS: IGNORED_FOREGROUND_APP_IDS,
+    isPlaceholderTvInput: isPlaceholderTvInput,
+    PLACEHOLDER_RETRY_MS: PLACEHOLDER_RETRY_MS,
     LIVE_TV_APP_IDS: LIVE_TV_APP_IDS,
     injectMocks: injectMocks,
     simulateForegroundMessage: simulateForegroundMessage,
+    setupForegroundSubscription: setupForegroundSubscription,
     DEBOUNCE_MS: DEBOUNCE_MS
 };

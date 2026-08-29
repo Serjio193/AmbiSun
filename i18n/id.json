@@ -38,7 +38,10 @@
     "language": "Bahasa",
     "defaultRule": "Aturan default untuk aplikasi baru",
     "defaultEffect": "Efek utama berdasarkan matahari",
-    "defaultEffectTitle": "Efek utama berdasarkan matahari",
+   "defaultEffectTitle": "Efek utama berdasarkan matahari",
+    "brightnessTest": "Uji kecerahan tangkapan",
+    "brightnessTestTitle": "Tes kecerahan tangkapan",
+    "brightnessTestDescription": "Kecerahan maksimum saat menangkap gambar yang sepenuhnya putih",
     "reset": "Atur ulang pengaturan",
     "saved": "Pengaturan disimpan"
   },

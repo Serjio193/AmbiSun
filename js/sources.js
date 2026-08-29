@@ -251,6 +251,15 @@
       }
     });
     wrap.appendChild(slider);
+    var test = document.createElement("button");
+    test.type = "button";
+    test.className = "windows-action-button actionable brightness-test-source-button";
+    test.dataset.action = "open-brightness-test";
+    test.dataset.brightnessScope = "source";
+    test.dataset.source = source.id;
+    test.textContent = t("settings.brightnessTest", "Test capture brightness");
+    test.title = t("settings.brightnessTestDescription", "Maximum brightness during capture with a full white frame");
+    wrap.appendChild(test);
     wrap.appendChild(badge);
     return wrap;
   }

@@ -172,7 +172,7 @@
     border-radius:12px;
     background:white;
   }
-  .support-address{
+.support-address{
     width:100%;
     margin-top:14px;
     padding:11px 12px;
@@ -184,6 +184,18 @@
     text-align:center;
     overflow-wrap:anywhere;
   }
+
+.brightness-test-overlay{position:fixed;inset:0;z-index:7000;display:none;align-items:center;justify-content:center;background:#fff;color:#101522}
+.brightness-test-overlay.open{display:flex}
+.brightness-test-panel{width:min(720px,calc(100vw - 80px));padding:34px 42px;border-radius:18px;background:rgba(9,16,30,.94);color:#f7f9fc;text-align:center;box-shadow:0 18px 60px rgba(0,0,0,.28)}
+.brightness-test-title{font-size:30px;font-weight:700}
+.brightness-test-description{margin:14px auto 26px;max-width:620px;color:#d7deea;font-size:19px;line-height:1.4}
+.brightness-test-value{font-size:64px;font-weight:800;line-height:1.1;color:#fff;font-variant-numeric:tabular-nums}
+.brightness-test-meter{height:18px;margin:22px 0 12px;border-radius:99px;background:#657083;overflow:hidden}
+.brightness-test-meter-fill{height:100%;width:50%;border-radius:inherit;background:#71a7ff;transition:width .12s ease}
+.brightness-test-status{min-height:24px;color:#ffb4b4;font-size:16px}
+.brightness-test-actions{display:flex;justify-content:center;gap:14px;margin-top:22px}
+.brightness-test-actions .windows-action-button{min-width:150px}
   .support-caption{
     text-align:center;
     color:var(--muted);
@@ -372,5 +384,4 @@
   .card{
     background:rgba(7,10,20,.44) !important;
   }
-
 

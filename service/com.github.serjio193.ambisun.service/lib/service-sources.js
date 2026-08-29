@@ -4,6 +4,7 @@ module.exports = function registerSources(service, deps) {
     var runtimeInfo = deps.runtimeInfo;
     var automation = deps.automation;
     var appIcon = deps.appIcon;
+    var diagnostics = deps.diagnostics || require("./diagnostics.js");
 
     service.register("getCurrentSource", function (message) {
         source.refreshForegroundSource(function () {
@@ -11,10 +12,12 @@ module.exports = function registerSources(service, deps) {
             message.respond({
                 returnValue: true,
                 apiVersion: runtimeInfo.SERVICE_API_VERSION,
-                source: status.stableSource,
+                source: status.displaySource,
+                stableSource: status.stableSource,
                 detector: {
                     mode: status.mode,
                     triggerConfigured: status.triggerConfigured,
+                    transition: status.transition,
                     lastChangeAt: status.lastChangeAt,
                     lastError: status.lastError
                 }
@@ -24,6 +27,15 @@ module.exports = function registerSources(service, deps) {
 
     service.register("getAutomationStatus", function (message) {
         message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION, automation: automation.getAutomationStatus() });
+    });
+
+    service.register("getDiagnostics", function (message) {
+        message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION, diagnostics: diagnostics.getSnapshot() });
+    });
+
+    service.register("resetDiagnostics", function (message) {
+        diagnostics.reset();
+        message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION });
     });
 
     service.register("evaluateAndApplyNow", function (message) {
@@ -52,7 +64,7 @@ module.exports = function registerSources(service, deps) {
     ];
 
     service.register("getAvailableSources", function (message) {
-        var currentSrc = source.getStableSource();
+        var currentSrc = source.getVisibleSource();
         var cfg = config.get();
         var overrides = cfg && cfg.config && cfg.config.overrides || {};
         var effectOverrides = cfg && cfg.config && cfg.config.effectOverrides || {};

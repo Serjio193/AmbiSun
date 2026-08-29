@@ -38,7 +38,10 @@
     "language": "Language",
     "defaultRule": "Default rule for new apps",
     "defaultEffect": "Main effect by sun",
-    "defaultEffectTitle": "Main effect by sun",
+   "defaultEffectTitle": "Main effect by sun",
+    "brightnessTest": "Test capture brightness",
+    "brightnessTestTitle": "Capture brightness test",
+    "brightnessTestDescription": "Maximum brightness during capture with a full white frame",
     "reset": "Reset settings",
     "saved": "Settings saved"
   },

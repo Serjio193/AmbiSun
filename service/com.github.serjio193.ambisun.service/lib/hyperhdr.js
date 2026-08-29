@@ -1,4 +1,5 @@
 var http = require('http');
+var diagnostics = require('./diagnostics');
 
 var DEFAULT_HOST = '127.0.0.1';
 var DEFAULT_PORT = 8090;
@@ -32,6 +33,8 @@ function rpc(payload, callback, optionsOverride) {
         },
         timeout: opts.timeout || TIMEOUT_MS
     };
+
+    var diagnosticToken = diagnostics.beginRpc(payload, opts);
 
     var req = http.request(reqOptions, function(res) {
         if (res.statusCode < 200 || res.statusCode >= 300) {
@@ -88,6 +91,7 @@ function rpc(payload, callback, optionsOverride) {
     function finishSafe(err, result) {
         if (finished) return;
         finished = true;
+        diagnostics.finishRpc(diagnosticToken, err, result);
         callback(err, result);
     }
 
@@ -132,7 +136,8 @@ function setLedDevice(state, callback, optionsOverride) {
     var payload = {
         command: "componentstate",
         componentstate: {
-            component: "LEDDEVICE",
+            // The UI's instance switch controls ALL, not only the LED driver.
+            component: "ALL",
             state: state
         }
     };

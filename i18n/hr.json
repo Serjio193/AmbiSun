@@ -38,7 +38,10 @@
     "language": "Jezik",
     "defaultRule": "Zadano pravilo za nove aplikacije",
     "defaultEffect": "Glavni efekt prema suncu",
-    "defaultEffectTitle": "Glavni efekt prema suncu",
+   "defaultEffectTitle": "Glavni efekt prema suncu",
+    "brightnessTest": "Testiraj svjetlinu snimanja",
+    "brightnessTestTitle": "Test svjetline snimanja",
+    "brightnessTestDescription": "Maksimalna svjetlina tijekom snimanja s potpuno bijelom slikom",
     "reset": "Vrati izvorne postavke",
     "saved": "Postavke spremljene"
   },

@@ -145,6 +145,9 @@
     if (typeof brightness === "number") payload.brightness = brightness;
     return requestService("previewHyperhdrEffect", payload);
   }
+  function previewHyperhdrBrightness(brightness) {
+    return requestService("previewHyperhdrBrightness", { brightness: brightness });
+  }
   function clearHyperhdrPreview() { return requestService("clearHyperhdrPreview", {}); }
   function searchLocations(params) { return requestService("searchLocations", params || {}); }
   function resolveLocation(params) { return requestService("resolveLocation", params || {}); }
@@ -157,6 +160,7 @@
   AmbiSun.webos.getSystemStatus = getSystemStatus;
   AmbiSun.webos.getHyperhdrStatus = getHyperhdrStatus;
   AmbiSun.webos.previewHyperhdrEffect = previewHyperhdrEffect;
+  AmbiSun.webos.previewHyperhdrBrightness = previewHyperhdrBrightness;
   AmbiSun.webos.clearHyperhdrPreview = clearHyperhdrPreview;
   AmbiSun.webos.getConfig = getConfig;
   AmbiSun.webos.updateConfig = updateConfig;

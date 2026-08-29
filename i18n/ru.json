@@ -38,7 +38,10 @@
     "language": "Язык",
     "defaultRule": "Правило по умолчанию для новых приложений",
     "defaultEffect": "Основной эффект по солнцу",
-    "defaultEffectTitle": "Основной эффект по солнцу",
+   "defaultEffectTitle": "Основной эффект по солнцу",
+    "brightnessTest": "Тест яркости захвата",
+    "brightnessTestTitle": "Тест яркости захвата",
+    "brightnessTestDescription": "Максимальная яркость во время захвата при полном белом свете",
     "reset": "Сбросить настройки",
     "saved": "Настройки сохранены"
   },

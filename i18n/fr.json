@@ -38,7 +38,10 @@
     "language": "Langue",
     "defaultRule": "Règle par défaut pour les nouvelles applications",
     "defaultEffect": "Effet principal selon le soleil",
-    "defaultEffectTitle": "Effet principal selon le soleil",
+   "defaultEffectTitle": "Effet principal selon le soleil",
+    "brightnessTest": "Tester la luminosité de la capture",
+    "brightnessTestTitle": "Test de luminosité de la capture",
+    "brightnessTestDescription": "Luminosité maximale pendant la capture avec une image entièrement blanche",
     "reset": "Réinitialiser les paramètres",
     "saved": "Paramètres enregistrés"
   },

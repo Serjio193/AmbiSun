@@ -38,7 +38,10 @@
     "language": "言語",
     "defaultRule": "新規アプリのデフォルト規則",
     "defaultEffect": "太陽に連動するメインエフェクト",
-    "defaultEffectTitle": "太陽に連動するメインエフェクト",
+   "defaultEffectTitle": "太陽に連動するメインエフェクト",
+    "brightnessTest": "キャプチャの明るさをテスト",
+    "brightnessTestTitle": "キャプチャの明るさテスト",
+    "brightnessTestDescription": "完全に白い画面をキャプチャしたときの最大輝度",
     "reset": "設定を初期化",
     "saved": "設定を保存しました"
   },

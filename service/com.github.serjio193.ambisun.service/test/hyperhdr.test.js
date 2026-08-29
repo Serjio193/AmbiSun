@@ -85,16 +85,16 @@ function runTests() {
             checkDone();
         }, opts);
 
-        // 4. LEDDEVICE true payload
+        // 4. HyperHDR instance true payload
         hyperhdr.setLedDevice(true, function(err, result) {
             assert.ifError(err);
             assert.strictEqual(result.echoBody.command, "componentstate");
-            assert.strictEqual(result.echoBody.componentstate.component, "LEDDEVICE");
+            assert.strictEqual(result.echoBody.componentstate.component, "ALL");
             assert.strictEqual(result.echoBody.componentstate.state, true);
             checkDone();
         }, opts);
 
-        // 5. LEDDEVICE false payload
+        // 5. HyperHDR instance false payload
         hyperhdr.setLedDevice(false, function(err, result) {
             assert.ifError(err);
             assert.strictEqual(result.echoBody.componentstate.state, false);

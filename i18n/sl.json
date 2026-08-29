@@ -38,7 +38,10 @@
     "language": "Jezik",
     "defaultRule": "Privzeto pravilo za nove aplikacije",
     "defaultEffect": "Glavni učinek glede na sonce",
-    "defaultEffectTitle": "Glavni učinek glede na sonce",
+   "defaultEffectTitle": "Glavni učinek glede na sonce",
+    "brightnessTest": "Preizkusi svetlost zajema",
+    "brightnessTestTitle": "Preizkus svetlosti zajema",
+    "brightnessTestDescription": "Največja svetlost med zajemom s povsem belo sliko",
     "reset": "Ponastavi nastavitve",
     "saved": "Nastavitve shranjene"
   },

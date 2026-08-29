@@ -2,6 +2,11 @@ var Service = require("webos-service");
 var runtimeInfo = require("./lib/runtime-info");
 var config = require("./lib/config");
 var appIcon = require("./lib/app-icon");
+var diagnostics = require("./lib/diagnostics");
+var powerState = require("./lib/power-state");
+var INSTANCE_ID = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+diagnostics.setInstanceId(INSTANCE_ID);
+console.log("[AMBISUN SERVICE START] instance=" + INSTANCE_ID);
 
 var service = new Service("com.github.serjio193.ambisun.service", null, {
     idleTimer: 86400
@@ -174,15 +179,19 @@ service.register("resetConfig", function (message) {
 config.init(function() {
     config.read(function(err, current) {
         automation.init();
+        powerState.init(service, {
+            onSleep: function () { automation.handlePowerSleep(); },
+            onWake: function () { automation.handlePowerWake(); }
+        });
         if (!err && current) {
             scheduler.reconcile(current.config, new Date());
         }
     });
 });
 
-var hyperhdr = require("./lib/hyperhdr");
+var hyperhdrController = require("./lib/hyperhdr-controller");
 var hyperhdrHandlers = require("./lib/service-hyperhdr");
-hyperhdrHandlers(service, { config: config, runtimeInfo: runtimeInfo, automation: automation, hyperhdr: hyperhdr });
+hyperhdrHandlers(service, { config: config, runtimeInfo: runtimeInfo, automation: automation, hyperhdr: hyperhdrController });
 
 var decision = require("./lib/decision");
 
@@ -254,7 +263,7 @@ service.register("getSolarStatus", function (message) {
             lat: loc.lat,
             lon: loc.lon
         });
-        // Calculate for tomorrow (for "next sunrise after sunset")
+        // Calculate for tomorrow so the UI can show both upcoming transitions.
         var tomorrow = new Date(now.getTime() + 86400000);
         var tomorrowResult = sunLib.calculate({
             year: tomorrow.getUTCFullYear(),
@@ -267,12 +276,14 @@ service.register("getSolarStatus", function (message) {
         var todaySunrise = todayResult.sunrise.status === "ok" ? todayResult.sunrise.date : null;
         var todaySunset  = todayResult.sunset.status  === "ok" ? todayResult.sunset.date  : null;
         var tomorrowSunrise = tomorrowResult.sunrise.status === "ok" ? tomorrowResult.sunrise.date : null;
+        var tomorrowSunset = tomorrowResult.sunset.status === "ok" ? tomorrowResult.sunset.date : null;
 
         var sunsetOffsetMs  = (cfg.sunsetOffset  || 0) * 60000;
         var sunriseOffsetMs = (cfg.sunriseOffset || 0) * 60000;
 
         var effectiveSunset  = todaySunset  ? new Date(todaySunset.getTime()  + sunsetOffsetMs)  : null;
         var effectiveSunrise = tomorrowSunrise ? new Date(tomorrowSunrise.getTime() + sunriseOffsetMs) : null;
+        var effectiveTomorrowSunset = tomorrowSunset ? new Date(tomorrowSunset.getTime() + sunsetOffsetMs) : null;
 
         // Determine next event
         var nextEventType = null;
@@ -285,6 +296,16 @@ service.register("getSolarStatus", function (message) {
             nextEventAt = effectiveSunrise.toISOString();
         }
 
+        // Keep the next ON time available even while the current next event is OFF.
+        // The UI shows both fields, so an already-active night schedule must not
+        // make the following sunset disappear.
+        var nextOnAt = null;
+        if (effectiveSunset && now < effectiveSunset) {
+            nextOnAt = effectiveSunset.toISOString();
+        } else if (effectiveTomorrowSunset && now < effectiveTomorrowSunset) {
+            nextOnAt = effectiveTomorrowSunset.toISOString();
+        }
+
         message.respond({
             returnValue: true,
             apiVersion: runtimeInfo.SERVICE_API_VERSION,
@@ -292,10 +313,13 @@ service.register("getSolarStatus", function (message) {
                 todaySunrise:    todaySunrise  ? todaySunrise.toISOString()  : null,
                 todaySunset:     todaySunset   ? todaySunset.toISOString()   : null,
                 tomorrowSunrise: tomorrowSunrise ? tomorrowSunrise.toISOString() : null,
+                tomorrowSunset:  tomorrowSunset ? tomorrowSunset.toISOString() : null,
                 effectiveSunset:  effectiveSunset  ? effectiveSunset.toISOString()  : null,
                 effectiveSunrise: effectiveSunrise ? effectiveSunrise.toISOString() : null,
+                effectiveTomorrowSunset: effectiveTomorrowSunset ? effectiveTomorrowSunset.toISOString() : null,
                 nextEventType: nextEventType,
                 nextEventAt:   nextEventAt,
+                nextOnAt:       nextOnAt,
                 timezone: loc.timezone,
                 sunsetOffset:  cfg.sunsetOffset  || 0,
                 sunriseOffset: cfg.sunriseOffset || 0
@@ -348,32 +372,24 @@ service.register("getSystemStatus", function(message) {
         healthy: false,
         elevated: serviceElevated,
         elevationPending: elevationInProgress || elevationRestartScheduled,
-        hyperhdrReachable: false,
+        // HyperHDR serverinfo is intentionally not queried here. It is a
+        // heavyweight read and is available through explicit UI actions.
+        hyperhdrReachable: null,
         sourceAccessAvailable: false,
         schedulerActive: false,
         automationEnabled: false,
         currentSource: source.getStableSource()
     };
     
-    var pending = 2;
+    var pending = 1;
     function checkDone() {
         pending--;
         if (pending === 0) {
-            sys.healthy = sys.elevated && sys.sourceAccessAvailable && sys.hyperhdrReachable;
+            sys.healthy = sys.elevated && sys.sourceAccessAvailable;
             message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION, system: sys });
         }
     }
-    
-    var currentCfg = config.get().config;
-    var options = (currentCfg.hyperhdr && currentCfg.hyperhdr.host)
-        ? { host: currentCfg.hyperhdr.host, port: currentCfg.hyperhdr.port }
-        : undefined;
 
-    hyperhdr.getStatus(function(err, res) {
-        sys.hyperhdrReachable = !err;
-        checkDone();
-    }, options);
-    
     service.call(source.FOREGROUND_APP_URI, {}, function(msg) {
         var payload = msg.payload || {};
         if (payload.returnValue) {
@@ -419,7 +435,7 @@ service.register("restartAfterElevation", function(message) {
 });
 
 var sourceHandlers = require("./lib/service-sources");
-sourceHandlers(service, { source: source, config: config, runtimeInfo: runtimeInfo, automation: automation, appIcon: appIcon });
+sourceHandlers(service, { source: source, config: config, runtimeInfo: runtimeInfo, automation: automation, appIcon: appIcon, diagnostics: diagnostics });
 
 var locationHandlers = require("./lib/service-location");
 locationHandlers(service);

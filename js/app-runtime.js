@@ -2,6 +2,7 @@
   "use strict";
 
   const state = window.AmbiSun.state;
+  const CLOCK_UPDATE_INTERVAL_MS = 30000;
 
   function updateSettingsLanguageBadge() {
     const badge = document.getElementById('settingsLanguageBadge');
@@ -57,6 +58,7 @@
   }
 
   window.updateBrightnessUi = updateBrightnessUi;
+  window.setDefaultBrightness = setDefaultBrightness;
   window.setSourceBrightness = setSourceBrightness;
 
   document.addEventListener('input', event => {
@@ -121,13 +123,14 @@
     AmbiSunUi.selectSupport('paypal');
     AmbiSun.navigation.openScreen('home');
     updateClock();
-    setInterval(updateClock, 30000);
+    window.setInterval(function () {
+      updateClock();
+      if (AmbiSun.bridge && AmbiSun.bridge.syncSolar) AmbiSun.bridge.syncSolar();
+    }, CLOCK_UPDATE_INTERVAL_MS);
     AmbiSun.startup.start();
     const splashMs = (AmbiSun.config.startupSplashMs || 2500) + 300;
     setTimeout(() => {
       if (AmbiSun.bridge && AmbiSun.bridge.checkSystemStatus) AmbiSun.bridge.checkSystemStatus();
-    }, splashMs);
-    setTimeout(() => {
       if (AmbiSun.bridge && AmbiSun.bridge.checkForUpdate) AmbiSun.bridge.checkForUpdate();
     }, splashMs + 4000);
   }

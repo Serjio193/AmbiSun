@@ -38,7 +38,10 @@
     "language": "اللغة",
     "defaultRule": "القاعدة الافتراضية للتطبيقات الجديدة",
     "defaultEffect": "التأثير الأساسي حسب الشمس",
-    "defaultEffectTitle": "التأثير الأساسي حسب الشمس",
+   "defaultEffectTitle": "التأثير الأساسي حسب الشمس",
+    "brightnessTest": "اختبار سطوع الالتقاط",
+    "brightnessTestTitle": "اختبار سطوع الالتقاط",
+    "brightnessTestDescription": "السطوع الأقصى أثناء الالتقاط مع صورة بيضاء بالكامل",
     "reset": "إعادة ضبط الإعدادات",
     "saved": "تم حفظ الإعدادات"
   },

@@ -38,7 +38,10 @@
     "language": "Jazyk",
     "defaultRule": "Predvolené pravidlo pre nové aplikácie",
     "defaultEffect": "Hlavný efekt podľa slnka",
-    "defaultEffectTitle": "Hlavný efekt podľa slnka",
+   "defaultEffectTitle": "Hlavný efekt podľa slnka",
+    "brightnessTest": "Test jasu snímania",
+    "brightnessTestTitle": "Test jasu snímania",
+    "brightnessTestDescription": "Maximálny jas pri snímaní s úplne bielym obrazom",
     "reset": "Obnoviť nastavenia",
     "saved": "Nastavenia uložené"
   },

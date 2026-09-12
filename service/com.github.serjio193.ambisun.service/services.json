@@ -43,6 +43,9 @@
           "name": "solarWake"
         },
         {
+          "name": "bootWake"
+        },
+        {
           "name": "reconcileScheduler"
         },
         {

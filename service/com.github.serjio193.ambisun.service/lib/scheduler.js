@@ -1,6 +1,7 @@
 const sun = require('./sun');
 
 const ACTIVITY_NAME = "com.github.serjio193.ambisun.solar";
+const BOOT_ACTIVITY_NAME = "com.github.serjio193.ambisun.boot";
 
 // State
 let status = {
@@ -8,6 +9,9 @@ let status = {
     active: false,
     activityName: ACTIVITY_NAME,
     activityId: null,
+    bootActivityId: null,
+    bootActive: false,
+    bootLastError: null,
     nextEventType: null,
     nextEventAt: null,
     lastError: null,
@@ -119,7 +123,9 @@ function lunaCall(uri, payload, callback) {
             if (response.returnValue) {
                 callback(null, response);
             } else {
-                callback(new Error(response.errorText || "LUNA_CALL_FAILED"), response);
+                var error = new Error(response.errorText || "LUNA_CALL_FAILED");
+                error.code = response.errorCode;
+                callback(error, response);
             }
         });
     } else {
@@ -141,7 +147,11 @@ function cancelActivity(name, callback) {
 }
 
 function getActivityInfo(name, callback) {
-    lunaCall("luna://com.webos.service.activitymanager/getActivityInfo", { activityName: name, subscribers: false }, function(err, result) {
+    lunaCall("luna://com.webos.service.activitymanager/getActivityInfo", {
+        activityName: name,
+        subscribers: false,
+        current: true
+    }, function(err, result) {
         if (err) return callback(err);
         callback(null, result.activity);
     });
@@ -149,8 +159,76 @@ function getActivityInfo(name, callback) {
 
 function createActivity(spec, callback) {
     lunaCall("luna://com.webos.service.activitymanager/create", spec, function(err, result) {
-        if (err) return callback(err);
-        callback(null, result.activityId);
+        if (err) return callback(err, result);
+        callback(null, result.activityId, result);
+    });
+}
+
+function ensureBootActivity(callback) {
+    const spec = {
+        activity: {
+            name: BOOT_ACTIVITY_NAME,
+            description: "AmbiSun startup recovery",
+            type: { foreground: true, persist: true },
+            requirements: { bootup: true },
+            callback: {
+                method: "luna://com.github.serjio193.ambisun.service/bootWake",
+                params: {},
+                ignoreReturn: true
+            }
+        },
+        replace: false,
+        start: true,
+        subscribe: false
+    };
+
+    createActivity(spec, function(err, activityId) {
+        if (err && (err.code === 17 || /already exists|file exists/i.test(err.message || ""))) {
+            // A previous version may have left the non-continuous activity in
+            // expired state. Inspect it and re-arm only when necessary.
+            return getActivityInfo(BOOT_ACTIVITY_NAME, function(infoError, activity) {
+                if (infoError) {
+                    status.bootActive = false;
+                    status.bootLastError = { message: infoError.message || infoError.toString(), code: infoError.code };
+                    if (callback) callback(infoError);
+                    return;
+                }
+                status.bootActivityId = activity && activity.activityId || null;
+                if (activity && (activity.state === "expired" || activity.state === "failed")) {
+                    return restartBootActivity(callback);
+                }
+                status.bootActive = true;
+                status.bootLastError = null;
+                if (callback) callback(null);
+            });
+        }
+        if (err) {
+            status.bootActive = false;
+            status.bootLastError = { message: err.message || err.toString(), code: err.code };
+            if (callback) callback(err);
+            return;
+        }
+        status.bootActive = true;
+        status.bootActivityId = activityId;
+        status.bootLastError = null;
+        if (callback) callback(null);
+    });
+}
+
+function restartBootActivity(callback) {
+    lunaCall("luna://com.webos.service.activitymanager/complete", {
+        activityName: BOOT_ACTIVITY_NAME,
+        restart: true
+    }, function(err) {
+        if (err) {
+            status.bootActive = false;
+            status.bootLastError = { message: err.message || err.toString(), code: err.code };
+            if (callback) callback(err);
+            return;
+        }
+        status.bootActive = true;
+        status.bootLastError = null;
+        if (callback) callback(null);
     });
 }
 
@@ -292,5 +370,8 @@ module.exports = {
     injectAmProxy: injectAmProxy,
     executeWake: executeWake,
     getActivityInfo: getActivityInfo,
+    ensureBootActivity: ensureBootActivity,
+    restartBootActivity: restartBootActivity,
+    BOOT_ACTIVITY_NAME: BOOT_ACTIVITY_NAME,
     ACTIVITY_NAME: ACTIVITY_NAME
 };

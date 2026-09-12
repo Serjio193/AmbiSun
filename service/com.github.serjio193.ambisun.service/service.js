@@ -184,6 +184,11 @@ config.init(function() {
             onWake: function () { automation.handlePowerWake(); }
         });
         if (!err && current) {
+            // Keep one persistent boot callback so a reboot after sunset still
+            // starts the service and applies the current rule once.
+            scheduler.ensureBootActivity(function (bootError) {
+                if (bootError) console.log("[SCHEDULER] boot activity: " + bootError.toString());
+            });
             scheduler.reconcile(current.config, new Date());
         }
     });
@@ -340,6 +345,15 @@ service.register("solarWake", function (message) {
             apiVersion: runtimeInfo.SERVICE_API_VERSION,
             decision: result
         });
+    });
+});
+
+service.register("bootWake", function (message) {
+    // Re-arm the non-continuous activity before acknowledging the callback so
+    // the same activity can fire again on the next TV reboot.
+    scheduler.restartBootActivity(function (bootError) {
+        if (bootError) console.log("[SCHEDULER] boot activity restart: " + bootError.toString());
+        message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION });
     });
 });
 

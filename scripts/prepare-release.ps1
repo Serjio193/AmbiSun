@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Улучшены запуск HyperHDR и восстановление подсветки после сна; уменьшена лишняя фоновая активность и улучшена обработка источников и эффектов',
-        en: 'Improved HyperHDR startup and sleep/wake lighting recovery; reduced unnecessary background activity and improved source and effect handling',
-        uk: 'Покращено запуск HyperHDR і відновлення підсвічування після сну; зменшено зайву фонову активність і покращено обробку джерел та ефектів'
+        ru: 'Исправлено восстановление подсветки после перезагрузки телевизора при активных правилах по солнцу',
+        en: 'Fixed lighting recovery after TV reboot when sun-based rules are active',
+        uk: 'Виправлено відновлення підсвічування після перезавантаження телевізора, коли активні правила за сонцем'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

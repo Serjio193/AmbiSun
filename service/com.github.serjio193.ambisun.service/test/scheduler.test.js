@@ -101,11 +101,18 @@ let creates = 0;
 let cancels = 0;
 let lastSpec = null;
 let forceError = false;
+let forceExisting = false;
+let completes = 0;
 
 const mockAm = {
     call: function(uri, payload, cb) {
         if (uri === "luna://com.webos.service.activitymanager/create") {
             if (forceError) return cb(new Error("CREATE_FAILED"), { returnValue: false });
+            if (forceExisting) {
+                const error = new Error("Activity already exists");
+                error.code = 17;
+                return cb(error, { returnValue: false, errorCode: 17 });
+            }
             creates++;
             lastSpec = payload;
             cb(null, { returnValue: true, activityId: 12345 });
@@ -120,7 +127,10 @@ const mockAm = {
             cb(null, { returnValue: true });
         } else if (uri === "luna://com.webos.service.activitymanager/getActivityInfo") {
             if (forceError) return cb(new Error("INFO_FAILED"), { returnValue: false });
-            cb(null, { returnValue: true, activity: { name: payload.activityName, activityId: 12345 } });
+            cb(null, { returnValue: true, activity: { name: payload.activityName, activityId: 12345, state: "waiting" } });
+        } else if (uri === "luna://com.webos.service.activitymanager/complete") {
+            completes++;
+            cb(null, { returnValue: true });
         }
     }
 };
@@ -243,6 +253,38 @@ forceError = false;
 scheduler.getActivityInfo("com.github.serjio193.ambisun.solar", (err, act) => {
     assert.ifError(err);
     assert.strictEqual(act.activityId, 12345);
+});
+
+// Test persistent boot autostart activity
+creates = 0;
+scheduler.ensureBootActivity((err) => {
+    assert.ifError(err);
+    assert.strictEqual(creates, 1);
+    assert.strictEqual(lastSpec.activity.name, scheduler.BOOT_ACTIVITY_NAME);
+    assert.strictEqual(lastSpec.activity.requirements.bootup, true);
+    assert.strictEqual(lastSpec.activity.type.persist, true);
+    assert.strictEqual(lastSpec.activity.callback.method,
+        "luna://com.github.serjio193.ambisun.service/bootWake");
+});
+
+// Existing expired boot activity is re-armed for future reboots.
+forceExisting = true;
+forceError = false;
+let existingState = "expired";
+const originalCall = mockAm.call;
+mockAm.call = function(uri, payload, cb) {
+    if (uri === "luna://com.webos.service.activitymanager/getActivityInfo") {
+        return cb(null, { returnValue: true, activity: {
+            name: payload.activityName, activityId: 12345, state: existingState
+        }});
+    }
+    return originalCall(uri, payload, cb);
+};
+const completesBefore = completes;
+scheduler.ensureBootActivity((err) => {
+    assert.ifError(err);
+    assert.strictEqual(completes, completesBefore + 1);
+    assert.strictEqual(scheduler.getStatus().bootActive, true);
 });
 
 console.log("TEST: All scheduler logic tests PASSED.");

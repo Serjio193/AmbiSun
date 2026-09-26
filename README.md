@@ -42,7 +42,7 @@ Later, I expanded the concept to support per-source rules — so lighting can fo
 - **Automatic Source Detection**: Seamlessly detects active HDMI inputs and foreground webOS applications.
 - **Per-Source Automation Rules**: Assign individual rules (*Follow Sun*, *Always On*, *Always Off*) to each HDMI port and app.
 - **Default Rule for New Apps**: Set a baseline rule for newly launched or unconfigured applications.
-- **HyperHDR `LEDDEVICE` Control**: Toggles the LED output via HyperHDR JSON-RPC without restarting or terminating the HyperHDR process.
+- **HyperHDR Instance Control**: Toggles the HyperHDR instance via its `ALL` component without restarting or terminating the HyperHDR process.
 - **Configurable Endpoint**: Connects to local (`127.0.0.1:8090`) or remote HyperHDR network instances with a built-in connection test.
 - **Background webOS Service**: Runs as a lightweight background daemon (`com.github.serjio193.ambisun.service`) to ensure automation works even when the UI is closed.
 - **Offline GeoNames Database**: Select countries and cities from an integrated offline database without requiring third-party location APIs.
@@ -84,9 +84,9 @@ Live TV / News               ──►  Always Off   (LEDs remain disabled)
 
 ### HyperHDR Integration
 
-AmbiSun communicates with HyperHDR through its standard JSON-RPC interface and manages the `LEDDEVICE` component directly:
-- When turning lighting on, AmbiSun sends `{ "command": "componentstate", "componentstate": { "component": "LEDDEVICE", "state": true } }`.
-- When turning lighting off, AmbiSun sets `LEDDEVICE` state to `false`.
+AmbiSun communicates with HyperHDR through its standard JSON-RPC interface and manages the instance through the `ALL` component:
+- When turning lighting on, AmbiSun sends `{ "command": "componentstate", "componentstate": { "component": "ALL", "state": true } }`.
+- When turning lighting off, AmbiSun sets `ALL` state to `false`.
 
 This architecture ensures HyperHDR stays running smoothly without process interruptions or HDMI capture restarts.
 
@@ -139,7 +139,7 @@ The goal is to preserve the core AmbiSun idea wherever the platform allows it:
 
 - sunrise/sunset based automation;
 - configurable minute offsets;
-- HyperHDR `LEDDEVICE` control;
+- HyperHDR instance (`ALL`) control;
 - automatic behavior based on the active source or application where platform APIs make this possible.
 
 Feature parity may differ between platforms because Windows, Linux, Android TV, and webOS expose different system APIs and permissions.
@@ -245,7 +245,7 @@ AmbiSun — умный компаньон фоновой подсветки дл
 - **Автоматическое определение источников**: определение активных HDMI-портов и запущенных приложений webOS.
 - **Индивидуальные правила подсветки**: выбор режима (*По солнцу*, *Всегда включено*, *Всегда выключено*) для каждого источника.
 - **Правило по умолчанию**: автоматическое применение правила для новых и не настроенных приложений.
-- **Управление `LEDDEVICE` HyperHDR**: переключение вывода на светодиоды через JSON-RPC без остановки и перезапуска самого HyperHDR.
+- **Управление экземпляром HyperHDR**: включение и выключение экземпляра через компонент `ALL` по JSON-RPC без остановки и перезапуска самого HyperHDR.
 - **Гибкая настройка адреса HyperHDR**: поддержка локального (`127.0.0.1:8090`) и удалённого сервера с мгновенной проверкой связи.
 - **Фоновый сервис webOS**: демон `com.github.serjio193.ambisun.service` обеспечивает непрерывную работу автоматики даже при закрытом интерфейсе.
 - **Встроенная база городов GeoNames**: выбор страны и города офлайн без обращения к сторонним интернет-сервисам.
@@ -287,9 +287,9 @@ YouTube                      ──►  Всегда включено   (под�
 
 ### Управление HyperHDR
 
-AmbiSun работает с HyperHDR через стандартный протокол JSON-RPC и переключает исключительно компонент `LEDDEVICE`:
-- При необходимости включить подсветку отправляется команда активации `LEDDEVICE`.
-- При выключении подсветки компонент `LEDDEVICE` отключается.
+AmbiSun работает с HyperHDR через стандартный протокол JSON-RPC и переключает экземпляр через компонент `ALL`:
+- При необходимости включить подсветку отправляется команда активации экземпляра `ALL`.
+- При выключении подсветки экземпляр `ALL` отключается.
 
 Сам HyperHDR остаётся активным, непрерывно обрабатывая захват изображения.
 
@@ -338,7 +338,7 @@ AmbiSun автоматически проверяет наличие новых 
 
 - автоматизация по восходу и закату;
 - точная настройка смещений в минутах;
-- управление `LEDDEVICE` HyperHDR;
+- управление экземпляром HyperHDR через `ALL`;
 - разное поведение в зависимости от активного источника или приложения там, где это позволяют системные API платформы.
 
 Полный набор возможностей может отличаться между платформами, поскольку Windows, Linux, Android TV и webOS предоставляют разные системные API и уровни доступа.
@@ -396,7 +396,7 @@ AmbiSun — розумний компаньйон фонового підсві�
 - **Автоматичне визначення джерел**: виявлення активних входів HDMI та запущених програм webOS.
 - **Індивідуальні правила підсвічування**: вибір режиму (*За сонцем*, *Завжди увімкнено*, *Завжди вимкнено*) для кожного джерела.
 - **Правило за замовчуванням**: автоматичне застосування правила для нових та ненастроєних програм.
-- **Керування `LEDDEVICE` HyperHDR**: перемикання світлодіодного виводу через JSON-RPC без перезапуску чи зупинки HyperHDR.
+- **Керування екземпляром HyperHDR**: увімкнення та вимкнення екземпляра через компонент `ALL` у JSON-RPC без перезапуску чи зупинки HyperHDR.
 - **Гнучке налаштування адреси HyperHDR**: підтримка локального (`127.0.0.1:8090`) та віддаленого сервера зі швидкою перевіркою зв'язку.
 - **Фоновий сервіс webOS**: демон `com.github.serjio193.ambisun.service` підтримує автоматизацію навіть за закритого інтерфейсу.
 - **Вбудована база міст GeoNames**: вибір країни та міста офлайн без звернення до сторонніх інтернет-сервісів.
@@ -438,9 +438,9 @@ YouTube                      ──►  Завжди увімкнено   (пі�
 
 ### Керування HyperHDR
 
-AmbiSun взаємодіє з HyperHDR за стандартом JSON-RPC і керує виключно компонентом `LEDDEVICE`:
-- Для ввімкнення підсвічування AmbiSun надсилає команду активації `LEDDEVICE`.
-- Для вимкнення підсвічування стан `LEDDEVICE` встановлюється у `false`.
+AmbiSun взаємодіє з HyperHDR за стандартом JSON-RPC і керує екземпляром через компонент `ALL`:
+- Для ввімкнення підсвічування AmbiSun надсилає команду активації екземпляра `ALL`.
+- Для вимкнення екземпляра стан `ALL` встановлюється у `false`.
 
 HyperHDR безперервно залишається активним, не перериваючи захоплення відео.
 
@@ -489,7 +489,7 @@ AmbiSun автоматично перевіряє вихід нових верс
 
 - автоматизація за сходом і заходом сонця;
 - точне налаштування зміщень у хвилинах;
-- керування `LEDDEVICE` HyperHDR;
+- керування екземпляром HyperHDR через `ALL`;
 - різна поведінка залежно від активного джерела або застосунку там, де це дозволяють системні API платформи.
 
 Повний набір можливостей може відрізнятися між платформами, оскільки Windows, Linux, Android TV та webOS мають різні системні API й рівні доступу.

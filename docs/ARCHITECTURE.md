@@ -32,5 +32,5 @@ The service scaffold currently exposes only `ping`. It will eventually own:
 1. settings persistence;
 2. source/app monitoring;
 3. solar schedule evaluation;
-4. HyperHDR LEDDEVICE switching;
+4. HyperHDR instance (`ALL`) switching;
 5. reconnect/recovery logic.

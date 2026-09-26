@@ -125,6 +125,8 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "TARGET_VERSION=\"" + targetVersion + "\"\n" +
         "APPINFO_PATH=\"/media/developer/apps/usr/palm/applications/com.github.serjio193.ambisun/appinfo.json\"\n" +
         "ELEVATE_BIN=\"/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service\"\n\n" +
+        "AUTOSTART_SCRIPT=\"/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh\"\n" +
+        "AUTOSTART_LINK=\"/var/lib/webosbrew/init.d/90-ambisun\"\n\n" +
         "echo \"[$(date)] Starting AmbiSun update to $TARGET_VERSION...\" >> \"$LOG_PATH\"\n" +
         "sleep 2\n\n" +
         "# Remove previous result if any\n" +
@@ -175,7 +177,14 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "    exit 1\n" +
         "fi\n\n" +
         "echo \"[$(date)] Installed version $TARGET_VERSION verified successfully.\" >> \"$LOG_PATH\"\n\n" +
-        "# 4. Restore elevation after verified install with bounded retries\n" +
+        "# 4. Install the persistent Homebrew boot hook before restoring elevation\n" +
+        "echo \"[$(date)] Installing AmbiSun Homebrew autostart hook...\" >> \"$LOG_PATH\"\n" +
+        "mkdir -p /var/lib/webosbrew/init.d\n" +
+        "rm -f \"$AUTOSTART_LINK\"\n" +
+        "ln -s \"$AUTOSTART_SCRIPT\" \"$AUTOSTART_LINK\"\n" +
+        "chmod 755 \"$AUTOSTART_SCRIPT\"\n\n" +
+
+        "# 5. Restore elevation after verified install with bounded retries\n" +
         "sleep 2\n" +
         "ELEV_SUCCESS=0\n" +
         "if [ -x \"$ELEVATE_BIN\" ]; then\n" +
@@ -202,7 +211,7 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "    echo \"[$(date)] Warning: Elevate binary not found or not executable: $ELEVATE_BIN\" >> \"$LOG_PATH\"\n" +
         "fi\n\n" +
         "sleep 2\n\n" +
-        "# 5. Launch updated app with bounded retries and response verification\n" +
+        "# 6. Launch updated app with bounded retries and response verification\n" +
         "LAUNCH_SUCCESS=0\n" +
         "echo \"[$(date)] Launching updated AmbiSun...\" >> \"$LOG_PATH\"\n" +
         "for launch_attempt in 1 2 3 4 5; do\n" +
@@ -224,7 +233,7 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "if [ \"$LAUNCH_SUCCESS\" -ne 1 ]; then\n" +
         "    echo \"[$(date)] Warning: Automatic launch did not succeed after 5 attempts. User can open AmbiSun manually.\" >> \"$LOG_PATH\"\n" +
         "fi\n\n" +
-        "# 6. Clean up temporary files on verified success\n" +
+        "# 7. Clean up temporary files on verified success\n" +
         "echo \"[$(date)] Cleaning up temporary installation files...\" >> \"$LOG_PATH\"\n" +
         "rm -f \"$IPK_PATH\"\n" +
         "rm -f \"$RESULT_PATH\"\n" +

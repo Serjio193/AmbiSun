@@ -303,6 +303,9 @@ async function runTests() {
     assert(script.includes('APP_ID="com.github.serjio193.ambisun"'), "Helper must target the current app ID");
     assert(script.includes('SVC_ID="com.github.serjio193.ambisun.service"'), "Helper must target the current service ID");
     assert(script.includes('APPINFO_PATH="/media/developer/apps/usr/palm/applications/com.github.serjio193.ambisun/appinfo.json"'), "Helper must verify the current app path");
+    assert(script.includes('AUTOSTART_SCRIPT="/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh"'), "Helper must install the Homebrew autostart script");
+    assert(script.includes('AUTOSTART_LINK="/var/lib/webosbrew/init.d/90-ambisun"'), "Helper must install the stable AmbiSun init link");
+    assert(script.includes('ln -s "$AUTOSTART_SCRIPT" "$AUTOSTART_LINK"'), "Helper must create the init link before relaunch");
     assert(script.includes('"$ELEVATE_BIN" "$APP_ID"'), "Helper must elevate the app launcher");
     assert(script.includes('"$ELEVATE_BIN" "$SVC_ID"'), "Helper must elevate the service launcher");
     assert(script.includes('APP_ELEV_EXIT') && script.includes('SVC_ELEV_EXIT'), "Helper must verify both elevation results");

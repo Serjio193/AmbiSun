@@ -13,7 +13,7 @@ AmbiSun background automation service is designed to be the authoritative engine
 - Authoritative ownership and persistence of the production configuration.
 - Accurate scheduling and firing of events based on solar calculations.
 - Source/app state detection on rooted webOS TVs.
-- Independent execution of the Decision Engine to control HyperHDR LEDDEVICE without UI interaction.
+- Independent execution of the Decision Engine to control the HyperHDR instance (`ALL`) without UI interaction.
 - State recovery after TV sleep/restart or HyperHDR connection drops.
 
 ## 4. Proposed Service Directory Structure
@@ -124,7 +124,18 @@ The Background Service is the **authoritative owner** of the configuration.
 ```json
 { "type": "app", "id": "youtube.leanback.v4", "name": "YouTube" }
 ```
-- A ~2000ms debounce should be implemented for HDMI/App switching to prevent spurious LED flickers during intermediate states.
+- A ~2000ms debounce is used for HDMI/App switching to prevent spurious LED flickers during intermediate states.
+- A single Luna subscription watches the foreground-app endpoint directly.
+  Activity Manager is not used for source detection because its trigger fires
+  immediately on the current foreground response on the tested TV. The
+  subscription avoids that callback loop and does not use a periodic source
+  poll.
+- The webOS launcher (`com.webos.app.home`) is treated as a transitional state,
+  because the TV enters it briefly while switching between sources. During
+  this state the service keeps the last confirmed source for automation but
+  exposes an unknown display source, sends no HyperHDR command, and waits for
+  the next real app/input event. The confirmed source changes only after the
+  existing debounce completes.
 
 ## 14. Private/Rooted API Uncertainty
 Many APIs needed for background automation (e.g., `com.webos.applicationManager/getForegroundAppInfo`) are private or require root privileges. We cannot assume their availability without running a probe on a rooted TV.
@@ -143,8 +154,8 @@ Pure logic function `decision-engine.js`:
 
 ## 17. HyperHDR Transport
 `service/lib/hyperhdr.js` executes HTTP requests to `127.0.0.1:8090`.
-- Only uses `LEDDEVICE` component.
-- Does not kill the HyperHDR process.
+- Uses HyperHDR's `ALL` component to match the instance enable/disable control in
+  the HyperHDR Web UI; it does not kill the HyperHDR process.
 
 ## 18. Retry/Recovery Behavior
 - **HyperHDR failure:** Non-blocking bounded retry strategy. `evaluateNow()` will record failure. Activity manager or secondary triggers will eventually retry.
@@ -152,7 +163,9 @@ Pure logic function `decision-engine.js`:
 
 ## 19. Autostart/Reboot Behavior
 - The service relies on persistent Activity Manager schedules (`persist=true`, `type.background=true`) to wake up.
-- If this fails on webOS due to TV reboot, a rooted startup script or `boot` Activity event should be used to call `evaluateNow()`.
+- A Homebrew init hook (`/var/lib/webosbrew/init.d/90-ambisun`) restores app and service elevation through `elevate-service` before restarting the service. This mirrors the tested PicCap/HyperHDR startup pattern.
+- The hook is installed through the privileged Homebrew Channel bridge during elevation recovery, signed self-update, or the TV deployment script. The UI still verifies the replacement service process and reports failure when it is not elevated.
+- If this fails on webOS due to TV reboot, the app must not silently continue as a jailed service: it should expose the missing elevation state and request recovery through Homebrew.
 
 ## 20. Concurrency Strategy
 A single evaluation queue or lock is used inside the service to prevent race conditions when UI updates config at the exact moment a sun event fires. The lock drops or queues the subsequent request until `evaluateNow()` completes.

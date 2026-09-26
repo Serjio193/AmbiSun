@@ -74,7 +74,7 @@ foreach ($item in $AppAllowlistDirs) {
 # 5. Copy service files using explicit allowlist
 Write-Host "Copying service files to staging (allowlist)..."
 $ServiceSource = Join-Path $RepoRoot "service\com.github.serjio193.ambisun.service"
-$ServiceAllowlistFiles = @("package.json", "services.json", "service.js")
+$ServiceAllowlistFiles = @("package.json", "services.json", "service.js", "homebrew-autostart.sh")
 $ServiceAllowlistDirs = @("lib", "data")
 
 foreach ($item in $ServiceAllowlistFiles) {
@@ -102,6 +102,7 @@ $EssentialFiles = @(
     "$ServiceStaging\package.json",
     "$ServiceStaging\services.json",
     "$ServiceStaging\service.js",
+    "$ServiceStaging\homebrew-autostart.sh",
     "$ServiceStaging\lib\runtime-info.js",
     "$ServiceStaging\data\countries.json",
     "$ServiceStaging\data\manifest.json",

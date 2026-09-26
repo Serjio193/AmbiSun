@@ -178,12 +178,48 @@ Write-Host "Installed application matches current local source and version."
 
 Write-Host "`n=== 7. RESTORE ELEVATION ==="
 
-$elevate = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun.service"
+$autostartScript = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh"
+$autostartLink = "/var/lib/webosbrew/init.d/90-ambisun"
+$elevate = "mkdir -p /var/lib/webosbrew/init.d; rm -f '$autostartLink'; ln -s '$autostartScript' '$autostartLink'; chmod 755 '$autostartScript'; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun && /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun.service"
 
 & ssh $Tv $elevate
 
 if ($LASTEXITCODE -ne 0) {
     throw "Elevation failed."
+}
+
+Write-Host "`n=== 8. RESTART AND VERIFY ELEVATED SERVICE ==="
+
+# elevate-service changes how future instances are launched. The instance
+# started by webOS during installation can still be jailed, so restart only
+# AmbiSun and verify the replacement process UID before reporting success.
+$remoteRestartAndVerify = @'
+luna-send -n 1 -f luna://com.github.serjio193.ambisun.service/restartAfterElevation "{}" >/dev/null 2>&1 || true
+sleep 1
+luna-send -n 1 -f luna://com.github.serjio193.ambisun.service/ping "{}" >/dev/null 2>&1 || true
+
+for attempt in 1 2 3 4 5 6 7 8 9 10; do
+    pid=$(pgrep -f "^com.github.serjio193.ambisun.service$" | head -1)
+    if [ -n "$pid" ] && [ -r "/proc/$pid/status" ]; then
+        uid=$(awk '/^Uid:/{print $2}' "/proc/$pid/status")
+        echo "Attempt $attempt - AmbiSun service PID=$pid UID=$uid"
+        if [ "$uid" = "0" ]; then
+            exit 0
+        fi
+    fi
+    sleep 1
+done
+
+echo "AmbiSun service did not restart with UID 0" >&2
+exit 1
+'@
+$remoteRestartAndVerify = $remoteRestartAndVerify -replace "`r`n", "`n"
+
+$rootVerification = & ssh $Tv $remoteRestartAndVerify
+$rootVerification | ForEach-Object { Write-Host $_ }
+
+if ($LASTEXITCODE -ne 0) {
+    throw "ELEVATION VERIFICATION FAILED: AmbiSun service is not running as root."
 }
 
 Write-Host "`n======================================"

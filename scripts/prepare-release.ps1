@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Исправлено восстановление подсветки после перезагрузки телевизора при активных правилах по солнцу',
-        en: 'Fixed lighting recovery after TV reboot when sun-based rules are active',
-        uk: 'Виправлено відновлення підсвічування після перезавантаження телевізора, коли активні правила за сонцем'
+        ru: 'Добавлен надёжный автозапуск фонового сервиса после перезагрузки телевизора; обновление восстанавливает Homebrew init-хук и root-доступ',
+        en: 'Added reliable background-service autostart after TV reboot; updates now restore the Homebrew init hook and root access',
+        uk: 'Додано надійний автозапуск фонового сервісу після перезавантаження телевізора; оновлення відновлює Homebrew init-хук і root-доступ'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

@@ -154,7 +154,7 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "# 3. Poll for installed appinfo.json and verify target version\n" +
         "FOUND_APPINFO=0\n" +
         "for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30; do\n" +
-        "    if [ -f \"$APPINFO_PATH\" ]; then\n" +
+        "    if [ -f \"$APPINFO_PATH\" ] && grep -F -q '\"'$TARGET_VERSION'\"' \"$APPINFO_PATH\"; then\n" +
         "        FOUND_APPINFO=1\n" +
         "        break\n" +
         "    fi\n" +
@@ -179,10 +179,10 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "echo \"[$(date)] Installed version $TARGET_VERSION verified successfully.\" >> \"$LOG_PATH\"\n\n" +
         "# 4. Install the persistent Homebrew boot hook before restoring elevation\n" +
         "echo \"[$(date)] Installing AmbiSun Homebrew autostart hook...\" >> \"$LOG_PATH\"\n" +
-        "mkdir -p /var/lib/webosbrew/init.d\n" +
-        "rm -f \"$AUTOSTART_LINK\"\n" +
-        "ln -s \"$AUTOSTART_SCRIPT\" \"$AUTOSTART_LINK\"\n" +
-        "chmod 755 \"$AUTOSTART_SCRIPT\"\n\n" +
+        "if ! sh \"$AUTOSTART_SCRIPT\" --install >> \"$LOG_PATH\" 2>&1; then\n" +
+        "    echo 'AUTOSTART RECOVERY FAILED' >> \"$LOG_PATH\"\n" +
+        "    exit 1\n" +
+        "fi\n\n" +
 
         "# 5. Restore elevation after verified install with bounded retries\n" +
         "sleep 2\n" +
@@ -212,6 +212,10 @@ function generateHelperScript(targetVersion, ipkPath, helperPath, resultPath, lo
         "fi\n\n" +
         "sleep 2\n\n" +
         "# 6. Launch updated app with bounded retries and response verification\n" +
+        "if ! sh \"$AUTOSTART_SCRIPT\" >> \"$LOG_PATH\" 2>&1; then\n" +
+        "    echo 'ROOT SERVICE VERIFICATION FAILED' >> \"$LOG_PATH\"\n" +
+        "    exit 1\n" +
+        "fi\n" +
         "LAUNCH_SUCCESS=0\n" +
         "echo \"[$(date)] Launching updated AmbiSun...\" >> \"$LOG_PATH\"\n" +
         "for launch_attempt in 1 2 3 4 5; do\n" +

@@ -20,11 +20,11 @@ source.init(service);
 
 var automation = require("./lib/automation");
 
-var ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
+require("./lib/root-bootstrap")();
 var AMBISUN_APP_ID = "com.github.serjio193.ambisun";
 var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
 var AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
-var ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + "; " + ELEVATION_BIN + " " + AMBISUN_SERVICE_ID;
+var ELEVATION_CMD = "sh /media/developer/apps/usr/palm/services/" + AMBISUN_SERVICE_ID + "/homebrew-autostart.sh --install";
 var elevationAttempted = false;
 var elevationInProgress = false;
 var elevationRestartScheduled = false;

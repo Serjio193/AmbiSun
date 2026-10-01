@@ -93,6 +93,11 @@ foreach ($item in $ServiceAllowlistDirs) {
     }
 }
 
+# Shell scripts must remain executable by /bin/sh after a Windows checkout.
+$HookPath = Join-Path $ServiceStaging "homebrew-autostart.sh"
+$HookText = [IO.File]::ReadAllText($HookPath).Replace("`r`n", "`n")
+[IO.File]::WriteAllText($HookPath, $HookText, (New-Object Text.UTF8Encoding($false)))
+
 # 6. Verify essential files exist
 Write-Host "Verifying staging contents..."
 $EssentialFiles = @(

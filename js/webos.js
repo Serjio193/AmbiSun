@@ -12,17 +12,8 @@
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
   const AMBISUN_APP_ID = "com.github.serjio193.ambisun";
   const AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
-  const ELEVATION_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
   const AUTOSTART_SCRIPT = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh";
-  const AUTOSTART_LINK = "/var/lib/webosbrew/init.d/90-ambisun";
-  const ELEVATION_CMD = ELEVATION_BIN + " " + AMBISUN_APP_ID + " && " + ELEVATION_BIN + " " + AMBISUN_SERVICE_ID;
-  const BOOTSTRAP_CMD =
-    "test -f " + AUTOSTART_SCRIPT +
-    " && mkdir -p /var/lib/webosbrew/init.d" +
-    " && rm -f " + AUTOSTART_LINK +
-    " && ln -s " + AUTOSTART_SCRIPT + " " + AUTOSTART_LINK +
-    " && chmod 755 " + AUTOSTART_SCRIPT +
-    " && " + ELEVATION_CMD;
+  const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --install";
 
   function hasWebOS() {
     return !!(

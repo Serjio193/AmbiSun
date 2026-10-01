@@ -180,7 +180,7 @@ Write-Host "`n=== 7. RESTORE ELEVATION ==="
 
 $autostartScript = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh"
 $autostartLink = "/var/lib/webosbrew/init.d/90-ambisun"
-$elevate = "mkdir -p /var/lib/webosbrew/init.d; rm -f '$autostartLink'; ln -s '$autostartScript' '$autostartLink'; chmod 755 '$autostartScript'; /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun && /media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service com.github.serjio193.ambisun.service"
+$elevate = "sh '$autostartScript' --install"
 
 & ssh $Tv $elevate
 

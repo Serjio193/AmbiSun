@@ -10,9 +10,7 @@
   var configRevision = null;
   var directElevationAttempts = 0;
   var directElevationInProgress = false;
-  var elevationRetryTimer = null;
-  var MAX_DIRECT_ELEVATION_ATTEMPTS = 3;
-  var DIRECT_ELEVATION_RETRY_MS = 3000;
+  var MAX_DIRECT_ELEVATION_ATTEMPTS = 1;
   var hyperhdrReachable = null;
 
   // ---- Time formatting ----
@@ -60,23 +58,14 @@
     if (el && val != null) el.textContent = val;
   }
 
-  function scheduleElevationRetry(elevWizard, error) {
+  function showElevationFailure(elevWizard, error) {
     directElevationInProgress = false;
     if (error) console.warn('[bridge] direct elevation attempt ' + directElevationAttempts + ' failed:', error.message || error);
-    if (directElevationAttempts < MAX_DIRECT_ELEVATION_ATTEMPTS) {
-      if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
-      if (elevationRetryTimer) clearTimeout(elevationRetryTimer);
-      elevationRetryTimer = setTimeout(function() {
-        elevationRetryTimer = null;
-        checkSystemStatus();
-      }, DIRECT_ELEVATION_RETRY_MS);
-      return;
-    }
     if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
   }
 
   function requestDirectElevation(elevWizard) {
-    if (directElevationInProgress || elevationRetryTimer) return;
+    if (directElevationInProgress) return;
     if (directElevationAttempts >= MAX_DIRECT_ELEVATION_ATTEMPTS) {
       if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
       return;
@@ -98,7 +87,7 @@
         }, 1500);
       })
       .catch(function(err) {
-        scheduleElevationRetry(elevWizard, err);
+        showElevationFailure(elevWizard, err);
       });
   }
 
@@ -128,10 +117,6 @@
   }
 
   function retryElevationRecovery() {
-    if (elevationRetryTimer) {
-      clearTimeout(elevationRetryTimer);
-      elevationRetryTimer = null;
-    }
     if (!directElevationInProgress) directElevationAttempts = 0;
     return checkSystemStatus();
   }
@@ -140,6 +125,7 @@
     var elevWizard = document.getElementById('elevationWizard');
 
     if (!sys || !sys.elevated) {
+      if (isElevated) directElevationAttempts = 0;
       isElevated = false;
       if (sys && sys.elevationPending) {
         // The service is repairing its launcher and will exit so webOS can
@@ -166,10 +152,6 @@
 
     directElevationInProgress = false;
     directElevationAttempts = 0;
-    if (elevationRetryTimer) {
-      clearTimeout(elevationRetryTimer);
-      elevationRetryTimer = null;
-    }
 
     if (!isElevated) {
       isElevated = true;

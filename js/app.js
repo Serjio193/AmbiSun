@@ -86,7 +86,10 @@ const ACTIONS = {
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');
     try {
       let res = null;
-      if (AmbiSun.webos.requestElevationDirect) {
+      if (AmbiSun.bridge.retryElevationRecovery) {
+        await AmbiSun.bridge.retryElevationRecovery();
+        res = { returnValue: true };
+      } else if (AmbiSun.webos.requestElevationDirect) {
         res = await AmbiSun.webos.requestElevationDirect();
         if (res && res.returnValue) {
           try {

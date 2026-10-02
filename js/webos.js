@@ -11,6 +11,7 @@
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
   const AUTOSTART_SCRIPT = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh";
+  const RECOVERY_SUCCESS_MARKER = "AMBISUN_ELEVATION_RECOVERY_OK";
   const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --recover";
 
   function hasWebOS() {
@@ -119,7 +120,22 @@
     // call is denied by the installed Homebrew version on some TVs.
     return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: BOOTSTRAP_CMD }, 20000)
       .then(function(res) {
-        return requireSuccessfulResponse(res, "Homebrew elevation");
+        if (!res || res.returnValue === false) {
+          var failureDetails = [res && (res.errorText || res.errorCode || res.error),
+            res && res.stderrString, res && res.stdoutString].filter(Boolean).join(" | ");
+          throw new Error((failureDetails || "Homebrew elevation request failed").slice(0, 400));
+        }
+        if (!res.stdoutString || res.stdoutString.indexOf(RECOVERY_SUCCESS_MARKER) < 0) {
+          var details = [res.stderrString, res.stdoutString].filter(Boolean).join(" | ");
+          throw new Error("Homebrew elevation did not confirm script completion" +
+            (details ? ": " + details.slice(0, 400) : ""));
+        }
+        return res;
+      }).catch(function(err) {
+        if (err && err.message) throw err;
+        var details = [err && (err.errorText || err.errorCode || err.error),
+          err && err.stderrString, err && err.stdoutString].filter(Boolean).join(" | ");
+        throw new Error(details || "Homebrew elevation request failed");
       });
   }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }

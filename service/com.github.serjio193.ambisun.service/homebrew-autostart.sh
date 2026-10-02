@@ -21,18 +21,35 @@ if [ "$MODE" = "--install" ] || [ "$MODE" = "--recover" ]; then
 fi
 [ -f "/media/developer/apps/usr/palm/services/$SERVICE_ID/service.js" ] || exit 0
 [ "$MODE" = "--install" ] && exit 0
+RECOVERY_ERROR=0
 {
     echo "[$(date)] Restoring AmbiSun elevation..."
     if [ -x "$ELEVATE_BIN" ]; then
-        "$ELEVATE_BIN" "$SERVICE_ID" "$APP_ID" || exit 1
-        grep -F -q 'Exec=/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service ' \
-            "/var/luna-service2-dev/services.d/$SERVICE_ID.service" || exit 1
+        # Match PicCap's Homebrew flow: elevate the app and service as two
+        # explicit helper invocations, rather than relying on extra arguments.
+        "$ELEVATE_BIN" "$APP_ID" || RECOVERY_ERROR=2
+        if [ "$RECOVERY_ERROR" = 0 ]; then
+            "$ELEVATE_BIN" "$SERVICE_ID" || RECOVERY_ERROR=3
+        fi
+        if [ "$RECOVERY_ERROR" = 0 ] && ! grep -F -q \
+            'Exec=/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service ' \
+            "/var/luna-service2-dev/services.d/$SERVICE_ID.service"; then
+            RECOVERY_ERROR=4
+        fi
     else
         echo "Elevation helper is not available: $ELEVATE_BIN"
-        exit 1
+        RECOVERY_ERROR=1
     fi
 } >> "$LOG_FILE" 2>&1
-[ "$MODE" = "--recover" ] && exit 0
+if [ "$RECOVERY_ERROR" != 0 ]; then
+    echo "AMBISUN_ELEVATION_RECOVERY_FAILED:$RECOVERY_ERROR"
+    tail -n 12 "$LOG_FILE" 2>/dev/null
+    exit 1
+fi
+if [ "$MODE" = "--recover" ]; then
+    echo "AMBISUN_ELEVATION_RECOVERY_OK"
+    exit 0
+fi
 
 # Activity Manager may have started a jailed instance before this hook ran.
 # Stop it so the next request uses the launcher patched by Homebrew.

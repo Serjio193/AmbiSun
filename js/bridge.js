@@ -8,8 +8,11 @@
   var isElevated = false;
   var isChecking = false;
   var configRevision = null;
-  var directElevationAttempted = false;
+  var directElevationAttempts = 0;
   var directElevationInProgress = false;
+  var elevationRetryTimer = null;
+  var MAX_DIRECT_ELEVATION_ATTEMPTS = 3;
+  var DIRECT_ELEVATION_RETRY_MS = 3000;
   var hyperhdrReachable = null;
 
   // ---- Time formatting ----
@@ -57,6 +60,48 @@
     if (el && val != null) el.textContent = val;
   }
 
+  function scheduleElevationRetry(elevWizard, error) {
+    directElevationInProgress = false;
+    if (error) console.warn('[bridge] direct elevation attempt ' + directElevationAttempts + ' failed:', error.message || error);
+    if (directElevationAttempts < MAX_DIRECT_ELEVATION_ATTEMPTS) {
+      if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+      if (elevationRetryTimer) clearTimeout(elevationRetryTimer);
+      elevationRetryTimer = setTimeout(function() {
+        elevationRetryTimer = null;
+        checkSystemStatus();
+      }, DIRECT_ELEVATION_RETRY_MS);
+      return;
+    }
+    if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
+  }
+
+  function requestDirectElevation(elevWizard) {
+    if (directElevationInProgress || elevationRetryTimer) return;
+    if (directElevationAttempts >= MAX_DIRECT_ELEVATION_ATTEMPTS) {
+      if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
+      return;
+    }
+    directElevationAttempts++;
+    directElevationInProgress = true;
+    if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
+    AmbiSun.webos.requestElevationDirect()
+      .then(function() {
+        return AmbiSun.webos.requestService('restartAfterElevation', {}).catch(function(err) {
+          // The service can disappear as its Homebrew launcher takes effect.
+          console.warn('[bridge] restart-after-elevation response unavailable:', err && err.message);
+        });
+      })
+      .then(function() {
+        setTimeout(function() {
+          directElevationInProgress = false;
+          checkSystemStatus();
+        }, 1500);
+      })
+      .catch(function(err) {
+        scheduleElevationRetry(elevWizard, err);
+      });
+  }
+
   // ---- System Status check (elevation gate) ----
   function checkSystemStatus() {
     if (isChecking) return Promise.resolve();
@@ -76,28 +121,19 @@
         // PicCap can recover even when its background service is not
         // responding yet. Do the same: call Homebrew directly so the
         // launcher and permissions are repaired before retrying Luna.
-        if (!directElevationAttempted && AmbiSun.webos.requestElevationDirect) {
-          directElevationAttempted = true;
-          directElevationInProgress = true;
-          var elevWizard = document.getElementById('elevationWizard');
-          if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
-          AmbiSun.webos.requestElevationDirect()
-            .then(function() {
-              return AmbiSun.webos.requestService('restartAfterElevation', {}).catch(function() {});
-            })
-            .then(function() {
-              setTimeout(function() {
-                directElevationInProgress = false;
-                checkSystemStatus();
-              }, 1500);
-            })
-            .catch(function(err) {
-              directElevationInProgress = false;
-              console.warn('[bridge] recovery from unavailable service failed:', err && err.message);
-              if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
-            });
+        if (AmbiSun.webos.requestElevationDirect) {
+          requestDirectElevation(document.getElementById('elevationWizard'));
         }
       });
+  }
+
+  function retryElevationRecovery() {
+    if (elevationRetryTimer) {
+      clearTimeout(elevationRetryTimer);
+      elevationRetryTimer = null;
+    }
+    if (!directElevationInProgress) directElevationAttempts = 0;
+    return checkSystemStatus();
   }
 
   function handleSystemStatus(sys) {
@@ -115,28 +151,8 @@
         return;
       }
 
-      if (!directElevationAttempted && AmbiSun.webos.requestElevationDirect) {
-        directElevationAttempted = true;
-        directElevationInProgress = true;
-        if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
-        AmbiSun.webos.requestElevationDirect()
-          .then(function(res) {
-            if (!res || !res.returnValue) {
-              throw new Error((res && (res.errorText || res.error)) || 'Direct elevation failed');
-            }
-            return AmbiSun.webos.requestService('restartAfterElevation', {});
-          })
-          .then(function() {
-            setTimeout(function() {
-              directElevationInProgress = false;
-              checkSystemStatus();
-            }, 1500);
-          })
-          .catch(function(err) {
-            directElevationInProgress = false;
-            console.warn('[bridge] direct elevation failed:', err && err.message);
-            if (elevWizard) elevWizard.setAttribute('aria-hidden', 'false');
-          });
+      if (directElevationAttempts < MAX_DIRECT_ELEVATION_ATTEMPTS && AmbiSun.webos.requestElevationDirect) {
+        requestDirectElevation(elevWizard);
         return;
       }
 
@@ -149,6 +165,11 @@
     }
 
     directElevationInProgress = false;
+    directElevationAttempts = 0;
+    if (elevationRetryTimer) {
+      clearTimeout(elevationRetryTimer);
+      elevationRetryTimer = null;
+    }
 
     if (!isElevated) {
       isElevated = true;
@@ -410,6 +431,7 @@
 
   // ---- Public API ----
   AmbiSun.bridge.checkSystemStatus = checkSystemStatus;
+  AmbiSun.bridge.retryElevationRecovery = retryElevationRecovery;
   AmbiSun.bridge.mutateConfig = mutateConfig;
   AmbiSun.bridge.syncConfig = syncConfig;
   AmbiSun.bridge.syncSolar = syncSolar;

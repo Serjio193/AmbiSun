@@ -11,7 +11,7 @@
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
   const AUTOSTART_SCRIPT = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh";
-  const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --install";
+  const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --recover";
 
   function hasWebOS() {
     return !!(
@@ -117,7 +117,7 @@
     // PicCap and HyperHDR use Homebrew's exec endpoint for root recovery.
     // Keep this on the app's public Luna path; the service's typed elevation
     // call is denied by the installed Homebrew version on some TVs.
-    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: BOOTSTRAP_CMD })
+    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: BOOTSTRAP_CMD }, 20000)
       .then(function(res) {
         return requireSuccessfulResponse(res, "Homebrew elevation");
       });

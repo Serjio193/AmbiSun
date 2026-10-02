@@ -6,7 +6,8 @@ ELEVATE_BIN="/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.ser
 LOG_FILE="/tmp/ambisun-autostart.log"
 
 if [ "$(id -u)" != 0 ]; then exit 1; fi
-if [ "$1" = "--install" ]; then
+MODE="$1"
+if [ "$MODE" = "--install" ] || [ "$MODE" = "--recover" ]; then
     HOOK="/var/lib/webosbrew/init.d/90-ambisun"
     HOOK_NEW="$HOOK.new"
     SOURCE="/media/developer/apps/usr/palm/services/$SERVICE_ID/homebrew-autostart.sh"
@@ -19,6 +20,7 @@ if [ "$1" = "--install" ]; then
     fi
 fi
 [ -f "/media/developer/apps/usr/palm/services/$SERVICE_ID/service.js" ] || exit 0
+[ "$MODE" = "--install" ] && exit 0
 {
     echo "[$(date)] Restoring AmbiSun elevation..."
     if [ -x "$ELEVATE_BIN" ]; then
@@ -30,7 +32,7 @@ fi
         exit 1
     fi
 } >> "$LOG_FILE" 2>&1
-[ "$1" = "--install" ] && exit 0
+[ "$MODE" = "--recover" ] && exit 0
 
 # Activity Manager may have started a jailed instance before this hook ran.
 # Stop it so the next request uses the launcher patched by Homebrew.

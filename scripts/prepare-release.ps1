@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Исправлено восстановление root-доступа через Homebrew и установку исполняемого загрузочного хука',
-        en: 'Fixed Homebrew root recovery and installation of the executable boot hook',
-        uk: 'Виправлено відновлення root-доступу через Homebrew та встановлення виконуваного завантажувального хука'
+        ru: 'Исправлено восстановление root-доступа из приложения: Homebrew-команда теперь выполняет восстановление до завершения запроса',
+        en: 'Fixed in-app root recovery so the Homebrew command completes recovery before the request times out',
+        uk: 'Виправлено відновлення root-доступу з програми: команда Homebrew завершує відновлення до завершення запиту'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

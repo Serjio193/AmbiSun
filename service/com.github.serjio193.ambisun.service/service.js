@@ -23,7 +23,7 @@ var automation = require("./lib/automation");
 require("./lib/root-bootstrap")();
 var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
 var AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
-var ELEVATION_CMD = "sh /media/developer/apps/usr/palm/services/" + AMBISUN_SERVICE_ID + "/homebrew-autostart.sh --install";
+var ELEVATION_CMD = "sh /media/developer/apps/usr/palm/services/" + AMBISUN_SERVICE_ID + "/homebrew-autostart.sh --recover";
 var elevationInProgress = false;
 var elevationRestartScheduled = false;
 

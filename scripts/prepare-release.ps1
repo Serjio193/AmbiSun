@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Добавлен надёжный автозапуск фонового сервиса после перезагрузки телевизора; обновление восстанавливает Homebrew init-хук и root-доступ',
-        en: 'Added reliable background-service autostart after TV reboot; updates now restore the Homebrew init hook and root access',
-        uk: 'Додано надійний автозапуск фонового сервісу після перезавантаження телевізора; оновлення відновлює Homebrew init-хук і root-доступ'
+        ru: 'Исправлено восстановление root-доступа через Homebrew и установку исполняемого загрузочного хука',
+        en: 'Fixed Homebrew root recovery and installation of the executable boot hook',
+        uk: 'Виправлено відновлення root-доступу через Homebrew та встановлення виконуваного завантажувального хука'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

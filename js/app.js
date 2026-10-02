@@ -96,9 +96,6 @@ const ACTIONS = {
           }
         }
       }
-      if (!res || !res.returnValue) {
-        res = await AmbiSun.webos.requestElevation();
-      }
       if (res && res.returnValue) {
         AmbiSun.bridge.startElevationRetry(function(confirmed) {
           if (confirmed) {

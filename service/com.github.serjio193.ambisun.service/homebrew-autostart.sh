@@ -8,10 +8,15 @@ LOG_FILE="/tmp/ambisun-autostart.log"
 if [ "$(id -u)" != 0 ]; then exit 1; fi
 if [ "$1" = "--install" ]; then
     HOOK="/var/lib/webosbrew/init.d/90-ambisun"
+    HOOK_NEW="$HOOK.new"
     SOURCE="/media/developer/apps/usr/palm/services/$SERVICE_ID/homebrew-autostart.sh"
     mkdir -p /var/lib/webosbrew/init.d || exit 1
-    cp "$SOURCE" "$HOOK.new" && chmod 755 "$HOOK.new" &&
-        mv -f "$HOOK.new" "$HOOK" || exit 1
+    cp "$SOURCE" "$HOOK_NEW" && chmod 755 "$HOOK_NEW" &&
+        mv -f "$HOOK_NEW" "$HOOK" || exit 1
+    if [ -L "$HOOK" ] || [ ! -x "$HOOK" ]; then
+        echo "[$(date)] Boot hook is not an executable independent file: $HOOK" >> "$LOG_FILE"
+        exit 1
+    fi
 fi
 [ -f "/media/developer/apps/usr/palm/services/$SERVICE_ID/service.js" ] || exit 0
 {

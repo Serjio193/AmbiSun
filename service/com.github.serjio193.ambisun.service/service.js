@@ -21,11 +21,9 @@ source.init(service);
 var automation = require("./lib/automation");
 
 require("./lib/root-bootstrap")();
-var AMBISUN_APP_ID = "com.github.serjio193.ambisun";
 var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
 var AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
 var ELEVATION_CMD = "sh /media/developer/apps/usr/palm/services/" + AMBISUN_SERVICE_ID + "/homebrew-autostart.sh --install";
-var elevationAttempted = false;
 var elevationInProgress = false;
 var elevationRestartScheduled = false;
 
@@ -39,14 +37,13 @@ function elevateAndRestart(callback) {
     }
 
     elevationInProgress = true;
-    function handleResult(msg, fallback) {
+    service.call(HBCHANNEL_SERVICE_URI + "/exec", {
+        command: ELEVATION_CMD
+    }, function(msg) {
         var payload = msg && msg.payload ? msg.payload : (msg || {});
         elevationInProgress = false;
 
         if (!payload.returnValue) {
-            if (fallback) {
-                return elevateWithTypedApi();
-            }
             return callback(new Error(payload.errorText || payload.error || "Elevation failed"));
         }
 
@@ -58,42 +55,6 @@ function elevateAndRestart(callback) {
         setTimeout(function() {
             process.exit(0);
         }, 250);
-    }
-
-    function elevateWithTypedApi() {
-        elevationInProgress = true;
-        service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
-            id: AMBISUN_APP_ID
-        }, function(appMsg) {
-            var appPayload = appMsg && appMsg.payload ? appMsg.payload : (appMsg || {});
-            if (!appPayload.returnValue) {
-                return handleResult(appMsg, false);
-            }
-            service.call(HBCHANNEL_SERVICE_URI + "/elevateService", {
-                id: AMBISUN_SERVICE_ID
-            }, function(serviceMsg) {
-                handleResult(serviceMsg, false);
-            });
-        });
-    }
-
-    // Match PicCap's working flow: repair both the app and service launcher
-    // permissions through the root Homebrew exec service. The typed API is a
-    // fallback for Homebrew Channel versions where /exec is unavailable.
-    service.call(HBCHANNEL_SERVICE_URI + "/exec", {
-        command: ELEVATION_CMD
-    }, function(msg) {
-        handleResult(msg, true);
-    });
-}
-
-function tryAutomaticElevation() {
-    if (isServiceElevated() || elevationAttempted || elevationInProgress) return;
-    elevationAttempted = true;
-    elevateAndRestart(function(err) {
-        if (err) {
-            console.warn("[elevation] automatic recovery failed:", err.message || err);
-        }
     });
 }
 
@@ -420,13 +381,7 @@ service.register("getSystemStatus", function(message) {
     var auto = automation.getAutomationStatus();
     sys.automationEnabled = auto ? auto.enabled : false;
 
-    // A service can be restarted by webOS after being idle or after an
-    // activity wake. If the launcher was not elevated, repair it once and
-    // restart this instance automatically instead of waiting for the user.
-    if (!serviceElevated) {
-        tryAutomaticElevation();
-        sys.elevationPending = elevationInProgress || elevationRestartScheduled;
-    }
+    sys.elevationPending = elevationInProgress || elevationRestartScheduled;
 });
 
 service.register("requestElevation", function(message) {

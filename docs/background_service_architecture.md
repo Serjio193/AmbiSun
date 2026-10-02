@@ -163,8 +163,10 @@ Pure logic function `decision-engine.js`:
 
 ## 19. Autostart/Reboot Behavior
 - The service relies on persistent Activity Manager schedules (`persist=true`, `type.background=true`) to wake up.
-- A Homebrew init hook (`/var/lib/webosbrew/init.d/90-ambisun`) restores app and service elevation through `elevate-service` before restarting the service. This mirrors the tested PicCap/HyperHDR startup pattern.
-- The hook is installed through the privileged Homebrew Channel bridge during elevation recovery, signed self-update, or the TV deployment script. The UI still verifies the replacement service process and reports failure when it is not elevated.
+- Homebrew `elevate-service` patches the app/service launch registration so future instances run with root. It is not a permanent Unix UID grant: an app update or replaced registration can require it again.
+- Like PicCap and HyperHDR, the app requests elevation through Homebrew's `exec` endpoint. AmbiSun then installs an independent executable hook at `/var/lib/webosbrew/init.d/90-ambisun`; a symlink to the packaged script is not sufficient because package replacement can leave its target non-executable.
+- At boot, the hook reapplies elevation, restarts the stale jailed service instance, and checks the replacement PID UID. Signed self-update installs the hook and reapplies elevation after the new app version is confirmed.
+- The UI reads the actual service UID and reports whether recovery succeeded. A denied Homebrew request remains an explicit recovery error; status reads do not retry through a second elevation API.
 - If this fails on webOS due to TV reboot, the app must not silently continue as a jailed service: it should expose the missing elevation state and request recovery through Homebrew.
 
 ## 20. Concurrency Strategy

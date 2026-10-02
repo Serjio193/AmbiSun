@@ -10,8 +10,6 @@
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
-  const AMBISUN_APP_ID = "com.github.serjio193.ambisun";
-  const AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
   const AUTOSTART_SCRIPT = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh";
   const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --install";
 
@@ -116,21 +114,12 @@
   function getSchedulerStatus()  { return requestService("getSchedulerStatus", {}); }
   function requestElevation()    { return requestService("requestElevation", {}); }
   function requestElevationDirect() {
-    // Match PicCap's proven flow: elevate both the app and its service in
-    // one Homebrew Channel exec call. This also repairs permissions after a
-    // reinstall, when only the service launcher may have been patched.
+    // PicCap and HyperHDR use Homebrew's exec endpoint for root recovery.
+    // Keep this on the app's public Luna path; the service's typed elevation
+    // call is denied by the installed Homebrew version on some TVs.
     return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: BOOTSTRAP_CMD })
       .then(function(res) {
         return requireSuccessfulResponse(res, "Homebrew elevation");
-      })
-      .catch(function() {
-        // Newer Homebrew Channel versions expose the typed API as a fallback.
-        return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_APP_ID })
-          .then(function(res) { return requireSuccessfulResponse(res, "App elevation"); })
-          .then(function() {
-            return requestUri(HBCHANNEL_SERVICE_URI, "elevateService", { id: AMBISUN_SERVICE_ID });
-          })
-          .then(function(res) { return requireSuccessfulResponse(res, "Service elevation"); });
       });
   }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }

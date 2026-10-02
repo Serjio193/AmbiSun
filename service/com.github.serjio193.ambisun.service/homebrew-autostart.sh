@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Homebrew's Luna exec can provide a reduced PATH. elevate-service invokes
+# ls-control, which in turn needs mktemp, sed, and other system utilities.
+PATH="/usr/sbin:/usr/bin:/sbin:/bin${PATH:+:$PATH}"
+export PATH
+
 SERVICE_ID="com.github.serjio193.ambisun.service"
 APP_ID="com.github.serjio193.ambisun"
 ELEVATE_BIN="/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service"

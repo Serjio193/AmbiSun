@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Улучшено восстановление root-доступа: после отказа автоматические попытки прекращаются, доступ можно восстановить вручную',
-        en: 'Improved root recovery: automatic attempts stop after a failure, and access can be restored manually',
-        uk: 'Покращено відновлення root-доступу: після відмови автоматичні спроби припиняються, доступ можна відновити вручну'
+        ru: 'Исправлено восстановление root-доступа: для Homebrew exec теперь задаётся полный системный PATH',
+        en: 'Fixed root recovery by providing the full system PATH to Homebrew exec',
+        uk: 'Виправлено відновлення root-доступу: для Homebrew exec тепер задається повний системний PATH'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

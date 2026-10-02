@@ -22,7 +22,7 @@ service="$TEST_ROOT/apps/usr/palm/services/com.github.serjio193.ambisun.service"
 hb="$TEST_ROOT/apps/usr/palm/services/org.webosbrew.hbchannel.service"
 mkdir -p "$service" "$hb" "$TEST_ROOT/boot/init.d" "$TEST_ROOT/luna/services.d"
 touch "$service/service.js"
-printf '#!/bin/sh\\nprintf "%%s\\\\n" "$*" >> "$TEST_ROOT/elevation-args"\\ntouch "$TEST_ROOT/elevation-called"\\nexit ${elevationFails ? 1 : 0}\\n' > "$hb/elevate-service"
+printf '#!/bin/sh\\ncommand -v mktemp >/dev/null || exit 9\\ncommand -v sed >/dev/null || exit 9\\nprintf "%%s\\\\n" "$*" >> "$TEST_ROOT/elevation-args"\\ntouch "$TEST_ROOT/elevation-called"\\nexit ${elevationFails ? 1 : 0}\\n' > "$hb/elevate-service"
 chmod 755 "$hb/elevate-service"
 printf 'Exec=/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service -n app\\n' > "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"
 printf '#!/bin/sh\\nexit 0\\n' > "$service/homebrew-autostart.sh"
@@ -43,10 +43,15 @@ rm "$service/homebrew-autostart.sh"
 printf '#!/bin/sh\\nexit 0\\n' > "$service/homebrew-autostart.sh"
 chmod 644 "$service/homebrew-autostart.sh"
 set -- --recover
+ORIGINAL_PATH=$PATH
+PATH=/usr/sbin
+export PATH
 output=$(
 ${script}
 )
 result=$?
+PATH=$ORIGINAL_PATH
+export PATH
 if [ "$result" != ${elevationFails ? 1 : 0} ]; then cat "$TEST_ROOT/log"; echo "recover exit=$result"; ls -l "$TEST_ROOT/elevation-called" "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"; cat "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"; exit 25; fi
 [ -e "$TEST_ROOT/elevation-called" ] || exit 26
 if [ ${elevationFails ? 'true' : 'false'} = false ]; then

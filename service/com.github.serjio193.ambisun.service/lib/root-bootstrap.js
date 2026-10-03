@@ -3,27 +3,42 @@ var path = require('path');
 var fs = require('fs');
 
 var SERVICE_ID = 'com.github.serjio193.ambisun.service';
-var PERMS_FILE = '/var/luna-service2-dev/client-permissions.d/' + SERVICE_ID + '.service.json';
+var APP_ID = 'com.github.serjio193.ambisun';
+var PERMS_DIR = '/var/luna-service2-dev/client-permissions.d';
 
-// Ensure the service's base client-permissions include "public" so the
-// jailed instance can call org.webosbrew.hbchannel.service/exec for
-// self-elevation after a reboot or package update.
-function ensurePublicPermission() {
+function addPublicToPermFile(filePath) {
     try {
-        var raw = fs.readFileSync(PERMS_FILE, 'utf8');
+        if (!fs.existsSync(filePath)) return false;
+        var raw = fs.readFileSync(filePath, 'utf8');
         var perms = JSON.parse(raw);
         var key = Object.keys(perms)[0];
-        if (!key) return;
+        if (!key) return false;
         var list = perms[key];
         if (Array.isArray(list) && list.indexOf('public') < 0) {
             list.push('public');
-            fs.writeFileSync(PERMS_FILE, JSON.stringify(perms));
-            childProcess.execFile('/usr/sbin/ls-control', ['scan-services'], { timeout: 10000 },
-                function (err) { if (err) console.warn('[bootstrap] scan-services:', err.message); });
-            console.info('[bootstrap] Added "public" to service client-permissions');
+            fs.writeFileSync(filePath, JSON.stringify(perms));
+            return true;
         }
     } catch (e) {
-        console.warn('[bootstrap] ensurePublicPermission:', e.message);
+        console.warn('[bootstrap] perm patch error for ' + filePath + ':', e.message);
+    }
+    return false;
+}
+
+// Ensure base client-permissions include "public" so both service and app
+// can call org.webosbrew.hbchannel.service endpoints if needed.
+function ensurePublicPermissions() {
+    var changed = false;
+    if (addPublicToPermFile(path.join(PERMS_DIR, SERVICE_ID + '.service.json'))) {
+        changed = true;
+    }
+    if (addPublicToPermFile(path.join(PERMS_DIR, APP_ID + '.app.json'))) {
+        changed = true;
+    }
+    if (changed) {
+        childProcess.execFile('/usr/sbin/ls-control', ['scan-services'], { timeout: 10000 },
+            function (err) { if (err) console.warn('[bootstrap] scan-services:', err.message); });
+        console.info('[bootstrap] Added "public" to Luna client-permissions');
     }
 }
 
@@ -31,7 +46,7 @@ function ensurePublicPermission() {
 // and guarantee the "public" Luna group survives package updates.
 module.exports = function () {
     if (process.getuid() !== 0) return;
-    ensurePublicPermission();
+    ensurePublicPermissions();
     childProcess.execFile('/bin/sh', [
         path.join(__dirname, '..', 'homebrew-autostart.sh'), '--install'
     ], {timeout: 15000}, function (error) {

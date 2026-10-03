@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Сервис AmbiSun обновляет разрешение Luna для вызова Homebrew и корректно перечитывает настройки сервисной шины',
-        en: 'AmbiSun service now updates its Luna permission for Homebrew access and reloads the service-bus configuration',
-        uk: 'Сервіс AmbiSun оновлює дозвіл Luna для виклику Homebrew та перечитує налаштування сервісної шини'
+        ru: 'Восстановление root-доступа переведено на прямой вызов elevate-service из Homebrew Channel',
+        en: 'Root recovery now calls Homebrew Channel elevate-service directly',
+        uk: 'Відновлення root-доступу переведено на прямий виклик elevate-service із Homebrew Channel'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

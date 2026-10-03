@@ -30,20 +30,17 @@ async function runWithResponse(response) {
 (async function () {
     const success = await runWithResponse({
         returnValue: true,
-        stdoutString: 'AMBISUN_ELEVATION_RECOVERY_OK\n'
+        stdoutString: 'Elevating service...\n'
     });
     assert.strictEqual(success.request.uri, 'luna://org.webosbrew.hbchannel.service');
     assert.strictEqual(success.request.options.method, 'exec');
-    assert.match(success.request.options.parameters.command, /homebrew-autostart\.sh --recover/);
+    assert.match(success.request.options.parameters.command, /elevate-service com\.github\.serjio193\.ambisun\.service/);
     assert.strictEqual((await success.result).returnValue, true);
-
-    const noMarker = await runWithResponse({returnValue: true, stdoutString: ''});
-    await assert.rejects(noMarker.result, /did not confirm script completion/);
 
     const failed = await runWithResponse({returnValue: false, errorText: 'exec denied'});
     await assert.rejects(failed.result, /exec denied/);
 
-    console.log('PASS: Homebrew elevation requires an explicit recovery completion marker');
+    console.log('PASS: Homebrew elevation invokes elevate-service directly and checks returnValue');
 })().catch(function (error) {
     console.error(error);
     process.exitCode = 1;

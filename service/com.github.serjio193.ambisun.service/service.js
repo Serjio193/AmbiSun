@@ -21,50 +21,8 @@ source.init(service);
 var automation = require("./lib/automation");
 
 require("./lib/root-bootstrap")();
-var HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
-var AMBISUN_SERVICE_ID = "com.github.serjio193.ambisun.service";
-var ELEVATION_CMD = "sh /media/developer/apps/usr/palm/services/" + AMBISUN_SERVICE_ID + "/homebrew-autostart.sh --recover";
-var elevationInProgress = false;
-var elevationRestartScheduled = false;
-
 function isServiceElevated() {
     return typeof process.getuid === "function" && process.getuid() === 0;
-}
-
-function elevateAndRestart(callback) {
-    if (elevationInProgress) {
-        return callback(new Error("Elevation is already in progress"));
-    }
-
-    elevationInProgress = true;
-    service.call(HBCHANNEL_SERVICE_URI + "/exec", {
-        command: ELEVATION_CMD
-    }, function(msg) {
-        var payload = msg && msg.payload ? msg.payload : (msg || {});
-        elevationInProgress = false;
-
-        if (!payload.returnValue) {
-            return callback(new Error(payload.errorText || payload.error || "Elevation failed"));
-        }
-
-        // Verify the recovery script completed successfully — hbchannel/exec
-        // returns returnValue:true even when the command exits non-zero.
-        var stdout = payload.stdoutString || "";
-        if (stdout.indexOf("AMBISUN_ELEVATION_RECOVERY_OK") < 0) {
-            var details = [payload.stderrString, stdout].filter(Boolean).join(" | ");
-            return callback(new Error("Elevation script did not confirm completion" +
-                (details ? ": " + details.slice(0, 400) : "")));
-        }
-
-        elevationRestartScheduled = true;
-        callback(null);
-
-        // elevate-service changes the launcher used for future instances. The
-        // current Node process cannot change its UID, so let webOS restart it.
-        setTimeout(function() {
-            process.exit(0);
-        }, 250);
-    });
 }
 
 function respondSafe(message, fn) {
@@ -390,17 +348,11 @@ service.register("getSystemStatus", function(message) {
     var auto = automation.getAutomationStatus();
     sys.automationEnabled = auto ? auto.enabled : false;
 
-    sys.elevationPending = elevationInProgress || elevationRestartScheduled;
+    sys.elevationPending = false;
 });
 
 service.register("requestElevation", function(message) {
-    elevateAndRestart(function(err) {
-        if (!err) {
-            message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION });
-        } else {
-            message.respond({ returnValue: false, apiVersion: runtimeInfo.SERVICE_API_VERSION, errorCode: "ELEVATION_FAILED", errorText: err.message || "Exec failed" });
-        }
-    });
+    message.respond({ returnValue: true, apiVersion: runtimeInfo.SERVICE_API_VERSION, note: "Deprecated: elevate directly via Homebrew" });
 });
 
 service.register("restartAfterElevation", function(message) {

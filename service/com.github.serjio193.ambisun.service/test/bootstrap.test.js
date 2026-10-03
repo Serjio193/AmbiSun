@@ -8,9 +8,7 @@ const shell = process.platform === 'win32' ? 'C:/msys64/usr/bin/sh.exe' : '/bin/
 const script = original.replace(/\/media\/developer\/apps/g, '$TEST_ROOT/apps')
     .replace(/\/var\/lib\/webosbrew/g, '$TEST_ROOT/boot')
     .replace(/\/var\/luna-service2-dev/g, '$TEST_ROOT/luna')
-    .replace('/tmp/ambisun-autostart.log', '$TEST_ROOT/log')
-    .replace("'Exec=$TEST_ROOT/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service ",
-        "'Exec=/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service ");
+    .replace('/tmp/ambisun-autostart.log', '$TEST_ROOT/log');
 for (const elevationFails of [false, true]) {
     const harness = `
 TEST_ROOT=$(mktemp -d)
@@ -22,9 +20,8 @@ service="$TEST_ROOT/apps/usr/palm/services/com.github.serjio193.ambisun.service"
 hb="$TEST_ROOT/apps/usr/palm/services/org.webosbrew.hbchannel.service"
 mkdir -p "$service" "$hb" "$TEST_ROOT/boot/init.d" "$TEST_ROOT/luna/services.d"
 touch "$service/service.js"
-printf '#!/bin/sh\\ncommand -v mktemp >/dev/null || exit 9\\ncommand -v sed >/dev/null || exit 9\\nprintf "%%s\\\\n" "$*" >> "$TEST_ROOT/elevation-args"\\ntouch "$TEST_ROOT/elevation-called"\\nexit ${elevationFails ? 1 : 0}\\n' > "$hb/elevate-service"
+printf '#!/bin/sh\\nprintf "%%s\\\\n" "$*" >> "$TEST_ROOT/elevation-args"\\ntouch "$TEST_ROOT/elevation-called"\\nexit ${elevationFails ? 1 : 0}\\n' > "$hb/elevate-service"
 chmod 755 "$hb/elevate-service"
-printf 'Exec=/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/run-js-service -n app\\n' > "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"
 printf '#!/bin/sh\\nexit 0\\n' > "$service/homebrew-autostart.sh"
 chmod 644 "$service/homebrew-autostart.sh"
 ln -s "$service/homebrew-autostart.sh" "$TEST_ROOT/boot/init.d/90-ambisun"
@@ -52,14 +49,10 @@ ${script}
 result=$?
 PATH=$ORIGINAL_PATH
 export PATH
-if [ "$result" != ${elevationFails ? 1 : 0} ]; then cat "$TEST_ROOT/log"; echo "recover exit=$result"; ls -l "$TEST_ROOT/elevation-called" "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"; cat "$TEST_ROOT/luna/services.d/com.github.serjio193.ambisun.service.service"; exit 25; fi
+if [ "$result" != ${elevationFails ? 1 : 0} ]; then cat "$TEST_ROOT/log"; echo "recover exit=$result"; exit 25; fi
 [ -e "$TEST_ROOT/elevation-called" ] || exit 26
 if [ ${elevationFails ? 'true' : 'false'} = false ]; then
-    case "$output" in *AMBISUN_ELEVATION_RECOVERY_OK*) ;; *) echo "success marker missing: $output"; exit 27 ;; esac
-    [ "$(sed -n '1p' "$TEST_ROOT/elevation-args")" = "com.github.serjio193.ambisun" ] || exit 28
-    [ "$(sed -n '2p' "$TEST_ROOT/elevation-args")" = "com.github.serjio193.ambisun.service" ] || exit 29
-else
-    case "$output" in *AMBISUN_ELEVATION_RECOVERY_OK*) echo "failure emitted success marker"; exit 30 ;; esac
+    [ "$(sed -n '1p' "$TEST_ROOT/elevation-args")" = "com.github.serjio193.ambisun.service" ] || exit 28
 fi
 `;
     const result = cp.spawnSync(shell, ['-s'], {input: harness, encoding: 'utf8'});

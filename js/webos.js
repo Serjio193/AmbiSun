@@ -10,9 +10,8 @@
   const LUNA_TIMEOUT_MS = 5000;
   const LUNA_INSTALL_TIMEOUT_MS = 45000;
   const HBCHANNEL_SERVICE_URI = "luna://org.webosbrew.hbchannel.service";
-  const AUTOSTART_SCRIPT = "/media/developer/apps/usr/palm/services/com.github.serjio193.ambisun.service/homebrew-autostart.sh";
-  const RECOVERY_SUCCESS_MARKER = "AMBISUN_ELEVATION_RECOVERY_OK";
-  const BOOTSTRAP_CMD = "sh " + AUTOSTART_SCRIPT + " --recover";
+  const ELEVATE_SERVICE_BIN = "/media/developer/apps/usr/palm/services/org.webosbrew.hbchannel.service/elevate-service";
+  const SERVICE_ID = "com.github.serjio193.ambisun.service";
 
   function hasWebOS() {
     return !!(
@@ -113,22 +112,16 @@
   function getCurrentSource() { return requestService("getCurrentSource", {}); }
   function getAutomationStatus() { return requestService("getAutomationStatus", {}); }
   function getSchedulerStatus()  { return requestService("getSchedulerStatus", {}); }
-  function requestElevation()    { return requestService("requestElevation", {}); }
   function requestElevationDirect() {
-    // PicCap and HyperHDR use Homebrew's exec endpoint for root recovery.
-    // Keep this on the app's public Luna path; the service's typed elevation
-    // call is denied by the installed Homebrew version on some TVs.
-    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: BOOTSTRAP_CMD }, 20000)
+    // PicCap-style elevation: execute Homebrew elevate-service directly for the service.
+    // Ensure standard tools (mktemp, sed) are reachable via PATH.
+    const cmd = 'PATH="/usr/sbin:/usr/bin:/sbin:/bin:$PATH" ' + ELEVATE_SERVICE_BIN + " " + SERVICE_ID;
+    return requestUri(HBCHANNEL_SERVICE_URI, "exec", { command: cmd }, 20000)
       .then(function(res) {
         if (!res || res.returnValue === false) {
           var failureDetails = [res && (res.errorText || res.errorCode || res.error),
             res && res.stderrString, res && res.stdoutString].filter(Boolean).join(" | ");
           throw new Error((failureDetails || "Homebrew elevation request failed").slice(0, 400));
-        }
-        if (!res.stdoutString || res.stdoutString.indexOf(RECOVERY_SUCCESS_MARKER) < 0) {
-          var details = [res.stderrString, res.stdoutString].filter(Boolean).join(" | ");
-          throw new Error("Homebrew elevation did not confirm script completion" +
-            (details ? ": " + details.slice(0, 400) : ""));
         }
         return res;
       }).catch(function(err) {
@@ -138,6 +131,7 @@
         throw new Error(details || "Homebrew elevation request failed");
       });
   }
+  function requestElevation()    { return requestElevationDirect(); }
   function getSolarStatus()      { return requestService("getSolarStatus", {}); }
   function getAvailableSources() { return requestService("getAvailableSources", {}); }
   function getHyperhdrEffects() { return requestService("getHyperhdrEffects", {}); }

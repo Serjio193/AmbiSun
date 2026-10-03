@@ -1,6 +1,6 @@
 {
     "id":  "com.github.serjio193.ambisun",
-    "version":  "0.2.16",
+    "version":  "0.2.17",
     "vendor":  "Serjio193",
     "type":  "web",
     "main":  "index.html",
@@ -16,6 +16,7 @@
                                 "tv.hwcontrol",
                                 "tv.inputmanager",
                                 "eim",
-                                "externaldevice"
+                                "externaldevice",
+                                "public"
                             ]
 }

@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Исправлено восстановление root-доступа: для Homebrew exec теперь задаётся полный системный PATH',
-        en: 'Fixed root recovery by providing the full system PATH to Homebrew exec',
-        uk: 'Виправлено відновлення root-доступу: для Homebrew exec тепер задається повний системний PATH'
+        ru: 'Сервис AmbiSun обновляет разрешение Luna для вызова Homebrew и корректно перечитывает настройки сервисной шины',
+        en: 'AmbiSun service now updates its Luna permission for Homebrew access and reloads the service-bus configuration',
+        uk: 'Сервіс AmbiSun оновлює дозвіл Luna для виклику Homebrew та перечитує налаштування сервісної шини'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

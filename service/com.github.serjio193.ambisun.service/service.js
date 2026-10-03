@@ -47,6 +47,15 @@ function elevateAndRestart(callback) {
             return callback(new Error(payload.errorText || payload.error || "Elevation failed"));
         }
 
+        // Verify the recovery script completed successfully — hbchannel/exec
+        // returns returnValue:true even when the command exits non-zero.
+        var stdout = payload.stdoutString || "";
+        if (stdout.indexOf("AMBISUN_ELEVATION_RECOVERY_OK") < 0) {
+            var details = [payload.stderrString, stdout].filter(Boolean).join(" | ");
+            return callback(new Error("Elevation script did not confirm completion" +
+                (details ? ": " + details.slice(0, 400) : "")));
+        }
+
         elevationRestartScheduled = true;
         callback(null);
 

@@ -85,31 +85,23 @@ const ACTIONS = {
     const statusEl = document.getElementById('elevationStatus');
     if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.restoring', 'Restoring...');
     try {
-      let res = null;
+      // retryElevationRecovery resets the attempt counter and triggers
+      // checkSystemStatus -> requestDirectElevation -> service-side elevation.
       if (AmbiSun.bridge.retryElevationRecovery) {
         await AmbiSun.bridge.retryElevationRecovery();
-        res = { returnValue: true };
-      } else if (AmbiSun.webos.requestElevationDirect) {
-        res = await AmbiSun.webos.requestElevationDirect();
-        if (res && res.returnValue) {
-          try {
-            await AmbiSun.webos.requestService('restartAfterElevation', {});
-          } catch (_) {
-            // The service may exit immediately after the direct elevation.
-          }
-        }
-      }
-      if (res && res.returnValue) {
-        AmbiSun.bridge.startElevationRetry(function(confirmed) {
-          if (confirmed) {
-            if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Access restored');
-          } else {
-            if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
-          }
-        });
       } else {
-        if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.saveFailed', 'Save failed: ') + ((res && res.errorText) || '');
+        try { await AmbiSun.webos.requestElevation(); } catch (_) {
+          if (AmbiSun.webos.requestElevationDirect) await AmbiSun.webos.requestElevationDirect();
+        }
+        try { await AmbiSun.webos.requestService('restartAfterElevation', {}); } catch (_) {}
       }
+      AmbiSun.bridge.startElevationRetry(function(confirmed) {
+        if (confirmed) {
+          if (statusEl) statusEl.textContent = AmbiSun.i18n.t('elevation.success', 'Access restored');
+        } else {
+          if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
+        }
+      });
     } catch (e) {
       if (statusEl) statusEl.textContent = AmbiSun.i18n.t('error.connection', 'Connection error');
     }

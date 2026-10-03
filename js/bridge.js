@@ -10,7 +10,7 @@
   var configRevision = null;
   var directElevationAttempts = 0;
   var directElevationInProgress = false;
-  var MAX_DIRECT_ELEVATION_ATTEMPTS = 1;
+  var MAX_DIRECT_ELEVATION_ATTEMPTS = 3;
   var hyperhdrReachable = null;
 
   // ---- Time formatting ----
@@ -73,7 +73,23 @@
     directElevationAttempts++;
     directElevationInProgress = true;
     if (elevWizard) elevWizard.setAttribute('aria-hidden', 'true');
-    AmbiSun.webos.requestElevationDirect()
+
+    // Route elevation through the service — the jailed service CAN call
+    // hbchannel/exec, whereas the web app is blocked by WAM on webOS 11.x.
+    // Fall back to direct hbchannel call only if the service is unreachable.
+    AmbiSun.webos.requestElevation()
+      .catch(function(serviceErr) {
+        console.warn('[bridge] service-side elevation failed, trying direct:', serviceErr && serviceErr.message);
+        if (AmbiSun.webos.requestElevationDirect) {
+          return AmbiSun.webos.requestElevationDirect();
+        }
+        throw serviceErr;
+      })
+      .then(function() {
+        // The service will exit after patching the launcher. Give webOS time
+        // to notice and restart it with the elevated launcher.
+        return new Promise(function(resolve) { setTimeout(resolve, 500); });
+      })
       .then(function() {
         return AmbiSun.webos.requestService('restartAfterElevation', {}).catch(function(err) {
           // The service can disappear as its Homebrew launcher takes effect.
@@ -84,7 +100,7 @@
         setTimeout(function() {
           directElevationInProgress = false;
           checkSystemStatus();
-        }, 1500);
+        }, 2500);
       })
       .catch(function(err) {
         showElevationFailure(elevWizard, err);

@@ -206,9 +206,9 @@ const updateManifest = {
     size: size,
     signature: signature,
     notes: {
-        ru: 'Восстановление root-доступа переведено на прямой вызов elevate-service из Homebrew Channel',
-        en: 'Root recovery now calls Homebrew Channel elevate-service directly',
-        uk: 'Відновлення root-доступу переведено на прямий виклик elevate-service із Homebrew Channel'
+        ru: 'Исправлена ошибка запуска проверки статуса сервиса после перехода на прямое восстановление root-доступа',
+        en: 'Fixed a service status check error after switching to direct root recovery',
+        uk: 'Виправлено помилку перевірки стану сервісу після переходу на пряме відновлення root-доступу'
     }
 };
 fs.writeFileSync(path.join(distDir, 'update.json'), JSON.stringify(updateManifest, null, 4) + '\n', 'utf8');

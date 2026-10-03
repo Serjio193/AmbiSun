@@ -313,7 +313,7 @@ service.register("getSystemStatus", function(message) {
     var sys = {
         healthy: false,
         elevated: serviceElevated,
-        elevationPending: elevationInProgress || elevationRestartScheduled,
+        elevationPending: false,
         // HyperHDR serverinfo is intentionally not queried here. It is a
         // heavyweight read and is available through explicit UI actions.
         hyperhdrReachable: null,
@@ -347,8 +347,6 @@ service.register("getSystemStatus", function(message) {
     
     var auto = automation.getAutomationStatus();
     sys.automationEnabled = auto ? auto.enabled : false;
-
-    sys.elevationPending = false;
 });
 
 service.register("requestElevation", function(message) {
